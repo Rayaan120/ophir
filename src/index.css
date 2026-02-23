@@ -11,23 +11,54 @@
   --text-muted: #a3a3a3;
   --text-dark: #111111;
   --border-color: rgba(255, 255, 255, 0.08);
-  
+
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
   --radius-xl: 32px;
-  
+
   --transition-fast: 0.2s ease;
   --transition-slow: 0.4s ease-in-out;
-  
+
   --font-heading: 'Playfair Display', serif;
   --font-body: 'Inter', sans-serif;
+}
+
+[data-theme='light'] {
+  --bg-color: #f7f5f2;
+  /* Soft warm off-white */
+  --bg-lighter: #ffffff;
+  --bg-card: #ffffff;
+  --text-main: #1f1f1f;
+  /* Deep charcoal */
+  --text-muted: #555555;
+  --border-color: rgba(0, 0, 0, 0.08);
+  /* Subtle light gray */
+  /* Keep gold tones identical */
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* Global smooth transition for theme change */
+body,
+.glass-panel,
+.rounded-container,
+.btn,
+.nav-link,
+h1,
+h2,
+h3,
+h4,
+p,
+span,
+div,
+a,
+button {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 html {
@@ -44,7 +75,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 500;
   line-height: 1.2;
@@ -141,6 +177,12 @@ button {
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-color);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme='light'] .glass-panel {
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
 }
 
 /* Card Styles */
@@ -151,8 +193,15 @@ button {
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fade-in {
@@ -166,14 +215,14 @@ button {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-color); 
+  background: var(--bg-color);
 }
- 
+
 ::-webkit-scrollbar-thumb {
-  background: #333; 
+  background: #333;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--gold-primary); 
+  background: var(--gold-primary);
 }

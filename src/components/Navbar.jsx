@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Heart, Search, Menu, X, ChevronDown } from 'lucide-react';
+import { Heart, Search, Menu, X, ChevronDown, Sun, Moon } from 'lucide-react';
+import { useTheme } from '../ThemeContext';
 import './Navbar.css';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,6 +50,16 @@ const Navbar = () => {
 
         {/* Right: Actions */}
         <div className="navbar-actions desktop-only">
+          <button
+            className="theme-toggle-btn nav-action-icon"
+            onClick={toggleTheme}
+            aria-label="Toggle dark mode"
+          >
+            {theme === 'dark' ? <Moon size={20} /> : <Sun size={20} />}
+          </button>
+
+          <div className="nav-separator"></div>
+
           <div className="nav-action-icon">
             <Heart size={20} />
             <span className="badge">2</span>
@@ -60,17 +72,28 @@ const Navbar = () => {
 
         {/* Mobile Toggle */}
         <div className="mobile-toggle mobile-only" onClick={() => setMobileMenuOpen(true)}>
-          <Menu size={24} color="#f5f5f5" />
+          <Menu size={24} className="mobile-menu-icon" />
         </div>
       </div>
 
       {/* Mobile Slide-Out Panel */}
       <div className={`mobile-panel ${mobileMenuOpen ? 'open' : ''}`}>
         <div className="mobile-panel-header">
-          <span className="logo-text">OPHIR</span>
-          <button className="close-btn" onClick={() => setMobileMenuOpen(false)}>
-            <X size={24} color="#f5f5f5" />
-          </button>
+          <div className="navbar-logo">
+            <img src="/logo.png" alt="Ophir Properties" className="logo-image" style={{ height: '40px' }} />
+          </div>
+          <div className="mobile-header-actions">
+            <button
+              className="theme-toggle-btn nav-action-icon mobile-theme-btn"
+              onClick={toggleTheme}
+              aria-label="Toggle dark mode"
+            >
+              {theme === 'dark' ? <Moon size={22} /> : <Sun size={22} />}
+            </button>
+            <button className="close-btn" onClick={() => setMobileMenuOpen(false)}>
+              <X size={24} className="close-icon" />
+            </button>
+          </div>
         </div>
         <div className="mobile-menu-links">
           {navLinks.map((link, idx) => (

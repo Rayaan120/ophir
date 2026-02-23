@@ -20,6 +20,15 @@
     border-bottom: 1px solid var(--border-color);
 }
 
+[data-theme='light'] .navbar {
+    background: rgba(10, 10, 10, 0.15);
+}
+
+[data-theme='light'] .navbar-scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
 .navbar-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -60,6 +69,7 @@
     font-size: 1.5rem;
     letter-spacing: 2px;
     background: linear-gradient(to right, #f9d976, #d4af37);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -103,6 +113,14 @@
     color: var(--gold-hover);
 }
 
+[data-theme='light'] .navbar:not(.navbar-scrolled) .nav-link:not(.gold-text) {
+    color: #ffffff;
+}
+
+[data-theme='light'] .navbar:not(.navbar-scrolled) .nav-link:not(.gold-text):hover {
+    color: var(--gold-hover);
+}
+
 .nav-link.gold-text::after {
     display: none;
 }
@@ -124,6 +142,14 @@
 }
 
 .nav-action-icon:hover {
+    color: var(--gold-hover);
+}
+
+[data-theme='light'] .navbar:not(.navbar-scrolled) .nav-action-icon {
+    color: #ffffff;
+}
+
+[data-theme='light'] .navbar:not(.navbar-scrolled) .nav-action-icon:hover {
     color: var(--gold-hover);
 }
 
@@ -210,7 +236,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(17, 17, 17, 0.7);
     z-index: 1001;
     opacity: 0;
     animation: fadeInOverlay 0.3s forwards;
@@ -220,6 +246,43 @@
     to {
         opacity: 1;
     }
+}
+
+.theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    transition: all var(--transition-fast);
+}
+
+.theme-toggle-btn:hover {
+    background-color: var(--border-color);
+}
+
+[data-theme='light'] .navbar:not(.navbar-scrolled) .theme-toggle-btn:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.mobile-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.mobile-theme-btn {
+    color: var(--text-main);
+}
+
+.close-icon,
+.mobile-menu-icon {
+    color: var(--text-main);
+}
+
+[data-theme='light'] .navbar:not(.navbar-scrolled) .mobile-menu-icon {
+    color: #ffffff;
 }
 
 @media (min-width: 1025px) {
