@@ -793,6 +793,10 @@
     cursor: pointer;
     transition: color 0.2s;
     padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    line-height: 1;
 }
 
 [data-theme='light'] .view-details-btn {

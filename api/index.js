@@ -218,6 +218,39 @@ function normalizePropertyDetail(prop) {
     };
 }
 
+// Contact Form Submission (PixxiCRM Lead Integration)
+app.post(['/api/contact', '/contact'], async (req, res) => {
+    try {
+        const { fullName, email, phone, interest, budget, message, areas, source } = req.body;
+
+        if (!fullName || !email || !phone || !message) {
+            return res.status(400).json({ error: 'Please provide all required fields.' });
+        }
+
+        const PIXXI_API_URL = (process.env.PIXXI_CRM_API_URL || 'https://dataapi.pixxicrm.ae').trim();
+        const PIXXI_API_KEY = (process.env.PIXXI_CRM_API_KEY || '').trim();
+
+        const webhookPayload = {
+            name: fullName,
+            email: email,
+            phone: phone,
+            subject: `Enquiry: ${interest}`,
+            message: `Interest: ${interest}\nBudget: ${budget}\nAreas: ${areas}\n\nMessage:\n${message}`,
+            source: source || 'Website Contact Page',
+            formId: 'CONTACT_PAGE_GENERAL'
+        };
+
+        await axios.post(`${PIXXI_API_URL}/pixxiapi/webhook/v1/form`, webhookPayload, {
+            headers: { 'X-PIXXI-TOKEN': PIXXI_API_KEY }
+        });
+
+        res.json({ success: true, message: 'Thank you for your enquiry. An advisor will contact you shortly.' });
+    } catch (error) {
+        console.error('Contact Form Error:', error.message);
+        res.status(500).json({ error: 'Failed to submit enquiry.' });
+    }
+});
+
 app.get(['/api/health', '/health'], (req, res) => res.json({ status: 'API is live', timestamp: new Date() }));
 
 export default app;

@@ -29,7 +29,7 @@ const Navbar = () => {
     { name: 'Hot Offers', isDropdown: false, highlight: true },
     { name: 'Insights', isDropdown: true },
     { name: 'About', isDropdown: false, path: '/about' },
-    { name: 'Contact', isDropdown: false },
+    { name: 'Contact', isDropdown: false, path: '/contact' },
   ];
 
   return (

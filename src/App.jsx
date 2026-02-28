@@ -7,6 +7,7 @@ import BuyPage from './pages/BuyPage';
 import RentPage from './pages/RentPage';
 import NewProjectsPage from './pages/NewProjectsPage';
 import PropertyDetails from './pages/PropertyDetails';
+import ContactPage from './pages/ContactPage';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/buy" element={<BuyPage />} />
           <Route path="/rent" element={<RentPage />} />
           <Route path="/new-projects" element={<NewProjectsPage />} />
