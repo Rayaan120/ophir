@@ -12,7 +12,13 @@ dist
 dist-ssr
 *.local
 .env
-.env.*
+*.json
+!package.json
+!package-lock.json
+!vercel.json
+!eslintrc.json
+!jsconfig.json
+!tsconfig.json
 
 # Editor directories and files
 .vscode/*
