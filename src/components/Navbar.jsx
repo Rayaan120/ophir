@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Heart, Search, Menu, X, ChevronDown, Sun, Moon } from 'lucide-react';
 import { useTheme } from '../ThemeContext';
 import './Navbar.css';
 
 const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' ? window.scrollY > 50 : false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
@@ -12,18 +13,22 @@ const Navbar = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
+
+    // Check initially to ensure state is in sync
+    handleScroll();
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
-    { name: 'Home', isDropdown: false },
-    { name: 'Buy', isDropdown: true },
-    { name: 'Rent', isDropdown: true },
-    { name: 'Off-Plan', isDropdown: true },
+    { name: 'Home', isDropdown: false, path: '/' },
+    { name: 'Buy', isDropdown: false, path: '/buy' },
+    { name: 'Rent', isDropdown: false, path: '/rent' },
+    { name: 'Off-Plan', isDropdown: false, path: '/new-projects' },
     { name: 'Hot Offers', isDropdown: false, highlight: true },
     { name: 'Insights', isDropdown: true },
-    { name: 'About', isDropdown: false },
+    { name: 'About', isDropdown: false, path: '/about' },
     { name: 'Contact', isDropdown: false },
   ];
 
@@ -33,19 +38,28 @@ const Navbar = () => {
 
         {/* Left: Logo */}
         <div className="navbar-logo">
-          <img src="/logo.png" alt="Ophir Properties" className="logo-image" />
+          <Link to="/">
+            <img src="/logo.png" alt="Ophir Properties" className="logo-image" />
+          </Link>
         </div>
 
         {/* Center: Desktop Menu */}
         <div className="navbar-menu desktop-only">
-          {navLinks.map((link, idx) => (
-            <div key={idx} className="nav-item">
-              <a href="#" className={`nav-link ${link.highlight ? 'gold-text' : ''}`}>
-                {link.name}
-                {link.isDropdown && <ChevronDown size={14} className="dropdown-icon" />}
-              </a>
-            </div>
-          ))}
+          {navLinks.map((link, idx) => {
+            const LinkEl = link.path ? Link : 'a';
+            return (
+              <div key={idx} className="nav-item">
+                <LinkEl
+                  to={link.path || undefined}
+                  href={!link.path ? '#' : undefined}
+                  className={`nav-link ${link.highlight ? 'gold-text' : ''}`}
+                >
+                  {link.name}
+                  {link.isDropdown && <ChevronDown size={14} className="dropdown-icon" />}
+                </LinkEl>
+              </div>
+            );
+          })}
         </div>
 
         {/* Right: Actions */}
@@ -80,7 +94,9 @@ const Navbar = () => {
       <div className={`mobile-panel ${mobileMenuOpen ? 'open' : ''}`}>
         <div className="mobile-panel-header">
           <div className="navbar-logo">
-            <img src="/logo.png" alt="Ophir Properties" className="logo-image" style={{ height: '40px' }} />
+            <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+              <img src="/logo.png" alt="Ophir Properties" className="logo-image" style={{ height: '40px' }} />
+            </Link>
           </div>
           <div className="mobile-header-actions">
             <button
@@ -96,12 +112,21 @@ const Navbar = () => {
           </div>
         </div>
         <div className="mobile-menu-links">
-          {navLinks.map((link, idx) => (
-            <a key={idx} href="#" className={`mobile-nav-link ${link.highlight ? 'gold-text' : ''}`}>
-              {link.name}
-              {link.isDropdown && <ChevronDown size={16} />}
-            </a>
-          ))}
+          {navLinks.map((link, idx) => {
+            const LinkEl = link.path ? Link : 'a';
+            return (
+              <LinkEl
+                key={idx}
+                to={link.path || undefined}
+                href={!link.path ? '#' : undefined}
+                className={`mobile-nav-link ${link.highlight ? 'gold-text' : ''}`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {link.name}
+                {link.isDropdown && <ChevronDown size={16} />}
+              </LinkEl>
+            );
+          })}
         </div>
       </div>
       {mobileMenuOpen && <div className="mobile-overlay" onClick={() => setMobileMenuOpen(false)}></div>}

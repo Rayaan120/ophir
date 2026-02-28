@@ -143,10 +143,31 @@
     background: rgba(20, 20, 20, 0.9);
 }
 
+[data-theme='light'] .partner-card {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .partner-card:hover {
+    background: #ffffff;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 0 15px rgba(212, 175, 55, 0.15) inset;
+    border-color: var(--gold-primary);
+}
+
 .partner-card:hover .partner-logo-text {
     color: var(--gold-primary);
     text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
     transform: scale(1.05);
+}
+
+[data-theme='light'] .partner-logo-text {
+    color: #111111;
+}
+
+[data-theme='light'] .partner-card:hover .partner-logo-text {
+    color: var(--gold-primary);
+    text-shadow: none;
 }
 
 .partner-card:hover .glow-effect {

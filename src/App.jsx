@@ -1,28 +1,29 @@
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
 import { ThemeProvider } from './ThemeContext';
-import ExplorePrimeCommunities from './components/ExplorePrimeCommunities';
-import WhyChooseOphir from './components/WhyChooseOphir';
-import TrustedPartners from './components/TrustedPartners';
-import HowItWorks from './components/HowItWorks';
-import TestimonialsSection from './components/TestimonialsSection';
-import HotProperties from './components/HotProperties';
-import FinalCTA from './components/FinalCTA';
+import Home from './pages/Home';
+import About from './pages/About';
+import BuyPage from './pages/BuyPage';
+import RentPage from './pages/RentPage';
+import NewProjectsPage from './pages/NewProjectsPage';
+import PropertyDetails from './pages/PropertyDetails';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <ThemeProvider>
+      <ScrollToTop />
       <Navbar />
       <main>
-        <Hero />
-        <HotProperties />
-        <ExplorePrimeCommunities />
-        <WhyChooseOphir />
-        <TrustedPartners />
-        <HowItWorks />
-        <TestimonialsSection />
-        <FinalCTA />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/buy" element={<BuyPage />} />
+          <Route path="/rent" element={<RentPage />} />
+          <Route path="/new-projects" element={<NewProjectsPage />} />
+          <Route path="/property/:id" element={<PropertyDetails />} />
+        </Routes>
       </main>
       <Footer />
     </ThemeProvider>

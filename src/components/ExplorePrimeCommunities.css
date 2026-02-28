@@ -148,6 +148,14 @@
     text-transform: uppercase;
 }
 
+[data-theme='light'] .cinematic-glass-card .gold-badge {
+    background: rgba(212, 175, 55, 0.2);
+    color: #8a7322;
+    /* Darker gold for readability */
+    border-color: rgba(212, 175, 55, 0.5);
+    font-weight: 700;
+}
+
 .cinematic-glass-card .card-title {
     font-size: 3.2rem;
     color: var(--text-main);
@@ -161,6 +169,12 @@
     font-size: 1.15rem;
     line-height: 1.7;
     margin-bottom: 45px;
+}
+
+[data-theme='light'] .cinematic-glass-card .card-desc {
+    color: #444444;
+    /* Dark gray for readability on light glass */
+    font-weight: 500;
 }
 
 .cinematic-btn {

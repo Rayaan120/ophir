@@ -327,37 +327,54 @@
     font-weight: 500;
 }
 
-.view-details-btn {
+[data-theme='light'] .agent-name {
+    color: #444444;
+}
+
+.property-card .view-details-btn {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(10, 10, 10, 0.6);
-    color: var(--text-main);
-    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--gold-primary);
+    border: 1px solid var(--gold-primary);
     padding: 8px 16px;
     border-radius: 30px;
     font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    white-space: nowrap;
+    transition: all 0.3s ease;
 }
 
-[data-theme='light'] .view-details-btn {
-    background: rgba(240, 240, 240, 0.8);
-}
-
-.view-details-btn:hover {
-    border-color: var(--gold-primary);
+[data-theme='light'] .property-card .view-details-btn {
+    background: transparent;
     color: var(--gold-primary);
+    border-color: var(--gold-primary);
 }
 
-.arrow-icon {
+.property-card .view-details-btn:hover {
+    background: var(--gold-primary);
+    color: var(--bg-card);
+}
+
+[data-theme='light'] .property-card .view-details-btn:hover {
+    color: #ffffff;
+}
+
+.property-card .arrow-icon {
     color: var(--gold-primary);
     transition: transform 0.3s ease;
 }
 
-.view-details-btn:hover .arrow-icon {
+.property-card .view-details-btn:hover .arrow-icon {
     transform: translateX(4px);
+    color: var(--bg-card);
+}
+
+[data-theme='light'] .property-card .view-details-btn:hover .arrow-icon {
+    color: #ffffff;
 }
 
 /* Bottom CTA Layout */

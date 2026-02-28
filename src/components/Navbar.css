@@ -121,6 +121,14 @@
     color: var(--gold-hover);
 }
 
+.nav-link.gold-text {
+    color: var(--gold-primary);
+}
+
+.nav-link.gold-text:hover {
+    color: var(--gold-hover);
+}
+
 .nav-link.gold-text::after {
     display: none;
 }
@@ -274,6 +282,14 @@
 
 .mobile-theme-btn {
     color: var(--text-main);
+}
+
+[data-theme='light'] .mobile-panel .mobile-theme-btn {
+    color: var(--text-main);
+}
+
+[data-theme='light'] .mobile-panel .theme-toggle-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .close-icon,

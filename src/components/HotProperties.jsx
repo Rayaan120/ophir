@@ -1,30 +1,38 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Heart, MapPin, Bed, Bath, Maximize, ArrowRight, RefreshCw, AlertCircle } from 'lucide-react';
 import './HotProperties.css';
 
 const HotProperties = () => {
     const [properties, setProperties] = useState([]);
-    const [activeTab, setActiveTab] = useState('All Properties');
+    const [activeFilter, setActiveFilter] = useState('all');
     const [favorites, setFavorites] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const tabs = ['All Properties', 'Sale', 'Rent', 'Commercial'];
+    const tabs = [
+        { id: 'all', label: 'All Properties' },
+        { id: 'sale', label: 'Sale' },
+        { id: 'rent', label: 'Rent' },
+        { id: 'new', label: 'New Projects' }
+    ];
 
-    const fetchProperties = async () => {
+    const fetchProperties = async (filter) => {
         setIsLoading(true);
         setError(null);
         try {
-            // Simulated fetch to the requested PixxiCRM endpoint
-            const response = await fetch('/api/properties?hot=true');
+            let url = '/api/properties?hot=true';
+            if (filter === 'sale') url += '&type=sell';
+            if (filter === 'rent') url += '&type=rent';
+            if (filter === 'new') url += '&type=new';
+
+            const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Failed to fetch properties');
             }
             const data = await response.json();
-            setProperties(data);
+            setProperties(data.items || (Array.isArray(data) ? data : []));
         } catch (err) {
-            // For demonstration purposes, if the API doesn't exist, we fall back to the error state.
-            // Alternatively, one could use mock data here if a visual preview is desired despite the missing backend.
             setError('Unable to load properties right now.');
         } finally {
             setIsLoading(false);
@@ -32,8 +40,8 @@ const HotProperties = () => {
     };
 
     useEffect(() => {
-        fetchProperties();
-    }, []);
+        fetchProperties(activeFilter);
+    }, [activeFilter]);
 
     const toggleFavorite = (id) => {
         setFavorites({ ...favorites, [id]: !favorites[id] });
@@ -41,14 +49,8 @@ const HotProperties = () => {
 
     const formatPrice = (price, currency = 'AED', period = null) => {
         const formattedPrice = new Intl.NumberFormat('en-AE').format(price);
-        return `${currency} ${formattedPrice}${period ? ` ${period}` : ''}`;
+        return `${currency} ${formattedPrice}${period ? period : ''}`;
     };
-
-    const filteredProperties = properties.filter(property => {
-        const filterCat = activeTab.toLowerCase();
-        if (filterCat === 'all properties') return true;
-        return property.category && property.category.toLowerCase() === filterCat;
-    });
 
     // Loading Skeleton Component
     const LoadingSkeleton = () => (
@@ -97,11 +99,11 @@ const HotProperties = () => {
                         <div className="hot-properties-tabs">
                             {tabs.map((tab) => (
                                 <button
-                                    key={tab}
-                                    className={`filter-tab ${activeTab === tab ? 'active' : ''}`}
-                                    onClick={() => setActiveTab(tab)}
+                                    key={tab.id}
+                                    className={`filter-tab ${activeFilter === tab.id ? 'active' : ''}`}
+                                    onClick={() => setActiveFilter(tab.id)}
                                 >
-                                    {tab}
+                                    {tab.label}
                                 </button>
                             ))}
                         </div>
@@ -113,8 +115,12 @@ const HotProperties = () => {
                     ) : error ? (
                         <ErrorState />
                     ) : (
-                        <div className="properties-grid animate-fade-in" key={activeTab}>
-                            {filteredProperties.map(property => {
+                        <div className="properties-grid animate-fade-in" key={activeFilter}>
+                            {properties.length === 0 ? (
+                                <div className="no-properties-message" style={{ textAlign: 'center', color: '#c4c4c4', padding: '2rem', gridColumn: '1 / -1' }}>
+                                    No properties found.
+                                </div>
+                            ) : properties.map(property => {
                                 const isFav = favorites[property.id] || property.isFavorited;
                                 return (
                                     <div key={property.id} className="property-card">
@@ -126,9 +132,13 @@ const HotProperties = () => {
 
                                             {/* Top Left Badges */}
                                             <div className="property-badges">
-                                                <span className="badge-primary" style={{ textTransform: 'capitalize' }}>{property.category}</span>
+                                                <span className="badge-primary" style={{ textTransform: 'capitalize' }}>
+                                                    {property.category === 'new' ? 'New' : property.category}
+                                                </span>
                                                 {property.labels && property.labels.length > 0 && (
-                                                    <span className="badge-secondary">{property.labels[0]}</span>
+                                                    <span className="badge-secondary">
+                                                        {property.category === 'new' && property.labels[0].toLowerCase() === 'default tag' ? 'Project' : property.labels[0]}
+                                                    </span>
                                                 )}
                                             </div>
 
@@ -151,7 +161,14 @@ const HotProperties = () => {
                                         <div className="property-body">
                                             <h3 className="property-title">{property.title}</h3>
                                             <div className="property-price">
-                                                {formatPrice(property.price, property.currency, property.pricePeriod)}
+                                                {property.category === 'new' || activeFilter === 'new' ? (
+                                                    <>
+                                                        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 'normal', display: 'block', marginBottom: '2px' }}>Starting from</span>
+                                                        {formatPrice(property.price, property.currency, '')}
+                                                    </>
+                                                ) : (
+                                                    formatPrice(property.price, property.currency, property.pricePeriod)
+                                                )}
                                             </div>
                                             <p className="property-desc">{property.description}</p>
 
@@ -169,7 +186,7 @@ const HotProperties = () => {
                                                         <span>{property.bathrooms}</span>
                                                     </div>
                                                 )}
-                                                {property.areaSqft && (
+                                                {property.areaSqft > 0 && (
                                                     <div className="feature-pill">
                                                         <Maximize size={16} className="feature-icon" />
                                                         <span>{property.areaSqft.toLocaleString()} sq ft</span>
@@ -180,17 +197,15 @@ const HotProperties = () => {
                                             {/* Footer */}
                                             <div className="property-footer">
                                                 <div className="agent-info">
-                                                    {property.agentAvatarUrl ? (
+                                                    {property.agentAvatarUrl && (
                                                         <div className="agent-avatar" style={{ backgroundImage: `url(${property.agentAvatarUrl})` }}></div>
-                                                    ) : (
-                                                        <div className="agent-avatar fallback-avatar"></div>
                                                     )}
                                                     <span className="agent-name">{property.agentName}</span>
                                                 </div>
-                                                <button className="view-details-btn">
+                                                <Link to={`/property/${property.id}`} className="view-details-btn">
                                                     View Details
                                                     <ArrowRight size={16} className="arrow-icon" />
-                                                </button>
+                                                </Link>
                                             </div>
                                         </div>
                                     </div>
