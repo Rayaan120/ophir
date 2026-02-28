@@ -9,8 +9,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// API Route to fetch properties from PixxiCRM
-app.get('/api/properties', async (req, res) => {
+// Request logger for Vercel debugging
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    next();
+});
+
+// API Route to fetch properties from PixxiCRM (Handle both /api and direct paths for Vercel robustness)
+app.get(['/api/properties', '/properties'], async (req, res) => {
     try {
         const isHot = req.query.hot === 'true';
         const type = req.query.type;
@@ -141,7 +147,7 @@ app.get('/api/properties', async (req, res) => {
 });
 
 // Single property details
-app.get('/api/properties/:id', async (req, res) => {
+app.get(['/api/properties/:id', '/properties/:id'], async (req, res) => {
     try {
         const { id } = req.params;
         const PIXXI_API_URL = (process.env.PIXXI_CRM_API_URL || 'https://dataapi.pixxicrm.ae').trim();
@@ -212,6 +218,6 @@ function normalizePropertyDetail(prop) {
     };
 }
 
-app.get('/api/health', (req, res) => res.json({ status: 'API is live' }));
+app.get(['/api/health', '/health'], (req, res) => res.json({ status: 'API is live', timestamp: new Date() }));
 
 export default app;
