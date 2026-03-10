@@ -1,17 +1,16 @@
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import './TrustedPartners.css';
 
 const TrustedPartners = () => {
     const scrollerRef = useRef(null);
+    const { t } = useTranslation();
 
-    const partners = [
-        { id: 1, name: 'Emaar', logo: 'EMAAR' },
-        { id: 2, name: 'Damac', logo: 'DAMAC' },
-        { id: 3, name: 'Nakheel', logo: 'NAKHEEL' },
-        { id: 4, name: 'Meraas', logo: 'MERAAS' },
-        { id: 5, name: 'Omniyat', logo: 'OMNIYAT' },
-        { id: 6, name: 'Sobha', logo: 'SOBHA' },
-    ];
+    const partners = Array.from({ length: 21 }, (_, i) => ({
+        id: i + 1,
+        src: `/${i + 1}.png`,
+        alt: `Partner ${i + 1}`,
+    }));
 
     useEffect(() => {
         if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -40,12 +39,12 @@ const TrustedPartners = () => {
 
                     <div className="partners-header">
                         <div className="title-group">
-                            <span className="subtitle-badge">PREMIUM NETWORK</span>
-                            <h2 className="partners-title">Our Trusted Partners</h2>
+                            <span className="subtitle-badge">{t('partners.networkBadge')}</span>
+                            <h2 className="partners-title">{t('partners.title')}</h2>
                         </div>
                         <div className="header-divider"></div>
                         <p className="partners-subtitle">
-                            Collaborating with the UAE's most prestigious developers and financial institutions to secure exclusive opportunities.
+                            {t('partners.subtitle')}
                         </p>
                     </div>
 
@@ -54,7 +53,12 @@ const TrustedPartners = () => {
                             {partners.map(p => (
                                 <div key={p.id} className="partner-card">
                                     <div className="partner-card-inner">
-                                        <span className="partner-logo-text">{p.logo}</span>
+                                        <img
+                                            src={p.src}
+                                            alt={p.alt}
+                                            className="partner-logo-img"
+                                            draggable={false}
+                                        />
                                         <div className="glow-effect"></div>
                                     </div>
                                 </div>

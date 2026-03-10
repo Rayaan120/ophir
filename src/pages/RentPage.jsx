@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
 import { Heart, MapPin, Bed, Bath, Maximize, ArrowRight, Search } from 'lucide-react';
+import { useCurrency } from '../context/CurrencyContext';
 import './RentPage.css';
 
 const RentPage = () => {
+    const { t, i18n } = useTranslation();
     // States
     const [properties, setProperties] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -11,6 +14,7 @@ const RentPage = () => {
     const [totalItems, setTotalItems] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
     const [favorites, setFavorites] = useState({});
+    const { formatPrice: globalFormatPrice } = useCurrency();
 
     // Pagination & Filter States
     const [page, setPage] = useState(1);
@@ -22,25 +26,32 @@ const RentPage = () => {
     const [sortBy, setSortBy] = useState('Newest');
 
     const resultsRef = useRef(null);
+    const location = useLocation();
 
-    const fetchRentals = async () => {
+    const fetchRentals = async (urlSearch) => {
         setIsLoading(true);
         setError(null);
         try {
+            const urlParams = new URLSearchParams(urlSearch || location.search);
+            const effectiveSearch = urlParams.get('search') || search || '';
+            const effectiveType = urlParams.get('propertyType') || (propertyType !== 'All' ? propertyType : null);
+            const effectiveBedrooms = urlParams.get('bedrooms') || (bedrooms !== 'Any' ? bedrooms : null);
+            const effectivePriceRange = urlParams.get('priceRange') || (priceRange !== 'Any' ? priceRange : null);
+
             const params = new URLSearchParams({
                 type: 'rent',
                 page: page,
                 pageSize: 12
             });
-            if (search) params.append('search', search);
-            if (propertyType !== 'All') params.append('propertyType', propertyType);
-            if (bedrooms !== 'Any') params.append('bedrooms', bedrooms);
+            if (effectiveSearch) params.append('search', effectiveSearch);
+            if (effectiveType && effectiveType !== 'All') params.append('propertyType', effectiveType);
+            if (effectiveBedrooms && effectiveBedrooms !== 'Any') params.append('bedrooms', effectiveBedrooms);
 
-            if (priceRange !== 'Any') {
-                if (priceRange === '≤100k') params.append('priceMax', 100000);
-                else if (priceRange === '100k-200k') { params.append('priceMin', 100000); params.append('priceMax', 200000); }
-                else if (priceRange === '200k-400k') { params.append('priceMin', 200000); params.append('priceMax', 400000); }
-                else if (priceRange === '400k+') params.append('priceMin', 400000);
+            if (effectivePriceRange && effectivePriceRange !== 'Any') {
+                if (effectivePriceRange === '≤100k') params.append('priceMax', 100000);
+                else if (effectivePriceRange === '100k-200k') { params.append('priceMin', 100000); params.append('priceMax', 200000); }
+                else if (effectivePriceRange === '200k-400k') { params.append('priceMin', 200000); params.append('priceMax', 400000); }
+                else if (effectivePriceRange === '400k+') params.append('priceMin', 400000);
             }
 
             if (sortBy === 'Price: Low to High') params.append('sort', 'price-asc');
@@ -55,12 +66,32 @@ const RentPage = () => {
             setTotalItems(data.total || 0);
             setTotalPages(data.totalPages || 1);
         } catch (err) {
-            setError('Unable to load rental properties right now.');
+            setError(t('rentPage.errorLoad'));
             setProperties([]);
         } finally {
             setIsLoading(false);
         }
     };
+
+    // Sync URL params into React state AND trigger fetch in one combined effect
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        let hasFilters = false;
+
+        if (params.has('search')) { setSearch(params.get('search')); setSearchInput(params.get('search')); hasFilters = true; }
+        if (params.has('propertyType')) { setPropertyType(params.get('propertyType')); hasFilters = true; }
+        if (params.has('bedrooms')) { setBedrooms(params.get('bedrooms')); hasFilters = true; }
+        if (params.has('priceRange')) { setPriceRange(params.get('priceRange')); hasFilters = true; }
+
+        fetchRentals(location.search);
+
+        if (hasFilters && resultsRef.current) {
+            setTimeout(() => {
+                const y = resultsRef.current.getBoundingClientRect().top + window.scrollY - 100;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }, 500);
+        }
+    }, [location.search]);
 
     useEffect(() => {
         fetchRentals();
@@ -93,8 +124,7 @@ const RentPage = () => {
     };
 
     const formatPrice = (price, currency = 'AED', period = null) => {
-        const formattedPrice = new Intl.NumberFormat('en-AE').format(price);
-        return `${currency} ${formattedPrice}${period ? period : ''}`;
+        return globalFormatPrice(price, currency, period || '');
     };
 
     return (
@@ -102,9 +132,9 @@ const RentPage = () => {
             {/* Hero Section */}
             <section className="rent-hero">
                 <div className="rent-hero-content">
-                    <span className="hero-label">Ophir Rentals</span>
-                    <h1 className="hero-title">Explore Luxury Homes for Rent</h1>
-                    <p className="hero-subtext">Discover curated rental properties across Dubai's most prestigious communities, tailored to your elite lifestyle.</p>
+                    <span className="hero-label">{t('rentPage.heroLabel')}</span>
+                    <h1 className="hero-title">{t('rentPage.heroTitle')}</h1>
+                    <p className="hero-subtext">{t('rentPage.heroSubtext')}</p>
                 </div>
             </section>
 
@@ -112,13 +142,13 @@ const RentPage = () => {
             <section className="rent-filters-container">
                 <form className="filters-grid" onSubmit={handleSearchSubmit}>
                     <div className="filter-group search-group">
-                        <label className="filter-label">Search</label>
+                        <label className="filter-label">{t('rentPage.filterSearch')}</label>
                         <div className="filter-input-wrapper">
                             <Search size={18} className="search-icon" />
                             <input
                                 type="text"
                                 className="filter-input with-icon"
-                                placeholder="Search by area, tower or keyword..."
+                                placeholder={t('rentPage.filterPlaceholder')}
                                 value={searchInput}
                                 onChange={(e) => setSearchInput(e.target.value)}
                             />
@@ -126,41 +156,41 @@ const RentPage = () => {
                     </div>
 
                     <div className="filter-group">
-                        <label className="filter-label">Property Type</label>
+                        <label className="filter-label">{t('rentPage.filterType')}</label>
                         <div className="select-wrapper">
                             <select className="filter-select" value={propertyType} onChange={handleFilterChange(setPropertyType)}>
-                                <option>All</option>
-                                <option>Apartment</option>
-                                <option>Villa</option>
-                                <option>Townhouse</option>
-                                <option>Penthouse</option>
+                                <option value="All">{t('rentPage.optAll')}</option>
+                                <option value="Apartment">{t('rentPage.optApartment')}</option>
+                                <option value="Villa">{t('rentPage.optVilla')}</option>
+                                <option value="Townhouse">{t('rentPage.optTownhouse')}</option>
+                                <option value="Penthouse">{t('rentPage.optPenthouse')}</option>
                             </select>
                         </div>
                     </div>
 
                     <div className="filter-group">
-                        <label className="filter-label">Bedrooms</label>
+                        <label className="filter-label">{t('rentPage.filterBedrooms')}</label>
                         <div className="select-wrapper">
                             <select className="filter-select" value={bedrooms} onChange={handleFilterChange(setBedrooms)}>
-                                <option>Any</option>
-                                <option>Studio</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4+</option>
+                                <option value="Any">{t('rentPage.optAny')}</option>
+                                <option value="Studio">{t('rentPage.optStudio')}</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4+">4+</option>
                             </select>
                         </div>
                     </div>
 
                     <div className="filter-group">
-                        <label className="filter-label">Price Range</label>
+                        <label className="filter-label">{t('rentPage.filterPrice')}</label>
                         <div className="select-wrapper">
                             <select className="filter-select" value={priceRange} onChange={handleFilterChange(setPriceRange)}>
-                                <option>Any</option>
-                                <option>≤100k</option>
-                                <option>100k-200k</option>
-                                <option>200k-400k</option>
-                                <option>400k+</option>
+                                <option value="Any">{t('rentPage.optAny')}</option>
+                                <option value="≤100k">≤100k</option>
+                                <option value="100k-200k">100k-200k</option>
+                                <option value="200k-400k">200k-400k</option>
+                                <option value="400k+">400k+</option>
                             </select>
                         </div>
                     </div>
@@ -171,15 +201,15 @@ const RentPage = () => {
             <section className="rent-content" ref={resultsRef}>
                 <div className="results-header">
                     <div className="results-count">
-                        Showing <span>{properties.length > 0 ? ((page - 1) * 12 + 1) : 0} - {Math.min(page * 12, totalItems)}</span> of <span>{totalItems}</span> Rental Properties
+                        {t('rentPage.showing')} <span>{properties.length > 0 ? ((page - 1) * 12 + 1) : 0} - {Math.min(page * 12, totalItems)}</span> {t('rentPage.of')} <span>{totalItems}</span> {t('rentPage.resultsLabel')}
                     </div>
                     <div className="sort-group">
-                        <label className="filter-label">Sort By:</label>
+                        <label className="filter-label">{t('rentPage.sortBy')}</label>
                         <div className="select-wrapper">
                             <select className="filter-select" value={sortBy} onChange={handleFilterChange(setSortBy)}>
-                                <option>Newest</option>
-                                <option>Price: Low to High</option>
-                                <option>Price: High to Low</option>
+                                <option value="Newest">{t('rentPage.sortNewest')}</option>
+                                <option value="Price: Low to High">{t('rentPage.sortPriceLow')}</option>
+                                <option value="Price: High to Low">{t('rentPage.sortPriceHigh')}</option>
                             </select>
                         </div>
                     </div>
@@ -188,7 +218,7 @@ const RentPage = () => {
                 {isLoading ? (
                     <div className="loading-state">
                         <div className="loading-spinner"></div>
-                        <p>Loading luxury rentals...</p>
+                        <p>{t('rentPage.loading')}</p>
                     </div>
                 ) : error ? (
                     <div className="empty-state">
@@ -196,7 +226,7 @@ const RentPage = () => {
                     </div>
                 ) : properties.length === 0 ? (
                     <div className="empty-state">
-                        <p>No rental properties found for your selection. Try adjusting your filters.</p>
+                        <p>{t('rentPage.noResults')}</p>
                     </div>
                 ) : (
                     <>
@@ -212,7 +242,7 @@ const RentPage = () => {
 
                                             {/* Badges */}
                                             <div className="property-badges">
-                                                <span className="badge-primary">Rent</span>
+                                                <span className="badge-primary">{t('rentPage.badgeRent')}</span>
                                                 {property.labels && property.labels.length > 0 && (
                                                     <span className="badge-secondary">{property.labels[0]}</span>
                                                 )}
@@ -246,19 +276,19 @@ const RentPage = () => {
                                                 {property.bedrooms > 0 && (
                                                     <div className="feature-pill">
                                                         <Bed size={16} className="feature-icon" />
-                                                        <span>{property.bedrooms} Bed</span>
+                                                        <span>{property.bedrooms} {t('rentPage.bed')}</span>
                                                     </div>
                                                 )}
                                                 {property.bathrooms > 0 && (
                                                     <div className="feature-pill">
                                                         <Bath size={16} className="feature-icon" />
-                                                        <span>{property.bathrooms} Bath</span>
+                                                        <span>{property.bathrooms} {t('rentPage.bath')}</span>
                                                     </div>
                                                 )}
                                                 {property.areaSqft > 0 && (
                                                     <div className="feature-pill">
                                                         <Maximize size={16} className="feature-icon" />
-                                                        <span>{property.areaSqft} sq ft</span>
+                                                        <span>{property.areaSqft} {t('rentPage.sqft')}</span>
                                                     </div>
                                                 )}
                                             </div>
@@ -271,8 +301,8 @@ const RentPage = () => {
                                                     )}
                                                     <span className="agent-name">{property.agentName}</span>
                                                 </div>
-                                                <Link to={`/property/${property.id}`} className="view-details-btn">
-                                                    View Details
+                                                <Link to={`/${i18n.language}/property/${property.id}`} className="view-details-btn">
+                                                    {t('rentPage.viewDetails')}
                                                     <ArrowRight size={16} className="arrow-icon" />
                                                 </Link>
                                             </div>
@@ -290,7 +320,7 @@ const RentPage = () => {
                                     onClick={() => handlePageChange(page - 1)}
                                     disabled={page === 1}
                                 >
-                                    Previous
+                                    {t('rentPage.previous')}
                                 </button>
 
                                 {Array.from({ length: totalPages }, (_, i) => i + 1)
@@ -312,7 +342,7 @@ const RentPage = () => {
                                     onClick={() => handlePageChange(page + 1)}
                                     disabled={page === totalPages}
                                 >
-                                    Next
+                                    {t('rentPage.next')}
                                 </button>
                             </div>
                         )}

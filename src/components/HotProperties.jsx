@@ -1,20 +1,25 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Heart, MapPin, Bed, Bath, Maximize, ArrowRight, RefreshCw, AlertCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { useCurrency } from '../context/CurrencyContext';
 import './HotProperties.css';
 
 const HotProperties = () => {
+    const { t, i18n } = useTranslation();
     const [properties, setProperties] = useState([]);
     const [activeFilter, setActiveFilter] = useState('all');
     const [favorites, setFavorites] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
+    const { formatPrice: globalFormatPrice } = useCurrency();
 
     const tabs = [
-        { id: 'all', label: 'All Properties' },
-        { id: 'sale', label: 'Sale' },
-        { id: 'rent', label: 'Rent' },
-        { id: 'new', label: 'New Projects' }
+        { id: 'all', label: t('hotProps.tabAll') },
+        { id: 'sale', label: t('hotProps.tabSale') },
+        { id: 'rent', label: t('hotProps.tabRent') },
+        { id: 'new', label: t('hotProps.tabNew') }
     ];
 
     const fetchProperties = async (filter) => {
@@ -47,9 +52,9 @@ const HotProperties = () => {
         setFavorites({ ...favorites, [id]: !favorites[id] });
     };
 
+    // Use global formatPrice but align signature to how this component passes arguments
     const formatPrice = (price, currency = 'AED', period = null) => {
-        const formattedPrice = new Intl.NumberFormat('en-AE').format(price);
-        return `${currency} ${formattedPrice}${period ? period : ''}`;
+        return globalFormatPrice(price, currency, period || '');
     };
 
     // Loading Skeleton Component
@@ -74,11 +79,11 @@ const HotProperties = () => {
     const ErrorState = () => (
         <div className="error-container">
             <AlertCircle size={40} className="error-icon" />
-            <h3 className="error-title">Connection Error</h3>
+            <h3 className="error-title">{t('hotProps.connError')}</h3>
             <p className="error-text">{error}</p>
             <button className="btn btn-outline error-retry-btn" onClick={fetchProperties}>
                 <RefreshCw size={16} />
-                <span>Retry</span>
+                <span>{t('hotProps.retry')}</span>
             </button>
         </div>
     );
@@ -91,7 +96,7 @@ const HotProperties = () => {
                     {/* Header */}
                     <div className="hot-properties-header">
                         <div className="header-left">
-                            <h2 className="section-title">Browse Hot Properties</h2>
+                            <h2 className="section-title">{t('hotProps.title')}</h2>
                             <div className="gold-accent-line-thin"></div>
                         </div>
 
@@ -118,7 +123,7 @@ const HotProperties = () => {
                         <div className="properties-grid animate-fade-in" key={activeFilter}>
                             {properties.length === 0 ? (
                                 <div className="no-properties-message" style={{ textAlign: 'center', color: '#c4c4c4', padding: '2rem', gridColumn: '1 / -1' }}>
-                                    No properties found.
+                                    {t('hotProps.noProps')}
                                 </div>
                             ) : properties.map(property => {
                                 const isFav = favorites[property.id] || property.isFavorited;
@@ -163,7 +168,7 @@ const HotProperties = () => {
                                             <div className="property-price">
                                                 {property.category === 'new' || activeFilter === 'new' ? (
                                                     <>
-                                                        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 'normal', display: 'block', marginBottom: '2px' }}>Starting from</span>
+                                                        <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 'normal', display: 'block', marginBottom: '2px' }}>{t('hotProps.startingFrom')}</span>
                                                         {formatPrice(property.price, property.currency, '')}
                                                     </>
                                                 ) : (
@@ -202,8 +207,8 @@ const HotProperties = () => {
                                                     )}
                                                     <span className="agent-name">{property.agentName}</span>
                                                 </div>
-                                                <Link to={`/property/${property.id}`} className="view-details-btn">
-                                                    View Details
+                                                <Link to={`/${i18n.language}/property/${property.id}`} className="view-details-btn">
+                                                    {t('common.viewDetails')}
                                                     <ArrowRight size={16} className="arrow-icon" />
                                                 </Link>
                                             </div>
@@ -216,8 +221,8 @@ const HotProperties = () => {
 
                     {/* Bottom CTA */}
                     <div className="properties-cta-container">
-                        <button className="btn btn-outline properties-cta-btn" onClick={() => window.location.href = '/properties'}>
-                            View All Properties
+                        <button className="btn btn-outline properties-cta-btn" onClick={() => navigate(`/${i18n.language}/buy`)}>
+                            {t('hotProps.viewAll')}
                         </button>
                     </div>
 

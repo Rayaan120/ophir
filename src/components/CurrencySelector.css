@@ -1,0 +1,199 @@
+/* CurrencySelector.css */
+
+.currency-selector {
+    position: relative;
+    display: inline-block;
+    z-index: 50;
+    /* Ensure it floats above other nav items */
+}
+
+/* Trigger Button */
+.currency-trigger {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 6px 12px;
+    color: var(--text-color, #fff);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-primary, 'Plus Jakarta Sans', sans-serif);
+}
+
+.currency-trigger:hover,
+.currency-trigger.active {
+    border-color: var(--gold-primary, #d4af37);
+    background: rgba(212, 175, 55, 0.05);
+}
+
+.currency-current {
+    letter-spacing: 0.5px;
+}
+
+.currency-icon {
+    transition: transform 0.3s ease;
+    color: var(--gold-primary, #d4af37);
+}
+
+.currency-trigger.active .currency-icon {
+    transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.currency-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 160px;
+    background: var(--bg-card, #1a1a1a);
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    /* Backdrop filter for premium glassmorphism if supported */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Light mode overrides */
+[data-theme='light'] .currency-trigger {
+    border-color: rgba(0, 0, 0, 0.1);
+    color: var(--text-color, #1a1a1a);
+}
+
+[data-theme='light'] .currency-trigger:hover,
+[data-theme='light'] .currency-trigger.active {
+    border-color: var(--gold-primary, #d4af37);
+    background: rgba(212, 175, 55, 0.05);
+}
+
+[data-theme='light'] .currency-dropdown {
+    background: var(--bg-card, #ffffff);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.currency-dropdown-header {
+    padding: 12px 16px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted, #888);
+    border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.05));
+    background: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='light'] .currency-dropdown-header {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.currency-list {
+    list-style: none;
+    padding: 8px 0;
+    margin: 0;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+/* Custom Scrollbar for list */
+.currency-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.currency-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.currency-list::-webkit-scrollbar-thumb {
+    background: var(--gold-primary, #d4af37);
+    border-radius: 4px;
+}
+
+.currency-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    color: var(--text-color, #fff);
+}
+
+[data-theme='light'] .currency-item {
+    color: var(--text-color, #1a1a1a);
+}
+
+.currency-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--gold-primary, #d4af37);
+}
+
+[data-theme='light'] .currency-item:hover {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.currency-item.selected {
+    color: var(--gold-primary, #d4af37);
+    background: rgba(212, 175, 55, 0.05);
+    font-weight: 500;
+}
+
+.currency-code {
+    letter-spacing: 0.5px;
+}
+
+.check-icon {
+    color: var(--gold-primary, #d4af37);
+}
+
+/* Mobile specific styling inside mobile nav panel */
+.mobile-panel .currency-selector {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.mobile-panel .currency-trigger {
+    width: 100%;
+    justify-content: space-between;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.mobile-panel .currency-dropdown {
+    position: static;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    margin-top: 8px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.currency-trigger.active+.currency-dropdown {
+    max-height: 300px;
+    opacity: 1;
+}
+
+/* Animations */
+.animate-fade-in-up {
+    animation: fadeInUp 0.2s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

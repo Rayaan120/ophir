@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { Play, X } from 'lucide-react';
 import './About.css';
 
 const OurStory = () => {
+    const { t, i18n } = useTranslation();
+    const navigate = useNavigate();
     const [modalOpen, setModalOpen] = useState(false);
 
     return (
@@ -11,22 +15,47 @@ const OurStory = () => {
 
                 {/* Left Column */}
                 <div className="story-content">
-                    <h2 className="section-title">Our Story</h2>
+                    <h2 className="section-title">{t('ourStory.title')}</h2>
                     <div className="gold-accent-line"></div>
 
                     <div className="story-text">
-                        <p>
-                            Ophir Properties was created to answer a fundamental need in the UAE real estate market: a true strategic advisory focused on discerning investors rather than transactional brokerage.
-                        </p>
-                        <p>
-                            We differentiate ourselves through data-driven insights and access to exclusive, curated opportunities. Our approach relies on building enduring relationships, empowering our clients to make intelligent investment choices in a dynamic market.
-                        </p>
-                        <p className="forward-looking">
-                            Guided by a commitment to uncompromised integrity, we continually drive innovation and robust, sustained value for our partners.
-                        </p>
+                        <section className="story-block">
+                            <h3 className="story-subtitle">{t('ourStory.p1Title')}</h3>
+                            <p>
+                                {t('ourStory.p1Desc')}
+                            </p>
+                        </section>
+
+                        <section className="story-block">
+                            <h3 className="story-subtitle">{t('ourStory.p2Title')}</h3>
+                            <p>
+                                {t('ourStory.p2Desc')}
+                            </p>
+                            <ul className="story-list">
+                                <li dangerouslySetInnerHTML={{ __html: t('ourStory.p2Li1') }} />
+                                <li dangerouslySetInnerHTML={{ __html: t('ourStory.p2Li2') }} />
+                            </ul>
+                        </section>
+
+                        <section className="story-block">
+                            <h3 className="story-subtitle">{t('ourStory.p3Title')}</h3>
+                            <p>
+                                {t('ourStory.p3Desc1')}
+                            </p>
+                            <p>
+                                {t('ourStory.p3Desc2')}
+                            </p>
+                        </section>
+
+                        <section className="story-block">
+                            <h3 className="story-subtitle">{t('ourStory.p4Title')}</h3>
+                            <p className="forward-looking">
+                                {t('ourStory.p4Desc')}
+                            </p>
+                        </section>
                     </div>
 
-                    <button className="gold-outline-btn">Work With Ophir</button>
+                    <button className="gold-outline-btn" onClick={() => navigate(`/${i18n.language}/contact`)}>{t('ourStory.btn')}</button>
                 </div>
 
                 {/* Right Column */}
@@ -42,7 +71,7 @@ const OurStory = () => {
                             <div className="play-icon-wrapper">
                                 <Play size={20} className="gold-icon" fill="currentColor" />
                             </div>
-                            <span className="video-overlay-text">Play Our Story</span>
+                            <span className="video-overlay-text">{t('ourStory.play')}</span>
                         </div>
                     </div>
                 </div>
@@ -60,7 +89,7 @@ const OurStory = () => {
                             {/* Concept placeholder for an iframe */}
                             <div className="video-placeholder">
                                 <Play size={64} className="gold-icon" fill="currentColor" />
-                                <p>Strategic Advisory Video Playing</p>
+                                <p>{t('ourStory.videoStatus')}</p>
                             </div>
                         </div>
                     </div>

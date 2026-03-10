@@ -1,0 +1,961 @@
+diff --git a/src/components/Hero.jsx b/src/components/Hero.jsx
+index df7f69d..481f500 100644
+--- a/src/components/Hero.jsx
++++ b/src/components/Hero.jsx
+@@ -1,0 +2,2 @@ import { useState, useEffect } from 'react';
++import { useNavigate } from 'react-router-dom';
++import { useTranslation } from 'react-i18next';
+@@ -7,0 +10,10 @@ const Hero = () => {
++    // Search Panel States
++    const [searchLocation, setSearchLocation] = useState('');
++    const [propertyType, setPropertyType] = useState('All');
++    const [bedrooms, setBedrooms] = useState('Any');
++    const [priceSlider, setPriceSlider] = useState(0); // 0 = Any
++
++    const navigate = useNavigate();
++    const { t, i18n } = useTranslation();
++    const lang = i18n.language || 'en';
++
+@@ -20,0 +33,34 @@ const Hero = () => {
++    const handleSearchSubmit = () => {
++        let route = 'buy';
++        if (activeTab === 'Rent') route = 'rent';
++        if (activeTab === 'Off-Plan') route = 'new-projects';
++
++        const params = new URLSearchParams();
++        if (searchLocation) params.append('search', searchLocation);
++        if (propertyType && propertyType !== 'All') params.append('propertyType', propertyType);
++        if (bedrooms && bedrooms !== 'Any') params.append('bedrooms', bedrooms);
++
++        if (priceSlider > 0) {
++            // Convert slider value (in Millions for Buy/Off-Plan, Thousands for Rent) to actual numeric limit
++            // Buy/Off-Plan slider is 1M - 50M. Rent slider is 50k - 1M+
++            if (activeTab === 'Rent') {
++                const maxRent = priceSlider * 1000; // e.g., 50k, 100k
++
++                // Map to RentPage dropdown values
++                if (maxRent <= 100000) params.append('priceRange', '≤100k');
++                else if (maxRent <= 200000) params.append('priceRange', '100k-200k');
++                else if (maxRent <= 400000) params.append('priceRange', '200k-400k');
++                else params.append('priceRange', '400k+');
++
++            } else {
++                // Buy & Off-Plan
++                if (priceSlider <= 1) params.append('priceRange', '≤1M');
++                else if (priceSlider <= 3) params.append('priceRange', '1M-3M');
++                else if (priceSlider <= 5) params.append('priceRange', '3M-5M');
++                else params.append('priceRange', '5M+');
++            }
++        }
++
++        navigate(`/${lang}/${route}?${params.toString()}`);
++    };
++
+@@ -37 +83 @@ const Hero = () => {
+-                    <span className="small-label">Ophir Properties – UAE Real Estate</span>
++                    <span className="small-label">{t('home.heroArea')}</span>
+@@ -39,2 +85,7 @@ const Hero = () => {
+-                        Your Wealth & Prosperity Partner<br />
+-
++                        {t('home.heroTitle').split('&').map((part, i, arr) => (
++                            <span key={i}>
++                                {part}
++                                {i < arr.length - 1 && <span className="normal-amp">&</span>}
++                            </span>
++                        ))}
++                        <br />
+@@ -43 +94 @@ const Hero = () => {
+-                        End-to-end support for property buyers, sellers, and investors across the UAE.
++                        {t('home.heroSubtitle')}
+@@ -46,2 +97,2 @@ const Hero = () => {
+-                        <button className="btn btn-primary">Explore Properties</button>
+-                        <button className="btn btn-outline">Book a Consultation</button>
++                        <button className="btn btn-primary" onClick={() => navigate(`/${lang}/buy`)}>{t('home.explorePortfolio')}</button>
++                        <button className="btn btn-outline" onClick={() => navigate(`/${lang}/contact`)}>{t('home.getInTouch')}</button>
+@@ -70 +121,6 @@ const Hero = () => {
+-                                <input type="text" placeholder="e.g. Dubai Marina, Palm Jumeirah" />
++                                <input
++                                    type="text"
++                                    placeholder="e.g. Dubai Marina, Palm Jumeirah"
++                                    value={searchLocation}
++                                    onChange={(e) => setSearchLocation(e.target.value)}
++                                />
+@@ -76,5 +132,5 @@ const Hero = () => {
+-                                    <select defaultValue="">
+-                                        <option value="" disabled>Select Type</option>
+-                                        <option value="villa">Luxury Villa</option>
+-                                        <option value="apartment">Penthouse / Apartment</option>
+-                                        <option value="townhouse">Townhouse</option>
++                                    <select value={propertyType} onChange={(e) => setPropertyType(e.target.value)}>
++                                        <option value="All">All Types</option>
++                                        <option value="Villa">Luxury Villa</option>
++                                        <option value="Apartment">Penthouse / Apartment</option>
++                                        <option value="Townhouse">Townhouse</option>
+@@ -85,2 +141,2 @@ const Hero = () => {
+-                                    <select defaultValue="">
+-                                        <option value="" disabled>Any</option>
++                                    <select value={bedrooms} onChange={(e) => setBedrooms(e.target.value)}>
++                                        <option value="Any">Any</option>
+@@ -97,2 +153,4 @@ const Hero = () => {
+-                                    <label>Price Range</label>
+-                                    <span className="gold-text">AED 1M - 50M+</span>
++                                    <label>Max Price Limit</label>
++                                    <span className="gold-text">
++                                        {priceSlider === 0 ? 'Any Price' : `AED ${priceSlider}M`}
++                                    </span>
+@@ -100 +158,8 @@ const Hero = () => {
+-                                <input type="range" className="gold-slider" min="1" max="50" defaultValue="25" />
++                                <input
++                                    type="range"
++                                    className="gold-slider"
++                                    min="0"
++                                    max="50"
++                                    value={priceSlider}
++                                    onChange={(e) => setPriceSlider(Number(e.target.value))}
++                                />
+@@ -103 +168 @@ const Hero = () => {
+-                            <button className="btn btn-primary btn-full search-btn">Search {activeTab}</button>
++                            <button className="btn btn-primary btn-full search-btn" onClick={handleSearchSubmit}>Search {activeTab}</button>
+diff --git a/src/pages/BuyPage.jsx b/src/pages/BuyPage.jsx
+index 61199d9..6c11697 100644
+--- a/src/pages/BuyPage.jsx
++++ b/src/pages/BuyPage.jsx
+@@ -2 +2,2 @@ import React, { useState, useEffect, useRef } from 'react';
+-import { Link } from 'react-router-dom';
++import { useTranslation } from 'react-i18next';
++import { Link, useLocation } from 'react-router-dom';
+@@ -3,0 +5 @@ import { Heart, MapPin, Bed, Bath, Maximize, ArrowRight, Search } from 'lucide-r
++import { useCurrency } from '../context/CurrencyContext';
+@@ -6,0 +9 @@ const BuyPage = () => {
++    const { t, i18n } = useTranslation();
+@@ -13,0 +17 @@ const BuyPage = () => {
++    const { formatPrice: globalFormatPrice, selectedCurrency } = useCurrency();
+@@ -24,0 +29 @@ const BuyPage = () => {
++    const location = useLocation();
+@@ -26 +31 @@ const BuyPage = () => {
+-    const fetchProperties = async () => {
++    const fetchProperties = async (urlSearch) => {
+@@ -29,0 +35,7 @@ const BuyPage = () => {
++            // Merge URL params with state params — URL params take priority on initial load
++            const urlParams = new URLSearchParams(urlSearch || location.search);
++            const effectiveSearch = urlParams.get('search') || search || '';
++            const effectiveType = urlParams.get('propertyType') || (propertyType !== 'All' ? propertyType : null);
++            const effectiveBedrooms = urlParams.get('bedrooms') || (bedrooms !== 'Any' ? bedrooms : null);
++            const effectivePriceRange = urlParams.get('priceRange') || (priceRange !== 'Any' ? priceRange : null);
++
+@@ -35,9 +47,9 @@ const BuyPage = () => {
+-            if (search) params.append('search', search);
+-            if (propertyType !== 'All') params.append('propertyType', propertyType);
+-            if (bedrooms !== 'Any') params.append('bedrooms', bedrooms);
+-
+-            if (priceRange !== 'Any') {
+-                if (priceRange === '≤1M') params.append('priceMax', 1000000);
+-                else if (priceRange === '1M-3M') { params.append('priceMin', 1000000); params.append('priceMax', 3000000); }
+-                else if (priceRange === '3M-5M') { params.append('priceMin', 3000000); params.append('priceMax', 5000000); }
+-                else if (priceRange === '5M+') params.append('priceMin', 5000000);
++            if (effectiveSearch) params.append('search', effectiveSearch);
++            if (effectiveType && effectiveType !== 'All') params.append('propertyType', effectiveType);
++            if (effectiveBedrooms && effectiveBedrooms !== 'Any') params.append('bedrooms', effectiveBedrooms);
++
++            if (effectivePriceRange && effectivePriceRange !== 'Any') {
++                if (effectivePriceRange === '≤1M') params.append('priceMax', 1000000);
++                else if (effectivePriceRange === '1M-3M') { params.append('priceMin', 1000000); params.append('priceMax', 3000000); }
++                else if (effectivePriceRange === '3M-5M') { params.append('priceMin', 3000000); params.append('priceMax', 5000000); }
++                else if (effectivePriceRange === '5M+') params.append('priceMin', 5000000);
+@@ -58 +70 @@ const BuyPage = () => {
+-            setError('Unable to load properties for sale right now.');
++            setError(t('buyPage.errorLoad'));
+@@ -64,0 +77,21 @@ const BuyPage = () => {
++    // Sync URL params into React state AND trigger fetch in one combined effect
++    useEffect(() => {
++        const params = new URLSearchParams(location.search);
++        let hasFilters = false;
++
++        if (params.has('search')) { setSearch(params.get('search')); setSearchInput(params.get('search')); hasFilters = true; }
++        if (params.has('propertyType')) { setPropertyType(params.get('propertyType')); hasFilters = true; }
++        if (params.has('bedrooms')) { setBedrooms(params.get('bedrooms')); hasFilters = true; }
++        if (params.has('priceRange')) { setPriceRange(params.get('priceRange')); hasFilters = true; }
++
++        // Pass current location.search directly so the fetch uses the right values immediately
++        fetchProperties(location.search);
++
++        if (hasFilters && resultsRef.current) {
++            setTimeout(() => {
++                const y = resultsRef.current.getBoundingClientRect().top + window.scrollY - 100;
++                window.scrollTo({ top: y, behavior: 'smooth' });
++            }, 500);
++        }
++    }, [location.search]);
++
+@@ -65,0 +99,2 @@ const BuyPage = () => {
++        // Only re-fetch when state-based filters change (user interacts with on-page filters)
++        // Skip if this was just triggered by URL parsing (location.search handles that already)
+@@ -97,2 +132 @@ const BuyPage = () => {
+-        const formattedPrice = new Intl.NumberFormat('en-AE').format(price);
+-        return `${currency} ${formattedPrice}`;
++        return globalFormatPrice(price, currency);
+@@ -106,3 +140,3 @@ const BuyPage = () => {
+-                    <span className="hero-label">Ophir Sales</span>
+-                    <h1 className="hero-title">Invest in Prime Properties for Sale</h1>
+-                    <p className="hero-subtext">Discover curated, high-potential real estate investments across Dubai's most prestigious districts.</p>
++                    <span className="hero-label">{t('buyPage.heroLabel')}</span>
++                    <h1 className="hero-title">{t('buyPage.heroTitle')}</h1>
++                    <p className="hero-subtext">{t('buyPage.heroSubtext')}</p>
+@@ -110,3 +144,3 @@ const BuyPage = () => {
+-                        <span>Curated listings</span>
+-                        <span>Off-market opportunities</span>
+-                        <span>Strategic advisory</span>
++                        <span>{t('buyPage.stat1')}</span>
++                        <span>{t('buyPage.stat2')}</span>
++                        <span>{t('buyPage.stat3')}</span>
+@@ -121 +155 @@ const BuyPage = () => {
+-                        <label className="filter-label">Search</label>
++                        <label className="filter-label">{t('buyPage.filterSearch')}</label>
+@@ -127 +161 @@ const BuyPage = () => {
+-                                placeholder="Search by area, tower or keyword..."
++                                placeholder={t('buyPage.filterPlaceholder')}
+@@ -135 +169 @@ const BuyPage = () => {
+-                        <label className="filter-label">Property Type</label>
++                        <label className="filter-label">{t('buyPage.filterType')}</label>
+@@ -138,6 +172,6 @@ const BuyPage = () => {
+-                                <option>All</option>
+-                                <option>Apartment</option>
+-                                <option>Villa</option>
+-                                <option>Townhouse</option>
+-                                <option>Penthouse</option>
+-                                <option>Plot</option>
++                                <option value="All">{t('buyPage.optAll')}</option>
++                                <option value="Apartment">{t('buyPage.optApartment')}</option>
++                                <option value="Villa">{t('buyPage.optVilla')}</option>
++                                <option value="Townhouse">{t('buyPage.optTownhouse')}</option>
++                                <option value="Penthouse">{t('buyPage.optPenthouse')}</option>
++                                <option value="Plot">{t('buyPage.optPlot')}</option>
+@@ -149 +183 @@ const BuyPage = () => {
+-                        <label className="filter-label">Bedrooms</label>
++                        <label className="filter-label">{t('buyPage.filterBedrooms')}</label>
+@@ -152,6 +186,6 @@ const BuyPage = () => {
+-                                <option>Any</option>
+-                                <option>Studio</option>
+-                                <option>1</option>
+-                                <option>2</option>
+-                                <option>3</option>
+-                                <option>4+</option>
++                                <option value="Any">{t('buyPage.optAny')}</option>
++                                <option value="Studio">{t('buyPage.optStudio')}</option>
++                                <option value="1">1</option>
++                                <option value="2">2</option>
++                                <option value="3">3</option>
++                                <option value="4+">4+</option>
+@@ -163 +197 @@ const BuyPage = () => {
+-                        <label className="filter-label">Price Range (AED)</label>
++                        <label className="filter-label">{t('buyPage.filterPrice')}</label>
+@@ -166,5 +200,5 @@ const BuyPage = () => {
+-                                <option>Any</option>
+-                                <option>≤1M</option>
+-                                <option>1M-3M</option>
+-                                <option>3M-5M</option>
+-                                <option>5M+</option>
++                                <option value="Any">{t('buyPage.optAny')}</option>
++                                <option value="≤1M">≤1M</option>
++                                <option value="1M-3M">1M-3M</option>
++                                <option value="3M-5M">3M-5M</option>
++                                <option value="5M+">5M+</option>
+@@ -181 +215 @@ const BuyPage = () => {
+-                        Showing <span>{properties.length > 0 ? ((page - 1) * 12 + 1) : 0} - {Math.min(page * 12, totalItems)}</span> of <span>{totalItems}</span> Properties for Sale
++                        {t('buyPage.showing')} <span>{properties.length > 0 ? ((page - 1) * 12 + 1) : 0} - {Math.min(page * 12, totalItems)}</span> {t('buyPage.of')} <span>{totalItems}</span> {t('buyPage.resultsLabel')}
+@@ -184 +218 @@ const BuyPage = () => {
+-                        <label className="filter-label">Sort By:</label>
++                        <label className="filter-label">{t('buyPage.sortBy')}</label>
+@@ -187,3 +221,3 @@ const BuyPage = () => {
+-                                <option>Newest</option>
+-                                <option>Price: Low to High</option>
+-                                <option>Price: High to Low</option>
++                                <option value="Newest">{t('buyPage.sortNewest')}</option>
++                                <option value="Price: Low to High">{t('buyPage.sortPriceLow')}</option>
++                                <option value="Price: High to Low">{t('buyPage.sortPriceHigh')}</option>
+@@ -198 +232 @@ const BuyPage = () => {
+-                        <p>Loading properties for sale...</p>
++                        <p>{t('buyPage.loading')}</p>
+@@ -206 +240 @@ const BuyPage = () => {
+-                        <p>No properties found for your selection. Try adjusting your filters.</p>
++                        <p>{t('buyPage.noResults')}</p>
+@@ -222 +256 @@ const BuyPage = () => {
+-                                                <span className="badge-sale">For Sale</span>
++                                                <span className="badge-sale">{t('buyPage.badgeSale')}</span>
+@@ -248,2 +282 @@ const BuyPage = () => {
+-                                                <span className="card-currency">{property.currency}</span>
+-                                                {property.price ? new Intl.NumberFormat('en-AE').format(property.price) : 'Price on Request'}
++                                                {property.price ? formatPrice(property.price, property.currency) : t('buyPage.priceOnRequest')}
+@@ -257 +290 @@ const BuyPage = () => {
+-                                                        <span>{property.bedrooms} Bed</span>
++                                                        <span>{property.bedrooms} {t('buyPage.bed')}</span>
+@@ -263 +296 @@ const BuyPage = () => {
+-                                                        <span>{property.bathrooms} Bath</span>
++                                                        <span>{property.bathrooms} {t('buyPage.bath')}</span>
+@@ -269 +302 @@ const BuyPage = () => {
+-                                                        <span>{property.areaSqft} sq ft</span>
++                                                        <span>{property.areaSqft} {t('buyPage.sqft')}</span>
+@@ -282 +315 @@ const BuyPage = () => {
+-                                                    <span className="agent-name">{property.agentName || 'Ophir Consultant'}</span>
++                                                    <span className="agent-name">{property.agentName || t('buyPage.ophirConsultant')}</span>
+@@ -284,2 +317,2 @@ const BuyPage = () => {
+-                                                <Link to={`/property/${property.id}`} className="card-btn">
+-                                                    View Details
++                                                <Link to={`/${i18n.language}/property/${property.id}`} className="card-btn">
++                                                    {t('buyPage.viewDetails')}
+@@ -303 +336 @@ const BuyPage = () => {
+-                                    Previous
++                                    {t('buyPage.previous')}
+@@ -325 +358 @@ const BuyPage = () => {
+-                                    Next
++                                    {t('buyPage.next')}
+diff --git a/src/pages/ContactPage.jsx b/src/pages/ContactPage.jsx
+index b861aaf..20bcb54 100644
+--- a/src/pages/ContactPage.jsx
++++ b/src/pages/ContactPage.jsx
+@@ -1,0 +2 @@ import React, { useState } from 'react';
++import { useTranslation } from 'react-i18next';
+@@ -5,0 +7,2 @@ const ContactPage = () => {
++    const { t } = useTranslation();
++
+@@ -34 +37 @@ const ContactPage = () => {
+-                body: JSON.stringify(formData)
++                body: JSON.stringify({ ...formData, source: 'Website Contact Page' })
+@@ -40 +43 @@ const ContactPage = () => {
+-                setStatus({ type: 'success', message: 'Thank you – an Ophir advisor will reach out to you shortly.' });
++                setStatus({ type: 'success', message: t('contactPage.successMsg') });
+@@ -51 +54 @@ const ContactPage = () => {
+-                setStatus({ type: 'error', message: data.error || 'Something went wrong. Please try again.' });
++                setStatus({ type: 'error', message: data.error || t('contactPage.errorMsg') });
+@@ -54 +57 @@ const ContactPage = () => {
+-            setStatus({ type: 'error', message: 'Unable to connect to service. Please try again or use WhatsApp.' });
++            setStatus({ type: 'error', message: t('contactPage.connError') });
+@@ -62,2 +65,2 @@ const ContactPage = () => {
+-            q: "How soon will someone contact me after submitting the form?",
+-            a: "Our typical response time is under 12 hours. For urgent enquiries during office hours, we often respond within 60 minutes."
++            q: t('contactPage.faq1Q'),
++            a: t('contactPage.faq1A')
+@@ -66,2 +69,2 @@ const ContactPage = () => {
+-            q: "Do you charge a fee for initial property consultations?",
+-            a: "No, all initial consultations and portfolio strategy sessions are complimentary for our clients."
++            q: t('contactPage.faq2Q'),
++            a: t('contactPage.faq2A')
+@@ -70,2 +73,2 @@ const ContactPage = () => {
+-            q: "Can you help with mortgage or financing guidance?",
+-            a: "Absolutely. We work with leading mortgage advisors in the UAE to help our clients secure the best rates and terms."
++            q: t('contactPage.faq3Q'),
++            a: t('contactPage.faq3A')
+@@ -74,2 +77,2 @@ const ContactPage = () => {
+-            q: "Do you handle both sales and rentals?",
+-            a: "Yes, Ophir Properties is a full-service advisory. we manage luxury sales, rentals, and major off-plan project portfolios across Dubai."
++            q: t('contactPage.faq4Q'),
++            a: t('contactPage.faq4A')
+@@ -85,2 +88,2 @@ const ContactPage = () => {
+-                        <span className="hero-label">Contact Ophir</span>
+-                        <h1 className="hero-title">Let's Discuss Your Next Property Move</h1>
++                        <span className="hero-label">{t('contactPage.heroLabel')}</span>
++                        <h1 className="hero-title">{t('contactPage.heroTitle')}</h1>
+@@ -88 +91 @@ const ContactPage = () => {
+-                            Whether you're buying, renting, or exploring new projects, our expert advisors are here to guide you with transparent, data-driven advice.
++                            {t('contactPage.heroSubtext')}
+@@ -94 +97 @@ const ContactPage = () => {
+-                            <p className="highlight-text">Average response time:<br /><strong>Under 24 hours</strong></p>
++                            <p className="highlight-text">{t('contactPage.highlight1Text')}<br /><strong>{t('contactPage.highlight1Strong')}</strong></p>
+@@ -98 +101 @@ const ContactPage = () => {
+-                            <p className="highlight-text">Dedicated advisor for<br /><strong>every single client</strong></p>
++                            <p className="highlight-text">{t('contactPage.highlight2Text')}<br /><strong>{t('contactPage.highlight2Strong')}</strong></p>
+@@ -104,26 +107,43 @@ const ContactPage = () => {
+-            {/* Contact Strip */}
+-            <section className="contact-strip-section">
+-                <div className="strip-container">
+-                    <a href="tel:+971000000000" className="strip-card">
+-                        <Phone className="strip-icon" size={32} />
+-                        <h3 className="strip-title">Call Us</h3>
+-                        <p className="strip-text">Speak directly with an expert Ophir advisor today.</p>
+-                        <span className="strip-link">+971 X XXX XXXX</span>
+-                    </a>
+-                    <a href="https://wa.me/971000000000" target="_blank" rel="noopener noreferrer" className="strip-card">
+-                        <MessageSquare className="strip-icon" size={32} />
+-                        <h3 className="strip-title">WhatsApp</h3>
+-                        <p className="strip-text">Ideal for quick questions and appointment scheduling.</p>
+-                        <span className="strip-link">Chat with us</span>
+-                    </a>
+-                    <a href="mailto:info@ophir.ae" className="strip-card">
+-                        <Mail className="strip-icon" size={32} />
+-                        <h3 className="strip-title">Email Us</h3>
+-                        <p className="strip-text">Share your requirements and we'll respond with tailored options.</p>
+-                        <span className="strip-link">info@ophir.ae</span>
+-                    </a>
+-                    <div className="strip-card">
+-                        <MapPin className="strip-icon" size={32} />
+-                        <h3 className="strip-title">Visit Us</h3>
+-                        <p className="strip-text">Dubai-based advisory team with regional market expertise.</p>
+-                        <span className="strip-link">Business Bay, Dubai</span>
++            {/* Luxury Service Ribbon */}
++            <section className="luxury-contact-ribbon">
++                <div className="ribbon-container">
++                    <div className="ribbon-inner">
++                        <a href="tel:+971000000000" className="ribbon-item">
++                            <div className="item-icon-wrapper">
++                                <Phone className="item-icon" size={24} />
++                            </div>
++                            <div className="item-content">
++                                <span className="item-label">{t('contactPage.ribbonPhone')}</span>
++                                <h3 className="item-value">+971 X XXX XXXX</h3>
++                            </div>
++                        </a>
++                        <div className="ribbon-divider" />
++                        <a href="https://wa.me/971000000000" target="_blank" rel="noopener noreferrer" className="ribbon-item">
++                            <div className="item-icon-wrapper">
++                                <MessageSquare className="item-icon" size={24} />
++                            </div>
++                            <div className="item-content">
++                                <span className="item-label">{t('contactPage.ribbonWA')}</span>
++                                <h3 className="item-value">{t('contactPage.ribbonWAVal')}</h3>
++                            </div>
++                        </a>
++                        <div className="ribbon-divider" />
++                        <a href="mailto:info@ophir.ae" className="ribbon-item">
++                            <div className="item-icon-wrapper">
++                                <Mail className="item-icon" size={24} />
++                            </div>
++                            <div className="item-content">
++                                <span className="item-label">{t('contactPage.ribbonEmail')}</span>
++                                <h3 className="item-value">info@ophir.ae</h3>
++                            </div>
++                        </a>
++                        <div className="ribbon-divider" />
++                        <div className="ribbon-item">
++                            <div className="item-icon-wrapper">
++                                <MapPin className="item-icon" size={24} />
++                            </div>
++                            <div className="item-content">
++                                <span className="item-label">{t('contactPage.ribbonHQ')}</span>
++                                <h3 className="item-value">Business Bay, Dubai</h3>
++                            </div>
++                        </div>
+@@ -140,2 +160,2 @@ const ContactPage = () => {
+-                            <h2>Tell Us What You're Looking For</h2>
+-                            <p>Share your requirements and an advisor will get in touch with curated options.</p>
++                            <h2>{t('contactPage.formTitle')}</h2>
++                            <p>{t('contactPage.formSubtitle')}</p>
+@@ -154 +174 @@ const ContactPage = () => {
+-                                    <label className="form-label">Full Name *</label>
++                                    <label className="form-label">{t('contactPage.labelName')}</label>
+@@ -157 +177 @@ const ContactPage = () => {
+-                                        placeholder="Your full name" required
++                                        placeholder={t('contactPage.placeholderName')} required
+@@ -162 +182 @@ const ContactPage = () => {
+-                                    <label className="form-label">Email Address *</label>
++                                    <label className="form-label">{t('contactPage.labelEmail')}</label>
+@@ -170 +190 @@ const ContactPage = () => {
+-                                    <label className="form-label">Phone / WhatsApp *</label>
++                                    <label className="form-label">{t('contactPage.labelPhone')}</label>
+@@ -178 +198 @@ const ContactPage = () => {
+-                                    <label className="form-label">I'm Interested In *</label>
++                                    <label className="form-label">{t('contactPage.labelInterest')}</label>
+@@ -183,5 +203,5 @@ const ContactPage = () => {
+-                                        <option>Buying a property</option>
+-                                        <option>Renting a property</option>
+-                                        <option>New projects / off-plan</option>
+-                                        <option>Selling my property</option>
+-                                        <option>General enquiry</option>
++                                        <option value="Buying a property">{t('contactPage.optBuy')}</option>
++                                        <option value="Renting a property">{t('contactPage.optRent')}</option>
++                                        <option value="New projects / off-plan">{t('contactPage.optNew')}</option>
++                                        <option value="Selling my property">{t('contactPage.optSell')}</option>
++                                        <option value="General enquiry">{t('contactPage.optGeneral')}</option>
+@@ -191 +211 @@ const ContactPage = () => {
+-                                    <label className="form-label">Budget Range</label>
++                                    <label className="form-label">{t('contactPage.labelBudget')}</label>
+@@ -196,5 +216,5 @@ const ContactPage = () => {
+-                                        <option>Up to AED 1M</option>
+-                                        <option>AED 1M – 3M</option>
+-                                        <option>AED 3M – 5M</option>
+-                                        <option>AED 5M+</option>
+-                                        <option>Not decided yet</option>
++                                        <option value="Up to AED 1M">{t('contactPage.optBudget1')}</option>
++                                        <option value="AED 1M – 3M">{t('contactPage.optBudget2')}</option>
++                                        <option value="AED 3M – 5M">{t('contactPage.optBudget3')}</option>
++                                        <option value="AED 5M+">{t('contactPage.optBudget4')}</option>
++                                        <option value="Not decided yet">{t('contactPage.optBudget5')}</option>
+@@ -204 +224 @@ const ContactPage = () => {
+-                                    <label className="form-label">Preferred Areas</label>
++                                    <label className="form-label">{t('contactPage.labelAreas')}</label>
+@@ -207 +227 @@ const ContactPage = () => {
+-                                        placeholder="Palm Jumeirah, Dubai Marina..."
++                                        placeholder={t('contactPage.placeholderAreas')}
+@@ -214 +234 @@ const ContactPage = () => {
+-                                <label className="form-label">Message / Requirements *</label>
++                                <label className="form-label">{t('contactPage.labelMsg')}</label>
+@@ -217 +237 @@ const ContactPage = () => {
+-                                    placeholder="Tell us a bit more about what you're looking for..."
++                                    placeholder={t('contactPage.placeholderMsg')}
+@@ -224 +244 @@ const ContactPage = () => {
+-                                {isSubmitting ? 'Sending Enquiry...' : 'Submit Enquiry'}
++                                {isSubmitting ? t('contactPage.submittingBtn') : t('contactPage.submitBtn')}
+@@ -232 +252 @@ const ContactPage = () => {
+-                            <h3>Why Speak With Ophir?</h3>
++                            <h3>{t('contactPage.whyTitle')}</h3>
+@@ -237,2 +257,2 @@ const ContactPage = () => {
+-                                        <h4>Curated Portfolios</h4>
+-                                        <p>Hand-picked properties that match your lifestyle and investment profile.</p>
++                                        <h4>{t('contactPage.b1Title')}</h4>
++                                        <p>{t('contactPage.b1Desc')}</p>
+@@ -244,2 +264,2 @@ const ContactPage = () => {
+-                                        <h4>Transparent Advice</h4>
+-                                        <p>Data-driven market insights without the pushy sales tactics.</p>
++                                        <h4>{t('contactPage.b2Title')}</h4>
++                                        <p>{t('contactPage.b2Desc')}</p>
+@@ -251,2 +271,2 @@ const ContactPage = () => {
+-                                        <h4>Off-Market Access</h4>
+-                                        <p>Exclusive access to premium listings not yet available on public portals.</p>
++                                        <h4>{t('contactPage.b3Title')}</h4>
++                                        <p>{t('contactPage.b3Desc')}</p>
+@@ -261 +281 @@ const ContactPage = () => {
+-                                <span className="stat-lbl">Years Exp.</span>
++                                <span className="stat-lbl">{t('contactPage.statYears')}</span>
+@@ -265 +285 @@ const ContactPage = () => {
+-                                <span className="stat-lbl">Global HQ</span>
++                                <span className="stat-lbl">{t('contactPage.statHQ')}</span>
+@@ -276 +296 @@ const ContactPage = () => {
+-                        <h2>Visit Our Office</h2>
++                        <h2>{t('contactPage.officeTitle')}</h2>
+@@ -278 +298 @@ const ContactPage = () => {
+-                            <span className="office-name">Ophir Properties HQ</span>
++                            <span className="office-name">{t('contactPage.officeName')}</span>
+@@ -286 +306 @@ const ContactPage = () => {
+-                            <span className="hours-title">Opening Hours</span>
++                            <span className="hours-title">{t('contactPage.hoursTitle')}</span>
+@@ -288,2 +308,2 @@ const ContactPage = () => {
+-                                <span>Mon - Fri</span>
+-                                <span>9:00 AM - 6:00 PM</span>
++                                <span>{t('contactPage.hoursMF')}</span>
++                                <span>{t('contactPage.hoursMFVal')}</span>
+@@ -292,2 +312,2 @@ const ContactPage = () => {
+-                                <span>Saturday</span>
+-                                <span>10:00 AM - 2:00 PM</span>
++                                <span>{t('contactPage.hoursSat')}</span>
++                                <span>{t('contactPage.hoursSatVal')}</span>
+@@ -296,2 +316,2 @@ const ContactPage = () => {
+-                                <span>Sunday</span>
+-                                <span className="gold-text">Closed</span>
++                                <span>{t('contactPage.hoursSun')}</span>
++                                <span className="gold-text">{t('contactPage.hoursSunVal')}</span>
+@@ -302 +322 @@ const ContactPage = () => {
+-                            Get Directions
++                            {t('contactPage.directions')}
+@@ -331 +351 @@ const ContactPage = () => {
+-                <h2>Need Quick Answers?</h2>
++                <h2>{t('contactPage.faqTitle')}</h2>
+diff --git a/src/pages/NewProjectsPage.jsx b/src/pages/NewProjectsPage.jsx
+index 1642128..016e6ba 100644
+--- a/src/pages/NewProjectsPage.jsx
++++ b/src/pages/NewProjectsPage.jsx
+@@ -2 +2,2 @@ import React, { useState, useEffect, useRef } from 'react';
+-import { Link } from 'react-router-dom';
++import { useTranslation } from 'react-i18next';
++import { Link, useLocation } from 'react-router-dom';
+@@ -3,0 +5 @@ import { Heart, MapPin, Calendar, Building2, ArrowRight, Search, Pickaxe, Bed }
++import { useCurrency } from '../context/CurrencyContext';
+@@ -6,0 +9 @@ const NewProjectsPage = () => {
++    const { t, i18n } = useTranslation();
+@@ -13,0 +17 @@ const NewProjectsPage = () => {
++    const { formatPrice: globalFormatPrice } = useCurrency();
+@@ -27,0 +32,5 @@ const NewProjectsPage = () => {
++    // Hidden states for Hero Search Panel mapping
++    const [propertyType, setPropertyType] = useState('All');
++    const [bedrooms, setBedrooms] = useState('Any');
++    const [priceRange, setPriceRange] = useState('Any');
++
+@@ -28,0 +38,6 @@ const NewProjectsPage = () => {
++    const location = useLocation();
++
++    // Parse URL parameters on mount
++    useEffect(() => {
++        const params = new URLSearchParams(location.search);
++        let hasFilters = false;
+@@ -30 +45,27 @@ const NewProjectsPage = () => {
+-    const fetchProperties = async () => {
++        if (params.has('search')) {
++            setSearch(params.get('search'));
++            setSearchInput(params.get('search'));
++            hasFilters = true;
++        }
++        if (params.has('propertyType')) {
++            setPropertyType(params.get('propertyType'));
++            hasFilters = true;
++        }
++        if (params.has('bedrooms')) {
++            setBedrooms(params.get('bedrooms'));
++            hasFilters = true;
++        }
++        if (params.has('priceRange')) {
++            setPriceRange(params.get('priceRange'));
++            hasFilters = true;
++        }
++
++        if (hasFilters && resultsRef.current) {
++            setTimeout(() => {
++                const y = resultsRef.current.getBoundingClientRect().top + window.scrollY - 100;
++                window.scrollTo({ top: y, behavior: 'smooth' });
++            }, 500);
++        }
++    }, [location.search]);
++
++    const fetchProperties = async (urlSearch) => {
+@@ -33,0 +75,6 @@ const NewProjectsPage = () => {
++            const urlParams = new URLSearchParams(urlSearch || location.search);
++            const effectiveSearch = urlParams.get('search') || search || '';
++            const effectiveType = urlParams.get('propertyType') || (propertyType !== 'All' ? propertyType : null);
++            const effectiveBedrooms = urlParams.get('bedrooms') || (bedrooms !== 'Any' ? bedrooms : null);
++            const effectivePriceRange = urlParams.get('priceRange') || (priceRange !== 'Any' ? priceRange : null);
++
+@@ -40,4 +87,10 @@ const NewProjectsPage = () => {
+-            // Note: The backend currently doesn't natively support dynamic developer/location/status filtering via query string natively in Pixxi,
+-            // so we pass what we can or rely on a global fetch + client-side filter if needed. 
+-            // For now, assuming backend handles standard 'search' correctly.
+-            if (search) params.append('search', search);
++            if (effectiveSearch) params.append('search', effectiveSearch);
++            if (effectiveType && effectiveType !== 'All') params.append('propertyType', effectiveType);
++            if (effectiveBedrooms && effectiveBedrooms !== 'Any') params.append('bedrooms', effectiveBedrooms);
++
++            if (effectivePriceRange && effectivePriceRange !== 'Any') {
++                if (effectivePriceRange === '≤1M') params.append('priceMax', 1000000);
++                else if (effectivePriceRange === '1M-3M') { params.append('priceMin', 1000000); params.append('priceMax', 3000000); }
++                else if (effectivePriceRange === '3M-5M') { params.append('priceMin', 3000000); params.append('priceMax', 5000000); }
++                else if (effectivePriceRange === '5M+') params.append('priceMin', 5000000);
++            }
+@@ -47 +100 @@ const NewProjectsPage = () => {
+-            else params.append('sort', 'newest'); // Maps to "Newest Launches" / "Handover: Soonest First" roughly
++            else params.append('sort', 'newest');
+@@ -54 +106,0 @@ const NewProjectsPage = () => {
+-            // Client-Side Filtration for fields not natively queryable via standard Pixxi endpoint
+@@ -57,2 +108,0 @@ const NewProjectsPage = () => {
+-            // Extract unique developers and locations for the dropdowns (from the current fetched batch)
+-            // Ideally, the backend would provide a master list, but building from current data works.
+@@ -65 +114,0 @@ const NewProjectsPage = () => {
+-            // Apply strict client-side filters on the returned batch if selected
+@@ -73,4 +121,0 @@ const NewProjectsPage = () => {
+-                const searchStatus = statusFilter === 'Under Construction' ? 'ACTIVE' :
+-                    statusFilter === 'Launched' ? 'ACTIVE' : statusFilter;
+-                // Currently Pixxi sets all valid as 'ACTIVE', so manual map may be identical. 
+-                // But we filter based on exact string if Pixxi provides varied statuses.
+@@ -78 +123 @@ const NewProjectsPage = () => {
+-                    filteredItems = filteredItems.filter(p => p.status === searchStatus);
++                    filteredItems = filteredItems.filter(p => p.status === statusFilter);
+@@ -83 +128 @@ const NewProjectsPage = () => {
+-            setTotalItems(data.total || 0); // Note: total might visually drift slightly due to client side filtering
++            setTotalItems(data.total || 0);
+@@ -87 +132 @@ const NewProjectsPage = () => {
+-            setError('Unable to load new projects right now.');
++            setError(t('newProjectsPage.errorLoad'));
+@@ -93,0 +139,20 @@ const NewProjectsPage = () => {
++    // Sync URL params into React state AND trigger fetch in one combined effect
++    useEffect(() => {
++        const params = new URLSearchParams(location.search);
++        let hasFilters = false;
++
++        if (params.has('search')) { setSearch(params.get('search')); setSearchInput(params.get('search')); hasFilters = true; }
++        if (params.has('propertyType')) { setPropertyType(params.get('propertyType')); hasFilters = true; }
++        if (params.has('bedrooms')) { setBedrooms(params.get('bedrooms')); hasFilters = true; }
++        if (params.has('priceRange')) { setPriceRange(params.get('priceRange')); hasFilters = true; }
++
++        fetchProperties(location.search);
++
++        if (hasFilters && resultsRef.current) {
++            setTimeout(() => {
++                const y = resultsRef.current.getBoundingClientRect().top + window.scrollY - 100;
++                window.scrollTo({ top: y, behavior: 'smooth' });
++            }, 500);
++        }
++    }, [location.search]);
++
+@@ -96 +161 @@ const NewProjectsPage = () => {
+-    }, [page, search, sortBy, developerFilter, locationFilter, statusFilter]);
++    }, [page, search, sortBy, developerFilter, locationFilter, statusFilter, propertyType, bedrooms, priceRange]);
+@@ -124,3 +189,12 @@ const NewProjectsPage = () => {
+-        if (price === null || price === undefined || price === 0) return 'Price on Application';
+-        const formattedPrice = new Intl.NumberFormat('en-AE').format(price);
+-        return `${currency} ${formattedPrice}`;
++        if (price === null || price === undefined || price === 0) return t('newProjectsPage.priceOnApplication');
++        return globalFormatPrice(price, currency);
++    };
++
++    const renderWithAmp = (text) => {
++        if (!text || typeof text !== 'string') return text;
++        return text.split('&').map((part, i, arr) => (
++            <React.Fragment key={i}>
++                {part}
++                {i < arr.length - 1 && <span className="normal-amp">&</span>}
++            </React.Fragment>
++        ));
+@@ -134,3 +208,3 @@ const NewProjectsPage = () => {
+-                    <span className="np-hero-label">Ophir New Projects</span>
+-                    <h1 className="np-hero-title">Discover New & Off-Plan Developments</h1>
+-                    <p className="np-hero-subtext">Explore carefully curated new launches, prime off-plan opportunities, and future-ready communities across the UAE.</p>
++                    <span className="np-hero-label">{renderWithAmp(t('newProjectsPage.heroLabel'))}</span>
++                    <h1 className="np-hero-title">{renderWithAmp(t('newProjectsPage.heroTitle'))}</h1>
++                    <p className="np-hero-subtext">{renderWithAmp(t('newProjectsPage.heroSubtext'))}</p>
+@@ -138,3 +212,3 @@ const NewProjectsPage = () => {
+-                        <span>Off-plan launches</span>
+-                        <span>Flexible payment plans</span>
+-                        <span>Visionary architecture</span>
++                        <span>{t('newProjectsPage.stat1')}</span>
++                        <span>{t('newProjectsPage.stat2')}</span>
++                        <span>{t('newProjectsPage.stat3')}</span>
+@@ -149 +223 @@ const NewProjectsPage = () => {
+-                        <label className="np-filter-label">Search</label>
++                        <label className="np-filter-label">{t('newProjectsPage.filterSearch')}</label>
+@@ -155 +229 @@ const NewProjectsPage = () => {
+-                                placeholder="Search by project name or keyword..."
++                                placeholder={t('newProjectsPage.filterPlaceholder')}
+@@ -163 +237 @@ const NewProjectsPage = () => {
+-                        <label className="np-filter-label">Developer</label>
++                        <label className="np-filter-label">{t('newProjectsPage.filterDeveloper')}</label>
+@@ -165 +239 @@ const NewProjectsPage = () => {
+-                            <option>All Developers</option>
++                            <option value="All Developers">{t('newProjectsPage.optAllDev')}</option>
+@@ -173 +247 @@ const NewProjectsPage = () => {
+-                        <label className="np-filter-label">Location</label>
++                        <label className="np-filter-label">{t('newProjectsPage.filterLocation')}</label>
+@@ -175 +249 @@ const NewProjectsPage = () => {
+-                            <option>All Locations</option>
++                            <option value="All Locations">{t('newProjectsPage.optAllLoc')}</option>
+@@ -183 +257 @@ const NewProjectsPage = () => {
+-                        <label className="np-filter-label">Status</label>
++                        <label className="np-filter-label">{t('newProjectsPage.filterStatus')}</label>
+@@ -185,4 +259,4 @@ const NewProjectsPage = () => {
+-                            <option>All Status</option>
+-                            <option>Launched</option>
+-                            <option>Under Construction</option>
+-                            <option>Completed</option>
++                            <option value="All Status">{t('newProjectsPage.optAllStatus')}</option>
++                            <option value="Launched">{t('newProjectsPage.optLaunched')}</option>
++                            <option value="Under Construction">{t('newProjectsPage.optUnderConst')}</option>
++                            <option value="Completed">{t('newProjectsPage.optCompleted')}</option>
+@@ -198 +272 @@ const NewProjectsPage = () => {
+-                        Showing <span>{properties.length > 0 ? ((page - 1) * 12 + 1) : 0} - {Math.min(page * 12, totalItems)}</span> of <span>{totalItems}</span> Off-Plan Projects
++                        {t('newProjectsPage.showing')} <span>{properties.length > 0 ? ((page - 1) * 12 + 1) : 0} - {Math.min(page * 12, totalItems)}</span> {t('newProjectsPage.of')} <span>{totalItems}</span> {t('newProjectsPage.resultsLabel')}
+@@ -201 +275 @@ const NewProjectsPage = () => {
+-                        <label className="np-filter-label">Sort By:</label>
++                        <label className="np-filter-label">{t('newProjectsPage.sortBy')}</label>
+@@ -203,4 +277,4 @@ const NewProjectsPage = () => {
+-                            <option>Newest Launches</option>
+-                            <option>Price: Low to High</option>
+-                            <option>Price: High to Low</option>
+-                            <option>Handover: Soonest First</option>
++                            <option value="Newest Launches">{t('newProjectsPage.sortNewest')}</option>
++                            <option value="Price: Low to High">{t('newProjectsPage.sortPriceLow')}</option>
++                            <option value="Price: High to Low">{t('newProjectsPage.sortPriceHigh')}</option>
++                            <option value="Handover: Soonest First">{t('newProjectsPage.sortHandover')}</option>
+@@ -214 +288 @@ const NewProjectsPage = () => {
+-                        <p>Loading premier developments...</p>
++                        <p>{t('newProjectsPage.loading')}</p>
+@@ -222 +296 @@ const NewProjectsPage = () => {
+-                        <p>No new projects match your exact selection. Try adjusting your filters.</p>
++                        <p>{t('newProjectsPage.noResults')}</p>
+@@ -237 +311 @@ const NewProjectsPage = () => {
+-                                                <span className="np-badge-primary">New Project</span>
++                                                <span className="np-badge-primary">{t('newProjectsPage.badgeNew')}</span>
+@@ -254 +328 @@ const NewProjectsPage = () => {
+-                                                <div className="np-card-developer">By {property.developerName}</div>
++                                                <div className="np-card-developer">{t('newProjectsPage.by')} {property.developerName}</div>
+@@ -265 +339 @@ const NewProjectsPage = () => {
+-                                                <span className="np-price-label">Starting From</span>
++                                                <span className="np-price-label">{t('newProjectsPage.startingFrom')}</span>
+@@ -273 +347 @@ const NewProjectsPage = () => {
+-                                                        <span>Handover {property.handoverDate}</span>
++                                                        <span>{t('newProjectsPage.handover')} {property.handoverDate}</span>
+@@ -279 +353 @@ const NewProjectsPage = () => {
+-                                                        <span>{property.status === 'ACTIVE' ? 'Launched' : property.status}</span>
++                                                        <span>{property.status === 'ACTIVE' ? t('newProjectsPage.launched') : property.status}</span>
+@@ -285 +359 @@ const NewProjectsPage = () => {
+-                                                        <span>{property.bedroomRange} Beds</span>
++                                                        <span>{property.bedroomRange} {t('newProjectsPage.bed')}</span>
+@@ -297 +371 @@ const NewProjectsPage = () => {
+-                                                    <span className="np-agent-name">{property.agentName || 'Ophir Advisory'}</span>
++                                                    <span className="np-agent-name">{property.agentName || t('newProjectsPage.ophirAdvisory')}</span>
+@@ -299,2 +373,2 @@ const NewProjectsPage = () => {
+-                                                <Link to={`/property/${property.id}`} className="np-card-btn">
+-                                                    View Details
++                                                <Link to={`/${i18n.language}/property/${property.id}`} className="np-card-btn">
++                                                    {t('newProjectsPage.viewDetails')}
+@@ -317 +391 @@ const NewProjectsPage = () => {
+-                                    Previous
++                                    {t('newProjectsPage.previous')}
+@@ -339 +413 @@ const NewProjectsPage = () => {
+-                                    Next
++                                    {t('newProjectsPage.next')}
+diff --git a/src/pages/RentPage.jsx b/src/pages/RentPage.jsx
+index 11db869..a90c18b 100644
+--- a/src/pages/RentPage.jsx
++++ b/src/pages/RentPage.jsx
+@@ -2 +2,2 @@ import React, { useState, useEffect, useRef } from 'react';
+-import { Link } from 'react-router-dom';
++import { useTranslation } from 'react-i18next';
++import { Link, useLocation } from 'react-router-dom';
+@@ -3,0 +5 @@ import { Heart, MapPin, Bed, Bath, Maximize, ArrowRight, Search } from 'lucide-r
++import { useCurrency } from '../context/CurrencyContext';
+@@ -6,0 +9 @@ const RentPage = () => {
++    const { t, i18n } = useTranslation();
+@@ -13,0 +17 @@ const RentPage = () => {
++    const { formatPrice: globalFormatPrice } = useCurrency();
+@@ -24,0 +29 @@ const RentPage = () => {
++    const location = useLocation();
+@@ -26 +31 @@ const RentPage = () => {
+-    const fetchRentals = async () => {
++    const fetchRentals = async (urlSearch) => {
+@@ -29,0 +35,6 @@ const RentPage = () => {
++            const urlParams = new URLSearchParams(urlSearch || location.search);
++            const effectiveSearch = urlParams.get('search') || search || '';
++            const effectiveType = urlParams.get('propertyType') || (propertyType !== 'All' ? propertyType : null);
++            const effectiveBedrooms = urlParams.get('bedrooms') || (bedrooms !== 'Any' ? bedrooms : null);
++            const effectivePriceRange = urlParams.get('priceRange') || (priceRange !== 'Any' ? priceRange : null);
++
+@@ -35,9 +46,9 @@ const RentPage = () => {
+-            if (search) params.append('search', search);
+-            if (propertyType !== 'All') params.append('propertyType', propertyType);
+-            if (bedrooms !== 'Any') params.append('bedrooms', bedrooms);
+-
+-            if (priceRange !== 'Any') {
+-                if (priceRange === '≤100k') params.append('priceMax', 100000);
+-                else if (priceRange === '100k-200k') { params.append('priceMin', 100000); params.append('priceMax', 200000); }
+-                else if (priceRange === '200k-400k') { params.append('priceMin', 200000); params.append('priceMax', 400000); }
+-                else if (priceRange === '400k+') params.append('priceMin', 400000);
++            if (effectiveSearch) params.append('search', effectiveSearch);
++            if (effectiveType && effectiveType !== 'All') params.append('propertyType', effectiveType);
++            if (effectiveBedrooms && effectiveBedrooms !== 'Any') params.append('bedrooms', effectiveBedrooms);
++
++            if (effectivePriceRange && effectivePriceRange !== 'Any') {
++                if (effectivePriceRange === '≤100k') params.append('priceMax', 100000);
++                else if (effectivePriceRange === '100k-200k') { params.append('priceMin', 100000); params.append('priceMax', 200000); }
++                else if (effectivePriceRange === '200k-400k') { params.append('priceMin', 200000); params.append('priceMax', 400000); }
++                else if (effectivePriceRange === '400k+') params.append('priceMin', 400000);
+@@ -58 +69 @@ const RentPage = () => {
+-            setError('Unable to load rental properties right now.');
++            setError(t('rentPage.errorLoad'));
+@@ -64,0 +76,20 @@ const RentPage = () => {
++    // Sync URL params into React state AND trigger fetch in one combined effect
++    useEffect(() => {
++        const params = new URLSearchParams(location.search);
++        let hasFilters = false;
++
++        if (params.has('search')) { setSearch(params.get('search')); setSearchInput(params.get('search')); hasFilters = true; }
++        if (params.has('propertyType')) { setPropertyType(params.get('propertyType')); hasFilters = true; }
++        if (params.has('bedrooms')) { setBedrooms(params.get('bedrooms')); hasFilters = true; }
++        if (params.has('priceRange')) { setPriceRange(params.get('priceRange')); hasFilters = true; }
++
++        fetchRentals(location.search);
++
++        if (hasFilters && resultsRef.current) {
++            setTimeout(() => {
++                const y = resultsRef.current.getBoundingClientRect().top + window.scrollY - 100;
++                window.scrollTo({ top: y, behavior: 'smooth' });
++            }, 500);
++        }
++    }, [location.search]);
++
+@@ -96,2 +127 @@ const RentPage = () => {
+-        const formattedPrice = new Intl.NumberFormat('en-AE').format(price);
+-        return `${currency} ${formattedPrice}${period ? period : ''}`;
++        return globalFormatPrice(price, currency, period || '');
+@@ -105,3 +135,3 @@ const RentPage = () => {
+-                    <span className="hero-label">Ophir Rentals</span>
+-                    <h1 className="hero-title">Explore Luxury Homes for Rent</h1>
+-                    <p className="hero-subtext">Discover curated rental properties across Dubai's most prestigious communities, tailored to your elite lifestyle.</p>
++                    <span className="hero-label">{t('rentPage.heroLabel')}</span>
++                    <h1 className="hero-title">{t('rentPage.heroTitle')}</h1>
++                    <p className="hero-subtext">{t('rentPage.heroSubtext')}</p>
+@@ -115 +145 @@ const RentPage = () => {
+-                        <label className="filter-label">Search</label>
++                        <label className="filter-label">{t('rentPage.filterSearch')}</label>
+@@ -121 +151 @@ const RentPage = () => {
+-                                placeholder="Search by area, tower or keyword..."
++                                placeholder={t('rentPage.filterPlaceholder')}
+@@ -129 +159 @@ const RentPage = () => {
+-                        <label className="filter-label">Property Type</label>
++                        <label className="filter-label">{t('rentPage.filterType')}</label>
+@@ -132,5 +162,5 @@ const RentPage = () => {
+-                                <option>All</option>
+-                                <option>Apartment</option>
+-                                <option>Villa</option>
+-                                <option>Townhouse</option>
+-                                <option>Penthouse</option>
++                                <option value="All">{t('rentPage.optAll')}</option>
++                                <option value="Apartment">{t('rentPage.optApartment')}</option>
++                                <option value="Villa">{t('rentPage.optVilla')}</option>
++                                <option value="Townhouse">{t('rentPage.optTownhouse')}</option>
++                                <option value="Penthouse">{t('rentPage.optPenthouse')}</option>
+@@ -142 +172 @@ const RentPage = () => {
+-                        <label className="filter-label">Bedrooms</label>
++                        <label className="filter-label">{t('rentPage.filterBedrooms')}</label>
+@@ -145,6 +175,6 @@ const RentPage = () => {
+-                                <option>Any</option>
+-                                <option>Studio</option>
+-                                <option>1</option>
+-                                <option>2</option>
+-                                <option>3</option>
+-                                <option>4+</option>
++                                <option value="Any">{t('rentPage.optAny')}</option>
++                                <option value="Studio">{t('rentPage.optStudio')}</option>
++                                <option value="1">1</option>
++                                <option value="2">2</option>
++                                <option value="3">3</option>
++                                <option value="4+">4+</option>
+@@ -156 +186 @@ const RentPage = () => {
+-                        <label className="filter-label">Price Range</label>
++                        <label className="filter-label">{t('rentPage.filterPrice')}</label>
+@@ -159,5 +189,5 @@ const RentPage = () => {
+-                                <option>Any</option>
+-                                <option>≤100k</option>
+-                                <option>100k-200k</option>
+-                                <option>200k-400k</option>
+-                                <option>400k+</option>
++                                <option value="Any">{t('rentPage.optAny')}</option>
++                                <option value="≤100k">≤100k</option>
++                                <option value="100k-200k">100k-200k</option>
++                                <option value="200k-400k">200k-400k</option>
++                                <option value="400k+">400k+</option>
+@@ -174 +204 @@ const RentPage = () => {
+-                        Showing <span>{properties.length > 0 ? ((page - 1) * 12 + 1) : 0} - {Math.min(page * 12, totalItems)}</span> of <span>{totalItems}</span> Rental Properties
++                        {t('rentPage.showing')} <span>{properties.length > 0 ? ((page - 1) * 12 + 1) : 0} - {Math.min(page * 12, totalItems)}</span> {t('rentPage.of')} <span>{totalItems}</span> {t('rentPage.resultsLabel')}
+@@ -177 +207 @@ const RentPage = () => {
+-                        <label className="filter-label">Sort By:</label>
++                        <label className="filter-label">{t('rentPage.sortBy')}</label>
+@@ -180,3 +210,3 @@ const RentPage = () => {
+-                                <option>Newest</option>
+-                                <option>Price: Low to High</option>
+-                                <option>Price: High to Low</option>
++                                <option value="Newest">{t('rentPage.sortNewest')}</option>
++                                <option value="Price: Low to High">{t('rentPage.sortPriceLow')}</option>
++                                <option value="Price: High to Low">{t('rentPage.sortPriceHigh')}</option>
+@@ -191 +221 @@ const RentPage = () => {
+-                        <p>Loading luxury rentals...</p>
++                        <p>{t('rentPage.loading')}</p>
+@@ -199 +229 @@ const RentPage = () => {
+-                        <p>No rental properties found for your selection. Try adjusting your filters.</p>
++                        <p>{t('rentPage.noResults')}</p>
+@@ -215 +245 @@ const RentPage = () => {
+-                                                <span className="badge-primary">Rent</span>
++                                                <span className="badge-primary">{t('rentPage.badgeRent')}</span>
+@@ -249 +279 @@ const RentPage = () => {
+-                                                        <span>{property.bedrooms} Bed</span>
++                                                        <span>{property.bedrooms} {t('rentPage.bed')}</span>
+@@ -255 +285 @@ const RentPage = () => {
+-                                                        <span>{property.bathrooms} Bath</span>
++                                                        <span>{property.bathrooms} {t('rentPage.bath')}</span>
+@@ -261 +291 @@ const RentPage = () => {
+-                                                        <span>{property.areaSqft} sq ft</span>
++                                                        <span>{property.areaSqft} {t('rentPage.sqft')}</span>
+@@ -274,2 +304,2 @@ const RentPage = () => {
+-                                                <Link to={`/property/${property.id}`} className="view-details-btn">
+-                                                    View Details
++                                                <Link to={`/${i18n.language}/property/${property.id}`} className="view-details-btn">
++                                                    {t('rentPage.viewDetails')}
+@@ -293 +323 @@ const RentPage = () => {
+-                                    Previous
++                                    {t('rentPage.previous')}
+@@ -315 +345 @@ const RentPage = () => {
+-                                    Next
++                                    {t('rentPage.next')}

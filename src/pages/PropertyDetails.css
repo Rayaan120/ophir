@@ -9,8 +9,6 @@
     position: relative;
     height: 70vh;
     min-height: 500px;
-    margin-top: 80px;
-    /* Navbar offset */
     display: flex;
     align-items: flex-end;
 }
@@ -30,9 +28,9 @@
     z-index: 2;
 }
 
-[data-theme='light'] .pd-hero-overlay {
+/* [data-theme='light'] .pd-hero-overlay {
     background: linear-gradient(to top, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.7) 40%, rgba(255, 255, 255, 0.3) 100%);
-}
+} */
 
 .pd-hero-content {
     position: relative;
@@ -65,19 +63,13 @@
     backdrop-filter: blur(8px);
 }
 
-[data-theme='light'] .pd-badge {
+/* [data-theme='light'] .pd-badge {
     background: rgba(255, 255, 255, 0.8);
-}
+} */
 
-.pd-title {
-    font-family: var(--font-heading);
-    font-size: 3.5rem;
-    color: var(--text-main);
-    line-height: 1.1;
-    margin-bottom: 16px;
-}
-
-[data-theme='dark'] .pd-title {
+.pd-title,
+[data-theme='dark'] .pd-title,
+[data-theme='light'] .pd-title {
     color: #fff;
 }
 
@@ -85,7 +77,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.7);
     font-size: 1.1rem;
 }
 
@@ -99,7 +91,7 @@
 
 .pd-price-label {
     font-size: 1rem;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.6);
     margin-bottom: 4px;
     display: block;
 }
@@ -476,4 +468,155 @@
         padding: 10px 16px;
         font-size: 0.95rem;
     }
+}
+
+/* Modal Styling */
+.pd-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* Ensure top is always accessible */
+    padding: 40px 20px;
+    overflow-y: auto;
+    animation: pdModalFadeIn 0.4s ease-out forwards;
+}
+
+@keyframes pdModalFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.pd-modal-content {
+    background: var(--bg-lighter);
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    position: relative;
+    padding: 30px;
+    /* Compact padding */
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+    margin: 20px 0 60px 0;
+    transform-origin: top;
+    animation: pdContentSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pdContentSlide {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.pd-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: var(--text-muted);
+    transition: color 0.3s;
+}
+
+.pd-modal-close:hover {
+    color: var(--gold-primary);
+}
+
+.pd-modal-header {
+    margin-bottom: 20px;
+    /* Reduced gap */
+    text-align: center;
+}
+
+.pd-modal-title {
+    font-size: 1.6rem;
+    /* Slightly smaller to save space */
+    color: var(--gold-primary);
+    margin-bottom: 4px;
+}
+
+.pd-modal-subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.pd-enquiry-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    /* Compact gap */
+}
+
+.pd-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pd-form-group label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+.pd-form-group input,
+.pd-form-group textarea {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: var(--text-main);
+    font-family: inherit;
+    transition: all 0.3s;
+}
+
+[data-theme='light'] .pd-form-group input,
+[data-theme='light'] .pd-form-group textarea {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.pd-form-group input:focus,
+.pd-form-group textarea:focus {
+    outline: none;
+    border-color: var(--gold-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.pd-form-error {
+    color: #ff4d4d;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.pd-form-success {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+}
+
+.pd-form-success h3 {
+    font-size: 1.8rem;
+    color: var(--gold-primary);
+}
+
+.pd-form-success p {
+    color: var(--text-muted);
 }

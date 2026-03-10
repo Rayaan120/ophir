@@ -24,6 +24,8 @@
     overflow: hidden;
     position: relative;
     padding: 20px 0 80px 0;
+    /* Force LTR so the marquee scrolls correctly even in RTL (Arabic) page direction */
+    direction: ltr;
     mask-image: linear-gradient(to right, transparent, var(--bg-color) 10%, var(--bg-color) 90%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, var(--bg-color) 10%, var(--bg-color) 90%, transparent);
 }
@@ -31,6 +33,7 @@
 .testimonials-marquee-track {
     display: flex;
     width: max-content;
+    direction: ltr;
 }
 
 .marquee-group {
@@ -61,7 +64,15 @@
     width: 450px;
     flex-shrink: 0;
     transition: transform 0.4s ease;
+    /* Default card text reads LTR */
+    direction: ltr;
 }
+
+/* Restore RTL text direction inside the cards when the page is Arabic */
+[dir='rtl'] .testimonial-card-wrapper {
+    direction: rtl;
+}
+
 
 .testimonial-card-wrapper:hover {
     transform: translateY(-10px) scale(1.02);
@@ -180,6 +191,14 @@
     z-index: 2;
 }
 
+.test-verified-icon {
+    color: var(--gold-primary);
+}
+
+[data-theme='light'] .test-verified-icon {
+    color: #b8860b;
+}
+
 .verified {
     display: flex;
     align-items: center;
@@ -202,6 +221,46 @@
 .testimonial-card:hover .test-num {
     opacity: 0.6;
     transform: scale(1.1);
+}
+
+/* Light Mode Contrast Fixes */
+[data-theme='light'] .testimonial-card {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .testimonial-card:hover {
+    border-color: #b8860b;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='light'] .test-header h4 {
+    color: var(--text-dark);
+}
+
+[data-theme='light'] .test-label {
+    color: #b8860b;
+    font-weight: 500;
+}
+
+[data-theme='light'] .test-body p {
+    color: #333;
+}
+
+[data-theme='light'] .verified {
+    color: #555;
+    font-weight: 500;
+}
+
+[data-theme='light'] .testimonials-header .small-label {
+    color: #b8860b !important;
+}
+
+[data-theme='light'] .gold-quote,
+[data-theme='light'] .quote-mark,
+[data-theme='light'] .test-num {
+    color: #b8860b;
 }
 
 @media (max-width: 1024px) {

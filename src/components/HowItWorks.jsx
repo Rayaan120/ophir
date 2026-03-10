@@ -1,67 +1,102 @@
+import React from 'react';
 import { Search, Eye, FileCheck } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import './HowItWorks.css';
 
 const HowItWorks = () => {
-    const steps = [
+    const { t } = useTranslation();
+    const phases = [
         {
             id: '01',
-            icon: <Search size={28} color="#d4af37" />,
-            title: 'Discover Strategic Opportunities',
-            desc: 'We map the market to your investment goals, presenting only vetted, high-yield assets.'
+            title: t('howItWorks.p1Title'),
+            points: [
+                {
+                    subtitle: t('howItWorks.p1s1Title'),
+                    text: t('howItWorks.p1s1Desc')
+                },
+                {
+                    subtitle: t('howItWorks.p1s2Title'),
+                    text: t('howItWorks.p1s2Desc')
+                }
+            ]
         },
         {
             id: '02',
-            icon: <Eye size={28} color="#d4af37" />,
-            title: 'Private Viewings & Evaluation',
-            desc: 'Exclusive access, rigorous due diligence, and comprehensive valuation models.'
+            title: t('howItWorks.p2Title'),
+            points: [
+                {
+                    subtitle: t('howItWorks.p2s1Title'),
+                    text: t('howItWorks.p2s1Desc')
+                },
+                {
+                    subtitle: t('howItWorks.p2s2Title'),
+                    text: t('howItWorks.p2s2Desc')
+                }
+            ]
         },
         {
             id: '03',
-            icon: <FileCheck size={28} color="#d4af37" />,
-            title: 'Secure & Structured Transaction',
-            desc: 'Seamless legal and financial execution for rapid, compliant ownership transfer.'
+            title: t('howItWorks.p3Title'),
+            points: [
+                {
+                    subtitle: t('howItWorks.p3s1Title'),
+                    text: t('howItWorks.p3s1Desc')
+                },
+                {
+                    subtitle: t('howItWorks.p3s2Title'),
+                    text: t('howItWorks.p3s2Desc')
+                }
+            ]
         }
     ];
+
+    const renderWithAmp = (text) => {
+        if (!text || typeof text !== 'string') return text;
+        return text.split('&').map((part, i, arr) => (
+            <React.Fragment key={i}>
+                {part}
+                {i < arr.length - 1 && <span className="normal-amp">&</span>}
+            </React.Fragment>
+        ));
+    };
 
     return (
         <section className="process-section section-padding">
             <div className="container">
-                <div className="process-wrapper rounded-container">
+                <div className="process-header-centered">
+                    <div className="gold-accent-line mx-auto"></div>
+                    <h2 className="section-title">{renderWithAmp(t('howItWorks.title'))}</h2>
+                    <p className="process-desc">
+                        {t('howItWorks.desc')}
+                    </p>
+                </div>
 
-                    <div className="process-bg" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1541888078693-5ba9d1b091e9?q=80&w=2070&auto=format&fit=crop')" }}>
-                    </div>
-                    <div className="process-overlay"></div>
-
-                    <div className="process-content-area">
-
-                        {/* Left: Text & CTA */}
-                        <div className="process-info">
-                            <div className="gold-accent-line"></div>
-                            <h2 className="section-title">How We Guide Your Property Journey</h2>
-                            <p className="process-desc">
-                                From initial discovery to final handover, Ophir provides a white-glove advisory service designed to protect and compound your wealth perfectly.
-                            </p>
-                            <button className="btn btn-primary" style={{ marginTop: '20px' }}>
-                                Schedule a Consultation
-                            </button>
-                        </div>
-
-                        {/* Right: Step Cards */}
-                        <div className="process-cards glass-panel">
-                            {steps.map((step, idx) => (
-                                <div key={idx} className="process-card">
-                                    <div className="step-header">
-                                        <span className="step-id">{step.id}</span>
-                                        <div className="step-icon">{step.icon}</div>
+                <div className="process-phases-row">
+                    {phases.map((phase, idx) => (
+                        <div key={idx} className="phase-card-landscape glass-panel">
+                            <div className="phase-header">
+                                <span className="phase-id">{t('howItWorks.phaseLabel')} {phase.id}</span>
+                                <h3 className="phase-title">{renderWithAmp(phase.title)}</h3>
+                            </div>
+                            <div className="phase-points">
+                                {phase.points.map((point, pIdx) => (
+                                    <div key={pIdx} className="phase-subpoint">
+                                        <h4 className="subpoint-title">{renderWithAmp(point.subtitle)}</h4>
+                                        <p className="subpoint-text">{point.text}</p>
                                     </div>
-                                    <h3>{step.title}</h3>
-                                    <p>{step.desc}</p>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
+                    ))}
+                </div>
 
-                    </div>
-
+                <div className="process-actions">
+                    <button className="btn btn-primary">
+                        {t('howItWorks.btn')}
+                    </button>
+                    <p className="process-footer-note">
+                        {t('howItWorks.footerNote')}
+                    </p>
                 </div>
             </div>
         </section>

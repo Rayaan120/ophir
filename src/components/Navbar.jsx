@@ -1,13 +1,26 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Heart, Search, Menu, X, ChevronDown, Sun, Moon } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Menu, X, ChevronDown, Sun, Moon } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../ThemeContext';
+import CurrencySelector from './CurrencySelector';
 import './Navbar.css';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' ? window.scrollY > 50 : false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'en';
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const switchLanguage = (newLang) => {
+    if (newLang === currentLang) return;
+    const newPath = location.pathname.replace(`/${currentLang}`, `/${newLang}`);
+    navigate(newPath + location.search + location.hash);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,15 +35,20 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', isDropdown: false, path: '/' },
-    { name: 'Buy', isDropdown: false, path: '/buy' },
-    { name: 'Rent', isDropdown: false, path: '/rent' },
-    { name: 'Off-Plan', isDropdown: false, path: '/new-projects' },
-    { name: 'Hot Offers', isDropdown: false, highlight: true },
-    { name: 'Insights', isDropdown: true },
-    { name: 'About', isDropdown: false, path: '/about' },
-    { name: 'Contact', isDropdown: false, path: '/contact' },
+    { name: t('nav.about'), isDropdown: false, path: '/about' },
+    { name: t('nav.services'), isDropdown: false, path: '/services' },
+    { name: t('nav.buy'), isDropdown: false, path: '/buy' },
+    { name: t('nav.rent'), isDropdown: false, path: '/rent' },
+    { name: t('nav.offPlan'), isDropdown: false, path: '/new-projects' },
+    { name: t('nav.hotOffers'), isDropdown: false, highlight: true },
+    { name: t('nav.insights'), isDropdown: false },
+    { name: t('nav.contact'), isDropdown: false, path: '/contact' },
   ];
+
+  const getPath = (path) => {
+    if (!path) return undefined;
+    return `/${currentLang}${path === '/' ? '' : path}`;
+  };
 
   return (
     <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
@@ -38,7 +56,7 @@ const Navbar = () => {
 
         {/* Left: Logo */}
         <div className="navbar-logo">
-          <Link to="/">
+          <Link to={`/${currentLang}`}>
             <img src="/logo.png" alt="Ophir Properties" className="logo-image" />
           </Link>
         </div>
@@ -50,7 +68,7 @@ const Navbar = () => {
             return (
               <div key={idx} className="nav-item">
                 <LinkEl
-                  to={link.path || undefined}
+                  to={getPath(link.path)}
                   href={!link.path ? '#' : undefined}
                   className={`nav-link ${link.highlight ? 'gold-text' : ''}`}
                 >
@@ -64,6 +82,22 @@ const Navbar = () => {
 
         {/* Right: Actions */}
         <div className="navbar-actions desktop-only">
+          <div className="lang-switcher">
+            <button
+              className={`lang-btn ${currentLang === 'en' ? 'active' : ''}`}
+              onClick={() => switchLanguage('en')}
+            >
+              EN
+            </button>
+            <span className="lang-separator">|</span>
+            <button
+              className={`lang-btn ${currentLang === 'ar' ? 'active' : ''}`}
+              onClick={() => switchLanguage('ar')}
+            >
+              AR
+            </button>
+          </div>
+          <CurrencySelector />
           <button
             className="theme-toggle-btn nav-action-icon"
             onClick={toggleTheme}
@@ -71,17 +105,6 @@ const Navbar = () => {
           >
             {theme === 'dark' ? <Moon size={20} /> : <Sun size={20} />}
           </button>
-
-          <div className="nav-separator"></div>
-
-          <div className="nav-action-icon">
-            <Heart size={20} />
-            <span className="badge">2</span>
-          </div>
-          <div className="nav-separator"></div>
-          <div className="nav-action-icon">
-            <Search size={20} />
-          </div>
         </div>
 
         {/* Mobile Toggle */}
@@ -94,7 +117,7 @@ const Navbar = () => {
       <div className={`mobile-panel ${mobileMenuOpen ? 'open' : ''}`}>
         <div className="mobile-panel-header">
           <div className="navbar-logo">
-            <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+            <Link to={`/${currentLang}`} onClick={() => setMobileMenuOpen(false)}>
               <img src="/logo.png" alt="Ophir Properties" className="logo-image" style={{ height: '40px' }} />
             </Link>
           </div>
@@ -111,13 +134,31 @@ const Navbar = () => {
             </button>
           </div>
         </div>
+        <div className="mobile-lang-switcher" style={{ display: 'flex', gap: '8px', marginBottom: '24px', paddingBottom: '24px', borderBottom: '1px solid var(--border-color)' }}>
+          <button
+            className={`lang-btn ${currentLang === 'en' ? 'active' : ''}`}
+            onClick={() => { switchLanguage('en'); setMobileMenuOpen(false); }}
+          >
+            EN
+          </button>
+          <span className="lang-separator">|</span>
+          <button
+            className={`lang-btn ${currentLang === 'ar' ? 'active' : ''}`}
+            onClick={() => { switchLanguage('ar'); setMobileMenuOpen(false); }}
+          >
+            AR
+          </button>
+        </div>
+        <div style={{ padding: '0 20px', marginBottom: '16px' }}>
+          <CurrencySelector />
+        </div>
         <div className="mobile-menu-links">
           {navLinks.map((link, idx) => {
             const LinkEl = link.path ? Link : 'a';
             return (
               <LinkEl
                 key={idx}
-                to={link.path || undefined}
+                to={getPath(link.path)}
                 href={!link.path ? '#' : undefined}
                 className={`mobile-nav-link ${link.highlight ? 'gold-text' : ''}`}
                 onClick={() => setMobileMenuOpen(false)}

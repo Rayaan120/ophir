@@ -1,46 +1,69 @@
 import { CheckCircle, Quote } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import './TestimonialsSection.css';
 
 const TestimonialsSection = () => {
+    const { t } = useTranslation();
     const testimonials = [
         {
             id: 1,
-            name: 'A. Rahman',
-            label: 'Private Investor – Dubai Marina',
-            text: 'Ophir properties completely shifted my approach to real estate. Their off-market insights allowed me to secure a penthouse that appreciated by 20% before handover.',
+            name: t('testimonials.t1Name'),
+            label: t('testimonials.t1Role'),
+            text: t('testimonials.t1Text'),
             num: '01'
         },
         {
             id: 2,
-            name: 'Sarah Mitchell',
-            label: 'Expat Executive – Downtown Dubai',
-            text: 'The level of professionalism and the curated options provided were unparalleled. They understood exactly what my family needed for a long-term premium residence.',
+            name: t('testimonials.t2Name'),
+            label: t('testimonials.t2Role'),
+            text: t('testimonials.t2Text'),
             num: '02'
         },
         {
             id: 3,
-            name: 'H. Al Maktoum',
-            label: 'Portfolio Manager – Palm Jumeirah',
-            text: 'A seamless acquisition process. Their advisory team navigated complex legal structures effortlessly, allowing us to expand our waterfront portfolio with confidence.',
+            name: t('testimonials.t3Name'),
+            label: t('testimonials.t3Role'),
+            text: t('testimonials.t3Text'),
             num: '03'
         },
         {
             id: 4,
-            name: 'David Chen',
-            label: 'International Buyer',
-            text: 'Investing from abroad can be daunting, but Ophir provided comprehensive data, virtual tours, and legal clarity that made the transaction incredibly smooth.',
+            name: t('testimonials.t4Name'),
+            label: t('testimonials.t4Role'),
+            text: t('testimonials.t4Text'),
             num: '04'
+        },
+        {
+            id: 5,
+            name: t('testimonials.t5Name'),
+            label: t('testimonials.t5Role'),
+            text: t('testimonials.t5Text'),
+            num: '05'
+        },
+        {
+            id: 6,
+            name: t('testimonials.t6Name'),
+            label: t('testimonials.t6Role'),
+            text: t('testimonials.t6Text'),
+            num: '06'
         }
     ];
 
-    const duplicateGroups = [1, 2, 3, 4]; // 4 groups to ensure enough width for large screens
+    const duplicateGroups = [1, 2, 3]; // 3 groups to ensure enough width for large screens
 
     return (
         <section className="testimonials-section section-padding">
             <div className="container">
                 <div className="testimonials-header">
-                    <span className="small-label" style={{ textAlign: 'center' }}>Client Experiences</span>
-                    <h2 className="section-title">Testimonials & Investors</h2>
+                    <span className="small-label" style={{ textAlign: 'center' }}>{t('testimonials.label')}</span>
+                    <h2 className="section-title">
+                        {t('testimonials.title').split('&').map((text, i, arr) => (
+                            <span key={i}>
+                                {text}
+                                {i < arr.length - 1 && <span className="normal-amp">&</span>}
+                            </span>
+                        ))}
+                    </h2>
                     <div className="gold-line center-line"></div>
                 </div>
             </div>
@@ -53,7 +76,7 @@ const TestimonialsSection = () => {
                             className="marquee-group"
                             aria-hidden={groupId > 1 ? "true" : "false"}
                         >
-                            {testimonials.map((t, idx) => (
+                            {testimonials.map((testimonial, idx) => (
                                 <div key={`${groupId}-${idx}`} className="testimonial-card-wrapper">
                                     <div className="testimonial-card glass-panel group-hover-effect">
                                         <div className="test-header">
@@ -61,22 +84,22 @@ const TestimonialsSection = () => {
                                                 <Quote size={20} className="gold-quote" />
                                             </div>
                                             <div>
-                                                <h4>{t.name}</h4>
-                                                <span className="test-label">{t.label}</span>
+                                                <h4>{testimonial.name}</h4>
+                                                <span className="test-label">{testimonial.label}</span>
                                             </div>
                                         </div>
 
                                         <div className="test-body">
-                                            <p>{t.text}</p>
+                                            <p>{testimonial.text}</p>
                                             <span className="quote-mark">”</span>
                                         </div>
 
                                         <div className="test-footer">
                                             <div className="verified">
-                                                <CheckCircle size={16} color="#d4af37" />
-                                                <span>Verified Client</span>
+                                                <CheckCircle size={16} className="test-verified-icon" />
+                                                <span>{t('testimonials.verified')}</span>
                                             </div>
-                                            <span className="test-num">{t.num}</span>
+                                            <span className="test-num">{testimonial.num}</span>
                                         </div>
                                     </div>
                                 </div>

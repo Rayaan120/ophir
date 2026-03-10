@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
 import { Heart, MapPin, Bed, Bath, Maximize, ArrowRight, Search } from 'lucide-react';
+import { useCurrency } from '../context/CurrencyContext';
 import './BuyPage.css';
 
 const BuyPage = () => {
+    const { t, i18n } = useTranslation();
     // States
     const [properties, setProperties] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -11,6 +14,7 @@ const BuyPage = () => {
     const [totalItems, setTotalItems] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
     const [favorites, setFavorites] = useState({});
+    const { formatPrice: globalFormatPrice, selectedCurrency } = useCurrency();
 
     // Pagination & Filter States
     const [page, setPage] = useState(1);
@@ -22,25 +26,33 @@ const BuyPage = () => {
     const [sortBy, setSortBy] = useState('Newest');
 
     const resultsRef = useRef(null);
+    const location = useLocation();
 
-    const fetchProperties = async () => {
+    const fetchProperties = async (urlSearch) => {
         setIsLoading(true);
         setError(null);
         try {
+            // Merge URL params with state params — URL params take priority on initial load
+            const urlParams = new URLSearchParams(urlSearch || location.search);
+            const effectiveSearch = urlParams.get('search') || search || '';
+            const effectiveType = urlParams.get('propertyType') || (propertyType !== 'All' ? propertyType : null);
+            const effectiveBedrooms = urlParams.get('bedrooms') || (bedrooms !== 'Any' ? bedrooms : null);
+            const effectivePriceRange = urlParams.get('priceRange') || (priceRange !== 'Any' ? priceRange : null);
+
             const params = new URLSearchParams({
                 type: 'sell',
                 page: page,
                 pageSize: 12
             });
-            if (search) params.append('search', search);
-            if (propertyType !== 'All') params.append('propertyType', propertyType);
-            if (bedrooms !== 'Any') params.append('bedrooms', bedrooms);
+            if (effectiveSearch) params.append('search', effectiveSearch);
+            if (effectiveType && effectiveType !== 'All') params.append('propertyType', effectiveType);
+            if (effectiveBedrooms && effectiveBedrooms !== 'Any') params.append('bedrooms', effectiveBedrooms);
 
-            if (priceRange !== 'Any') {
-                if (priceRange === '≤1M') params.append('priceMax', 1000000);
-                else if (priceRange === '1M-3M') { params.append('priceMin', 1000000); params.append('priceMax', 3000000); }
-                else if (priceRange === '3M-5M') { params.append('priceMin', 3000000); params.append('priceMax', 5000000); }
-                else if (priceRange === '5M+') params.append('priceMin', 5000000);
+            if (effectivePriceRange && effectivePriceRange !== 'Any') {
+                if (effectivePriceRange === '≤1M') params.append('priceMax', 1000000);
+                else if (effectivePriceRange === '1M-3M') { params.append('priceMin', 1000000); params.append('priceMax', 3000000); }
+                else if (effectivePriceRange === '3M-5M') { params.append('priceMin', 3000000); params.append('priceMax', 5000000); }
+                else if (effectivePriceRange === '5M+') params.append('priceMin', 5000000);
             }
 
             if (sortBy === 'Price: Low to High') params.append('sort', 'price-asc');
@@ -55,14 +67,37 @@ const BuyPage = () => {
             setTotalItems(data.total || 0);
             setTotalPages(data.totalPages || 1);
         } catch (err) {
-            setError('Unable to load properties for sale right now.');
+            setError(t('buyPage.errorLoad'));
             setProperties([]);
         } finally {
             setIsLoading(false);
         }
     };
 
+    // Sync URL params into React state AND trigger fetch in one combined effect
     useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        let hasFilters = false;
+
+        if (params.has('search')) { setSearch(params.get('search')); setSearchInput(params.get('search')); hasFilters = true; }
+        if (params.has('propertyType')) { setPropertyType(params.get('propertyType')); hasFilters = true; }
+        if (params.has('bedrooms')) { setBedrooms(params.get('bedrooms')); hasFilters = true; }
+        if (params.has('priceRange')) { setPriceRange(params.get('priceRange')); hasFilters = true; }
+
+        // Pass current location.search directly so the fetch uses the right values immediately
+        fetchProperties(location.search);
+
+        if (hasFilters && resultsRef.current) {
+            setTimeout(() => {
+                const y = resultsRef.current.getBoundingClientRect().top + window.scrollY - 100;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }, 500);
+        }
+    }, [location.search]);
+
+    useEffect(() => {
+        // Only re-fetch when state-based filters change (user interacts with on-page filters)
+        // Skip if this was just triggered by URL parsing (location.search handles that already)
         fetchProperties();
     }, [page, search, propertyType, bedrooms, priceRange, sortBy]);
 
@@ -94,8 +129,7 @@ const BuyPage = () => {
 
     const formatPrice = (price, currency = 'AED') => {
         if (price === null || price === undefined) return 'Price on Request';
-        const formattedPrice = new Intl.NumberFormat('en-AE').format(price);
-        return `${currency} ${formattedPrice}`;
+        return globalFormatPrice(price, currency);
     };
 
     return (
@@ -103,13 +137,13 @@ const BuyPage = () => {
             {/* Hero Section */}
             <section className="buy-hero">
                 <div className="buy-hero-content">
-                    <span className="hero-label">Ophir Sales</span>
-                    <h1 className="hero-title">Invest in Prime Properties for Sale</h1>
-                    <p className="hero-subtext">Discover curated, high-potential real estate investments across Dubai's most prestigious districts.</p>
+                    <span className="hero-label">{t('buyPage.heroLabel')}</span>
+                    <h1 className="hero-title">{t('buyPage.heroTitle')}</h1>
+                    <p className="hero-subtext">{t('buyPage.heroSubtext')}</p>
                     <div className="hero-stats">
-                        <span>Curated listings</span>
-                        <span>Off-market opportunities</span>
-                        <span>Strategic advisory</span>
+                        <span>{t('buyPage.stat1')}</span>
+                        <span>{t('buyPage.stat2')}</span>
+                        <span>{t('buyPage.stat3')}</span>
                     </div>
                 </div>
             </section>
@@ -118,13 +152,13 @@ const BuyPage = () => {
             <section className="buy-filters-container">
                 <form className="filters-grid" onSubmit={handleSearchSubmit}>
                     <div className="filter-group search-group">
-                        <label className="filter-label">Search</label>
+                        <label className="filter-label">{t('buyPage.filterSearch')}</label>
                         <div className="filter-input-wrapper">
                             <Search size={18} className="search-icon" />
                             <input
                                 type="text"
                                 className="filter-input with-icon"
-                                placeholder="Search by area, tower or keyword..."
+                                placeholder={t('buyPage.filterPlaceholder')}
                                 value={searchInput}
                                 onChange={(e) => setSearchInput(e.target.value)}
                             />
@@ -132,42 +166,42 @@ const BuyPage = () => {
                     </div>
 
                     <div className="filter-group">
-                        <label className="filter-label">Property Type</label>
+                        <label className="filter-label">{t('buyPage.filterType')}</label>
                         <div className="select-wrapper">
                             <select className="filter-select" value={propertyType} onChange={handleFilterChange(setPropertyType)}>
-                                <option>All</option>
-                                <option>Apartment</option>
-                                <option>Villa</option>
-                                <option>Townhouse</option>
-                                <option>Penthouse</option>
-                                <option>Plot</option>
+                                <option value="All">{t('buyPage.optAll')}</option>
+                                <option value="Apartment">{t('buyPage.optApartment')}</option>
+                                <option value="Villa">{t('buyPage.optVilla')}</option>
+                                <option value="Townhouse">{t('buyPage.optTownhouse')}</option>
+                                <option value="Penthouse">{t('buyPage.optPenthouse')}</option>
+                                <option value="Plot">{t('buyPage.optPlot')}</option>
                             </select>
                         </div>
                     </div>
 
                     <div className="filter-group">
-                        <label className="filter-label">Bedrooms</label>
+                        <label className="filter-label">{t('buyPage.filterBedrooms')}</label>
                         <div className="select-wrapper">
                             <select className="filter-select" value={bedrooms} onChange={handleFilterChange(setBedrooms)}>
-                                <option>Any</option>
-                                <option>Studio</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4+</option>
+                                <option value="Any">{t('buyPage.optAny')}</option>
+                                <option value="Studio">{t('buyPage.optStudio')}</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4+">4+</option>
                             </select>
                         </div>
                     </div>
 
                     <div className="filter-group">
-                        <label className="filter-label">Price Range (AED)</label>
+                        <label className="filter-label">{t('buyPage.filterPrice')}</label>
                         <div className="select-wrapper">
                             <select className="filter-select" value={priceRange} onChange={handleFilterChange(setPriceRange)}>
-                                <option>Any</option>
-                                <option>≤1M</option>
-                                <option>1M-3M</option>
-                                <option>3M-5M</option>
-                                <option>5M+</option>
+                                <option value="Any">{t('buyPage.optAny')}</option>
+                                <option value="≤1M">≤1M</option>
+                                <option value="1M-3M">1M-3M</option>
+                                <option value="3M-5M">3M-5M</option>
+                                <option value="5M+">5M+</option>
                             </select>
                         </div>
                     </div>
@@ -178,15 +212,15 @@ const BuyPage = () => {
             <section className="buy-content" ref={resultsRef}>
                 <div className="results-header">
                     <div className="results-count">
-                        Showing <span>{properties.length > 0 ? ((page - 1) * 12 + 1) : 0} - {Math.min(page * 12, totalItems)}</span> of <span>{totalItems}</span> Properties for Sale
+                        {t('buyPage.showing')} <span>{properties.length > 0 ? ((page - 1) * 12 + 1) : 0} - {Math.min(page * 12, totalItems)}</span> {t('buyPage.of')} <span>{totalItems}</span> {t('buyPage.resultsLabel')}
                     </div>
                     <div className="sort-group">
-                        <label className="filter-label">Sort By:</label>
+                        <label className="filter-label">{t('buyPage.sortBy')}</label>
                         <div className="select-wrapper">
                             <select className="filter-select" value={sortBy} onChange={handleFilterChange(setSortBy)}>
-                                <option>Newest</option>
-                                <option>Price: Low to High</option>
-                                <option>Price: High to Low</option>
+                                <option value="Newest">{t('buyPage.sortNewest')}</option>
+                                <option value="Price: Low to High">{t('buyPage.sortPriceLow')}</option>
+                                <option value="Price: High to Low">{t('buyPage.sortPriceHigh')}</option>
                             </select>
                         </div>
                     </div>
@@ -195,7 +229,7 @@ const BuyPage = () => {
                 {isLoading ? (
                     <div className="loading-state">
                         <div className="loading-spinner"></div>
-                        <p>Loading properties for sale...</p>
+                        <p>{t('buyPage.loading')}</p>
                     </div>
                 ) : error ? (
                     <div className="empty-state">
@@ -203,7 +237,7 @@ const BuyPage = () => {
                     </div>
                 ) : properties.length === 0 ? (
                     <div className="empty-state">
-                        <p>No properties found for your selection. Try adjusting your filters.</p>
+                        <p>{t('buyPage.noResults')}</p>
                     </div>
                 ) : (
                     <>
@@ -219,7 +253,7 @@ const BuyPage = () => {
 
                                             {/* Badges */}
                                             <div className="card-badges">
-                                                <span className="badge-sale">For Sale</span>
+                                                <span className="badge-sale">{t('buyPage.badgeSale')}</span>
                                                 {property.labels && property.labels.length > 0 && (
                                                     <span className="badge-type">{property.labels[0]}</span>
                                                 )}
@@ -245,8 +279,7 @@ const BuyPage = () => {
                                             <h3 className="card-title">{property.title}</h3>
 
                                             <div className="card-price">
-                                                <span className="card-currency">{property.currency}</span>
-                                                {property.price ? new Intl.NumberFormat('en-AE').format(property.price) : 'Price on Request'}
+                                                {property.price ? formatPrice(property.price, property.currency) : t('buyPage.priceOnRequest')}
                                             </div>
 
                                             {/* Features */}
@@ -254,19 +287,19 @@ const BuyPage = () => {
                                                 {property.bedrooms > 0 && (
                                                     <div className="feature-item">
                                                         <Bed size={16} />
-                                                        <span>{property.bedrooms} Bed</span>
+                                                        <span>{property.bedrooms} {t('buyPage.bed')}</span>
                                                     </div>
                                                 )}
                                                 {property.bathrooms > 0 && (
                                                     <div className="feature-item">
                                                         <Bath size={16} />
-                                                        <span>{property.bathrooms} Bath</span>
+                                                        <span>{property.bathrooms} {t('buyPage.bath')}</span>
                                                     </div>
                                                 )}
                                                 {property.areaSqft > 0 && (
                                                     <div className="feature-item">
                                                         <Maximize size={16} />
-                                                        <span>{property.areaSqft} sq ft</span>
+                                                        <span>{property.areaSqft} {t('buyPage.sqft')}</span>
                                                     </div>
                                                 )}
                                             </div>
@@ -279,10 +312,10 @@ const BuyPage = () => {
                                                     ) : (
                                                         <div className="agent-pic" style={{ backgroundColor: '#333' }}></div>
                                                     )}
-                                                    <span className="agent-name">{property.agentName || 'Ophir Consultant'}</span>
+                                                    <span className="agent-name">{property.agentName || t('buyPage.ophirConsultant')}</span>
                                                 </div>
-                                                <Link to={`/property/${property.id}`} className="card-btn">
-                                                    View Details
+                                                <Link to={`/${i18n.language}/property/${property.id}`} className="card-btn">
+                                                    {t('buyPage.viewDetails')}
                                                     <ArrowRight size={16} />
                                                 </Link>
                                             </div>
@@ -300,7 +333,7 @@ const BuyPage = () => {
                                     onClick={() => handlePageChange(page - 1)}
                                     disabled={page === 1}
                                 >
-                                    Previous
+                                    {t('buyPage.previous')}
                                 </button>
 
                                 {Array.from({ length: totalPages }, (_, i) => i + 1)
@@ -322,7 +355,7 @@ const BuyPage = () => {
                                     onClick={() => handlePageChange(page + 1)}
                                     disabled={page === totalPages}
                                 >
-                                    Next
+                                    {t('buyPage.next')}
                                 </button>
                             </div>
                         )}

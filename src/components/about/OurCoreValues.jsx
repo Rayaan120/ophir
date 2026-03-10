@@ -1,38 +1,50 @@
 import React, { useState } from 'react';
-import { Target, Shield, Users, Globe } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { BarChart3, ShieldCheck, Cpu, Award } from 'lucide-react';
 import './About.css';
 
 const OurCoreValues = () => {
+    const { t } = useTranslation();
     const [activeIndex, setActiveIndex] = useState(0);
+
+    const renderWithAmp = (text) => {
+        if (!text || typeof text !== 'string') return text;
+        return text.split('&').map((part, i, arr) => (
+            <React.Fragment key={i}>
+                {part}
+                {i < arr.length - 1 && <span className="normal-amp">&</span>}
+            </React.Fragment>
+        ));
+    };
 
     const values = [
         {
-            title: "Strategic Intelligence",
-            description: "We deploy data-driven insights and rigorous market analysis to uncover opportunities that others overlook, ensuring informed, high-conviction investment decisions.",
-            icon: Target,
+            title: t('coreValues.v1Title'),
+            description: t('coreValues.v1Desc'),
+            icon: BarChart3,
             number: "01",
-            image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+            image: "/value1.jpg"
         },
         {
-            title: "Integrity Without Compromise",
-            description: "Transparency and ethical practice form our foundation. We prioritize our clients' long-term success over short-term transactional gains.",
-            icon: Shield,
+            title: t('coreValues.v2Title'),
+            description: t('coreValues.v2Desc'),
+            icon: ShieldCheck,
             number: "02",
-            image: "https://images.unsplash.com/photo-1577495508048-b635879837f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+            image: "/value2.jpg"
         },
         {
-            title: "Client-Centric Commitment",
-            description: "Our advisory service is bespoke. We spend the time to understand your unique aspirations, crafting strategies tailored specifically to your wealth-building goals.",
-            icon: Users,
+            title: t('coreValues.v3Title'),
+            description: t('coreValues.v3Desc'),
+            icon: Cpu,
             number: "03",
-            image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+            image: "/value3.jpg"
         },
         {
-            title: "Sustainable Value Creation",
-            description: "We focus on assets and master plans with enduring appeal and growth potential, building resilient portfolios for generations to come.",
-            icon: Globe,
+            title: t('coreValues.v4Title'),
+            description: t('coreValues.v4Desc'),
+            icon: Award,
             number: "04",
-            image: "https://images.unsplash.com/photo-1518398046578-8cca57782e17?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+            image: "/value4.jpg"
         }
     ];
 
@@ -43,9 +55,10 @@ const OurCoreValues = () => {
                 {/* Left Side: Navigation List */}
                 <div className="interactive-values-nav">
                     <div className="values-header-left">
-                        <h2 className="section-title">Our Core Values</h2>
+                        <h2 className="section-title">{renderWithAmp(t('coreValues.title'))}</h2>
                         <div className="gold-accent-line"></div>
-                        <p className="values-subtitle-left">The guiding principles behind our curated real estate advisory.</p>
+                        <p className="values-quote-left">{renderWithAmp(t('coreValues.quote'))}</p>
+                        <p className="values-subtitle-left">{renderWithAmp(t('coreValues.subtitle'))}</p>
                     </div>
 
                     <div className="values-list">
@@ -89,7 +102,7 @@ const OurCoreValues = () => {
                                     <div className="glass-icon-wrapper">
                                         <Icon size={32} className="glass-icon" />
                                     </div>
-                                    <h3 className="glass-title">{val.title}</h3>
+                                    <h3 className="glass-title">{renderWithAmp(val.title)}</h3>
                                     <p className="glass-desc">{val.description}</p>
                                 </div>
                             );

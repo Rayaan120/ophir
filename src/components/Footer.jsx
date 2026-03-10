@@ -1,7 +1,10 @@
 import { Facebook, Twitter, Instagram, Linkedin, MapPin, Phone, Mail } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 const Footer = () => {
+    const { t, i18n } = useTranslation(); // Extracted i18n
     return (
         <footer className="footer-section">
             <div className="container">
@@ -13,7 +16,7 @@ const Footer = () => {
                             <img src="/logo.png" alt="Ophir Properties" className="logo-image-footer" />
                         </div>
                         <p className="footer-desc">
-                            Premier luxury real estate investment and brokerage in the UAE. Curating wealth-generating assets for the discerning few.
+                            {t('footer.about')}
                         </p>
                         <div className="social-links">
                             <a href="#" className="social-icon"><Facebook size={18} /></a>
@@ -25,15 +28,15 @@ const Footer = () => {
 
                     {/* Quick Links */}
                     <div className="footer-col">
-                        <h4 className="footer-heading">Quick Links</h4>
+                        <h4 className="footer-heading">{t('footer.quickLinks')}</h4>
                         <ul className="footer-links">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Buy</a></li>
-                            <li><a href="#">Rent</a></li>
-                            <li><a href="#">Off-Plan</a></li>
-                            <li><a href="#" className="gold-text">Hot Offers</a></li>
-                            <li><a href="#">Insights</a></li>
-                            <li><a href="#">About</a></li>
+                            <li><a href="#">{t('nav.home')}</a></li>
+                            <li><a href="#">{t('nav.buy')}</a></li>
+                            <li><a href="#">{t('nav.rent')}</a></li>
+                            <li><a href="#">{t('nav.offPlan')}</a></li>
+                            <li><a href="#" className="gold-text">{t('nav.hotOffers')}</a></li>
+                            <li><a href="#">{t('nav.insights')}</a></li>
+                            <li><a href="#">{t('nav.about')}</a></li>
                         </ul>
                     </div>
 
@@ -52,7 +55,7 @@ const Footer = () => {
 
                     {/* Contact */}
                     <div className="footer-col contact-col">
-                        <h4 className="footer-heading">Contact Us</h4>
+                        <h4 className="footer-heading">{t('nav.contact')}</h4>
                         <div className="contact-info">
                             <div className="contact-item">
                                 <MapPin size={18} className="gold-text" />
@@ -73,10 +76,10 @@ const Footer = () => {
 
                 {/* Bottom Bar */}
                 <div className="footer-bottom">
-                    <p className="copyright">&copy; {new Date().getFullYear()} Ophir Properties LLC. All rights reserved.</p>
+                    <p className="copyright">&copy; {new Date().getFullYear()} Ophir Properties LLC. {t('footer.rights')}</p>
                     <div className="legal-links">
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Terms of Service</a>
+                        <Link to={`/${i18n.language || 'en'}/privacy-policy`}>{t('footer.privacy')}</Link>
+                        <a href="#">{t('footer.terms')}</a>
                         <a href="#">Cookies</a>
                     </div>
                 </div>

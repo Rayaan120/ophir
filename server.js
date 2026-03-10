@@ -62,6 +62,7 @@ app.get('/api/properties', async (req, res) => {
         let items = rawProperties.map(prop => {
             // Map the schema safely
             const params = prop.sellParam || prop.rentParam || prop.newParam || {};
+            const agent = prop.agent || prop.portalAgent || {};
             const location = [prop.community, prop.cityName].filter(Boolean).join(', ');
 
             return {
@@ -82,8 +83,9 @@ app.get('/api/properties', async (req, res) => {
                 mainImageUrl: (prop.photos && prop.photos.length > 0)
                     ? prop.photos[0]
                     : 'https://images.unsplash.com/photo-1613490901237-811550c604be?q=80&w=2000&auto=format&fit=crop',
-                agentName: prop.agent ? prop.agent.name : 'Ophir Agent',
-                agentAvatarUrl: (prop.agent && prop.agent.avatar) ? prop.agent.avatar : null,
+                agentName: agent.name || 'Ophir Agent',
+                agentPhone: agent.phone || '+97140000000',
+                agentAvatarUrl: agent.avatar || null,
                 listedOn: prop.createTime || prop.updateTime || null,
                 developerName: prop.developer || null,
                 status: prop.status || null,
@@ -183,7 +185,9 @@ app.get('/api/properties/:id', async (req, res) => {
             return res.status(404).json({ error: 'Property not found' });
         }
 
-        return res.json(normalizePropertyDetail(targetProperty));
+        const property = normalizePropertyDetail(targetProperty);
+        console.log(`[Property Detail] ID: ${id}, Agent: ${property.listedBy}, Phone: ${property.agentPhone}`);
+        return res.json(property);
     } catch (error) {
         console.error('Error fetching property by ID from PixxiCRM:', error.response ? error.response.data : error.message);
         res.status(500).json({ error: 'Failed to fetch property details from CRM' });
@@ -282,6 +286,13 @@ function formatDynamicDetails(prop, params) {
 
 function normalizePropertyDetail(prop) {
     const params = prop.sellParam || prop.rentParam || prop.newParam || {};
+
+    // Robust agent selection: pick whichever one actually has a phone number
+    let agent = prop.agent;
+    if (!agent || !agent.phone) {
+        agent = prop.portalAgent || {};
+    }
+
     const location = [prop.community, prop.cityName].filter(Boolean).join(', ');
 
     return {
@@ -301,8 +312,10 @@ function normalizePropertyDetail(prop) {
         mortgage: null,
         source: prop.portalAgent ? prop.portalAgent.name : null,
         listedOn: prop.createTime || null,
-        listedBy: prop.agent ? prop.agent.name : 'Ophir Agent',
-        agentAvatarUrl: (prop.agent && prop.agent.avatar) ? prop.agent.avatar : null,
+        listedBy: agent.name || 'Ophir Agent',
+        agentPhone: agent.phone || '+97140000000',
+        agentEmail: agent.email || 'info@ophir.ae',
+        agentAvatarUrl: agent.avatar || null,
         description: prop.description || null,
 
         // Add typical overview numbers as well
@@ -315,7 +328,7 @@ function normalizePropertyDetail(prop) {
 // Contact Form Submission (PixxiCRM Lead Integration)
 app.post('/api/contact', async (req, res) => {
     try {
-        const { fullName, email, phone, interest, budget, message, areas, source } = req.body;
+        const { fullName, email, phone, interest, budget, message, areas, source, agentEmail, agentName } = req.body;
 
         // Validation
         if (!fullName || !email || !phone || !message) {
@@ -325,27 +338,149 @@ app.post('/api/contact', async (req, res) => {
         const PIXXI_API_URL = (process.env.PIXXI_CRM_API_URL || 'https://dataapi.pixxicrm.ae').trim();
         const PIXXI_API_KEY = (process.env.PIXXI_CRM_API_KEY || '').trim();
 
-        // Forward to PixxiCRM Lead Webhook
-        // Note: In a real scenario, you'd use a specific formId provided by the client.
-        // For now, we'll map the fields as traditionally expected by Pixxi webhooks.
+        // Standardized payload for PixxiCRM Webhooks
+        // Dynamic Form Logic: Use 'Property Booster' for Rent leads to ensure correct categorization
+        const isRent = interest?.toLowerCase().includes('rent');
+        const formId = isRent ? '45427db2-8760-4b4a-88a6-a244d7a91e35' : '6507a47f-9443-494c-a288-64381315f14b';
+        const formName = isRent ? 'Property Booster' : 'Ophir Properties Website Lead Form';
+
+        // Dynamic Subject Prefix Logic
+        let subjectPrefix = '';
+        const lowerInterest = interest?.toLowerCase() || '';
+
+        if (lowerInterest.includes('selling')) {
+            subjectPrefix = '[SELLER] ';
+        } else if (lowerInterest.includes('new projects') || lowerInterest.includes('off-plan')) {
+            subjectPrefix = '[NEW PROJECTS] ';
+        } else if (lowerInterest.includes('general')) {
+            subjectPrefix = '[GENERAL] ';
+        } else if (isRent) {
+            subjectPrefix = '[RENT] ';
+        } else {
+            subjectPrefix = '[BUY] ';
+        }
+
         const webhookPayload = {
             name: fullName,
             email: email,
             phone: phone,
-            subject: `Enquiry: ${interest}`,
-            message: `Interest: ${interest}\nBudget: ${budget}\nAreas: ${areas}\n\nMessage:\n${message}`,
-            source: source || 'Website Contact Page',
-            formId: 'CONTACT_PAGE_GENERAL'
+            subject: `${subjectPrefix}Website Inquiry: ${interest || 'General'}`,
+            message: `Lead Details:
+- Interest: ${interest || 'N/A'}
+- Budget: ${budget || 'N/A'}
+- Preferred Areas: ${areas || 'N/A'}
+
+Message:
+${message}`,
+            source: source || 'Ophir Website',
+            formId: formId,
+            formName: formName,
+            date: new Date().toISOString(),
+            assignedAgentEmail: agentEmail || null,
+            assignedAgentName: agentName || null
         };
 
+        // For Rent leads, we MUST provide a propertyId to trigger the Rent Lead categorization in PixxiCRM
+        if (isRent) {
+            webhookPayload.propertyId = '1021201523387'; // Default rental property for categorization
+        }
+
+        console.log('Sending lead to PixxiCRM:', JSON.stringify(webhookPayload, null, 2));
+
         const response = await axios.post(`${PIXXI_API_URL}/pixxiapi/webhook/v1/form`, webhookPayload, {
-            headers: { 'X-PIXXI-TOKEN': PIXXI_API_KEY }
+            headers: {
+                'X-PIXXI-TOKEN': PIXXI_API_KEY,
+                'Content-Type': 'application/json'
+            },
+            timeout: 10000 // 10s timeout
         });
+
+        console.log('PixxiCRM Response:', response.data);
 
         res.json({ success: true, message: 'Thank you for your enquiry. An advisor will contact you shortly.' });
     } catch (error) {
-        console.error('Contact Form Error:', error.response ? error.response.data : error.message);
+        console.error('Contact Form Error Details:');
+        if (error.response) {
+            console.error('Status:', error.response.status);
+            console.error('Data:', JSON.stringify(error.response.data, null, 2));
+        } else if (error.request) {
+            console.error('No response received from CRM API. Check network/URL.');
+        } else {
+            console.error('Error Message:', error.message);
+        }
+
         res.status(500).json({ error: 'Failed to submit enquiry. Please try again or contact us via WhatsApp.' });
+    }
+});
+
+// Instagram Feed API (Secure Proxy)
+app.get('/api/instagram/latest', async (req, res) => {
+    try {
+        const limit = req.query.limit || 3;
+        const accessToken = process.env.INSTAGRAM_ACCESS_TOKEN;
+        const feedUrl = process.env.INSTAGRAM_FEED_URL; // Option B: Behold.so URL
+
+        // IF OPTION B (Behold.so) is provided
+        if (feedUrl) {
+            const response = await axios.get(feedUrl);
+            const rawPosts = Array.isArray(response.data) ? response.data : (response.data.posts || []);
+
+            const posts = rawPosts.slice(0, limit).map(post => {
+                // Universal mapping: handle both Behold (camelCase) and Direct API (snake_case)
+                const type = post.mediaType || post.media_type || 'IMAGE';
+
+                // PRIORITY: Behold Proxied URL -> Behold mediaUrl -> Instagram media_url -> Thumbnails
+                const proxiedUrl = post.sizes?.medium?.mediaUrl || post.sizes?.full?.mediaUrl || post.sizes?.large?.mediaUrl;
+                const directUrl = post.mediaUrl || post.media_url;
+                const thumbUrl = post.thumbnailUrl || post.thumbnail_url;
+
+                // For videos, prioritize thumbnail images
+                const displayUrl = proxiedUrl || (type === 'VIDEO' ? (thumbUrl || directUrl) : directUrl) || thumbUrl;
+
+                return {
+                    id: post.id,
+                    mediaType: type,
+                    mediaUrl: displayUrl,
+                    permalink: post.permalink,
+                    caption: post.caption || '',
+                    timestamp: post.timestamp
+                };
+            });
+            return res.json(posts);
+        }
+
+        // IF OPTION A (Direct API) is provided
+        if (accessToken) {
+            const response = await axios.get(`https://graph.instagram.com/me/media`, {
+                params: {
+                    fields: 'id,caption,media_type,media_url,permalink,timestamp,thumbnail_url',
+                    access_token: accessToken,
+                    limit: limit
+                }
+            });
+
+            const posts = response.data.data.map(post => {
+                const type = post.media_type || 'IMAGE';
+                const displayUrl = type === 'VIDEO' ? (post.thumbnail_url || post.media_url) : post.media_url;
+
+                return {
+                    id: post.id,
+                    mediaType: type,
+                    mediaUrl: displayUrl,
+                    permalink: post.permalink,
+                    caption: post.caption || '',
+                    timestamp: post.timestamp
+                };
+            });
+            return res.json(posts);
+        }
+
+        console.warn('No Instagram configuration found in .env (INSTAGRAM_ACCESS_TOKEN or INSTAGRAM_FEED_URL)');
+        return res.status(503).json({ error: 'Instagram integration not configured.' });
+
+    } catch (error) {
+        console.error('Instagram API Error:', error.response ? error.response.data : error.message);
+        res.status(500).json({ error: 'Failed to fetch Instagram feed.' });
     }
 });
 

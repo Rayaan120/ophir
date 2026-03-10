@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Link, useLocation } from 'react-router-dom';
 import { Heart, MapPin, Calendar, Building2, ArrowRight, Search, Pickaxe, Bed } from 'lucide-react';
+import { useCurrency } from '../context/CurrencyContext';
 import './NewProjectsPage.css';
 
 const NewProjectsPage = () => {
+    const { t, i18n } = useTranslation();
     // States
     const [properties, setProperties] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -11,6 +14,7 @@ const NewProjectsPage = () => {
     const [totalItems, setTotalItems] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
     const [favorites, setFavorites] = useState({});
+    const { formatPrice: globalFormatPrice } = useCurrency();
 
     // Extracted Dropdown Options
     const [availableDevelopers, setAvailableDevelopers] = useState([]);
@@ -25,44 +29,89 @@ const NewProjectsPage = () => {
     const [statusFilter, setStatusFilter] = useState('All Status');
     const [sortBy, setSortBy] = useState('Newest Launches');
 
-    const resultsRef = useRef(null);
+    // Hidden states for Hero Search Panel mapping
+    const [propertyType, setPropertyType] = useState('All');
+    const [bedrooms, setBedrooms] = useState('Any');
+    const [priceRange, setPriceRange] = useState('Any');
 
-    const fetchProperties = async () => {
+    const resultsRef = useRef(null);
+    const location = useLocation();
+
+    // Parse URL parameters on mount
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        let hasFilters = false;
+
+        if (params.has('search')) {
+            setSearch(params.get('search'));
+            setSearchInput(params.get('search'));
+            hasFilters = true;
+        }
+        if (params.has('propertyType')) {
+            setPropertyType(params.get('propertyType'));
+            hasFilters = true;
+        }
+        if (params.has('bedrooms')) {
+            setBedrooms(params.get('bedrooms'));
+            hasFilters = true;
+        }
+        if (params.has('priceRange')) {
+            setPriceRange(params.get('priceRange'));
+            hasFilters = true;
+        }
+
+        if (hasFilters && resultsRef.current) {
+            setTimeout(() => {
+                const y = resultsRef.current.getBoundingClientRect().top + window.scrollY - 100;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }, 500);
+        }
+    }, [location.search]);
+
+    const fetchProperties = async (urlSearch) => {
         setIsLoading(true);
         setError(null);
         try {
+            const urlParams = new URLSearchParams(urlSearch || location.search);
+            const effectiveSearch = urlParams.get('search') || search || '';
+            const effectiveType = urlParams.get('propertyType') || (propertyType !== 'All' ? propertyType : null);
+            const effectiveBedrooms = urlParams.get('bedrooms') || (bedrooms !== 'Any' ? bedrooms : null);
+            const effectivePriceRange = urlParams.get('priceRange') || (priceRange !== 'Any' ? priceRange : null);
+
             const params = new URLSearchParams({
                 type: 'new',
                 page: page,
                 pageSize: 12
             });
 
-            // Note: The backend currently doesn't natively support dynamic developer/location/status filtering via query string natively in Pixxi,
-            // so we pass what we can or rely on a global fetch + client-side filter if needed. 
-            // For now, assuming backend handles standard 'search' correctly.
-            if (search) params.append('search', search);
+            if (effectiveSearch) params.append('search', effectiveSearch);
+            if (effectiveType && effectiveType !== 'All') params.append('propertyType', effectiveType);
+            if (effectiveBedrooms && effectiveBedrooms !== 'Any') params.append('bedrooms', effectiveBedrooms);
+
+            if (effectivePriceRange && effectivePriceRange !== 'Any') {
+                if (effectivePriceRange === '≤1M') params.append('priceMax', 1000000);
+                else if (effectivePriceRange === '1M-3M') { params.append('priceMin', 1000000); params.append('priceMax', 3000000); }
+                else if (effectivePriceRange === '3M-5M') { params.append('priceMin', 3000000); params.append('priceMax', 5000000); }
+                else if (effectivePriceRange === '5M+') params.append('priceMin', 5000000);
+            }
 
             if (sortBy === 'Price: Low to High') params.append('sort', 'price-asc');
             else if (sortBy === 'Price: High to Low') params.append('sort', 'price-desc');
-            else params.append('sort', 'newest'); // Maps to "Newest Launches" / "Handover: Soonest First" roughly
+            else params.append('sort', 'newest');
 
             const response = await fetch(`/api/properties?${params.toString()}`);
             if (!response.ok) throw new Error('Failed to fetch new projects');
 
             const data = await response.json();
 
-            // Client-Side Filtration for fields not natively queryable via standard Pixxi endpoint
             let filteredItems = data.items || [];
 
-            // Extract unique developers and locations for the dropdowns (from the current fetched batch)
-            // Ideally, the backend would provide a master list, but building from current data works.
             const devs = new Set(filteredItems.map(p => p.developerName).filter(Boolean));
             const locs = new Set(filteredItems.map(p => p.location?.split(',')[0].trim()).filter(Boolean));
 
             setAvailableDevelopers([...Array.from(devs)].sort());
             setAvailableLocations([...Array.from(locs)].sort());
 
-            // Apply strict client-side filters on the returned batch if selected
             if (developerFilter !== 'All Developers') {
                 filteredItems = filteredItems.filter(p => p.developerName === developerFilter);
             }
@@ -70,30 +119,46 @@ const NewProjectsPage = () => {
                 filteredItems = filteredItems.filter(p => p.location?.includes(locationFilter));
             }
             if (statusFilter !== 'All Status') {
-                const searchStatus = statusFilter === 'Under Construction' ? 'ACTIVE' :
-                    statusFilter === 'Launched' ? 'ACTIVE' : statusFilter;
-                // Currently Pixxi sets all valid as 'ACTIVE', so manual map may be identical. 
-                // But we filter based on exact string if Pixxi provides varied statuses.
                 if (statusFilter !== 'Launched' && statusFilter !== 'Under Construction') {
-                    filteredItems = filteredItems.filter(p => p.status === searchStatus);
+                    filteredItems = filteredItems.filter(p => p.status === statusFilter);
                 }
             }
 
             setProperties(filteredItems);
-            setTotalItems(data.total || 0); // Note: total might visually drift slightly due to client side filtering
+            setTotalItems(data.total || 0);
             setTotalPages(data.totalPages || 1);
 
         } catch (err) {
-            setError('Unable to load new projects right now.');
+            setError(t('newProjectsPage.errorLoad'));
             setProperties([]);
         } finally {
             setIsLoading(false);
         }
     };
 
+    // Sync URL params into React state AND trigger fetch in one combined effect
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        let hasFilters = false;
+
+        if (params.has('search')) { setSearch(params.get('search')); setSearchInput(params.get('search')); hasFilters = true; }
+        if (params.has('propertyType')) { setPropertyType(params.get('propertyType')); hasFilters = true; }
+        if (params.has('bedrooms')) { setBedrooms(params.get('bedrooms')); hasFilters = true; }
+        if (params.has('priceRange')) { setPriceRange(params.get('priceRange')); hasFilters = true; }
+
+        fetchProperties(location.search);
+
+        if (hasFilters && resultsRef.current) {
+            setTimeout(() => {
+                const y = resultsRef.current.getBoundingClientRect().top + window.scrollY - 100;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }, 500);
+        }
+    }, [location.search]);
+
     useEffect(() => {
         fetchProperties();
-    }, [page, search, sortBy, developerFilter, locationFilter, statusFilter]);
+    }, [page, search, sortBy, developerFilter, locationFilter, statusFilter, propertyType, bedrooms, priceRange]);
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
@@ -121,9 +186,18 @@ const NewProjectsPage = () => {
     };
 
     const formatPrice = (price, currency = 'AED') => {
-        if (price === null || price === undefined || price === 0) return 'Price on Application';
-        const formattedPrice = new Intl.NumberFormat('en-AE').format(price);
-        return `${currency} ${formattedPrice}`;
+        if (price === null || price === undefined || price === 0) return t('newProjectsPage.priceOnApplication');
+        return globalFormatPrice(price, currency);
+    };
+
+    const renderWithAmp = (text) => {
+        if (!text || typeof text !== 'string') return text;
+        return text.split('&').map((part, i, arr) => (
+            <React.Fragment key={i}>
+                {part}
+                {i < arr.length - 1 && <span className="normal-amp">&</span>}
+            </React.Fragment>
+        ));
     };
 
     return (
@@ -131,13 +205,13 @@ const NewProjectsPage = () => {
             {/* Hero Section */}
             <section className="new-projects-hero">
                 <div className="np-hero-content">
-                    <span className="np-hero-label">Ophir New Projects</span>
-                    <h1 className="np-hero-title">Discover New & Off-Plan Developments</h1>
-                    <p className="np-hero-subtext">Explore carefully curated new launches, prime off-plan opportunities, and future-ready communities across the UAE.</p>
+                    <span className="np-hero-label">{renderWithAmp(t('newProjectsPage.heroLabel'))}</span>
+                    <h1 className="np-hero-title">{renderWithAmp(t('newProjectsPage.heroTitle'))}</h1>
+                    <p className="np-hero-subtext">{renderWithAmp(t('newProjectsPage.heroSubtext'))}</p>
                     <div className="np-hero-highlights">
-                        <span>Off-plan launches</span>
-                        <span>Flexible payment plans</span>
-                        <span>Visionary architecture</span>
+                        <span>{t('newProjectsPage.stat1')}</span>
+                        <span>{t('newProjectsPage.stat2')}</span>
+                        <span>{t('newProjectsPage.stat3')}</span>
                     </div>
                 </div>
             </section>
@@ -146,13 +220,13 @@ const NewProjectsPage = () => {
             <section className="np-filters-container">
                 <form className="np-filters-grid" onSubmit={handleSearchSubmit}>
                     <div className="np-filter-group search-group">
-                        <label className="np-filter-label">Search</label>
+                        <label className="np-filter-label">{t('newProjectsPage.filterSearch')}</label>
                         <div className="np-input-wrapper">
                             <Search size={18} className="np-search-icon" />
                             <input
                                 type="text"
                                 className="np-filter-input with-icon"
-                                placeholder="Search by project name or keyword..."
+                                placeholder={t('newProjectsPage.filterPlaceholder')}
                                 value={searchInput}
                                 onChange={(e) => setSearchInput(e.target.value)}
                             />
@@ -160,9 +234,9 @@ const NewProjectsPage = () => {
                     </div>
 
                     <div className="np-filter-group">
-                        <label className="np-filter-label">Developer</label>
+                        <label className="np-filter-label">{t('newProjectsPage.filterDeveloper')}</label>
                         <select className="np-filter-select" value={developerFilter} onChange={handleFilterChange(setDeveloperFilter)}>
-                            <option>All Developers</option>
+                            <option value="All Developers">{t('newProjectsPage.optAllDev')}</option>
                             {availableDevelopers.map(dev => (
                                 <option key={dev} value={dev}>{dev}</option>
                             ))}
@@ -170,9 +244,9 @@ const NewProjectsPage = () => {
                     </div>
 
                     <div className="np-filter-group">
-                        <label className="np-filter-label">Location</label>
+                        <label className="np-filter-label">{t('newProjectsPage.filterLocation')}</label>
                         <select className="np-filter-select" value={locationFilter} onChange={handleFilterChange(setLocationFilter)}>
-                            <option>All Locations</option>
+                            <option value="All Locations">{t('newProjectsPage.optAllLoc')}</option>
                             {availableLocations.map(loc => (
                                 <option key={loc} value={loc}>{loc}</option>
                             ))}
@@ -180,12 +254,12 @@ const NewProjectsPage = () => {
                     </div>
 
                     <div className="np-filter-group">
-                        <label className="np-filter-label">Status</label>
+                        <label className="np-filter-label">{t('newProjectsPage.filterStatus')}</label>
                         <select className="np-filter-select" value={statusFilter} onChange={handleFilterChange(setStatusFilter)}>
-                            <option>All Status</option>
-                            <option>Launched</option>
-                            <option>Under Construction</option>
-                            <option>Completed</option>
+                            <option value="All Status">{t('newProjectsPage.optAllStatus')}</option>
+                            <option value="Launched">{t('newProjectsPage.optLaunched')}</option>
+                            <option value="Under Construction">{t('newProjectsPage.optUnderConst')}</option>
+                            <option value="Completed">{t('newProjectsPage.optCompleted')}</option>
                         </select>
                     </div>
                 </form>
@@ -195,15 +269,15 @@ const NewProjectsPage = () => {
             <section className="np-content" ref={resultsRef}>
                 <div className="np-results-header">
                     <div className="np-results-count">
-                        Showing <span>{properties.length > 0 ? ((page - 1) * 12 + 1) : 0} - {Math.min(page * 12, totalItems)}</span> of <span>{totalItems}</span> Off-Plan Projects
+                        {t('newProjectsPage.showing')} <span>{properties.length > 0 ? ((page - 1) * 12 + 1) : 0} - {Math.min(page * 12, totalItems)}</span> {t('newProjectsPage.of')} <span>{totalItems}</span> {t('newProjectsPage.resultsLabel')}
                     </div>
                     <div className="np-sort-group">
-                        <label className="np-filter-label">Sort By:</label>
+                        <label className="np-filter-label">{t('newProjectsPage.sortBy')}</label>
                         <select className="np-filter-select" value={sortBy} onChange={handleFilterChange(setSortBy)}>
-                            <option>Newest Launches</option>
-                            <option>Price: Low to High</option>
-                            <option>Price: High to Low</option>
-                            <option>Handover: Soonest First</option>
+                            <option value="Newest Launches">{t('newProjectsPage.sortNewest')}</option>
+                            <option value="Price: Low to High">{t('newProjectsPage.sortPriceLow')}</option>
+                            <option value="Price: High to Low">{t('newProjectsPage.sortPriceHigh')}</option>
+                            <option value="Handover: Soonest First">{t('newProjectsPage.sortHandover')}</option>
                         </select>
                     </div>
                 </div>
@@ -211,7 +285,7 @@ const NewProjectsPage = () => {
                 {isLoading ? (
                     <div className="loading-state">
                         <div className="loading-spinner"></div>
-                        <p>Loading premier developments...</p>
+                        <p>{t('newProjectsPage.loading')}</p>
                     </div>
                 ) : error ? (
                     <div className="empty-state">
@@ -219,7 +293,7 @@ const NewProjectsPage = () => {
                     </div>
                 ) : properties.length === 0 ? (
                     <div className="empty-state">
-                        <p>No new projects match your exact selection. Try adjusting your filters.</p>
+                        <p>{t('newProjectsPage.noResults')}</p>
                     </div>
                 ) : (
                     <>
@@ -234,7 +308,7 @@ const NewProjectsPage = () => {
                                             <div className="np-card-overlay"></div>
 
                                             <div className="np-card-badges">
-                                                <span className="np-badge-primary">New Project</span>
+                                                <span className="np-badge-primary">{t('newProjectsPage.badgeNew')}</span>
                                                 {property.labels && property.labels.length > 0 && (
                                                     <span className="np-badge-secondary">{property.labels[0]}</span>
                                                 )}
@@ -251,7 +325,7 @@ const NewProjectsPage = () => {
 
                                         <div className="np-card-body">
                                             {property.developerName && (
-                                                <div className="np-card-developer">By {property.developerName}</div>
+                                                <div className="np-card-developer">{t('newProjectsPage.by')} {property.developerName}</div>
                                             )}
 
                                             <div className="np-card-location">
@@ -262,7 +336,7 @@ const NewProjectsPage = () => {
                                             <h3 className="np-card-title">{property.title}</h3>
 
                                             <div className="np-card-price">
-                                                <span className="np-price-label">Starting From</span>
+                                                <span className="np-price-label">{t('newProjectsPage.startingFrom')}</span>
                                                 {formatPrice(property.price, property.currency)}
                                             </div>
 
@@ -270,19 +344,19 @@ const NewProjectsPage = () => {
                                                 {property.handoverDate && (
                                                     <div className="np-feature-chip active">
                                                         <Calendar size={15} />
-                                                        <span>Handover {property.handoverDate}</span>
+                                                        <span>{t('newProjectsPage.handover')} {property.handoverDate}</span>
                                                     </div>
                                                 )}
                                                 {property.status && (
                                                     <div className="np-feature-chip">
                                                         <Pickaxe size={15} />
-                                                        <span>{property.status === 'ACTIVE' ? 'Launched' : property.status}</span>
+                                                        <span>{property.status === 'ACTIVE' ? t('newProjectsPage.launched') : property.status}</span>
                                                     </div>
                                                 )}
                                                 {property.bedroomRange && (
                                                     <div className="np-feature-chip">
                                                         <Bed size={15} />
-                                                        <span>{property.bedroomRange} Beds</span>
+                                                        <span>{property.bedroomRange} {t('newProjectsPage.bed')}</span>
                                                     </div>
                                                 )}
                                             </div>
@@ -294,10 +368,10 @@ const NewProjectsPage = () => {
                                                     ) : (
                                                         <div className="np-agent-pic" style={{ backgroundColor: '#333' }}></div>
                                                     )}
-                                                    <span className="np-agent-name">{property.agentName || 'Ophir Advisory'}</span>
+                                                    <span className="np-agent-name">{property.agentName || t('newProjectsPage.ophirAdvisory')}</span>
                                                 </div>
-                                                <Link to={`/property/${property.id}`} className="np-card-btn">
-                                                    View Details
+                                                <Link to={`/${i18n.language}/property/${property.id}`} className="np-card-btn">
+                                                    {t('newProjectsPage.viewDetails')}
                                                     <ArrowRight size={16} />
                                                 </Link>
                                             </div>
@@ -314,7 +388,7 @@ const NewProjectsPage = () => {
                                     onClick={() => handlePageChange(page - 1)}
                                     disabled={page === 1}
                                 >
-                                    Previous
+                                    {t('newProjectsPage.previous')}
                                 </button>
 
                                 {Array.from({ length: totalPages }, (_, i) => i + 1)
@@ -336,7 +410,7 @@ const NewProjectsPage = () => {
                                     onClick={() => handlePageChange(page + 1)}
                                     disabled={page === totalPages}
                                 >
-                                    Next
+                                    {t('newProjectsPage.next')}
                                 </button>
                             </div>
                         )}

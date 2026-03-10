@@ -1,33 +1,37 @@
 import { Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
 import { ThemeProvider } from './ThemeContext';
+import { CurrencyProvider } from './context/CurrencyContext';
 import Home from './pages/Home';
 import About from './pages/About';
 import BuyPage from './pages/BuyPage';
 import RentPage from './pages/RentPage';
 import NewProjectsPage from './pages/NewProjectsPage';
+import ServicesPage from './pages/ServicesPage';
 import PropertyDetails from './pages/PropertyDetails';
 import ContactPage from './pages/ContactPage';
-import Footer from './components/Footer';
-import ScrollToTop from './components/ScrollToTop';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import LanguageWrapper from './components/LanguageWrapper';
+import LanguageRedirect from './components/LanguageRedirect';
 
 function App() {
   return (
     <ThemeProvider>
-      <ScrollToTop />
-      <Navbar />
-      <main>
+      <CurrencyProvider>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/buy" element={<BuyPage />} />
-          <Route path="/rent" element={<RentPage />} />
-          <Route path="/new-projects" element={<NewProjectsPage />} />
-          <Route path="/property/:id" element={<PropertyDetails />} />
+          <Route path="/" element={<LanguageRedirect />} />
+          <Route path="/:lang" element={<LanguageWrapper />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="contact" element={<ContactPage />} />
+            <Route path="buy" element={<BuyPage />} />
+            <Route path="rent" element={<RentPage />} />
+            <Route path="new-projects" element={<NewProjectsPage />} />
+            <Route path="services" element={<ServicesPage />} />
+            <Route path="privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="property/:id" element={<PropertyDetails />} />
+          </Route>
         </Routes>
-      </main>
-      <Footer />
+      </CurrencyProvider>
     </ThemeProvider>
   );
 }

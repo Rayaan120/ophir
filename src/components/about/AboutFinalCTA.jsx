@@ -1,21 +1,33 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import './About.css';
 
 const AboutFinalCTA = () => {
+    const { t } = useTranslation();
+    const renderWithAmp = (text) => {
+        if (!text || typeof text !== 'string') return text;
+        return text.split('&').map((part, i, arr) => (
+            <React.Fragment key={i}>
+                {part}
+                {i < arr.length - 1 && <span className="normal-amp">&</span>}
+            </React.Fragment>
+        ));
+    };
+
     return (
         <section className="about-final-cta">
             <div className="about-final-overlay"></div>
 
             <div className="about-final-content">
-                <span className="final-cta-label">Partner With Ophir</span>
-                <h2 className="final-cta-title">Begin Your Strategic Property Journey</h2>
+                <span className="final-cta-label">{renderWithAmp(t('aboutFinalCTA.label'))}</span>
+                <h2 className="final-cta-title">{renderWithAmp(t('aboutFinalCTA.title'))}</h2>
                 <p className="final-cta-desc">
-                    Connect with our advisory team to discuss tailored opportunities and long-term investment strategies in the UAE's most exclusive markets.
+                    {renderWithAmp(t('aboutFinalCTA.desc'))}
                 </p>
 
                 <div className="final-cta-actions">
-                    <button className="gold-filled-btn">Schedule a Consultation</button>
-                    <button className="gold-outline-btn">Explore Properties</button>
+                    <button className="gold-filled-btn">{t('aboutFinalCTA.schedule')}</button>
+                    <button className="gold-outline-btn">{t('aboutFinalCTA.explore')}</button>
                 </div>
             </div>
         </section>

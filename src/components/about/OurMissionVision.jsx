@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Compass, Eye, Sparkles } from 'lucide-react';
 import './About.css';
 
 const OurMissionVision = () => {
+    const { t } = useTranslation();
     const containerRef = useRef(null);
 
     const handleMouseMove = (e) => {
@@ -12,6 +14,16 @@ const OurMissionVision = () => {
         const y = e.clientY - rect.top;
         containerRef.current.style.setProperty('--mouse-x', `${x}px`);
         containerRef.current.style.setProperty('--mouse-y', `${y}px`);
+    };
+
+    const renderWithAmp = (text) => {
+        if (!text || typeof text !== 'string') return text;
+        return text.split('&').map((part, i, arr) => (
+            <React.Fragment key={i}>
+                {part}
+                {i < arr.length - 1 && <span className="normal-amp">&</span>}
+            </React.Fragment>
+        ));
     };
 
     return (
@@ -28,31 +40,13 @@ const OurMissionVision = () => {
                 <div className="ethereal-header text-center">
                     <div className="ethereal-badge">
                         <Sparkles size={14} />
-                        <span>Core Identity</span>
+                        <span>{renderWithAmp(t('missionVision.badge'))}</span>
                     </div>
-                    <h2 className="section-title">The Foundation</h2>
+                    <h2 className="section-title">{renderWithAmp(t('missionVision.title'))}</h2>
+                    <p className="ethereal-quote">{renderWithAmp(t('missionVision.quote'))}</p>
                 </div>
 
                 <div className="ethereal-cards-wrapper">
-
-                    {/* Mission Card */}
-                    <div className="ethereal-card mission-card">
-                        <div className="card-border-glow"></div>
-                        <div className="card-content">
-                            <div className="card-icon-wrapper">
-                                <Compass size={32} className="ethereal-icon" />
-                            </div>
-                            <h3 className="card-title">Our Mission</h3>
-                            <p className="card-desc">
-                                To deliver intelligent, strategic real estate advisory that goes beyond transactions. We aim to curate high-performing assets across the UAE while building enduring client relationships founded on profound trust, insight, and uncompromised integrity.
-                            </p>
-                            <ul className="card-list">
-                                <li>Strategic, data-driven real estate advisory</li>
-                                <li>Curating high-performing asset portfolios</li>
-                                <li>Building enduring client relationships</li>
-                            </ul>
-                        </div>
-                    </div>
 
                     {/* Vision Card */}
                     <div className="ethereal-card vision-card">
@@ -61,15 +55,24 @@ const OurMissionVision = () => {
                             <div className="card-icon-wrapper">
                                 <Eye size={32} className="ethereal-icon" />
                             </div>
-                            <h3 className="card-title">Our Vision</h3>
+                            <h3 className="card-title">{t('missionVision.visionTitle')}</h3>
                             <p className="card-desc">
-                                To become the leading and most trusted independent strategic property advisory in the UAE. We strive to continually set new standards for intelligent investment guidance, redefining luxury real estate relationships through long-term value creation.
+                                {t('missionVision.visionDesc')}
                             </p>
-                            <ul className="card-list">
-                                <li>Leading independent property advisory</li>
-                                <li>Setting new standards for investment guidance</li>
-                                <li>Redefining luxury through long-term value</li>
-                            </ul>
+                        </div>
+                    </div>
+
+                    {/* Mission Card */}
+                    <div className="ethereal-card mission-card">
+                        <div className="card-border-glow"></div>
+                        <div className="card-content">
+                            <div className="card-icon-wrapper">
+                                <Compass size={32} className="ethereal-icon" />
+                            </div>
+                            <h3 className="card-title">{t('missionVision.missionTitle')}</h3>
+                            <p className="card-desc">
+                                {t('missionVision.missionDesc')}
+                            </p>
                         </div>
                     </div>
 

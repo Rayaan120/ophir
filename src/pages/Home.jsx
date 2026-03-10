@@ -6,6 +6,7 @@ import TrustedPartners from '../components/TrustedPartners';
 import HowItWorks from '../components/HowItWorks';
 import TestimonialsSection from '../components/TestimonialsSection';
 import HotProperties from '../components/HotProperties';
+import InstagramFeed from '../components/InstagramFeed';
 import FinalCTA from '../components/FinalCTA';
 
 const Home = () => {
@@ -18,6 +19,7 @@ const Home = () => {
             <TrustedPartners />
             <HowItWorks />
             <TestimonialsSection />
+            <InstagramFeed variant="premium" />
             <FinalCTA />
         </>
     );

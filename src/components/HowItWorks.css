@@ -1,55 +1,18 @@
 .process-section {
     background-color: var(--bg-lighter);
-}
-
-.process-wrapper {
     position: relative;
-    min-height: 650px;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
-.process-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    z-index: 1;
+.process-header-centered {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px;
 }
 
-.process-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.7) 100%);
-    z-index: 2;
-    transition: background 0.3s ease;
-}
-
-[data-theme='light'] .process-overlay {
-    background: linear-gradient(90deg, rgba(247, 245, 242, 0.95) 0%, rgba(247, 245, 242, 0.7) 100%);
-}
-
-.process-content-area {
-    position: relative;
-    z-index: 3;
-    display: flex;
-    width: 100%;
-    padding: 60px;
-    gap: 60px;
-    align-items: center;
-}
-
-/* Left side */
-.process-info {
-    flex: 0 0 400px;
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .gold-accent-line {
@@ -59,113 +22,162 @@
     margin-bottom: 24px;
 }
 
-.process-info .section-title {
-    font-size: 2.8rem;
-    margin-bottom: 20px;
+.process-header-centered .section-title {
+    font-size: 3.2rem;
+    margin-bottom: 24px;
     line-height: 1.1;
     color: var(--text-main);
+    font-weight: 300;
 }
 
 .process-desc {
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 32px;
+    line-height: 1.7;
 }
 
-/* Right side */
-.process-cards {
-    flex: 1;
-    display: flex;
-    gap: 20px;
-    padding: 30px;
+.process-phases-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.phase-card-landscape {
+    background: rgba(15, 15, 15, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: var(--radius-lg);
-}
-
-.process-card {
-    flex: 1;
-    background: rgba(10, 10, 10, 0.85);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 30px 24px;
-    transition: transform var(--transition-slow), box-shadow var(--transition-slow), background 0.3s ease;
-}
-
-[data-theme='light'] .process-card {
-    background: rgba(255, 255, 255, 0.85);
-}
-
-.process-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-    border-color: rgba(212, 175, 55, 0.2);
-}
-
-.step-header {
+    padding: 40px;
+    transition: all 0.4s ease;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 24px;
+    flex-direction: column;
 }
 
-.step-id {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
+.phase-card-landscape:hover {
+    background: rgba(20, 20, 20, 0.5);
+    border-color: rgba(212, 175, 55, 0.2);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.phase-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.phase-id {
+    font-size: 0.8rem;
     color: var(--gold-primary);
-    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     font-weight: 600;
 }
 
-.step-icon {
-    width: 50px;
-    height: 50px;
-    background: rgba(212, 175, 55, 0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.phase-title {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: var(--text-main);
+    font-weight: 300;
+    line-height: 1.2;
 }
 
-.process-card h3 {
-    font-family: var(--font-body);
-    font-size: 1.1rem;
-    margin-bottom: 12px;
+.phase-points {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.phase-subpoint {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.subpoint-title {
+    font-size: 1.05rem;
     font-weight: 600;
     color: var(--text-main);
+    font-family: var(--font-body);
 }
 
-.process-card p {
-    color: var(--text-muted);
+.subpoint-text {
     font-size: 0.9rem;
-    line-height: 1.5;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.process-actions {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.process-footer-note {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--gold-primary);
+    opacity: 0.8;
+}
+
+/* Light Mode */
+[data-theme='light'] .phase-card-landscape {
+    background: rgba(255, 255, 255, 0.6);
+    border-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .subpoint-text {
+    color: #555;
+}
+
+[data-theme='light'] .process-footer-note {
+    color: #b8860b;
+    opacity: 1;
+}
+
+/* Cylindrical button for schedule consultation */
+.process-actions .btn-primary {
+    border-radius: 100px;
+    /* fully rounded */
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.process-actions .btn-primary:hover {
+    transform: translateY(-2px);
+    background-color: var(--gold-primary);
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
-    .process-content-area {
-        flex-direction: column;
-        padding: 40px;
+@media (max-width: 1200px) {
+    .process-phases-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .process-header-centered .section-title {
+        font-size: 2.5rem;
     }
 
-    .process-info {
-        flex: none;
-        width: 100%;
-        margin-bottom: 20px;
-    }
-
-    .process-cards {
-        width: 100%;
-        flex-direction: column;
-    }
-
-    .process-card {
-        display: flex;
-        flex-direction: column;
+    .process-phases-row {
+        grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 768px) {
-    .process-wrapper {
-        min-height: auto;
+    .process-header-centered .section-title {
+        font-size: 2.2rem;
     }
 }

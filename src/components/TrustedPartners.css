@@ -69,6 +69,8 @@
     width: 100%;
     overflow: hidden;
     position: relative;
+    /* Force LTR so the marquee scrolls correctly even in RTL (Arabic) page direction */
+    direction: ltr;
     -webkit-mask: linear-gradient(90deg, transparent, var(--bg-color) 10%, var(--bg-color) 90%, transparent);
     mask: linear-gradient(90deg, transparent, var(--bg-color) 10%, var(--bg-color) 90%, transparent);
 }
@@ -76,7 +78,7 @@
 .partners-carousel-area[data-animated="true"] .partners-track-inner {
     width: max-content;
     flex-wrap: nowrap;
-    animation: scroll 30s linear infinite;
+    animation: scroll 60s linear infinite;
 }
 
 .partners-carousel-area:hover .partners-track-inner {
@@ -87,20 +89,22 @@
     display: flex;
     gap: 30px;
     padding: 10px 0;
+    direction: ltr;
 }
 
 /* Card Modernization */
 .partner-card {
     flex-shrink: 0;
-    width: 220px;
-    height: 120px;
+    width: 240px;
+    height: 130px;
     position: relative;
     border-radius: var(--radius-sm);
-    background: rgba(15, 15, 15, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    background: #ffffff;
+    border: 1px solid rgba(212, 175, 55, 0.15);
     overflow: hidden;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    direction: ltr;
 }
 
 .partner-card-inner {
@@ -115,14 +119,17 @@
     backdrop-filter: blur(5px);
 }
 
-.partner-logo-text {
-    font-family: var(--font-body);
-    font-weight: 600;
-    font-size: 1.25rem;
-    color: var(--text-muted);
-    letter-spacing: 3px;
-    transition: all 0.4s ease;
+.partner-logo-img {
+    width: 85%;
+    height: 85%;
+    object-fit: contain;
+    opacity: 1;
+    filter: none;
+    transition: transform 0.4s ease;
     z-index: 2;
+    user-select: none;
+    pointer-events: none;
+    display: block;
 }
 
 .glow-effect {
@@ -138,14 +145,14 @@
 
 .partner-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(212, 175, 55, 0.3);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(212, 175, 55, 0.1) inset;
-    background: rgba(20, 20, 20, 0.9);
+    border-color: rgba(212, 175, 55, 0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(212, 175, 55, 0.15) inset;
+    background: #ffffff;
 }
 
 [data-theme='light'] .partner-card {
     background: #ffffff;
-    border-color: rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.08);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
@@ -155,19 +162,13 @@
     border-color: var(--gold-primary);
 }
 
-.partner-card:hover .partner-logo-text {
-    color: var(--gold-primary);
-    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-    transform: scale(1.05);
+.partner-card:hover .partner-logo-img {
+    transform: scale(1.06);
 }
 
-[data-theme='light'] .partner-logo-text {
-    color: #111111;
-}
-
-[data-theme='light'] .partner-card:hover .partner-logo-text {
-    color: var(--gold-primary);
-    text-shadow: none;
+[data-theme='light'] .partner-logo-img {
+    filter: none;
+    opacity: 1;
 }
 
 .partner-card:hover .glow-effect {
@@ -212,7 +213,7 @@
     }
 
     .partner-card {
-        width: 180px;
-        height: 100px;
+        width: 190px;
+        height: 110px;
     }
 }
