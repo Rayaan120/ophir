@@ -19,6 +19,7 @@ dist-ssr
 !eslintrc.json
 !jsconfig.json
 !tsconfig.json
+!src/locales/**/*.json
 
 # Editor directories and files
 .vscode/*
