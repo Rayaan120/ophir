@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Heart, MapPin, Calendar, Building2, ArrowRight, Search, Pickaxe, Bed } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import './NewProjectsPage.css';
+import './ListingCTA.css';
 
 const NewProjectsPage = () => {
     const { t, i18n } = useTranslation();
+    const navigate = useNavigate();
     // States
     const [properties, setProperties] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -416,6 +418,26 @@ const NewProjectsPage = () => {
                         )}
                     </>
                 )}
+            </section>
+
+            {/* SEO Listing CTA */}
+            <section className="listing-final-cta">
+                <div className="cta-overlay"></div>
+                <div className="cta-container">
+                    <div className="cta-content">
+                        <span className="cta-label">{t('newProjectsPage.cta.label')}</span>
+                        <h2 className="cta-title">{t('newProjectsPage.cta.title')}</h2>
+                        <p className="cta-desc">{t('newProjectsPage.cta.desc')}</p>
+                        <div className="cta-buttons">
+                            <button className="gold-filled-btn" onClick={() => navigate(`/${i18n.language}/contact`)}>
+                                {t('newProjectsPage.cta.btn1')}
+                            </button>
+                            <button className="gold-outline-btn" onClick={() => window.open('https://wa.me/971000000000', '_blank')}>
+                                {t('newProjectsPage.cta.btn2')}
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     );

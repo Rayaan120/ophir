@@ -1,9 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import './About.css';
 
 const AboutFinalCTA = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const navigate = useNavigate();
+    const lang = i18n.language || 'en';
+
     const renderWithAmp = (text) => {
         if (!text || typeof text !== 'string') return text;
         return text.split('&').map((part, i, arr) => (
@@ -26,8 +30,8 @@ const AboutFinalCTA = () => {
                 </p>
 
                 <div className="final-cta-actions">
-                    <button className="gold-filled-btn">{t('aboutFinalCTA.schedule')}</button>
-                    <button className="gold-outline-btn">{t('aboutFinalCTA.explore')}</button>
+                    <button className="gold-filled-btn" onClick={() => navigate(`/${lang}/contact`)}>{t('aboutFinalCTA.schedule')}</button>
+                    <button className="gold-outline-btn" onClick={() => navigate(`/${lang}/new-projects`)}>{t('aboutFinalCTA.explore')}</button>
                 </div>
             </div>
         </section>

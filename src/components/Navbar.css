@@ -100,7 +100,7 @@
     bottom: 0;
     left: 0;
     width: 0%;
-    height: 1px;
+    height: 2px;
     background-color: var(--gold-primary);
     transition: width var(--transition-fast);
 }
@@ -111,6 +111,11 @@
 
 .nav-link:hover {
     color: var(--gold-hover);
+}
+
+[data-theme='light'] .navbar-scrolled .nav-link:not(.gold-text) {
+    color: #000000;
+    font-weight: 600;
 }
 
 [data-theme='light'] .navbar:not(.navbar-scrolled) .nav-link:not(.gold-text) {
@@ -131,6 +136,23 @@
 
 .nav-link.gold-text::after {
     display: none;
+}
+
+.nav-link.active {
+    color: var(--gold-primary);
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.nav-link.active::after {
+    width: 100%;
+}
+
+.mobile-nav-link.active {
+    color: var(--gold-primary);
+    border-bottom: 2px solid var(--gold-primary);
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
 }
 
 /* Right Actions */
@@ -159,6 +181,10 @@
 
 [data-theme='light'] .navbar:not(.navbar-scrolled) .nav-action-icon:hover {
     color: var(--gold-hover);
+}
+
+[data-theme='light'] .navbar-scrolled .nav-action-icon {
+    color: #000000;
 }
 
 .badge {
@@ -217,6 +243,10 @@
 
 .lang-btn:hover {
     color: var(--gold-hover);
+}
+
+[data-theme='light'] .navbar-scrolled .lang-btn:not(.active) {
+    color: #000000;
 }
 
 .lang-btn.active {

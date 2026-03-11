@@ -12,7 +12,7 @@
     align-items: center;
     justify-content: flex-start;
     padding: 120px 5% 0;
-    background-image: url('/Dubai Design District 7.jpg');
+    background-image: url('/Palace Residences Creek Blue.jpg');
     background-size: cover;
     background-position: center;
 }
@@ -23,8 +23,6 @@
     content: '';
     position: absolute;
     inset: 0;
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
     background: linear-gradient(to right, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.4) 100%);
     z-index: 1;
 }

@@ -50,6 +50,13 @@ const Navbar = () => {
     return `/${currentLang}${path === '/' ? '' : path}`;
   };
 
+  const isActive = (path) => {
+    if (!path) return false;
+    const fullPath = getPath(path);
+    if (path === '/') return location.pathname === fullPath || location.pathname === `/${currentLang}`;
+    return location.pathname === fullPath || location.pathname.startsWith(`${fullPath}/`);
+  };
+
   return (
     <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
       <div className="navbar-container">
@@ -70,7 +77,7 @@ const Navbar = () => {
                 <LinkEl
                   to={getPath(link.path)}
                   href={!link.path ? '#' : undefined}
-                  className={`nav-link ${link.highlight ? 'gold-text' : ''}`}
+                  className={`nav-link ${link.highlight ? 'gold-text' : ''} ${isActive(link.path) ? 'active' : ''}`}
                 >
                   {link.name}
                   {link.isDropdown && <ChevronDown size={14} className="dropdown-icon" />}
@@ -160,7 +167,7 @@ const Navbar = () => {
                 key={idx}
                 to={getPath(link.path)}
                 href={!link.path ? '#' : undefined}
-                className={`mobile-nav-link ${link.highlight ? 'gold-text' : ''}`}
+                className={`mobile-nav-link ${link.highlight ? 'gold-text' : ''} ${isActive(link.path) ? 'active' : ''}`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}

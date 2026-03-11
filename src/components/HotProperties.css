@@ -91,15 +91,15 @@
 }
 
 .filter-tab.active {
-    background: #f1ebd7;
-    color: #bfa044;
-    border: 1px solid rgba(191, 160, 68, 0.1);
+    background: #bfa044;
+    color: #ffffff;
+    border: 1px solid rgba(191, 160, 68, 0.2);
 }
 
 [data-theme='dark'] .filter-tab.active {
-    background: rgba(212, 175, 55, 0.2);
-    color: #d4af37;
-    border-color: rgba(212, 175, 55, 0.3);
+    background: #d4af37;
+    color: #ffffff;
+    border-color: #d4af37;
 }
 
 /* Grid */

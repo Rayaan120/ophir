@@ -175,7 +175,7 @@
         "title2": "Starts with Ophir.",
         "desc": "Experience personalized advisory and gain access to curated opportunities that align perfectly with your wealth preservation and growth goals.",
         "btn1": "Book a Free Consultation",
-        "btn2": "Start Your Investment Journey"
+        "btn2": "Get in Touch on WhatsApp"
     },
     "aboutHero": {
         "title": "About Our Company",
@@ -196,8 +196,8 @@
         "label": "Partner with Ophir",
         "title": "Begin Your Strategic Property Journey",
         "desc": "Connect with our advisory team to discuss tailored opportunities and long-term investment strategies in the UAE's most exclusive markets.",
-        "schedule": "Schedule a Consultation",
-        "explore": "Explore Properties"
+        "schedule": "Speak to an Investment Advisor",
+        "explore": "Access Pre-Market Off-Plan Deals"
     },
     "coreValues": {
         "title": "Our Core Values",
@@ -361,9 +361,15 @@
         "bath": "Bath",
         "sqft": "Sqft",
         "viewDetails": "View Details",
-        "previous": "Previous",
         "next": "Next",
-        "ophirConsultant": "Ophir Consultant"
+        "ophirConsultant": "Ophir Consultant",
+        "cta": {
+            "label": "Luxury Properties for Sale",
+            "title": "Build Your Portfolio with UAE Wealth-Generating Assets",
+            "desc": "Gain exclusive access to off-market listings and premium residential estates. Our strategic advisory ensures your capital is placed in high-growth districts.",
+            "btn1": "Consult Our Strategic Partners",
+            "btn2": "Chat with an Expert on WhatsApp"
+        }
     },
     "rentPage": {
         "heroLabel": "Ophir Rentals",
@@ -395,9 +401,15 @@
         "bed": "Bed",
         "bath": "Bath",
         "sqft": "Sqft",
-        "viewDetails": "View Details",
         "previous": "Previous",
-        "next": "Next"
+        "next": "Next",
+        "cta": {
+            "label": "Premium Rental Homes",
+            "title": "Secure an Exclusive Residence in Dubai's Finest Communities",
+            "desc": "From waterfront penthouses to private garden villas, explore curated rentals that define sophisticated living in the Middle East.",
+            "btn1": "Schedule a Call",
+            "btn2": "Chat with an Expert on WhatsApp"
+        }
     },
     "newProjectsPage": {
         "heroLabel": "Ophir New Projects",
@@ -438,7 +450,14 @@
         "previous": "Previous",
         "next": "Next",
         "priceOnApplication": "Price on Application",
-        "ophirAdvisory": "Ophir Advisory"
+        "ophirAdvisory": "Ophir Advisory",
+        "cta": {
+            "label": "Off-Plan Investment Opportunities",
+            "title": "First-Mover Advantage in Visionary UAE Developments",
+            "desc": "Secure your stake in the future of Dubai and Abu Dhabi. Gain priority access to high-yield releases and flexible developer payment plans.",
+            "btn1": "Invest in UAE Real Estate Today",
+            "btn2": "Chat with an Expert on WhatsApp"
+        }
     },
     "servicesPage": {
         "heroLabel": "Our Services",
@@ -499,8 +518,8 @@
         "ctaTitleGold": "Ophir",
         "ctaWith": "With",
         "ctaSubtitle": "Speak with one of our specialized advisors to uncover the most strategic property opportunities in the UAE.",
-        "ctaBtn1": "Schedule a Consultation",
-        "ctaBtn2": "Browse Projects"
+        "ctaBtn1": "Request a Priority Callback",
+        "ctaBtn2": "Find Your Dream Property in Dubai"
     },
     "privacyPolicy": {
         "title": "Privacy Policy",

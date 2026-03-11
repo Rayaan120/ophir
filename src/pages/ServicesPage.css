@@ -400,6 +400,7 @@
 .bento-item:hover .bento-bg-image {
     opacity: 1;
     transform: scale(1);
+    filter: grayscale(0.1) contrast(1.1) brightness(0.6);
 }
 
 .bento-overlay {
@@ -407,7 +408,11 @@
     inset: 0;
     background: linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(20, 20, 20, 0.7) 100%);
     z-index: 2;
-    transition: opacity 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.bento-item:hover .bento-overlay {
+    opacity: 0.6;
 }
 
 [data-theme='light'] .bento-overlay {
@@ -415,11 +420,11 @@
 }
 
 .bento-item:hover .bento-overlay {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%);
+    background: linear-gradient(135deg, rgba(8, 8, 8, 0.9) 0%, rgba(212, 175, 55, 0.4) 100%);
 }
 
 [data-theme='light'] .bento-item:hover .bento-overlay {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.7) 0%, rgba(255, 255, 255, 0.9) 100%);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(212, 175, 55, 0.3) 100%);
 }
 
 /* Content Layout */
@@ -487,11 +492,8 @@
 }
 
 .bento-item:hover .bento-title {
-    color: #fff;
-}
-
-[data-theme='light'] .bento-item:hover .bento-title {
-    color: var(--text-dark);
+    color: #ffffff !important;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
 .bento-description {
@@ -504,11 +506,8 @@
 }
 
 .bento-item:hover .bento-description {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-[data-theme='light'] .bento-item:hover .bento-description {
-    color: rgba(0, 0, 0, 0.8);
+    color: #ffffff !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
 }
 
 /* Footer & CTA */

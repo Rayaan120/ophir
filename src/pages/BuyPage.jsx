@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Heart, MapPin, Bed, Bath, Maximize, ArrowRight, Search } from 'lucide-react';
 import { useCurrency } from '../context/CurrencyContext';
 import './BuyPage.css';
+import './ListingCTA.css';
 
 const BuyPage = () => {
     const { t, i18n } = useTranslation();
+    const navigate = useNavigate();
     // States
     const [properties, setProperties] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -361,6 +363,26 @@ const BuyPage = () => {
                         )}
                     </>
                 )}
+            </section>
+            
+            {/* SEO Listing CTA */}
+            <section className="listing-final-cta">
+                <div className="cta-overlay"></div>
+                <div className="cta-container">
+                    <div className="cta-content">
+                        <span className="cta-label">{t('buyPage.cta.label')}</span>
+                        <h2 className="cta-title">{t('buyPage.cta.title')}</h2>
+                        <p className="cta-desc">{t('buyPage.cta.desc')}</p>
+                        <div className="cta-buttons">
+                            <button className="gold-filled-btn" onClick={() => navigate(`/${i18n.language}/contact`)}>
+                                {t('buyPage.cta.btn1')}
+                            </button>
+                            <button className="gold-outline-btn" onClick={() => window.open('https://wa.me/971000000000', '_blank')}>
+                                {t('buyPage.cta.btn2')}
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     );
