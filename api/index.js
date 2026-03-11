@@ -15,7 +15,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// API Route to fetch properties from PixxiCRM (Handle both /api and direct paths for Vercel robustness)
+// API Route to fetch properties from PixxiCRM
 app.get(['/api/properties', '/properties'], async (req, res) => {
     try {
         const isHot = req.query.hot === 'true';
@@ -56,6 +56,7 @@ app.get(['/api/properties', '/properties'], async (req, res) => {
 
         let items = rawProperties.map(prop => {
             const params = prop.sellParam || prop.rentParam || prop.newParam || {};
+            const agent = prop.agent || prop.portalAgent || {};
             const location = [prop.community, prop.cityName].filter(Boolean).join(', ');
 
             return {
@@ -75,8 +76,9 @@ app.get(['/api/properties', '/properties'], async (req, res) => {
                 mainImageUrl: (prop.photos && prop.photos.length > 0)
                     ? prop.photos[0]
                     : 'https://images.unsplash.com/photo-1613490901237-811550c604be?q=80&w=2000&auto=format&fit=crop',
-                agentName: prop.agent ? prop.agent.name : 'Ophir Agent',
-                agentAvatarUrl: (prop.agent && prop.agent.avatar) ? prop.agent.avatar : null,
+                agentName: agent.name || 'Ophir Agent',
+                agentPhone: agent.phone || '+97140000000',
+                agentAvatarUrl: agent.avatar || null,
                 listedOn: prop.createTime || prop.updateTime || null,
                 developerName: prop.developer || null,
                 status: prop.status || null,
@@ -85,7 +87,7 @@ app.get(['/api/properties', '/properties'], async (req, res) => {
             };
         });
 
-        // Apply Filtering (Same as local server.js)
+        // Filtering Logic
         const search = req.query.search?.toLowerCase();
         const propertyType = req.query.propertyType;
         const bedroomsFilter = req.query.bedrooms;
@@ -165,7 +167,6 @@ app.get(['/api/properties/:id', '/properties/:id'], async (req, res) => {
         if (!targetProperty) return res.status(404).json({ error: 'Property not found' });
 
         const property = normalizePropertyDetail(targetProperty);
-        console.log(`[Property Detail] ID: ${id}, Agent: ${property.listedBy}, Phone: ${property.agentPhone}`);
         return res.json(property);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch property details' });
@@ -183,7 +184,9 @@ function formatDynamicDetails(prop, params) {
         const customMap = {
             handoverTime: 'Handover Date',
             paymentPlan: 'Payment Plan',
-            bathrooms: 'Bathrooms'
+            bathrooms: 'Bathrooms',
+            occupancy: 'Occupancy Status',
+            cheques: 'Payment Terms'
         };
         return customMap[key] || key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
     };
@@ -193,7 +196,12 @@ function formatDynamicDetails(prop, params) {
         for (const [key, value] of Object.entries(params)) {
             if (ignoredKeys.includes(key)) continue;
             if (value === null || value === '' || value === undefined) continue;
-            details.push({ label: formatKey(key), value });
+            
+            let finalValue = value;
+            if (key === 'cheques' && typeof value === 'string' && !value.toLowerCase().includes('cheque')) {
+                finalValue = `${value} Cheques`;
+            }
+            details.push({ label: formatKey(key), value: finalValue });
         }
     }
     return details;
@@ -201,7 +209,9 @@ function formatDynamicDetails(prop, params) {
 
 function normalizePropertyDetail(prop) {
     const params = prop.sellParam || prop.rentParam || prop.newParam || {};
-    const agent = prop.agent || prop.portalAgent || {};
+    let agent = prop.agent;
+    if (!agent || !agent.phone) agent = prop.portalAgent || {};
+    
     const location = [prop.community, prop.cityName].filter(Boolean).join(', ');
 
     return {
@@ -218,18 +228,18 @@ function normalizePropertyDetail(prop) {
         bedrooms: prop.bedRooms || 0,
         bathrooms: params.bathrooms || 1,
         areaSqft: prop.size || 0,
-        labels: prop.propertyType || ['Exclusive'],
+        labels: prop.propertyType && prop.propertyType.length > 0 ? prop.propertyType : ['Exclusive'],
         agentPhone: agent.phone || '+97140000000',
         agentEmail: agent.email || 'info@ophir.ae',
+        agentAvatarUrl: agent.avatar || null,
         listedBy: agent.name || 'Ophir Agent'
     };
 }
 
-// Contact Form Submission (PixxiCRM Lead Integration)
+// Contact Form Submission
 app.post(['/api/contact', '/contact'], async (req, res) => {
     try {
         const { fullName, email, phone, interest, budget, message, areas, source, agentEmail, agentName } = req.body;
-
         if (!fullName || !email || !phone || !message) {
             return res.status(400).json({ error: 'Please provide all required fields.' });
         }
@@ -237,80 +247,88 @@ app.post(['/api/contact', '/contact'], async (req, res) => {
         const PIXXI_API_URL = (process.env.PIXXI_CRM_API_URL || 'https://dataapi.pixxicrm.ae').trim();
         const PIXXI_API_KEY = (process.env.PIXXI_CRM_API_KEY || '').trim();
 
-        // Standardized payload for PixxiCRM Webhooks
-        // Dynamic Form Logic: Use 'Property Booster' for Rent leads to ensure correct categorization
         const isRent = interest?.toLowerCase().includes('rent');
         const formId = isRent ? '45427db2-8760-4b4a-88a6-a244d7a91e35' : '6507a47f-9443-494c-a288-64381315f14b';
-        const formName = isRent ? 'Property Booster' : 'Ophir Properties Website Lead Form';
-
-        // Dynamic Subject Prefix Logic
-        let subjectPrefix = '';
-        const lowerInterest = interest?.toLowerCase() || '';
-
-        if (lowerInterest.includes('selling')) {
-            subjectPrefix = '[SELLER] ';
-        } else if (lowerInterest.includes('new projects') || lowerInterest.includes('off-plan')) {
-            subjectPrefix = '[NEW PROJECTS] ';
-        } else if (lowerInterest.includes('general')) {
-            subjectPrefix = '[GENERAL] ';
-        } else if (isRent) {
-            subjectPrefix = '[RENT] ';
-        } else {
-            subjectPrefix = '[BUY] ';
-        }
-
+        
         const webhookPayload = {
             name: fullName,
-            email: email,
-            phone: phone,
-            subject: `${subjectPrefix}Website Inquiry: ${interest || 'General'}`,
-            message: `Lead Details:
-- Interest: ${interest || 'N/A'}
-- Budget: ${budget || 'N/A'}
-- Preferred Areas: ${areas || 'N/A'}
-
-Message:
-${message}`,
+            email,
+            phone,
+            subject: `Website Inquiry: ${interest || 'General'}`,
+            message: `Lead Details:\n- Interest: ${interest}\n- Budget: ${budget}\n- Areas: ${areas}\n\nMessage:\n${message}`,
             source: source || 'Ophir Website',
             formId: formId,
-            formName: formName,
             date: new Date().toISOString(),
             assignedAgentEmail: agentEmail || null,
             assignedAgentName: agentName || null
         };
 
-        // For Rent leads, we MUST provide a propertyId to trigger the Rent Lead categorization in PixxiCRM
-        if (isRent) {
-            webhookPayload.propertyId = '1021201523387'; // Default rental property for categorization
-        }
+        if (isRent) webhookPayload.propertyId = '1021201523387';
 
-        console.log('Sending lead to PixxiCRM:', JSON.stringify(webhookPayload, null, 2));
-
-        const response = await axios.post(`${PIXXI_API_URL}/pixxiapi/webhook/v1/form`, webhookPayload, {
-            headers: {
-                'X-PIXXI-TOKEN': PIXXI_API_KEY,
-                'Content-Type': 'application/json'
-            },
-            timeout: 10000 // 10s timeout
+        await axios.post(`${PIXXI_API_URL}/pixxiapi/webhook/v1/form`, webhookPayload, {
+            headers: { 'X-PIXXI-TOKEN': PIXXI_API_KEY }
         });
 
-        console.log('PixxiCRM Response:', response.data);
-
-        res.json({ success: true, message: 'Thank you for your enquiry. An advisor will contact you shortly.' });
+        res.json({ success: true, message: 'Enquiry submitted' });
     } catch (error) {
-        console.error('Contact Form Error Details:');
-        if (error.response) {
-            // The request was made and the server responded with a status code
-            console.error('Status:', error.response.status);
-            console.error('Data:', JSON.stringify(error.response.data, null, 2));
-        } else if (error.request) {
-            // The request was made but no response was received
-            console.error('No response received from CRM API. Check network/URL.');
-        } else {
-            console.error('Error Message:', error.message);
+        res.status(500).json({ error: 'Submission failed' });
+    }
+});
+
+// Instagram Feed API (Secure Proxy)
+app.get(['/api/instagram/latest', '/instagram/latest'], async (req, res) => {
+    try {
+        const limit = req.query.limit || 3;
+        const accessToken = process.env.INSTAGRAM_ACCESS_TOKEN;
+        const feedUrl = process.env.INSTAGRAM_FEED_URL;
+
+        if (feedUrl) {
+            const response = await axios.get(feedUrl);
+            const rawPosts = Array.isArray(response.data) ? response.data : (response.data.posts || []);
+            const posts = rawPosts.slice(0, limit).map(post => {
+                const type = post.mediaType || post.media_type || 'IMAGE';
+                const proxiedUrl = post.sizes?.medium?.mediaUrl || post.sizes?.full?.mediaUrl;
+                const directUrl = post.mediaUrl || post.media_url;
+                const thumbUrl = post.thumbnailUrl || post.thumbnail_url;
+                const displayUrl = proxiedUrl || (type === 'VIDEO' ? (thumbUrl || directUrl) : directUrl) || thumbUrl;
+                return {
+                    id: post.id,
+                    mediaType: type,
+                    mediaUrl: displayUrl,
+                    permalink: post.permalink,
+                    caption: post.caption || '',
+                    timestamp: post.timestamp
+                };
+            });
+            return res.json(posts);
         }
 
-        res.status(500).json({ error: 'Failed to submit enquiry. Please try again or contact us via WhatsApp.' });
+        if (accessToken) {
+            const response = await axios.get(`https://graph.instagram.com/me/media`, {
+                params: {
+                    fields: 'id,caption,media_type,media_url,permalink,timestamp,thumbnail_url',
+                    access_token: accessToken,
+                    limit: limit
+                }
+            });
+            const posts = response.data.data.map(post => {
+                const type = post.media_type || 'IMAGE';
+                const displayUrl = type === 'VIDEO' ? (post.thumbnail_url || post.media_url) : post.media_url;
+                return {
+                    id: post.id,
+                    mediaType: type,
+                    mediaUrl: displayUrl,
+                    permalink: post.permalink,
+                    caption: post.caption || '',
+                    timestamp: post.timestamp
+                };
+            });
+            return res.json(posts);
+        }
+
+        return res.status(503).json({ error: 'Instagram not configured' });
+    } catch (error) {
+        res.status(500).json({ error: 'Instagram fetch failed' });
     }
 });
 
