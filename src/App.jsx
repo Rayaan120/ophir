@@ -10,6 +10,7 @@ import ServicesPage from './pages/ServicesPage';
 import PropertyDetails from './pages/PropertyDetails';
 import ContactPage from './pages/ContactPage';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import GlobalInsights from './pages/GlobalInsights';
 import LanguageWrapper from './components/LanguageWrapper';
 import LanguageRedirect from './components/LanguageRedirect';
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="services" element={<ServicesPage />} />
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
             <Route path="property/:id" element={<PropertyDetails />} />
+            <Route path="global-insights" element={<GlobalInsights />} />
           </Route>
         </Routes>
       </CurrencyProvider>

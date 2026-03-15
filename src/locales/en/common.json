@@ -216,28 +216,28 @@
         "title": "Meet Our Leadership",
         "desc": "At Ophir Properties, we understand that behind every high-profile transaction is a foundation of human trust. Every member of our team is meticulously chosen for their rare blend of specialized expertise and a character that refuses to compromise. Our global perspective spans over 10 languages and multiple cultural landscapes.",
         "viewBtn": "View Profile",
-        "m1Name": "Ziad Oueis",
+        "m1Name": "Ziad Oweiss",
         "m1Role": "Managing Partner",
         "m2Name": "Rami Farah",
         "m2Role": "Partner",
-        "m3Name": "Alexandra Tanasi",
-        "m3Role": "Operations Manager",
-        "m4Name": "Zaidoun Al-Shabibi",
-        "m4Role": "Associate Partner",
-        "m5Name": "Zilia Dionisio",
-        "m5Role": "Associate Partner",
-        "m6Name": "Nader Sousou",
-        "m6Role": "Associate Partner",
-        "m7Name": "Maan Al Dammour",
-        "m7Role": "Associate Partner",
+        "m3Name": "Alexandra Tanase",
+        "m3Role": "Operation Director",
+        "m4Name": "Zaydoon AlShabibi",
+        "m4Role": "Associated Partner",
+        "m5Name": "Zelia Dionisio",
+        "m5Role": "Associated Partner",
+        "m6Name": "Nader Soussou",
+        "m6Role": "Associated Partner",
+        "m7Name": "Maen AlDmour",
+        "m7Role": "Associated Partner",
         "m8Name": "Ivan Abreu",
-        "m8Role": "Associate Partner",
-        "m9Name": "Lea Rechetova",
-        "m9Role": "Property & Investment Consultant",
+        "m8Role": "Associated Partner",
+        "m9Name": "Lia Reshetova",
+        "m9Role": "Property and Investment Consultant",
         "m10Name": "Maryam Yousefi",
-        "m10Role": "Property & Investment Consultant",
-        "m11Name": "Başak Demir",
-        "m11Role": "Property & Investment Consultant"
+        "m10Role": "Property and Investment Consultant",
+        "m11Name": "Basak Demir",
+        "m11Role": "Property and Investment Consultant"
     },
     "ourStory": {
         "title": "Our Story: The Genesis of Ophir",
@@ -571,5 +571,175 @@
         "contactTitle": "10. Contact Us",
         "contactP1": "If you have any questions about this Privacy Policy, please contact us at:",
         "contactEmail": "info@ophir-properties.com"
+    },
+    "globalInsights": {
+        "hero": {
+            "label": "Institutional Research",
+            "title": "Global Property Market Insights",
+            "subtitle": "Strategic international real estate intelligence. Compare global markets with Dubai's unprecedented growth and tax advantages."
+        },
+        "tabs": {
+            "uk": "United Kingdom",
+            "us": "United States",
+            "eu": "European Markets",
+            "tr": "Turkey",
+            "au": "Australia",
+            "ca": "Canada",
+            "kr": "South Korea"
+        },
+        "placeholder": {
+            "title": "{{name}} Market Analysis",
+            "desc": "Our global research team is currently finalizing the institutional report for the {{name}} real estate sector.",
+            "label": "Research in Progress",
+            "sub": "Check back soon for detailed comparison data, tax strategies, and ROI projections.",
+            "btn": "Notify Me When Ready"
+        },
+        "uk": {
+            "title": "The UK Investor’s Guide to Dubai Real Estate (2026 Edition)",
+            "sections": {
+                "s1": "Section 1 — Market Overview",
+                "s2": "Section 2 — Investment Comparison",
+                "s3": "Section 3 — Regulation Comparison",
+                "s4": "Section 4 — Tax Strategy",
+                "s5": "Section 5 — Currency Hedging",
+                "s6": "Section 6 — Golden Visa Strategy",
+                "s7": "Section 7 — Financing",
+                "s8": "Section 8 — Strategic Note",
+                "s9": "UK Investment Specialist"
+            },
+            "overview": {
+                "p1": "Dubai has emerged as the primary hedge for British wealth as the UK transitions to a residence-based tax system and introduces the Renters’ Rights Act.",
+                "p2": "By leveraging Dubai’s 0% tax environment and Golden Visa reforms, UK landlords can move from margin compression to wealth acceleration."
+            },
+            "investCompare": {
+                "q": "Is Dubai a better investment than London?",
+                "desc": "London yields are compressing due to heavy regulation and tax. Dubai offers 6–10% rental yields, zero tax on rent, strong population growth, and immense global investor demand.",
+                "table": {
+                    "h1": "Feature",
+                    "h2": "London Buy-to-Let",
+                    "h3": "Dubai Investment",
+                    "r1": "Average Yield",
+                    "r2": "Tax on Rent",
+                    "r3": "Capital Gains Tax",
+                    "r4": "Regulatory Climate",
+                    "v4UK": "Tenant-centric",
+                    "v4DXB": "Investor-friendly"
+                }
+            },
+            "regulations": {
+                "title": "UK Renters’ Rights Act vs Dubai RERA Framework",
+                "desc": "Loss of landlord control in the UK versus the highly regulated and landlord-friendly environment in Dubai.",
+                "ref": "🔗 Reference: UK Government Renters' Rights Bill",
+                "table": {
+                    "h1": "Feature",
+                    "h2": "UK Renters’ Rights Act",
+                    "h3": "Dubai RERA",
+                    "r1": "Tenancy Structure",
+                    "r1UK": "Indefinite",
+                    "r1DXB": "Fixed Term",
+                    "r2": "Notice to Sell",
+                    "r2UK": "Long court process",
+                    "r2DXB": "12-month notice",
+                    "r3": "Rent Control",
+                    "r3UK": "Tribunal challenge",
+                    "r3DXB": "AI rental index",
+                    "r4": "Tenant Selection",
+                    "r4UK": "Restricted",
+                    "r4DXB": "Landlord discretion"
+                }
+            },
+            "tax": {
+                "title": "Protecting Global Wealth from UK Tax Changes",
+                "desc": "Navigating the residence-based tax system, inheritance tax exposure, and the new FIG regime.",
+                "table": {
+                    "h1": "Investor Profile",
+                    "h2": "UK Exposure",
+                    "h3": "Ophir Strategy",
+                    "r1": "New Resident",
+                    "r1UK": "Worldwide tax",
+                    "r1DXB": "FIG 4-year exemption",
+                    "r2": "Long-Term Resident",
+                    "r2UK": "40% inheritance tax",
+                    "r2DXB": "Golden Visa relocation",
+                    "r3": "Legacy Planner",
+                    "r3UK": "Estate exposure",
+                    "r3DXB": "UAE domicile"
+                }
+            },
+            "currency": {
+                "title": "Protecting Wealth from GBP Volatility",
+                "desc": "The AED is pegged to the USD. By investing in Dubai, your property becomes a USD-backed asset.",
+                "table": {
+                    "h1": "Feature",
+                    "h2": "UK Portfolio",
+                    "h3": "UAE Portfolio",
+                    "r1": "Currency",
+                    "r1UK": "GBP",
+                    "r1DXB": "AED (USD Peg)",
+                    "r2": "Stability",
+                    "r2UK": "Volatile",
+                    "r2DXB": "Fixed",
+                    "r3": "Purchasing Power",
+                    "r3UK": "Vulnerable",
+                    "r3DXB": "Protected"
+                }
+            },
+            "visa": {
+                "title": "10-Year Dubai Golden Visa (2026 Update)",
+                "quote": "New Rule: Only 20% deposit required (AED 400k) on an AED 2M property to qualify for the 10-Year Golden Visa.",
+                "table": {
+                    "h1": "Feature",
+                    "h2": "Standard Visa",
+                    "h3": "Golden Visa",
+                    "r1": "Investment",
+                    "r1UK": "AED 750k",
+                    "r1DXB": "AED 2M",
+                    "r2": "Duration",
+                    "r2UK": "2 years",
+                    "r2DXB": "10 years",
+                    "r3": "Stay Outside UAE",
+                    "r3UK": "6 months max",
+                    "r3DXB": "Unlimited"
+                }
+            },
+            "financing": {
+                "title": "Mortgages for UK Investors",
+                "list1": "50–65% LTV accessibility",
+                "list2": "UK income fully accepted",
+                "list3": "20–30 day completion",
+                "table": {
+                    "h1": "Phase",
+                    "h2": "Action",
+                    "h3": "Timeline",
+                    "p1": "Phase 1",
+                    "p1A": "Pre-Approval",
+                    "p1T": "5–10 days",
+                    "p2": "Phase 2",
+                    "p2A": "Property Selection",
+                    "p2T": "1–2 weeks",
+                    "p3": "Phase 3",
+                    "p3A": "Valuation",
+                    "p3T": "3–5 days",
+                    "p4": "Phase 4",
+                    "p4A": "Final Offer",
+                    "p4T": "5 days",
+                    "p5": "Phase 5",
+                    "p5A": "Completion",
+                    "p5T": "7–10 days"
+                }
+            },
+            "strategic": {
+                "title": "Strategic Advisory",
+                "p1": "Transparency and diversification are key in current market cycles. While Dubai presents an extraordinary hedge against UK tax and regulatory shifts, all structuring should be aligned with your overarching wealth strategy.",
+                "disclaimer": "*Disclaimer: This material is for informational purposes only and does not constitute formal tax or legal advice."
+            },
+            "expert": {
+                "name": "Nimesh Visram",
+                "role": "Property & Investment Consultant",
+                "p": "Specializing in seamless capital transition from the UK to the UAE. With an extensive finance background, Nimesh architects tax-efficient property portfolios for British expats and UK-based investors navigating the new legislative landscape.",
+                "btn1": "Book Consultation",
+                "btn2": "Contact on WhatsApp"
+            }
+        }
     }
 }

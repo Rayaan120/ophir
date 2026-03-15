@@ -40,9 +40,9 @@ const Navbar = () => {
     { name: t('nav.buy'), isDropdown: false, path: '/buy' },
     { name: t('nav.rent'), isDropdown: false, path: '/rent' },
     { name: t('nav.offPlan'), isDropdown: false, path: '/new-projects' },
-    { name: t('nav.hotOffers'), isDropdown: false, highlight: true },
-    { name: t('nav.insights'), isDropdown: false },
+    { name: t('nav.insights'), isDropdown: false, path: '/global-insights' },
     { name: t('nav.contact'), isDropdown: false, path: '/contact' },
+    { name: t('nav.hotOffers'), isDropdown: false, highlight: true },
   ];
 
   const getPath = (path) => {
@@ -77,7 +77,7 @@ const Navbar = () => {
                 <LinkEl
                   to={getPath(link.path)}
                   href={!link.path ? '#' : undefined}
-                  className={`nav-link ${link.highlight ? 'gold-text' : ''} ${isActive(link.path) ? 'active' : ''}`}
+                  className={`nav-link ${link.highlight ? 'red-text' : ''} ${isActive(link.path) ? 'active' : ''}`}
                 >
                   {link.name}
                   {link.isDropdown && <ChevronDown size={14} className="dropdown-icon" />}
@@ -167,7 +167,7 @@ const Navbar = () => {
                 key={idx}
                 to={getPath(link.path)}
                 href={!link.path ? '#' : undefined}
-                className={`mobile-nav-link ${link.highlight ? 'gold-text' : ''} ${isActive(link.path) ? 'active' : ''}`}
+                className={`mobile-nav-link ${link.highlight ? 'red-text' : ''} ${isActive(link.path) ? 'active' : ''}`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}

@@ -113,16 +113,16 @@
     color: var(--gold-hover);
 }
 
-[data-theme='light'] .navbar-scrolled .nav-link:not(.gold-text) {
+[data-theme='light'] .navbar-scrolled .nav-link:not(.gold-text):not(.red-text) {
     color: #000000;
     font-weight: 600;
 }
 
-[data-theme='light'] .navbar:not(.navbar-scrolled) .nav-link:not(.gold-text) {
+[data-theme='light'] .navbar:not(.navbar-scrolled) .nav-link:not(.gold-text):not(.red-text) {
     color: #ffffff;
 }
 
-[data-theme='light'] .navbar:not(.navbar-scrolled) .nav-link:not(.gold-text):hover {
+[data-theme='light'] .navbar:not(.navbar-scrolled) .nav-link:not(.gold-text):not(.red-text):hover {
     color: var(--gold-hover);
 }
 
@@ -130,11 +130,30 @@
     color: var(--gold-primary);
 }
 
+.nav-link.red-text {
+    color: #ff1212; /* Vibrant neon red */
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-shadow: 
+        0 0 8px rgba(255, 18, 18, 0.8),
+        0 0 15px rgba(255, 18, 18, 0.6),
+        0 0 25px rgba(255, 18, 18, 0.4);
+}
+
 .nav-link.gold-text:hover {
     color: var(--gold-hover);
 }
 
-.nav-link.gold-text::after {
+.nav-link.red-text:hover {
+    color: #ff3c3c;
+    text-shadow: 
+        0 0 12px rgba(255, 18, 18, 0.9),
+        0 0 20px rgba(255, 18, 18, 0.7),
+        0 0 35px rgba(255, 18, 18, 0.5);
+}
+
+.nav-link.gold-text::after,
+.nav-link.red-text::after {
     display: none;
 }
 
@@ -309,6 +328,17 @@
 
 .mobile-nav-link:hover {
     color: var(--gold-hover);
+}
+
+.mobile-nav-link.red-text {
+    color: #ff1212;
+    font-weight: 800;
+    text-shadow: 0 0 8px rgba(255, 18, 18, 0.6);
+}
+
+.mobile-nav-link.red-text:hover {
+    color: #ff3c3c;
+    text-shadow: 0 0 15px rgba(255, 18, 18, 0.8);
 }
 
 .mobile-overlay {

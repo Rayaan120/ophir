@@ -1,0 +1,393 @@
+/* GlobalInsights.css */
+
+.global-insights-page {
+  min-height: 100vh;
+  background-color: var(--bg-color);
+}
+
+/* Hero Section */
+.insights-hero {
+  position: relative;
+  height: 60vh;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  /* Using standard map representation overlay, dark luxury theme */
+  background: 
+    linear-gradient(to right, rgba(10, 10, 10, 0.95), rgba(10, 10, 10, 0.7)),
+    url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+
+
+
+.insights-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 70% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.insights-hero-content {
+  max-width: 800px;
+}
+
+.insights-hero h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+
+
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+
+
+
+/* Market Selector */
+.market-selector-section {
+  position: relative;
+  z-index: 20;
+  margin-top: 2rem;
+}
+
+.market-selector {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding: 10px 5px 30px 5px; /* bottom padding for scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-primary) var(--bg-lighter);
+}
+
+.market-selector::-webkit-scrollbar {
+  height: 4px;
+}
+
+.market-tab {
+  white-space: nowrap;
+  padding: 12px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  border-radius: 100px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.market-tab:hover {
+  border-color: var(--gold-primary);
+  color: var(--text-main);
+}
+
+.market-tab.active {
+  background: var(--gold-primary);
+  color: var(--bg-color);
+  border-color: var(--gold-primary);
+  box-shadow: 0 4px 15px var(--gold-muted);
+}
+
+[data-theme='light'] .market-tab.active {
+  color: #fff;
+}
+
+/* Grid Layout */
+.market-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+}
+
+@media (max-width: 992px) {
+  .market-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* Left Content */
+.market-overview-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-top: 1.5rem;
+}
+
+.insight-highlight-card {
+  padding: 30px;
+  border-left: 4px solid var(--gold-primary);
+  border-radius: var(--radius-md);
+  position: relative;
+}
+
+.quote-icon {
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  font-family: var(--font-heading);
+  font-size: 5rem;
+  color: var(--gold-muted);
+  line-height: 1;
+}
+
+.insight-highlight-card p {
+  font-size: 1.2rem;
+  font-family: var(--font-heading);
+  font-style: italic;
+  position: relative;
+  z-index: 2;
+  color: var(--text-main);
+}
+
+/* Right Data Grid */
+.data-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 600px) {
+  .data-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.data-card {
+  padding: 24px;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.card-header .icon {
+  font-size: 1.5rem;
+}
+
+.card-header h3 {
+  font-size: 1.1rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  margin: 0;
+}
+
+.detail-text {
+  font-size: 0.95rem;
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.detail-text.muted {
+  color: var(--text-muted);
+}
+
+/* Comparison Row specifically for Yield */
+.comparison-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-lighter);
+  padding: 15px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.comp-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.comp-item .label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.comp-item .value {
+  font-size: 1.5rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+.comp-item .value.muted {
+  color: var(--text-muted);
+}
+
+.vs-divider {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gold-primary);
+  background: var(--gold-muted);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+/* Expert Section */
+.expert-advisor-section {
+  background: linear-gradient(to bottom, transparent, var(--bg-lighter));
+}
+
+[data-theme='light'] .expert-advisor-section {
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.02));
+}
+
+.expert-card {
+  display: flex;
+  align-items: stretch;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  padding: 0; /* Reset for flex children */
+}
+
+@media (max-width: 800px) {
+  .expert-card {
+    flex-direction: column;
+  }
+}
+
+.expert-image-container {
+  flex: 0 0 400px;
+  background: url('/team/ophir-expert.jpg') center/cover;
+  position: relative;
+  min-height: 400px;
+}
+
+/* Fallback if image doesn't exist */
+.expert-avatar-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, var(--bg-card), var(--bg-color));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.expert-avatar-placeholder::after {
+  content: "Ophir Advisory";
+  color: var(--gold-primary);
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+}
+
+.expert-info {
+  flex: 1;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.expert-info h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.expert-info p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  max-width: 600px;
+}
+
+.expert-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+/* Utils */
+.ml-4 { margin-left: 1rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-6 { margin-top: 1.5rem; }
+.mt-8 { margin-top: 2rem; }
+.mt-12 { margin-top: 3rem; }
+.mt-16 { margin-top: 4rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.pt-0 { padding-top: 0; }
+.pt-8 { padding-top: 2rem; }
+.pb-0 { padding-bottom: 0; }
+.pb-20 { padding-bottom: 5rem; }
+.p-6 { padding: 1.5rem; }
+.inline-block { display: inline-block; }
+.font-bold { font-weight: 700; }
+.border-t { border-top: 1px solid; }
+.border-color-subtle { border-color: var(--border-color); }
+
+/* UK Specific Table Styles */
+.insights-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.insights-table th, .insights-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.insights-table th {
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.insights-table td.highlight, .insights-table th.gold-text {
+  color: var(--gold-primary);
+  font-weight: 600;
+}
+
+.uk-gov-link {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+
+.uk-gov-link:hover {
+  color: var(--gold-primary);
+}
+
+.insights-list {
+  list-style: none;
+}
+
+.insights-list li {
+  padding: 6px 0;
+  font-size: 1.05rem;
+}
+
+.comparison-table-wrapper {
+  overflow-x: auto;
+}
