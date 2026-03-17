@@ -1,4 +1,4 @@
-import { Facebook, Twitter, Instagram, Linkedin, MapPin, Phone, Mail } from 'lucide-react';
+import { Facebook, Music2, Instagram, Linkedin, MapPin, Phone, Mail } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import './Footer.css';
@@ -13,16 +13,18 @@ const Footer = () => {
                     {/* Brand Column */}
                     <div className="footer-col brand-col">
                         <div className="footer-logo">
-                            <img src="/logo.png" alt="Ophir Properties" className="logo-image-footer" />
+                            <Link to={`/${i18n.language || 'en'}`}>
+                                <img src="/logo.png" alt="Ophir Properties" className="logo-image-footer" />
+                            </Link>
                         </div>
                         <p className="footer-desc">
                             {t('footer.about')}
                         </p>
                         <div className="social-links">
-                            <a href="#" className="social-icon"><Facebook size={18} /></a>
-                            <a href="#" className="social-icon"><Twitter size={18} /></a>
-                            <a href="#" className="social-icon"><Instagram size={18} /></a>
-                            <a href="#" className="social-icon"><Linkedin size={18} /></a>
+                            <a href="https://www.facebook.com/ophirproperties/" target="_blank" rel="noopener noreferrer" className="social-icon"><Facebook size={18} /></a>
+                            <a href="https://www.tiktok.com/@ophirpropertiesofficial" target="_blank" rel="noopener noreferrer" className="social-icon"><Music2 size={18} /></a>
+                            <a href="https://www.instagram.com/ophirpropertiesofficial/" target="_blank" rel="noopener noreferrer" className="social-icon"><Instagram size={18} /></a>
+                            <a href="https://www.linkedin.com/company/ophirproperties" target="_blank" rel="noopener noreferrer" className="social-icon"><Linkedin size={18} /></a>
                         </div>
                     </div>
 
@@ -30,32 +32,32 @@ const Footer = () => {
                     <div className="footer-col">
                         <h4 className="footer-heading">{t('footer.quickLinks')}</h4>
                         <ul className="footer-links">
-                            <li><a href="#">{t('nav.home')}</a></li>
-                            <li><a href="#">{t('nav.buy')}</a></li>
-                            <li><a href="#">{t('nav.rent')}</a></li>
-                            <li><a href="#">{t('nav.offPlan')}</a></li>
-                            <li><a href="#" className="gold-text">{t('nav.hotOffers')}</a></li>
-                            <li><a href="#">{t('nav.insights')}</a></li>
-                            <li><a href="#">{t('nav.about')}</a></li>
+                            <li><Link to={`/${i18n.language}`}>{t('nav.home')}</Link></li>
+                            <li><Link to={`/${i18n.language}/buy`}>{t('nav.buy')}</Link></li>
+                            <li><Link to={`/${i18n.language}/rent`}>{t('nav.rent')}</Link></li>
+                            <li><Link to={`/${i18n.language}/new-projects`}>{t('nav.offPlan')}</Link></li>
+                            <li><Link to={`/${i18n.language}/buy`} className="gold-text red-text">{t('nav.hotOffers')}</Link></li>
+                            <li><Link to={`/${i18n.language}/global-insights`}>{t('nav.insights')}</Link></li>
+                            <li><Link to={`/${i18n.language}/about`}>{t('nav.about')}</Link></li>
                         </ul>
                     </div>
 
-                    {/* Communities */}
+                    {/* Services */}
                     <div className="footer-col">
-                        <h4 className="footer-heading">Prime Areas</h4>
+                        <h4 className="footer-heading">{t('servicesPage.heroLabel')}</h4>
                         <ul className="footer-links">
-                            <li><a href="#">Dubai Marina</a></li>
-                            <li><a href="#">Downtown Dubai</a></li>
-                            <li><a href="#">Palm Jumeirah</a></li>
-                            <li><a href="#">Business Bay</a></li>
-                            <li><a href="#">Emirates Hills</a></li>
-                            <li><a href="#">Al Barari</a></li>
+                            <li><Link to={`/${i18n.language}/services#investment-advisory`}>{t('servicesPage.svc1Title')}</Link></li>
+                            <li><Link to={`/${i18n.language}/services#off-plan-access`}>{t('servicesPage.svc2Title')}</Link></li>
+                            <li><Link to={`/${i18n.language}/services#buying-assistance`}>{t('servicesPage.svc3Title')}</Link></li>
+                            <li><Link to={`/${i18n.language}/services#selling-resale`}>{t('servicesPage.svc4Title')}</Link></li>
+                            <li><Link to={`/${i18n.language}/services#property-management`}>{t('servicesPage.svc5Title')}</Link></li>
+                            <li><Link to={`/${i18n.language}/services#golden-visa`}>{t('servicesPage.svc6Title')}</Link></li>
                         </ul>
                     </div>
 
                     {/* Contact */}
                     <div className="footer-col contact-col">
-                        <h4 className="footer-heading">{t('nav.contact')}</h4>
+                        <h4 className="footer-heading">{t('footer.contact')}</h4>
                         <div className="contact-info">
                             <div className="contact-item">
                                 <MapPin size={18} className="gold-text" />
@@ -63,11 +65,11 @@ const Footer = () => {
                             </div>
                             <div className="contact-item">
                                 <Phone size={18} className="gold-text" />
-                                <span>+971 4 000 0000</span>
+                                <a href="tel:+97140000000"><span>+971 4 000 0000</span></a>
                             </div>
                             <div className="contact-item">
                                 <Mail size={18} className="gold-text" />
-                                <span>invest@ophirproperties.com</span>
+                                <a href="mailto:invest@ophirproperties.com"><span>invest@ophirproperties.com</span></a>
                             </div>
                         </div>
                     </div>
