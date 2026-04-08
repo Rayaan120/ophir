@@ -147,6 +147,11 @@
     font-family: var(--font-body);
 }
 
+.category-select select option {
+    background-color: #ffffff;
+    color: #111111;
+}
+
 .category-select .chevron-icon {
     position: absolute;
     right: 15px;
@@ -311,11 +316,21 @@
     background-color: rgba(255, 255, 255, 0.08);
 }
 
+.filter-item select option {
+    background-color: #1E1A34;
+    color: #ffffff;
+}
+
 [data-theme='light'] .filter-item select {
     background-color: #f8f8f8;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     border-color: #e0e0e0;
     color: #111;
+}
+
+[data-theme='light'] .filter-item select option {
+    background-color: #ffffff;
+    color: #111111;
 }
 
 
