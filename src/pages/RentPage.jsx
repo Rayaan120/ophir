@@ -196,6 +196,7 @@ const RentPage = () => {
                             </select>
                         </div>
                     </div>
+
                 </form>
             </section>
 
@@ -238,7 +239,7 @@ const RentPage = () => {
                                 return (
                                     <div key={property.id} className="property-card">
                                         {/* Image Section */}
-                                        <div className="property-image-wrapper">
+                                        <Link to={`/${i18n.language}/property/${property.id}`} className="property-image-wrapper">
                                             <div className="property-image" style={{ backgroundImage: `url(${property.mainImageUrl})` }}></div>
                                             <div className="property-image-overlay"></div>
 
@@ -253,7 +254,11 @@ const RentPage = () => {
                                             {/* Heart */}
                                             <div
                                                 className={`favorite-btn ${isFav ? 'active' : ''}`}
-                                                onClick={() => toggleFavorite(property.id)}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    toggleFavorite(property.id);
+                                                }}
                                             >
                                                 <Heart size={18} fill={isFav ? "#d4af37" : "none"} color={isFav ? "#d4af37" : "#fff"} />
                                             </div>
@@ -263,7 +268,7 @@ const RentPage = () => {
                                                 <MapPin size={14} className="location-icon" />
                                                 <span>{property.location}</span>
                                             </div>
-                                        </div>
+                                        </Link>
 
                                         {/* Body */}
                                         <div className="property-body">
@@ -295,14 +300,7 @@ const RentPage = () => {
                                                 )}
                                             </div>
 
-                                            {/* Footer */}
                                             <div className="property-footer">
-                                                <div className="agent-info">
-                                                    {property.agentAvatarUrl && (
-                                                        <div className="agent-avatar" style={{ backgroundImage: `url(${property.agentAvatarUrl})` }}></div>
-                                                    )}
-                                                    <span className="agent-name">{property.agentName}</span>
-                                                </div>
                                                 <Link to={`/${i18n.language}/property/${property.id}`} className="view-details-btn">
                                                     {t('rentPage.viewDetails')}
                                                     <ArrowRight size={16} className="arrow-icon" />
@@ -353,7 +351,7 @@ const RentPage = () => {
             </section>
 
             {/* SEO Listing CTA */}
-            <section className="listing-final-cta">
+            <section className="listing-final-cta" style={{ backgroundImage: "url('/rent/rent-cta.png')" }}>
                 <div className="cta-overlay"></div>
                 <div className="cta-container">
                     <div className="cta-content">

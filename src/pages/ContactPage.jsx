@@ -60,29 +60,15 @@ const ContactPage = () => {
         }
     };
 
-    const faqs = [
-        {
-            q: t('contactPage.faq1Q'),
-            a: t('contactPage.faq1A')
-        },
-        {
-            q: t('contactPage.faq2Q'),
-            a: t('contactPage.faq2A')
-        },
-        {
-            q: t('contactPage.faq3Q'),
-            a: t('contactPage.faq3A')
-        },
-        {
-            q: t('contactPage.faq4Q'),
-            a: t('contactPage.faq4A')
-        }
-    ];
+    const faqs = Array.from({ length: 11 }, (_, i) => ({
+        q: t(`contactPage.faq${i + 1}Q`),
+        a: t(`contactPage.faq${i + 1}A`)
+    }));
 
     return (
         <div className="contact-page animate-fade-in">
             {/* Hero Section */}
-            <section className="contact-hero">
+            <section className="contact-hero" style={{ backgroundImage: "url('/contact/contact-hero.png')" }}>
                 <div className="contact-hero-container">
                     <div className="hero-content">
                         <span className="hero-label">{t('contactPage.heroLabel')}</span>
@@ -91,16 +77,6 @@ const ContactPage = () => {
                             {t('contactPage.heroSubtext')}
                         </p>
                     </div>
-                    <div className="hero-highlights">
-                        <div className="highlight-card">
-                            <MessageSquare className="highlight-icon" size={32} />
-                            <p className="highlight-text">{t('contactPage.highlight1Text')}<br /><strong>{t('contactPage.highlight1Strong')}</strong></p>
-                        </div>
-                        <div className="highlight-card">
-                            <CheckCircle2 className="highlight-icon" size={32} />
-                            <p className="highlight-text">{t('contactPage.highlight2Text')}<br /><strong>{t('contactPage.highlight2Strong')}</strong></p>
-                        </div>
-                    </div>
                 </div>
             </section>
 
@@ -108,45 +84,35 @@ const ContactPage = () => {
             <section className="luxury-contact-ribbon">
                 <div className="ribbon-container">
                     <div className="ribbon-inner">
-                        <a href="tel:+971000000000" className="ribbon-item">
+                        <a href="tel:+971562125424" className="ribbon-item">
                             <div className="item-icon-wrapper">
                                 <Phone className="item-icon" size={24} />
                             </div>
                             <div className="item-content">
-                                <span className="item-label">{t('contactPage.ribbonPhone')}</span>
-                                <h3 className="item-value">+971 X XXX XXXX</h3>
+                                <span className="item-label">{t('contactPage.ribbonMobile')}</span>
+                                <h3 className="item-value">+971 56 212 5424</h3>
                             </div>
                         </a>
                         <div className="ribbon-divider" />
-                        <a href="https://wa.me/971000000000" target="_blank" rel="noopener noreferrer" className="ribbon-item">
+                        <a href="tel:+97145576289" className="ribbon-item">
                             <div className="item-icon-wrapper">
-                                <MessageSquare className="item-icon" size={24} />
+                                <Phone className="item-icon" size={24} />
                             </div>
                             <div className="item-content">
-                                <span className="item-label">{t('contactPage.ribbonWA')}</span>
-                                <h3 className="item-value">{t('contactPage.ribbonWAVal')}</h3>
+                                <span className="item-label">{t('contactPage.ribbonLandline')}</span>
+                                <h3 className="item-value">+971 4 557 6289</h3>
                             </div>
                         </a>
                         <div className="ribbon-divider" />
-                        <a href="mailto:info@ophir.ae" className="ribbon-item">
+                        <a href={`mailto:${t('contactPage.officeEmail')}`} className="ribbon-item">
                             <div className="item-icon-wrapper">
                                 <Mail className="item-icon" size={24} />
                             </div>
                             <div className="item-content">
                                 <span className="item-label">{t('contactPage.ribbonEmail')}</span>
-                                <h3 className="item-value">info@ophir.ae</h3>
+                                <h3 className="item-value">{t('contactPage.officeEmail')}</h3>
                             </div>
                         </a>
-                        <div className="ribbon-divider" />
-                        <div className="ribbon-item">
-                            <div className="item-icon-wrapper">
-                                <MapPin className="item-icon" size={24} />
-                            </div>
-                            <div className="item-content">
-                                <span className="item-label">{t('contactPage.ribbonHQ')}</span>
-                                <h3 className="item-value">Business Bay, Dubai</h3>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </section>
@@ -297,8 +263,13 @@ const ContactPage = () => {
                         <div className="address-block">
                             <span className="office-name">{t('contactPage.officeName')}</span>
                             <p className="address-text">
-                                Platinum Tower, Business Bay<br />
-                                Dubai, United Arab Emirates
+                                {t('contactPage.officeAddress')}
+                            </p>
+                            <p className="address-text" style={{ marginTop: '8px' }}>
+                                <Mail size={16} style={{ verticalAlign: 'middle', marginRight: '8px' }} />
+                                <a href={`mailto:${t('contactPage.officeEmail')}`} className="gold-text">
+                                    {t('contactPage.officeEmail')}
+                                </a>
                             </p>
                         </div>
 

@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useParams, useNavigate } from 'react-router-dom';
 import './GlobalInsights.css';
-import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
 import { useTheme } from '../ThemeContext';
-
-
 
 const GlobalInsights = () => {
   const { t, i18n } = useTranslation();
+  const { country } = useParams();
+  const navigate = useNavigate();
   const { theme } = useTheme();
   const [activeMarket, setActiveMarket] = useState('UK');
 
@@ -22,297 +21,147 @@ const GlobalInsights = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    
+    // Sync activeMarket with URL parameter
+    if (country && marketIds.includes(country.toLowerCase())) {
+        setActiveMarket(marketMap[country.toLowerCase()]);
+    } else if (!country) {
+        setActiveMarket('UK'); // Default
+    }
+  }, [country]);
+
+  const handleTabClick = (id) => {
+    const lang = i18n.language || 'en';
+    navigate(`/${lang}/global-insights/${id}`);
+  };
+
+  const [expandedIndex, setExpandedIndex] = useState(0);
+
+  const handleAccordionClick = (index) => {
+    setExpandedIndex(index === expandedIndex ? -1 : index);
+  };
 
   const renderUKInsight = () => {
+    // Array of questions/answers
+    const questions = t('globalInsights.uk.questions', { returnObjects: true }) || [];
+    // Strategic Note object
+    const strategicNote = t('globalInsights.uk.strategicNote', { returnObjects: true }) || {};
+    // Expert Info object
+    const expert = t('globalInsights.uk.expert', { returnObjects: true }) || {};
+
     return (
       <div className="uk-structured-insight animate-fade-in mt-8">
-        <div className="market-grid">
-          {/* Left Column */}
-          <div className="market-left">
-            <div className="content-block">
-              <span className="small-label">{t('globalInsights.uk.sections.s1')}</span>
-              <h2 className="gold-text mb-4">{t('globalInsights.uk.title')}</h2>
-              <div className="market-overview-text">
-                <p>{t('globalInsights.uk.overview.p1')}</p>
-                <p className="mt-4">{t('globalInsights.uk.overview.p2')}</p>
-              </div>
-            </div>
+        
+        {/* Intro Block */}
+        <div className="content-block text-center mb-16" style={{maxWidth: '800px', margin: '0 auto 4rem auto'}}>
+          <h2 className="gold-text mb-6">{t('globalInsights.uk.title')}</h2>
+          <p className="market-overview-text text-lg">
+            {t('globalInsights.uk.intro')}
+          </p>
+        </div>
 
-            <div className="content-block mt-12">
-              <span className="small-label">{t('globalInsights.uk.sections.s3')}</span>
-              <h3>{t('globalInsights.uk.regulations.title')}</h3>
-              <p className="detail-text muted mt-2 mb-6">{t('globalInsights.uk.regulations.desc')}</p>
+        {/* Accordion List */}
+        <div className="accordion-container mb-20">
+          {Array.isArray(questions) && questions.map((item, index) => (
+            <div key={index} className={`accordion-item ${expandedIndex === index ? 'expanded' : ''}`}>
               
-              <div className="comparison-table-wrapper">
-                <table className="insights-table">
-                  <thead>
-                    <tr>
-                      <th>{t('globalInsights.uk.regulations.table.h1')}</th>
-                      <th>{t('globalInsights.uk.regulations.table.h2')}</th>
-                      <th className="gold-text">{t('globalInsights.uk.regulations.table.h3')}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{t('globalInsights.uk.regulations.table.r1')}</td>
-                      <td>{t('globalInsights.uk.regulations.table.r1UK')}</td>
-                      <td className="highlight">{t('globalInsights.uk.regulations.table.r1DXB')}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('globalInsights.uk.regulations.table.r2')}</td>
-                      <td>{t('globalInsights.uk.regulations.table.r2UK')}</td>
-                      <td className="highlight">{t('globalInsights.uk.regulations.table.r2DXB')}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('globalInsights.uk.regulations.table.r3')}</td>
-                      <td>{t('globalInsights.uk.regulations.table.r3UK')}</td>
-                      <td className="highlight">{t('globalInsights.uk.regulations.table.r3DXB')}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('globalInsights.uk.regulations.table.r4')}</td>
-                      <td>{t('globalInsights.uk.regulations.table.r4UK')}</td>
-                      <td className="highlight">{t('globalInsights.uk.regulations.table.r4DXB')}</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <a href="https://www.gov.uk/government/publications/guide-to-the-renters-rights-bill" target="_blank" rel="noopener noreferrer" className="uk-gov-link mt-2 inline-block">
-                  {t('globalInsights.uk.regulations.ref')}
-                </a>
-              </div>
-            </div>
-
-            <div className="content-block mt-12">
-              <span className="small-label">{t('globalInsights.uk.sections.s5')}</span>
-              <h3>{t('globalInsights.uk.currency.title')}</h3>
-              <p className="detail-text muted mt-2 mb-6">{t('globalInsights.uk.currency.desc')}</p>
+              <button className="accordion-header" onClick={() => handleAccordionClick(index)}>
+                <h3>{item.q}</h3>
+                <span className="accordion-icon">{expandedIndex === index ? '−' : '+'}</span>
+              </button>
               
-              <div className="comparison-table-wrapper">
-                <table className="insights-table">
-                  <thead>
-                    <tr>
-                      <th>{t('globalInsights.uk.currency.table.h1')}</th>
-                      <th>{t('globalInsights.uk.currency.table.h2')}</th>
-                      <th className="gold-text">{t('globalInsights.uk.currency.table.h3')}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{t('globalInsights.uk.currency.table.r1')}</td>
-                      <td>{t('globalInsights.uk.currency.table.r1UK')}</td>
-                      <td className="highlight">{t('globalInsights.uk.currency.table.r1DXB')}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('globalInsights.uk.currency.table.r2')}</td>
-                      <td>{t('globalInsights.uk.currency.table.r2UK')}</td>
-                      <td className="highlight">{t('globalInsights.uk.currency.table.r2DXB')}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('globalInsights.uk.currency.table.r3')}</td>
-                      <td>{t('globalInsights.uk.currency.table.r3UK')}</td>
-                      <td className="highlight">{t('globalInsights.uk.currency.table.r3DXB')}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+              <div className="accordion-content">
+                <div className="accordion-content-inner pt-2">
+                  
+                  {/* Answers Paragraphs */}
+                  {Array.isArray(item.a) && item.a.map((paragraph, pIdx) => (
+                    <p key={pIdx} className="mb-4">{paragraph}</p>
+                  ))}
+                  
+                  {/* Embedded Table */}
+                  {item.table && (
+                    <div className="comparison-table-wrapper mt-6 mb-6">
+                      <table className="insights-table border-hidden-if-empty">
+                        <thead>
+                          <tr>
+                            {item.table.headers && item.table.headers.map((h, hIdx) => (
+                              <th key={hIdx} className={hIdx === item.table.headers.length - 1 ? 'gold-text' : ''}>{h}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {item.table.rows && item.table.rows.map((row, rIdx) => (
+                            <tr key={rIdx}>
+                              {row.map((cell, cIdx) => (
+                                <td key={cIdx} className={cIdx === row.length - 1 ? 'highlight' : ''}>{cell}</td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
 
-            <div className="content-block mt-12">
-              <span className="small-label">{t('globalInsights.uk.sections.s7')}</span>
-              <h3>{t('globalInsights.uk.financing.title')}</h3>
-              <ul className="insights-list mt-4 mb-6">
-                <li><span className="gold-text">✓</span> {t('globalInsights.uk.financing.list1')}</li>
-                <li><span className="gold-text">✓</span> {t('globalInsights.uk.financing.list2')}</li>
-                <li><span className="gold-text">✓</span> {t('globalInsights.uk.financing.list3')}</li>
-              </ul>
-              
-              <div className="comparison-table-wrapper">
-                <table className="insights-table">
-                  <thead>
-                    <tr>
-                      <th>{t('globalInsights.uk.financing.table.h1')}</th>
-                      <th>{t('globalInsights.uk.financing.table.h2')}</th>
-                      <th>{t('globalInsights.uk.financing.table.h3')}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{t('globalInsights.uk.financing.table.p1')}</td>
-                      <td>{t('globalInsights.uk.financing.table.p1A')}</td>
-                      <td>{t('globalInsights.uk.financing.table.p1T')}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('globalInsights.uk.financing.table.p2')}</td>
-                      <td>{t('globalInsights.uk.financing.table.p2A')}</td>
-                      <td>{t('globalInsights.uk.financing.table.p2T')}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('globalInsights.uk.financing.table.p3')}</td>
-                      <td>{t('globalInsights.uk.financing.table.p3A')}</td>
-                      <td>{t('globalInsights.uk.financing.table.p3T')}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('globalInsights.uk.financing.table.p4')}</td>
-                      <td>{t('globalInsights.uk.financing.table.p4A')}</td>
-                      <td>{t('globalInsights.uk.financing.table.p4T')}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('globalInsights.uk.financing.table.p5')}</td>
-                      <td>{t('globalInsights.uk.financing.table.p5A')}</td>
-                      <td>{t('globalInsights.uk.financing.table.p5T')}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+                  {/* Fact Checking Links */}
+                  {item.links && item.links.length > 0 && (
+                    <div className="mt-6 mb-2 p-4 rounded bg-darker" style={{ background: 'rgba(30, 26, 52, 0.4)' }}>
+                      {item.links.map((link, lIdx) => (
+                        <a key={lIdx} href={link.url} target="_blank" rel="noopener noreferrer" className="uk-gov-link block mt-2 text-sm" style={{display: 'block'}}>
+                          🔗 {link.text}
+                        </a>
+                      ))}
+                    </div>
+                  )}
 
-          <div className="market-right">
-            <div className="content-block">
-              <span className="small-label">{t('globalInsights.uk.sections.s2')}</span>
-              <h3>{t('globalInsights.uk.investCompare.q')}</h3>
-              <p className="detail-text muted mt-2 mb-6">{t('globalInsights.uk.investCompare.desc')}</p>
-              
-              <div className="comparison-table-wrapper">
-                <table className="insights-table">
-                  <thead>
-                    <tr>
-                      <th>{t('globalInsights.uk.investCompare.table.h1')}</th>
-                      <th>{t('globalInsights.uk.investCompare.table.h2')}</th>
-                      <th className="gold-text">{t('globalInsights.uk.investCompare.table.h3')}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{t('globalInsights.uk.investCompare.table.r1')}</td>
-                      <td>3%–5%</td>
-                      <td className="highlight">6%–10%</td>
-                    </tr>
-                    <tr>
-                      <td>{t('globalInsights.uk.investCompare.table.r2')}</td>
-                      <td>20–45%</td>
-                      <td className="highlight">0%</td>
-                    </tr>
-                    <tr>
-                      <td>{t('globalInsights.uk.investCompare.table.r3')}</td>
-                      <td>18–24%</td>
-                      <td className="highlight">0%</td>
-                    </tr>
-                    <tr>
-                      <td>{t('globalInsights.uk.investCompare.table.r4')}</td>
-                      <td>{t('globalInsights.uk.investCompare.table.v4UK')}</td>
-                      <td className="highlight">{t('globalInsights.uk.investCompare.table.v4DXB')}</td>
-                    </tr>
-                  </tbody>
-                </table>
+                  {/* Verification Note */}
+                  {item.verification && (
+                    <p className="detail-text muted mt-4 italic text-sm">{item.verification}</p>
+                  )}
+                  
+                </div>
               </div>
-            </div>
 
-            <div className="content-block mt-12">
-              <span className="small-label">{t('globalInsights.uk.sections.s4')}</span>
-              <h3>{t('globalInsights.uk.tax.title')}</h3>
-              <p className="detail-text muted mt-2 mb-6">{t('globalInsights.uk.tax.desc')}</p>
-              
-              <div className="comparison-table-wrapper">
-                <table className="insights-table">
-                  <thead>
-                    <tr>
-                      <th>{t('globalInsights.uk.tax.table.h1')}</th>
-                      <th>{t('globalInsights.uk.tax.table.h2')}</th>
-                      <th className="gold-text">{t('globalInsights.uk.tax.table.h3')}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{t('globalInsights.uk.tax.table.r1')}</td>
-                      <td>{t('globalInsights.uk.tax.table.r1UK')}</td>
-                      <td className="highlight">{t('globalInsights.uk.tax.table.r1DXB')}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('globalInsights.uk.tax.table.r2')}</td>
-                      <td>{t('globalInsights.uk.tax.table.r2UK')}</td>
-                      <td className="highlight">{t('globalInsights.uk.tax.table.r2DXB')}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('globalInsights.uk.tax.table.r3')}</td>
-                      <td>{t('globalInsights.uk.tax.table.r3UK')}</td>
-                      <td className="highlight">{t('globalInsights.uk.tax.table.r3DXB')}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
             </div>
+          ))}
+        </div>
 
-            <div className="content-block mt-12">
-              <span className="small-label">{t('globalInsights.uk.sections.s6')}</span>
-              <h3>{t('globalInsights.uk.visa.title')}</h3>
-              <div className="insight-highlight-card glass-panel mt-6 mb-6">
-                <div className="quote-icon">"</div>
-                <p>{t('globalInsights.uk.visa.quote')}</p>
-              </div>
-              
-              <div className="comparison-table-wrapper">
-                <table className="insights-table">
-                  <thead>
-                    <tr>
-                      <th>{t('globalInsights.uk.visa.table.h1')}</th>
-                      <th>{t('globalInsights.uk.visa.table.h2')}</th>
-                      <th className="gold-text">{t('globalInsights.uk.visa.table.h3')}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{t('globalInsights.uk.visa.table.r1')}</td>
-                      <td>{t('globalInsights.uk.visa.table.r1UK')}</td>
-                      <td className="highlight">{t('globalInsights.uk.visa.table.r1DXB')}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('globalInsights.uk.visa.table.r2')}</td>
-                      <td>{t('globalInsights.uk.visa.table.r2UK')}</td>
-                      <td className="highlight">{t('globalInsights.uk.visa.table.r2DXB')}</td>
-                    </tr>
-                    <tr>
-                      <td>{t('globalInsights.uk.visa.table.r3')}</td>
-                      <td>{t('globalInsights.uk.visa.table.r3UK')}</td>
-                      <td className="highlight">{t('globalInsights.uk.visa.table.r3DXB')}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div className="content-block mt-12">
-              <span className="small-label">{t('globalInsights.uk.sections.s8')}</span>
-              <div className="glass-panel p-6 rounded-container" style={{ padding: '24px' }}>
-                <h3 className="gold-text mb-4">{t('globalInsights.uk.strategic.title')}</h3>
-                <p className="detail-text muted">
-                  {t('globalInsights.uk.strategic.p1')}
-                  <br/><br/>
-                  <small>{t('globalInsights.uk.strategic.disclaimer')}</small>
-                </p>
-              </div>
-            </div>
+        {/* Strategic Note */}
+        <div className="content-block mt-16 mb-16">
+          <div className="glass-panel p-8 md:p-12 strategic-note rounded-container text-center md:text-left">
+            <h3 className="gold-text mb-6 text-2xl" style={{ fontSize: '1.75rem' }}>{strategicNote.title}</h3>
+            <p className="detail-text muted mb-6" style={{ fontSize: '1.05rem', lineHeight: '1.8' }}>{strategicNote.p1}</p>
+            <p className="detail-text muted mb-6" style={{ fontSize: '1.05rem', lineHeight: '1.8' }}>{strategicNote.p2}</p>
+            <p className="detail-text" style={{ fontSize: '0.95rem', fontStyle: 'italic', opacity: 0.8 }}>{strategicNote.p3}</p>
           </div>
         </div>
 
         {/* UK Investment Specialist */}
-        <div className="expert-advisor-section mt-16 pt-8 border-t border-color-subtle">
-          <div className="expert-card glass-panel animate-fade-in">
-            <div className="expert-image-container" style={{ flex: '0 0 300px', backgroundImage: 'url("/team/nimesh.jpg")' }}>
-               <div className="expert-avatar-placeholder text-center p-6"></div>
-            </div>
-            <div className="expert-info">
-              <span className="small-label">{t('globalInsights.uk.sections.s9')}</span>
-              <h2>{t('globalInsights.uk.expert.name')}</h2>
-              <p className="gold-text font-bold mb-4">{t('globalInsights.uk.expert.role')}</p>
-              <p>{t('globalInsights.uk.expert.p')}</p>
-              <div className="expert-actions mt-6">
-                <a href="mailto:nimesh.visram@ophir-properties.com" className="btn btn-primary">{t('globalInsights.uk.expert.btn1')}</a>
-                <a href="https://wa.me/447758953106" target="_blank" rel="noopener noreferrer" className="btn btn-outline ml-4">{t('globalInsights.uk.expert.btn2')}</a>
+        <div className="expert-advisor-section mt-16 pt-12 border-t border-color-subtle">
+          <div className="expert-card glass-panel animate-fade-in p-0 flex flex-col md:flex-row items-stretch" style={{overflow:'hidden'}}>
+            {/* Removed empty image column to eliminate left-side gap */}
+            
+            <div className="expert-info flex-1 p-8 md:p-12 flex flex-col justify-center">
+              <span className="small-label mb-3 inline-block">{expert.title}</span>
+              <p className="muted mb-6 text-lg">{expert.desc}</p>
+              
+              <h2 className="mb-2 text-3xl font-heading">{expert.name}</h2>
+              <p className="gold-text font-bold mb-6 tracking-wide uppercase text-sm">{expert.role}</p>
+              
+              <p className="mb-8 leading-relaxed">{expert.bio}</p>
+              
+              <div className="expert-actions flex gap-4 flex-wrap mt-8">
+                <a href={`mailto:${expert.email}`} className="btn btn-primary" style={{padding: '12px 24px'}}>
+                  Email
+                </a>
+                <a href={expert.whatsappLink} target="_blank" rel="noopener noreferrer" className="btn btn-outline flex items-center gap-2" style={{padding: '12px 24px'}}>
+                  WhatsApp
+                </a>
               </div>
             </div>
+            
           </div>
         </div>
+        
       </div>
     );
   };
@@ -341,14 +190,13 @@ const GlobalInsights = () => {
 
   return (
     <div className={`global-insights-page ${theme} ${i18n.language === 'ar' ? 'rtl' : ''}`} dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
-      <Navbar />
+
 
       {/* Hero Section */}
-      <section className="insights-hero">
+      <section className="insights-hero" style={{ backgroundImage: "linear-gradient(to right, rgba(10, 10, 15, 0.95), rgba(10, 10, 15, 0.7), rgba(10, 10, 15, 0.5)), url('/insights/insights-hero.png')" }}>
         <div className="insights-hero-overlay"></div>
         <div className="container relative z-10">
-          <div className="insights-hero-content animate-fade-in">
-            <span className="small-label">{t('globalInsights.hero.label')}</span>
+          <div className="insights-hero-content animate-fade-in" style={{ paddingTop: '4rem' }}>
             <h1>{t('globalInsights.hero.title')}</h1>
             <p className="hero-subtitle">
               {t('globalInsights.hero.subtitle')}
@@ -365,7 +213,7 @@ const GlobalInsights = () => {
               <button
                 key={id}
                 className={`market-tab ${activeMarket === marketMap[id] ? 'active' : ''}`}
-                onClick={() => setActiveMarket(marketMap[id])}
+                onClick={() => handleTabClick(id)}
               >
                 {t(`globalInsights.tabs.${id}`)}
               </button>
@@ -381,7 +229,6 @@ const GlobalInsights = () => {
         </div>
       </section>
 
-      <Footer />
     </div>
   );
 };

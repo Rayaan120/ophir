@@ -207,6 +207,7 @@ const BuyPage = () => {
                             </select>
                         </div>
                     </div>
+
                 </form>
             </section>
 
@@ -249,7 +250,7 @@ const BuyPage = () => {
                                 return (
                                     <div key={property.id} className="buy-card">
                                         {/* Image Section */}
-                                        <div className="card-img-wrapper">
+                                        <Link to={`/${i18n.language}/property/${property.id}`} className="card-img-wrapper">
                                             <img src={property.mainImageUrl} alt={property.title} />
                                             <div className="card-overlay"></div>
 
@@ -265,11 +266,15 @@ const BuyPage = () => {
                                             <div
                                                 className={`favorite-btn ${isFav ? 'active' : ''}`}
                                                 style={{ position: 'absolute', top: '15px', right: '15px', zIndex: 3, cursor: 'pointer' }}
-                                                onClick={() => toggleFavorite(property.id)}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    toggleFavorite(property.id);
+                                                }}
                                             >
                                                 <Heart size={18} fill={isFav ? "#d4af37" : "none"} color={isFav ? "#d4af37" : "#fff"} />
                                             </div>
-                                        </div>
+                                        </Link>
 
                                         {/* Body */}
                                         <div className="card-body">
@@ -366,7 +371,7 @@ const BuyPage = () => {
             </section>
             
             {/* SEO Listing CTA */}
-            <section className="listing-final-cta">
+            <section className="listing-final-cta" style={{ backgroundImage: "url('/buy1/buy.png')" }}>
                 <div className="cta-overlay"></div>
                 <div className="cta-container">
                     <div className="cta-content">

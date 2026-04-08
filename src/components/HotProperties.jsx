@@ -8,7 +8,7 @@ import './HotProperties.css';
 const HotProperties = () => {
     const { t, i18n } = useTranslation();
     const [properties, setProperties] = useState([]);
-    const [activeFilter, setActiveFilter] = useState('all');
+    const [activeFilter, setActiveFilter] = useState('hot');
     const [favorites, setFavorites] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -16,6 +16,7 @@ const HotProperties = () => {
     const { formatPrice: globalFormatPrice } = useCurrency();
 
     const tabs = [
+        { id: 'hot', label: t('hotProps.tabHot') },
         { id: 'all', label: t('hotProps.tabAll') },
         { id: 'sale', label: t('hotProps.tabSale') },
         { id: 'rent', label: t('hotProps.tabRent') },
@@ -26,17 +27,19 @@ const HotProperties = () => {
         setIsLoading(true);
         setError(null);
         try {
-            let url = '/api/properties?hot=true';
-            if (filter === 'sale') url += '&type=sell';
-            if (filter === 'rent') url += '&type=rent';
-            if (filter === 'new') url += '&type=new';
+            let url = '/api/properties';
+            if (filter === 'hot') url += '?hot=true';
+            else if (filter === 'sale') url += '?type=sell';
+            else if (filter === 'rent') url += '?type=rent';
+            else if (filter === 'new') url += '?type=new';
 
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Failed to fetch properties');
             }
             const data = await response.json();
-            setProperties(data.items || (Array.isArray(data) ? data : []));
+            const items = data.items || (Array.isArray(data) ? data : []);
+            setProperties(items.slice(0, 6));
         } catch (err) {
             setError('Unable to load properties right now.');
         } finally {
@@ -105,7 +108,7 @@ const HotProperties = () => {
                             {tabs.map((tab) => (
                                 <button
                                     key={tab.id}
-                                    className={`filter-tab ${activeFilter === tab.id ? 'active' : ''}`}
+                                    className={`filter-tab ${tab.id === 'hot' ? 'tab-hot' : ''} ${activeFilter === tab.id ? 'active' : ''}`}
                                     onClick={() => setActiveFilter(tab.id)}
                                 >
                                     {tab.label}
@@ -131,7 +134,7 @@ const HotProperties = () => {
                                     <div key={property.id} className="property-card">
 
                                         {/* Image Section */}
-                                        <div className="property-image-wrapper">
+                                        <Link to={`/${i18n.language}/property/${property.id}`} className="property-image-wrapper">
                                             <div className="property-image" style={{ backgroundImage: `url(${property.mainImageUrl})` }}></div>
                                             <div className="property-image-overlay"></div>
 
@@ -150,7 +153,11 @@ const HotProperties = () => {
                                             {/* Top Right Heart */}
                                             <div
                                                 className={`favorite-btn ${isFav ? 'active' : ''}`}
-                                                onClick={() => toggleFavorite(property.id)}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    toggleFavorite(property.id);
+                                                }}
                                             >
                                                 <Heart size={18} fill={isFav ? "#d4af37" : "none"} color={isFav ? "#d4af37" : "#fff"} />
                                             </div>
@@ -160,7 +167,7 @@ const HotProperties = () => {
                                                 <MapPin size={14} className="location-icon" />
                                                 <span>{property.location}</span>
                                             </div>
-                                        </div>
+                                        </Link>
 
                                         {/* Body Section */}
                                         <div className="property-body">
@@ -201,12 +208,14 @@ const HotProperties = () => {
 
                                             {/* Footer */}
                                             <div className="property-footer">
-                                                <div className="agent-info">
-                                                    {property.agentAvatarUrl && (
-                                                        <div className="agent-avatar" style={{ backgroundImage: `url(${property.agentAvatarUrl})` }}></div>
-                                                    )}
-                                                    <span className="agent-name">{property.agentName}</span>
-                                                </div>
+                                                {property.category !== 'new' && (
+                                                    <div className="agent-info">
+                                                        {property.agentAvatarUrl && (
+                                                            <div className="agent-avatar" style={{ backgroundImage: `url(${property.agentAvatarUrl})` }}></div>
+                                                        )}
+                                                        <span className="agent-name">{property.agentName}</span>
+                                                    </div>
+                                                )}
                                                 <Link to={`/${i18n.language}/property/${property.id}`} className="view-details-btn">
                                                     {t('common.viewDetails')}
                                                     <ArrowRight size={16} className="arrow-icon" />
@@ -221,7 +230,20 @@ const HotProperties = () => {
 
                     {/* Bottom CTA */}
                     <div className="properties-cta-container">
-                        <button className="btn btn-outline properties-cta-btn" onClick={() => navigate(`/${i18n.language}/buy`)}>
+                        <button 
+                            className="btn btn-outline properties-cta-btn" 
+                            onClick={() => {
+                                if (activeFilter === 'hot') {
+                                    navigate(`/${i18n.language}/hot-offers`);
+                                } else if (activeFilter === 'rent') {
+                                    navigate(`/${i18n.language}/rent`);
+                                } else if (activeFilter === 'new') {
+                                    navigate(`/${i18n.language}/new-projects`);
+                                } else {
+                                    navigate(`/${i18n.language}/buy`);
+                                }
+                            }}
+                        >
                             {t('hotProps.viewAll')}
                         </button>
                     </div>

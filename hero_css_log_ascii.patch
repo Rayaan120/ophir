@@ -1,0 +1,353 @@
+commit c957cd480df131ec93649f91552dfc456ff9fe02
+Author: businessgpt02-code <businessgpt02@gmail.com>
+Date:   Wed Mar 11 18:22:22 2026 +0400
+
+    push
+
+diff --git a/src/components/Hero.css b/src/components/Hero.css
+index 805dfec..6577c10 100644
+--- a/src/components/Hero.css
++++ b/src/components/Hero.css
+@@ -176,24 +176,36 @@
+ 
+ .input-group input[type="text"],
+ .input-group select {
+-    background: rgba(10, 10, 10, 0.5);
+-    /* Dark background */
++    background-color: rgba(10, 10, 10, 0.5);
+     border: 1px solid rgba(255, 255, 255, 0.1);
+     padding: 14px;
+     color: #ffffff;
+-    /* White text */
+     border-radius: var(--radius-sm);
+     font-family: var(--font-body);
+     font-size: 0.9rem;
++    appearance: none;
++    -webkit-appearance: none;
++}
++
++.input-group select {
++    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255, 255, 255, 0.6)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
++    background-repeat: no-repeat !important;
++    background-position: right 14px center;
++    background-size: 16px;
++    padding-right: 40px;
+ }
+ 
+ [data-theme='light'] .input-group input[type="text"],
+ [data-theme='light'] .input-group select {
+-    background: #ffffff;
++    background-color: #ffffff;
+     color: #111111;
+     border-color: rgba(0, 0, 0, 0.1);
+ }
+ 
++[data-theme='light'] .input-group select {
++    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(0, 0, 0, 0.6)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
++}
++
+ .input-group input:focus,
+ .input-group select:focus {
+     outline: none;
+
+commit bffa420d2f0f1500ddbcae71b3c2507741a32267
+Author: businessgpt02-code <businessgpt02@gmail.com>
+Date:   Tue Mar 10 19:18:08 2026 +0400
+
+    change
+
+diff --git a/src/components/Hero.css b/src/components/Hero.css
+index 2dab80e..805dfec 100644
+--- a/src/components/Hero.css
++++ b/src/components/Hero.css
+@@ -51,7 +51,7 @@
+ .hero-content {
+     flex: 1;
+     max-width: 650px;
+-    padding-right: 40px;
++    padding-inline-end: 40px;
+ }
+ 
+ .hero-title {
+@@ -62,6 +62,11 @@
+     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+ }
+ 
++/* Ensure title remains white in light mode */
++[data-theme='light'] .hero-title {
++    color: #ffffff !important;
++}
++
+ .hero-subtitle {
+     font-size: 1.1rem;
+     color: rgba(255, 255, 255, 0.85);
+@@ -70,11 +75,25 @@
+     max-width: 80%;
+ }
+ 
++/* Ensure subtitle remains translucent white in light mode */
++[data-theme='light'] .hero-subtitle {
++    color: rgba(255, 255, 255, 0.85) !important;
++}
++
+ .hero-actions {
+     display: flex;
+     gap: 16px;
+ }
+ 
++.hero-actions .btn {
++    border-radius: 100px;
++}
++
++.hero-actions .btn-outline:hover {
++    background-color: var(--gold-primary);
++    color: var(--text-dark);
++}
++
+ /* Right Content: Search Panel */
+ .hero-search-wrapper {
+     flex: 0 0 450px;
+@@ -92,6 +111,12 @@
+     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
+ }
+ 
++[data-theme='light'] .hero-section .glass-panel {
++    background: rgba(255, 255, 255, 0.9) !important;
++    border-color: rgba(0, 0, 0, 0.1) !important;
++    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1) !important;
++}
++
+ .search-tabs {
+     display: flex;
+     gap: 24px;
+@@ -107,11 +132,22 @@
+     border-bottom: 2px solid transparent;
+ }
+ 
++[data-theme='light'] .search-tab {
++    color: rgba(0, 0, 0, 0.7);
++    font-weight: 500;
++}
++
+ .search-tab.active {
+     color: var(--gold-primary);
+     border-bottom: 2px solid var(--gold-primary);
+ }
+ 
++[data-theme='light'] .search-tab.active {
++    color: #b8860b;
++    border-bottom-color: #b8860b;
++    font-weight: 600;
++}
++
+ .search-body {
+     display: flex;
+     flex-direction: column;
+@@ -133,6 +169,11 @@
+     letter-spacing: 1px;
+ }
+ 
++[data-theme='light'] .input-group label {
++    color: rgba(0, 0, 0, 0.8);
++    font-weight: 600;
++}
++
+ .input-group input[type="text"],
+ .input-group select {
+     background: rgba(10, 10, 10, 0.5);
+@@ -146,6 +187,13 @@
+     font-size: 0.9rem;
+ }
+ 
++[data-theme='light'] .input-group input[type="text"],
++[data-theme='light'] .input-group select {
++    background: #ffffff;
++    color: #111111;
++    border-color: rgba(0, 0, 0, 0.1);
++}
++
+ .input-group input:focus,
+ .input-group select:focus {
+     outline: none;
+@@ -164,6 +212,11 @@
+     transition: color var(--transition-fast);
+ }
+ 
++[data-theme='light'] .advanced-filters-link {
++    color: rgba(0, 0, 0, 0.7);
++    font-weight: 500;
++}
++
+ .advanced-filters-link:hover {
+     color: var(--gold-primary);
+ }
+@@ -180,6 +233,11 @@
+     justify-content: space-between;
+ }
+ 
++[data-theme='light'] .gold-text {
++    color: #b8860b;
++    font-weight: 600;
++}
++
+ .gold-slider {
+     appearance: none;
+     -webkit-appearance: none;
+@@ -192,6 +250,10 @@
+     margin-top: 10px;
+ }
+ 
++[data-theme='light'] .gold-slider {
++    background: rgba(0, 0, 0, 0.1);
++}
++
+ .gold-slider::-webkit-slider-thumb {
+     -webkit-appearance: none;
+     appearance: none;
+@@ -203,6 +265,10 @@
+     box-shadow: 0 0 10px var(--gold-muted);
+ }
+ 
++[data-theme='light'] .gold-slider::-webkit-slider-thumb {
++    background: #b8860b;
++}
++
+ .search-btn {
+     margin-top: 8px;
+     padding: 16px;
+@@ -273,7 +339,7 @@
+ 
+     .hero-content {
+         max-width: 100%;
+-        padding-right: 0;
++        padding-inline-end: 0;
+         text-align: center;
+     }
+ 
+
+commit f79645d8fd23b23b390bebb395c358c76aaec802
+Author: businessgpt02-code <businessgpt02@gmail.com>
+Date:   Sat Feb 28 14:13:55 2026 +0400
+
+    update
+
+diff --git a/src/components/Hero.css b/src/components/Hero.css
+index e6cda62..2dab80e 100644
+--- a/src/components/Hero.css
++++ b/src/components/Hero.css
+@@ -85,6 +85,13 @@
+     width: 100%;
+ }
+ 
++/* Force dark glass panel in hero regardless of theme */
++.hero-section .glass-panel {
++    background: rgba(15, 15, 15, 0.75) !important;
++    border-color: rgba(255, 255, 255, 0.1) !important;
++    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
++}
++
+ .search-tabs {
+     display: flex;
+     gap: 24px;
+@@ -94,7 +101,8 @@
+ 
+ .search-tab {
+     font-size: 0.9rem;
+-    color: var(--text-muted);
++    color: rgba(255, 255, 255, 0.6);
++    /* Forced light-muted color */
+     padding: 12px 0;
+     border-bottom: 2px solid transparent;
+ }
+@@ -119,17 +127,20 @@
+ 
+ .input-group label {
+     font-size: 0.75rem;
+-    color: var(--text-muted);
++    color: rgba(255, 255, 255, 0.8);
++    /* Forced light color */
+     text-transform: uppercase;
+     letter-spacing: 1px;
+ }
+ 
+ .input-group input[type="text"],
+ .input-group select {
+-    background: rgba(10, 10, 10, 0.4);
+-    border: 1px solid var(--border-color);
++    background: rgba(10, 10, 10, 0.5);
++    /* Dark background */
++    border: 1px solid rgba(255, 255, 255, 0.1);
+     padding: 14px;
+-    color: var(--text-main);
++    color: #ffffff;
++    /* White text */
+     border-radius: var(--radius-sm);
+     font-family: var(--font-body);
+     font-size: 0.9rem;
+@@ -141,11 +152,24 @@
+     border-color: var(--gold-primary);
+ }
+ 
+-[data-theme='light'] .input-group input[type="text"],
+-[data-theme='light'] .input-group select {
+-    background: rgba(255, 255, 255, 0.8);
++/* Cleaned up duplicate search-tab definition */
++
++.advanced-filters-link {
++    text-align: center;
++    font-size: 0.8rem;
++    color: rgba(255, 255, 255, 0.6);
++    /* Forced light-muted color */
++    cursor: pointer;
++    margin-top: 4px;
++    transition: color var(--transition-fast);
++}
++
++.advanced-filters-link:hover {
++    color: var(--gold-primary);
+ }
+ 
++/* Search Panel styling is already dark-primary by default */
++
+ .search-row {
+     display: flex;
+     gap: 16px;
+@@ -161,7 +185,8 @@
+     -webkit-appearance: none;
+     width: 100%;
+     height: 4px;
+-    background: var(--bg-color);
++    background: rgba(255, 255, 255, 0.1);
++    /* Forced dark background */
+     border-radius: 2px;
+     outline: none;
+     margin-top: 10px;
+@@ -183,18 +208,7 @@
+     padding: 16px;
+ }
+ 
+-.advanced-filters-link {
+-    text-align: center;
+-    font-size: 0.8rem;
+-    color: var(--text-muted);
+-    cursor: pointer;
+-    margin-top: 4px;
+-    transition: color var(--transition-fast);
+-}
+-
+-.advanced-filters-link:hover {
+-    color: var(--gold-primary);
+-}
++/* Cleaned up duplicate advanced-filters-link definition */
+ 
+ /* Scroll indicator */
+ .scroll-indicator {
+@@ -212,7 +226,7 @@
+ 
+ .scroll-indicator span {
+     font-size: 0.75rem;
+-    color: var(--text-muted);
++    color: rgba(255, 255, 255, 0.7);
+     text-transform: uppercase;
+     letter-spacing: 2px;
+ }

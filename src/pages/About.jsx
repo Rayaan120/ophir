@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import AboutHero from '../components/about/AboutHero';
 import OurStory from '../components/about/OurStory';
-import MeetOurLeadership from '../components/about/MeetOurLeadership';
+import MeetOurTeam from '../components/about/MeetOurLeadership';
 import OurCoreValues from '../components/about/OurCoreValues';
 import OurMissionVision from '../components/about/OurMissionVision';
 import TestimonialsSection from '../components/TestimonialsSection';
@@ -16,9 +16,8 @@ const About = () => {
         <div className="about-page">
             <AboutHero />
             <OurStory />
+            <MeetOurTeam />
             <OurMissionVision />
-            <OurCoreValues />
-            <MeetOurLeadership />
             <TestimonialsSection />
             <AboutFinalCTA />
         </div>

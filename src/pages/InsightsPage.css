@@ -11,7 +11,7 @@
     text-align: center;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(to bottom, rgba(10, 10, 10, 0.4), rgba(10, 10, 10, 1)),
+    background: linear-gradient(to bottom, rgba(30, 26, 52, 0.4), rgba(30, 26, 52, 1)),
         url('https://images.unsplash.com/photo-1582408921715-18e7806365c1?auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
     background-position: center;
@@ -139,7 +139,7 @@
 
 .newsletter-input {
     width: 100%;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(40, 36, 62, 0.5);
     border: 1px solid var(--border-color);
     padding: 14px;
     border-radius: 4px;

@@ -38,10 +38,6 @@ const OurMissionVision = () => {
 
             <div className="ethereal-container">
                 <div className="ethereal-header text-center">
-                    <div className="ethereal-badge">
-                        <Sparkles size={14} />
-                        <span>{renderWithAmp(t('missionVision.badge'))}</span>
-                    </div>
                     <h2 className="section-title">{renderWithAmp(t('missionVision.title'))}</h2>
                     <p className="ethereal-quote">{renderWithAmp(t('missionVision.quote'))}</p>
                 </div>

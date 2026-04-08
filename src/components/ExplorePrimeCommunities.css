@@ -1,356 +1,323 @@
-.explore-cinematic-section {
+.explore-prime-showcase {
     position: relative;
-    height: 100vh;
-    min-height: 800px;
-    width: 100%;
-    overflow: hidden;
+    padding: 100px 0;
     background: var(--bg-color);
+    overflow: hidden;
 }
 
-.cinematic-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    z-index: 1;
-}
-
-.cinematic-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.7) 40%, rgba(10, 10, 10, 0.3) 100%),
-        linear-gradient(0deg, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0) 40%);
-    z-index: 2;
-    pointer-events: none;
-    transition: background 0.3s ease;
-}
-
-.cinematic-content {
+.explore-prime-grid {
     display: flex;
+    align-items: stretch;
+    gap: 40px;
+    height: 600px;
+}
+
+/* LEFT PANEL (Charcoal) */
+.ep-left-panel {
+    flex: 0 0 35%;
+    background: var(--bg-card);
+    border-radius: 24px;
+    padding: 50px 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-    min-height: 800px;
+    overflow: hidden;
 }
 
-.cinematic-nav {
-    display: flex;
-    flex-direction: column;
-    z-index: 10;
-    width: 50%;
+[data-theme='light'] .ep-left-panel {
+    background: #f5f5f5;
+    border: 1px solid var(--border-color);
 }
 
-.nav-header {
-    margin-bottom: 30px;
+.ep-accent-line-top {
+    width: 60px;
+    height: 3px;
+    background: var(--gold-primary);
+    margin-bottom: 40px;
+    border-radius: 2px;
 }
 
-.nav-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.ep-content-inner {
+    position: relative;
+    z-index: 2;
 }
 
-.nav-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    cursor: pointer;
-    opacity: 0.4;
-    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.nav-item.active {
-    opacity: 1;
-    transform: translateX(30px);
-}
-
-.nav-num {
-    font-size: 1rem;
-    font-family: var(--font-body);
-    color: var(--gold-primary);
-    font-weight: 600;
-    margin-top: 15px;
-}
-
-.nav-title {
-    font-size: clamp(3rem, 6vw, 6rem);
+.ep-main-title {
+    font-size: 2.2rem;
     font-family: var(--font-heading);
-    text-transform: uppercase;
-    color: transparent;
-    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.8);
-    opacity: 0.8;
-    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-    line-height: 0.9;
-    margin: 0;
-    letter-spacing: -2px;
-}
-
-.nav-item.active .nav-title {
-    color: #ffffff;
-    -webkit-text-stroke: 1.5px transparent;
-    text-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    letter-spacing: 0px;
-}
-
-.nav-item:hover:not(.active) {
-    opacity: 0.8;
-    transform: translateX(10px);
-}
-
-.nav-item:hover:not(.active) .nav-title {
-    -webkit-text-stroke: 1.5px var(--gold-primary);
-}
-
-.cinematic-info-wrapper {
-    width: 500px;
-    z-index: 10;
-    perspective: 1000px;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.cinematic-glass-card {
-    background: rgba(15, 15, 15, 0.35);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-left: 4px solid var(--gold-primary);
-    padding: 60px 50px;
-    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    width: 100%;
-}
-
-[data-theme='light'] .cinematic-glass-card {
-    background: rgba(255, 255, 255, 0.7);
-    border-color: var(--border-color);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-}
-
-[data-theme='light'] .cinematic-glass-card .card-title {
-    color: #b8860b;
-    /* Darker gold for better visibility */
-    font-weight: 500;
-}
-
-.cinematic-glass-card .gold-badge {
-    background: rgba(212, 175, 55, 0.15);
-    border: 1px solid rgba(212, 175, 55, 0.3);
     color: var(--gold-primary);
-    padding: 8px 18px;
-    border-radius: 30px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    display: inline-block;
     margin-bottom: 24px;
-    text-transform: uppercase;
-}
-
-[data-theme='light'] .cinematic-glass-card .gold-badge {
-    background: rgba(212, 175, 55, 0.2);
-    color: #8a7322;
-    /* Darker gold for readability */
-    border-color: rgba(212, 175, 55, 0.5);
-    font-weight: 700;
-}
-
-.cinematic-glass-card .card-title {
-    font-size: 3.2rem;
-    color: var(--gold-primary);
-    margin-bottom: 8px;
-    line-height: 1.1;
-    font-family: var(--font-heading);
-    text-transform: uppercase;
-    font-weight: 300;
-}
-
-.cinematic-glass-card .card-tagline {
-    font-size: 1.25rem;
-    font-family: var(--font-body);
-    color: var(--text-main);
-    margin-bottom: 24px;
-    font-weight: 500;
+    line-height: 1.2;
     letter-spacing: 1px;
 }
 
-.cinematic-glass-card .card-desc {
-    color: var(--text-muted);
+.ep-main-desc {
     font-size: 1.05rem;
     line-height: 1.7;
-    margin-bottom: 45px;
+    color: var(--text-muted);
 }
 
-[data-theme='light'] .cinematic-glass-card .card-desc {
-    color: #444444;
-    /* Dark gray for readability on light glass */
+[data-theme='light'] .ep-main-desc {
+    color: #555555;
+}
+
+.ep-btn-wrapper {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Subtle map lines in bottom background */
+.ep-map-graphic {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    width: 250px;
+    height: 150px;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+
+[data-theme='light'] .ep-map-svg {
+    stroke: rgba(0,0,0,0.05);
+}
+
+/* RIGHT CARDS SECTION */
+.ep-right-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* allows flex children to shrink/truncate properly */
+}
+
+.ep-cards-track {
+    display: flex;
+    gap: 24px;
+    height: calc(100% - 60px); /* leave room for nav */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+}
+.ep-cards-track::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.ep-card {
+    flex: 0 0 320px;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    scroll-snap-align: start;
+    cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.ep-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+[data-theme='light'] .ep-card:hover {
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.ep-card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s ease;
+}
+
+.ep-card:hover .ep-card-bg {
+    transform: scale(1.05);
+}
+
+.ep-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.4) 40%, transparent 100%);
+}
+
+.ep-card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 30px 24px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.ep-badge {
+    align-self: flex-start;
+    background: rgba(212, 175, 55, 0.2);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    color: var(--gold-primary);
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    backdrop-filter: blur(4px);
+}
+
+.ep-card-title {
+    font-size: 1.8rem;
+    color: #ffffff;
+    font-family: var(--font-heading);
+    margin-bottom: 12px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.ep-card-accent-line {
+    width: 40px;
+    height: 2px;
+    background: var(--gold-primary);
+    margin-bottom: 12px;
+    transition: width 0.3s ease;
+}
+
+.ep-card:hover .ep-card-accent-line {
+    width: 60px;
+}
+
+.ep-card-text-wrapper {
+    opacity: 1;
+    margin-top: 10px;
+}
+
+.ep-card-tagline {
+    font-size: 0.95rem;
+    color: var(--gold-primary);
+    margin-bottom: 8px;
     font-weight: 500;
 }
 
-.cinematic-btn {
-    width: 100%;
+.ep-card-desc {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+}
+
+/* SLIDER CONTROLS */
+.ep-slider-nav {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 20px 28px;
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    background: rgba(212, 175, 55, 0.9);
-    border: none;
-    border-radius: 100px;
-    color: var(--text-dark);
-    font-weight: 600;
+    justify-content: space-between;
+    height: 60px;
+    padding-top: 20px;
 }
 
-.cinematic-btn:hover {
-    background: var(--gold-hover);
+.ep-nav-dots {
+    display: flex;
+    gap: 10px;
 }
 
-.cinematic-btn .btn-icon {
-    transition: transform var(--transition-fast);
+.ep-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(212, 175, 55, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.cinematic-btn:hover .btn-icon {
-    transform: translateX(6px);
+.ep-dot.active {
+    background: var(--gold-primary);
+    transform: scale(1.3);
 }
 
-/* Typography utilities used in JSX */
-.tracking-widest {
-    letter-spacing: 0.15em;
+[data-theme='light'] .ep-dot {
+    background: rgba(0,0,0,0.1);
 }
 
-.uppercase {
-    text-transform: uppercase;
+[data-theme='light'] .ep-dot.active {
+    background: var(--gold-primary);
 }
 
-.text-sm {
-    font-size: 1rem;
+.ep-nav-arrows {
+    display: flex;
+    gap: 12px;
 }
 
-.font-semibold {
-    font-weight: 600;
+.ep-circle-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: transparent;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.mb-2 {
-    margin-bottom: 1rem;
+[data-theme='light'] .ep-circle-btn {
+    border-color: rgba(0,0,0,0.1);
 }
 
-.mb-10 {
-    margin-bottom: 2.5rem;
+.ep-circle-btn:hover {
+    background: var(--gold-primary);
+    color: #111;
+    border-color: var(--gold-primary);
 }
 
-.block {
-    display: block;
+/* Utilities used */
+.fade-in {
+    animation: fadeIn 1s ease forwards;
 }
 
-.text-gray-300 {
-    color: var(--text-muted);
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-[data-theme='light'] .text-gray-300 {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.max-w-xs {
-    max-width: 24rem;
-}
-
-.max-w-lg {
-    max-width: 48rem;
-}
-
-.leading-relaxed {
-    line-height: 1.7;
-    font-size: 0.95rem;
-}
-
-/* Responsive adjustments */
-@media (max-width: 1200px) {
-    .nav-title {
-        font-size: 4.5rem;
-    }
-
-    .cinematic-glass-card {
-        padding: 40px;
-    }
-}
-
+/* RESPONSIVE */
 @media (max-width: 1024px) {
-    .explore-cinematic-section {
-        height: auto;
-    }
-
-    .cinematic-content {
+    .explore-prime-grid {
         flex-direction: column;
-        justify-content: center;
-        gap: 60px;
-        padding: 120px 0;
         height: auto;
     }
 
-    .cinematic-nav {
-        width: 100%;
+    .ep-left-panel {
+        flex: none;
+        padding: 40px 30px;
     }
 
-    .nav-title {
-        font-size: 4rem;
+    .ep-right-section {
+        height: 500px;
     }
 
-    .cinematic-info-wrapper {
-        width: 100%;
-        max-width: 600px;
-        margin: 0 auto;
-        justify-content: center;
-    }
-
-    .cinematic-glass-card {
-        border-radius: var(--radius-lg);
-        border-left: none;
-        border-top: 4px solid var(--gold-primary);
+    .ep-card {
+        flex: 0 0 280px;
     }
 }
 
 @media (max-width: 768px) {
-    .nav-title {
-        font-size: 2.8rem;
+    .explore-prime-showcase {
+        padding: 60px 0;
     }
 
-    .nav-item {
-        gap: 15px;
+    .ep-right-section {
+        height: 450px;
     }
 
-    .nav-item.active {
-        transform: translateX(15px);
+    .ep-card {
+        flex: 0 0 260px;
     }
 
-    .nav-num {
-        font-size: 0.9rem;
-        margin-top: 10px;
-    }
-
-    .cinematic-glass-card {
-        padding: 30px 24px;
-    }
-
-    .cinematic-glass-card .card-title {
-        font-size: 2.2rem;
-    }
-
-    .cinematic-glass-card .card-desc {
-        font-size: 1rem;
-        margin-bottom: 30px;
-    }
-
-    .cinematic-btn {
-        padding: 16px 20px;
-        font-size: 0.9rem;
+    .ep-main-title {
+        font-size: 1.8rem;
     }
 }

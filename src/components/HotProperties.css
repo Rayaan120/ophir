@@ -46,15 +46,15 @@
 .gold-accent-line-thin {
     width: 70px;
     height: 3px;
-    background-color: #d4af37;
+    background-color: var(--gold-primary);
 }
 
 .hot-properties-tabs {
     display: flex;
-    background: #f8f8f8;
+    background: #e6e6e6;
     padding: 6px;
     border-radius: 100px;
-    border: 1px solid #eeeeee;
+    border: 1px solid rgba(0, 0, 0, 0.05);
     gap: 0;
     align-items: center;
 }
@@ -91,15 +91,40 @@
 }
 
 .filter-tab.active {
-    background: #bfa044;
+    background: var(--gold-primary);
     color: #ffffff;
-    border: 1px solid rgba(191, 160, 68, 0.2);
+    border: 1px solid rgba(197, 160, 33, 0.2);
 }
 
 [data-theme='dark'] .filter-tab.active {
-    background: #d4af37;
+    background: var(--gold-primary);
     color: #ffffff;
-    border-color: #d4af37;
+    border-color: var(--gold-primary);
+}
+
+/* Red Tab: Hot Offers */
+.filter-tab.tab-hot {
+    color: #ff1212;
+    font-weight: 700;
+}
+
+.filter-tab.tab-hot:hover:not(.active) {
+    color: #ff3c3c;
+    text-shadow: 0 0 8px rgba(255, 18, 18, 0.4);
+}
+
+.filter-tab.tab-hot.active {
+    background: #ff1212;
+    color: #ffffff;
+    border-color: #ff1212;
+    box-shadow: 0 0 15px rgba(255, 18, 18, 0.3);
+}
+
+[data-theme='dark'] .filter-tab.tab-hot.active {
+    background: #ff1212;
+    color: #ffffff;
+    border-color: #ff1212;
+    box-shadow: 0 0 20px rgba(255, 18, 18, 0.4);
 }
 
 /* Grid */
@@ -112,7 +137,7 @@
 
 /* Property Card */
 .property-card {
-    background: rgba(15, 15, 15, 0.3);
+    background: rgba(var(--bg-rgb), 0.3);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     overflow: hidden;
@@ -122,7 +147,7 @@
 }
 
 [data-theme='light'] .property-card {
-    background: #ffffff;
+    background: #e6e6e6;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
 }
 
@@ -188,7 +213,7 @@
 }
 
 .badge-primary {
-    background: rgba(10, 10, 10, 0.75);
+    background: rgba(var(--bg-rgb), 0.75);
     color: var(--gold-primary);
     border: 1px solid rgba(212, 175, 55, 0.3);
 }
@@ -206,7 +231,7 @@
     right: 16px;
     width: 36px;
     height: 36px;
-    background: rgba(10, 10, 10, 0.6);
+    background: rgba(var(--bg-rgb), 0.6);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -224,7 +249,7 @@
 }
 
 .favorite-btn:hover {
-    background: rgba(10, 10, 10, 0.8);
+    background: rgba(var(--bg-rgb), 0.8);
     border-color: var(--gold-primary);
 }
 
@@ -539,7 +564,7 @@
     justify-content: center;
     padding: 60px 20px;
     text-align: center;
-    background: rgba(15, 15, 15, 0.3);
+    background: rgba(var(--bg-rgb), 0.3);
     border: 1px dashed var(--border-color);
     border-radius: var(--radius-md);
     margin-bottom: 60px;

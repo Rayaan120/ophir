@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Search, ChevronDown, SlidersHorizontal } from 'lucide-react';
 import './Hero.css';
 
 const Hero = () => {
     const [activeTab, setActiveTab] = useState('Buy');
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [showFilters, setShowFilters] = useState(false);
 
     // Search Panel States
     const [searchLocation, setSearchLocation] = useState('');
@@ -18,9 +20,9 @@ const Hero = () => {
     const lang = i18n.language || 'en';
 
     const images = [
-        'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop', // Villa exterior
-        'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop', // Interior
-        'https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?q=80&w=2070&auto=format&fit=crop'  // Skyline waterfront
+        '/home/address1.png',
+        '/home/albero1.png',
+        '/home/baystar1.png'
     ];
 
     useEffect(() => {
@@ -71,16 +73,15 @@ const Hero = () => {
                 <div
                     key={idx}
                     className={`hero-bg ${idx === currentSlide ? 'active' : ''}`}
-                    style={{ backgroundImage: `url(${img})` }}
+                    style={{ backgroundImage: `url("${img}")` }}
                 ></div>
             ))}
             <div className="hero-overlay"></div>
 
             <div className="hero-container container">
 
-                {/* Left Content */}
-                <div className="hero-content animate-fade-in">
-                    <span className="small-label">{t('home.heroArea')}</span>
+                {/* Centered Hero Content */}
+                <div className="hero-content centered animate-fade-in">
                     <h1 className="hero-title">
                         {t('home.heroTitle').split('&').map((part, i, arr) => (
                             <span key={i}>
@@ -88,91 +89,98 @@ const Hero = () => {
                                 {i < arr.length - 1 && <span className="normal-amp">&</span>}
                             </span>
                         ))}
-                        <br />
                     </h1>
                     <p className="hero-subtitle">
                         {t('home.heroSubtitle')}
                     </p>
-                    <div className="hero-actions">
-                        <button className="btn btn-primary" onClick={() => navigate(`/${lang}/buy`)}>{t('home.explorePortfolio')}</button>
-                        <button className="btn btn-outline" onClick={() => navigate(`/${lang}/contact`)}>{t('home.getInTouch')}</button>
-                    </div>
-                </div>
 
-                {/* Right Content: Advanced Search Panel */}
-                <div className="hero-search-wrapper animate-fade-in">
-                    <div className="search-panel glass-panel rounded-container">
+                    {/* Modern Search Bar */}
+                    <div className="modern-search-bar-wrapper animate-fade-in">
+                        <div className="modern-search-bar">
+                            <div className="category-select">
+                                <select value={activeTab} onChange={(e) => setActiveTab(e.target.value)}>
+                                    <option value="Buy">{t('heroSearch.tabBuy')}</option>
+                                    <option value="Rent">{t('heroSearch.tabRent')}</option>
+                                    <option value="Off-Plan">{t('heroSearch.tabOffPlan')}</option>
+                                </select>
+                                <ChevronDown size={14} className="chevron-icon" />
+                            </div>
 
-                        <div className="search-tabs">
-                            {['Buy', 'Rent', 'Off-Plan'].map((tab) => (
-                                <button
-                                    key={tab}
-                                    className={`search-tab ${activeTab === tab ? 'active' : ''}`}
-                                    onClick={() => setActiveTab(tab)}
-                                >
-                                    {tab === 'Buy' ? t('heroSearch.tabBuy') : tab === 'Rent' ? t('heroSearch.tabRent') : t('heroSearch.tabOffPlan')}
-                                </button>
-                            ))}
-                        </div>
+                            <div className="divider"></div>
 
-                        <div className="search-body">
-                            <div className="input-group">
-                                <label>{t('heroSearch.locationLabel')}</label>
+                            <div className="search-input-group">
+                                <Search size={20} className="search-icon" />
                                 <input
                                     type="text"
-                                    placeholder={t('heroSearch.locationPlaceholder')}
+                                    placeholder={t('heroSearch.modernPlaceholder')}
                                     value={searchLocation}
                                     onChange={(e) => setSearchLocation(e.target.value)}
+                                    onKeyPress={(e) => e.key === 'Enter' && handleSearchSubmit()}
                                 />
                             </div>
 
-                            <div className="search-row">
-                                <div className="input-group">
-                                    <label>{t('heroSearch.typeLabel')}</label>
-                                    <select value={propertyType} onChange={(e) => setPropertyType(e.target.value)}>
-                                        <option value="All">{t('heroSearch.typeAll')}</option>
-                                        <option value="Villa">{t('heroSearch.typeVilla')}</option>
-                                        <option value="Apartment">{t('heroSearch.typeApartment')}</option>
-                                        <option value="Townhouse">{t('heroSearch.typeTownhouse')}</option>
-                                    </select>
-                                </div>
-                                <div className="input-group">
-                                    <label>{t('heroSearch.bedsLabel')}</label>
-                                    <select value={bedrooms} onChange={(e) => setBedrooms(e.target.value)}>
-                                        <option value="Any">{t('heroSearch.bedsAny')}</option>
-                                        <option value="1">{t('heroSearch.beds1')}</option>
-                                        <option value="2">{t('heroSearch.beds2')}</option>
-                                        <option value="3">{t('heroSearch.beds3')}</option>
-                                        <option value="4+">{t('heroSearch.beds4plus')}</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div className="input-group range-group">
-                                <div className="range-header">
-                                    <label>{t('heroSearch.priceLabel')}</label>
-                                    <span className="gold-text">
-                                        {priceSlider === 0 ? t('heroSearch.priceAny') : t('heroSearch.priceVal', { val: priceSlider })}
-                                    </span>
-                                </div>
-                                <input
-                                    type="range"
-                                    className="gold-slider"
-                                    min="0"
-                                    max="50"
-                                    value={priceSlider}
-                                    onChange={(e) => setPriceSlider(Number(e.target.value))}
-                                />
-                            </div>
-
-                            <button className="btn btn-primary btn-full search-btn" onClick={handleSearchSubmit}>
-                                {activeTab === 'Buy' ? t('heroSearch.searchBtnBuy') : activeTab === 'Rent' ? t('heroSearch.searchBtnRent') : t('heroSearch.searchBtnOffPlan')}
+                            <button
+                                className={`advanced-toggle ${showFilters ? 'active' : ''}`}
+                                onClick={() => setShowFilters(!showFilters)}
+                                title={t('heroSearch.filterLabel')}
+                            >
+                                <SlidersHorizontal size={20} />
+                                <span>{t('heroSearch.filterLabel')}</span>
                             </button>
 
-                            <div className="advanced-filters-link">
-                                <span>{t('heroSearch.advancedFilters')}</span>
-                            </div>
+                            <button className="modern-search-submit" onClick={handleSearchSubmit}>
+                                {t('heroSearch.searchBtn')}
+                            </button>
                         </div>
+
+                        {/* Dropdown Filters */}
+                        {showFilters && (
+                            <div className="modern-filters-dropdown glass-panel">
+                                <div className="filter-grid">
+                                    <div className="filter-item">
+                                        <label>{t('heroSearch.typeLabel')}</label>
+                                        <select value={propertyType} onChange={(e) => setPropertyType(e.target.value)}>
+                                            <option value="All">{t('heroSearch.typeAll')}</option>
+                                            <option value="Villa">{t('heroSearch.typeVilla')}</option>
+                                            <option value="Apartment">{t('heroSearch.typeApartment')}</option>
+                                            <option value="Townhouse">{t('heroSearch.typeTownhouse')}</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="filter-item">
+                                        <label>{t('heroSearch.bedsLabel')}</label>
+                                        <select value={bedrooms} onChange={(e) => setBedrooms(e.target.value)}>
+                                            <option value="Any">{t('heroSearch.bedsAny')}</option>
+                                            <option value="1">{t('heroSearch.beds1')}</option>
+                                            <option value="2">{t('heroSearch.beds2')}</option>
+                                            <option value="3">{t('heroSearch.beds3')}</option>
+                                            <option value="4+">{t('heroSearch.beds4plus')}</option>
+                                        </select>
+                                    </div>
+
+                                    <div className="filter-item full-width">
+                                        <div className="range-header">
+                                            <label>{t('heroSearch.priceLabel')}</label>
+                                            <span className="price-val">
+                                                {priceSlider === 0 ? t('heroSearch.priceAny') : t('heroSearch.priceVal', { val: priceSlider })}
+                                            </span>
+                                        </div>
+                                        <input
+                                            type="range"
+                                            className="modern-slider"
+                                            min="0"
+                                            max="50"
+                                            value={priceSlider}
+                                            onChange={(e) => setPriceSlider(Number(e.target.value))}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="hero-actions">
+                        <button className="btn btn-outline" onClick={() => navigate(`/${lang}/contact`)}>{t('home.getInTouch')}</button>
                     </div>
                 </div>
 

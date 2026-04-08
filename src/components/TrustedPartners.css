@@ -99,7 +99,7 @@
     height: 130px;
     position: relative;
     border-radius: var(--radius-sm);
-    background: #ffffff;
+    background: #e6e6e6;
     border: 1px solid rgba(212, 175, 55, 0.15);
     overflow: hidden;
     cursor: pointer;
@@ -151,13 +151,13 @@
 }
 
 [data-theme='light'] .partner-card {
-    background: #ffffff;
+    background: #e6e6e6;
     border-color: rgba(0, 0, 0, 0.08);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 [data-theme='light'] .partner-card:hover {
-    background: #ffffff;
+    background: #e6e6e6;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 0 15px rgba(212, 175, 55, 0.15) inset;
     border-color: var(--gold-primary);
 }

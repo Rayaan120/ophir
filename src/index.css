@@ -1,12 +1,76 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+/* Custom Local Fonts */
+@font-face {
+  font-family: 'Adobe Garamond Pro';
+  src: url('/fonts/adobe-garamond-pro-2/AGaramondPro-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Adobe Garamond Pro';
+  src: url('/fonts/adobe-garamond-pro-2/AGaramondPro-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Adobe Garamond Pro';
+  src: url('/fonts/adobe-garamond-pro-2/AGaramondPro-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Adobe Garamond Pro';
+  src: url('/fonts/adobe-garamond-pro-2/AGaramondPro-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Optima';
+  src: url('/fonts/optima/OPTIMA.TTF') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Optima';
+  src: url('/fonts/optima/Optima_Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Optima';
+  src: url('/fonts/optima/Optima Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Optima';
+  src: url('/fonts/optima/OPTIMA_B.TTF') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 
 :root {
   --bg-color: #0a0a0a;
   --bg-lighter: #151515;
   --bg-card: #111111;
-  --gold-primary: #d4af37;
-  --gold-hover: #e5c158;
-  --gold-muted: rgba(212, 175, 55, 0.2);
+  --gold-primary: #c5a021;
+  --gold-hover: #d4af37;
+  --gold-muted: rgba(197, 160, 33, 0.2);
   --text-main: #f5f5f5;
   --text-muted: #a3a3a3;
   --text-dark: #111111;
@@ -20,21 +84,65 @@
   --transition-fast: 0.2s ease;
   --transition-slow: 0.4s ease-in-out;
 
-  --font-heading: 'Playfair Display', serif;
-  --font-body: 'Inter', sans-serif;
+  /* Primary Font: Optima Regular */
+  --font-heading: 'Optima', 'Optima Regular', sans-serif;
+  
+  /* Secondary Font: Adobe Garamond Pro */
+  --font-body: 'Adobe Garamond Pro', serif;
 }
 
 [data-theme='light'] {
   --bg-color: #f7f5f2;
   /* Soft warm off-white */
-  --bg-lighter: #ffffff;
-  --bg-card: #ffffff;
+  --bg-lighter: #e6e6e6;
+  --bg-card: #e6e6e6;
   --text-main: #1f1f1f;
   /* Deep charcoal */
   --text-muted: #555555;
   --border-color: rgba(0, 0, 0, 0.08);
   /* Subtle light gray */
   /* Keep gold tones identical */
+}
+
+[data-theme='dark'] {
+  --bg-color: #1E1A34;
+  --bg-lighter: #29253f;
+  --bg-card: #24203a;
+}
+
+html,
+body,
+.home-page-root,
+.about-page,
+.services-page,
+.buy-page,
+.rent-page,
+.new-projects-page,
+.property-details-page,
+.hot-offers-page,
+.communities-page,
+.contact-page,
+.global-insights-page,
+.insights-page,
+.privacy-policy-page {
+  background-color: var(--bg-color);
+}
+
+[data-theme='light'] html,
+[data-theme='light'] body,
+[data-theme='light'] .home-page-root,
+[data-theme='light'] .about-page,
+[data-theme='light'] .services-page,
+[data-theme='light'] .buy-page, 
+[data-theme='light'] .rent-page, 
+[data-theme='light'] .new-projects-page, 
+[data-theme='light'] .property-details-page,
+[data-theme='light'] .global-insights-page,
+[data-theme='light'] .contact-page,
+[data-theme='light'] .privacy-policy-page {
+  --bg-color: #e6e6e6;
+  --bg-lighter: #e6e6e6;
+  --bg-card: #e6e6e6;
 }
 
 * {
@@ -180,16 +288,16 @@ button {
 }
 
 .glass-panel {
-  background: rgba(15, 15, 15, 0.65);
+  background: rgba(30, 26, 52, 0.65);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-color);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 40px rgba(10, 10, 10, 0.5);
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 [data-theme='light'] .glass-panel {
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(230, 230, 230, 0.7);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
 }
 

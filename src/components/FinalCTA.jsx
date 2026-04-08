@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import './FinalCTA.css';
@@ -9,7 +10,7 @@ const FinalCTA = () => {
 
     return (
         <section className="final-cta-section">
-            <div className="final-cta-bg" style={{ backgroundImage: "url('/offer.jpg')" }}></div>
+            <div className="final-cta-bg" style={{ backgroundImage: "url('/home/address2.png')" }}></div>
             <div className="final-cta-overlay"></div>
 
             <div className="container final-cta-container">
@@ -23,7 +24,7 @@ const FinalCTA = () => {
                     </p>
                     <div className="cta-actions">
                         <button className="btn btn-primary" onClick={() => navigate(`/${lang}/contact`)}>{t('cta.btn1')}</button>
-                        <button className="btn btn-outline" onClick={() => window.open('https://wa.me/971000000000', '_blank')}>{t('cta.btn2')}</button>
+                        <button className="btn btn-outline" onClick={() => window.open('https://wa.me/9717758953106', '_blank')}>{t('cta.btn2')}</button>
                     </div>
                 </div>
             </div>

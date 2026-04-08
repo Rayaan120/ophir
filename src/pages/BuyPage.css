@@ -44,7 +44,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.4) 100%);
+    background: linear-gradient(to right, rgba(10, 10, 12, 0.9) 0%, rgba(10, 10, 12, 0.4) 100%);
     z-index: 1;
 }
 
@@ -57,7 +57,7 @@
 
 .buy-hero-content .hero-label {
     display: inline-block;
-    color: var(--gold-accent, #d4af37);
+    color: var(--gold-accent, #c5a021);
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 3px;
@@ -86,7 +86,7 @@
     font-size: 0.9rem;
     display: flex;
     gap: 15px;
-    color: var(--gold-accent, #d4af37);
+    color: var(--gold-accent, #c5a021);
     opacity: 0.9;
     font-weight: 500;
 }
@@ -154,7 +154,7 @@
 .filter-input,
 .filter-select {
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(40, 36, 62, 0.5);
     border: 1px solid var(--border-color);
     color: var(--text-main);
     padding: 14px 20px;
@@ -167,7 +167,7 @@
 
 [data-theme='light'] .filter-input,
 [data-theme='light'] .filter-select {
-    background-color: #fff;
+    background-color: #e6e6e6;
 }
 
 .filter-input.with-icon {
@@ -177,7 +177,7 @@
 .filter-input:focus,
 .filter-select:focus {
     outline: none;
-    border-color: var(--gold-accent, #d4af37);
+    border-color: var(--gold-accent, #c5a021);
     background-color: rgba(212, 175, 55, 0.05);
 }
 
@@ -235,7 +235,7 @@
     padding: 10px 40px 10px 20px;
     width: auto;
     min-width: 200px;
-    background-color: transparent;
+    background-color: transparent !important;
 }
 
 
@@ -251,7 +251,7 @@
     width: 40px;
     height: 40px;
     border: 3px solid rgba(212, 175, 55, 0.2);
-    border-top-color: var(--gold-accent, #d4af37);
+    border-top-color: var(--gold-accent, #c5a021);
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin: 0 auto 1.5rem;
@@ -352,7 +352,7 @@
 .card-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, transparent 40%, rgba(0, 0, 0, 0.8) 100%);
+    background: linear-gradient(to bottom, rgba(30, 26, 52, 0.4) 0%, transparent 40%, rgba(30, 26, 52, 0.8) 100%);
 }
 
 .card-badges {
@@ -365,7 +365,7 @@
 }
 
 .badge-sale {
-    background-color: var(--gold-accent, #d4af37);
+    background-color: var(--gold-accent, #c5a021);
     color: #000;
     font-size: 0.75rem;
     font-weight: 600;
@@ -376,7 +376,7 @@
 }
 
 .badge-type {
-    background-color: rgba(10, 10, 10, 0.8);
+    background-color: rgba(30, 26, 52, 0.8);
     backdrop-filter: blur(4px);
     color: #fff;
     font-size: 0.75rem;
@@ -418,7 +418,7 @@
 .card-price {
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--gold-accent, #d4af37);
+    color: var(--gold-accent, #c5a021);
     margin-bottom: 20px;
     display: flex;
     align-items: baseline;
@@ -488,7 +488,7 @@
 }
 
 .card-btn:hover {
-    color: var(--gold-accent, #d4af37);
+    color: var(--gold-accent, #c5a021);
 }
 
 /* --- Pagination --- */
@@ -516,14 +516,14 @@
 }
 
 .page-btn:hover:not(:disabled) {
-    border-color: var(--gold-accent, #d4af37);
-    color: var(--gold-accent, #d4af37);
+    border-color: var(--gold-accent, #c5a021);
+    color: var(--gold-accent, #c5a021);
 }
 
 .page-btn.active {
-    background: var(--gold-accent, #d4af37);
+    background: var(--gold-accent, #c5a021);
     color: #000;
-    border-color: var(--gold-accent, #d4af37);
+    border-color: var(--gold-accent, #c5a021);
     font-weight: 600;
 }
 

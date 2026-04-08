@@ -61,16 +61,28 @@ const Footer = () => {
                         <div className="contact-info">
                             <div className="contact-item">
                                 <MapPin size={18} className="gold-text" />
-                                <span>Level 42, Boulevard Plaza Tower 1,<br />Downtown Dubai, UAE</span>
+                                <span>{t('common.address')}</span>
                             </div>
                             <div className="contact-item">
                                 <Phone size={18} className="gold-text" />
-                                <a href="tel:+97140000000"><span>+971 4 000 0000</span></a>
+                                <a href="tel:+97145576289"><span>+971 4 557 6289</span></a>
                             </div>
                             <div className="contact-item">
                                 <Mail size={18} className="gold-text" />
-                                <a href="mailto:invest@ophirproperties.com"><span>invest@ophirproperties.com</span></a>
+                                <a href={`mailto:${t('common.email')}`}><span>{t('common.email')}</span></a>
                             </div>
+                        </div>
+
+                        <div className="footer-map-container">
+                            <iframe
+                                title="Ophir Properties Location"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3612.3789431872124!2d55.186121!3d25.096924!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f6b004775acfb%3A0x3bd6d936175cd0af!2sThe%20Onyx%20Tower%201!5e0!3m2!1sen!2sae!4v1711475000000!5m2!1sen!2sae"
+                                width="100%"
+                                height="100%"
+                                style={{ border: 0 }}
+                                allowFullScreen=""
+                                loading="lazy"
+                            ></iframe>
                         </div>
                     </div>
 

@@ -111,11 +111,43 @@ const NewProjectsPage = () => {
             const devs = new Set(filteredItems.map(p => p.developerName).filter(Boolean));
             const locs = new Set(filteredItems.map(p => p.location?.split(',')[0].trim()).filter(Boolean));
 
-            setAvailableDevelopers([...Array.from(devs)].sort());
+            const PRIORITY_DEVS = [
+                'Emaar', 'Nakheel', 'Meraas', 'Expo City Dubai', 'Dubai South',
+                'Aldar', 'Tilal al Ghaf', 'Select Group', 'SaaS properties',
+                'RAK Properties', 'Nshama', 'Ellington', 'Omnyiat', 'Sobha Realty', 'Damac'
+            ];
+
+            const devsList = Array.from(devs);
+            const matchedDataDevs = new Set();
+
+            // Map priority list to actual data names if they exist, otherwise keep fixed names
+            const orderedPriority = PRIORITY_DEVS.map(priority => {
+                const found = devsList.find(d =>
+                    d.toLowerCase().includes(priority.toLowerCase()) ||
+                    priority.toLowerCase().includes(d.toLowerCase())
+                );
+                if (found) {
+                    matchedDataDevs.add(found);
+                    return found;
+                }
+                return priority;
+            });
+
+            // any other devs from data sorted alphabetically
+            const remainingDevs = devsList
+                .filter(d => !matchedDataDevs.has(d))
+                .sort((a, b) => a.localeCompare(b));
+
+            setAvailableDevelopers([...orderedPriority, ...remainingDevs]);
             setAvailableLocations([...Array.from(locs)].sort());
 
             if (developerFilter !== 'All Developers') {
-                filteredItems = filteredItems.filter(p => p.developerName === developerFilter);
+                filteredItems = filteredItems.filter(p => {
+                    if (!p.developerName) return false;
+                    const dev = p.developerName.toLowerCase();
+                    const filter = developerFilter.toLowerCase();
+                    return dev === filter || dev.includes(filter) || filter.includes(dev);
+                });
             }
             if (locationFilter !== 'All Locations') {
                 filteredItems = filteredItems.filter(p => p.location?.includes(locationFilter));
@@ -305,7 +337,7 @@ const NewProjectsPage = () => {
                                 return (
                                     <div key={property.id} className="np-card">
 
-                                        <div className="np-card-img-wrapper">
+                                        <Link to={`/${i18n.language}/property/${property.id}`} className="np-card-img-wrapper">
                                             <img src={property.mainImageUrl} alt={property.title} />
                                             <div className="np-card-overlay"></div>
 
@@ -319,11 +351,15 @@ const NewProjectsPage = () => {
                                             <div
                                                 className={`favorite-btn ${isFav ? 'active' : ''}`}
                                                 style={{ position: 'absolute', top: '15px', right: '15px', zIndex: 3, cursor: 'pointer' }}
-                                                onClick={() => toggleFavorite(property.id)}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    toggleFavorite(property.id);
+                                                }}
                                             >
                                                 <Heart size={18} fill={isFav ? "#d4af37" : "none"} color={isFav ? "#d4af37" : "#fff"} />
                                             </div>
-                                        </div>
+                                        </Link>
 
                                         <div className="np-card-body">
                                             {property.developerName && (
@@ -364,14 +400,6 @@ const NewProjectsPage = () => {
                                             </div>
 
                                             <div className="np-card-footer">
-                                                <div className="np-card-agent">
-                                                    {property.agentAvatarUrl ? (
-                                                        <div className="np-agent-pic" style={{ backgroundImage: `url(${property.agentAvatarUrl})` }}></div>
-                                                    ) : (
-                                                        <div className="np-agent-pic" style={{ backgroundColor: '#333' }}></div>
-                                                    )}
-                                                    <span className="np-agent-name">{property.agentName || t('newProjectsPage.ophirAdvisory')}</span>
-                                                </div>
                                                 <Link to={`/${i18n.language}/property/${property.id}`} className="np-card-btn">
                                                     {t('newProjectsPage.viewDetails')}
                                                     <ArrowRight size={16} />
@@ -421,7 +449,7 @@ const NewProjectsPage = () => {
             </section>
 
             {/* SEO Listing CTA */}
-            <section className="listing-final-cta">
+            <section className="listing-final-cta" style={{ backgroundImage: "url('/off/offplan-cta.png')" }}>
                 <div className="cta-overlay"></div>
                 <div className="cta-container">
                     <div className="cta-content">

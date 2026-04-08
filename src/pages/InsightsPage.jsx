@@ -67,8 +67,8 @@ const InsightsPage = () => {
                         <div className="sidebar-widget">
                             <InstagramFeed variant="compact" />
                             <div style={{ marginTop: '20px', textAlign: 'center' }}>
-                                <a href="https://instagram.com/ophirproperties" target="_blank" rel="noopener noreferrer" className="btn-link" style={{ fontSize: '0.85rem' }}>
-                                    Follow Us @ophirproperties
+                                <a href="https://www.instagram.com/ophirpropertiesofficial/" target="_blank" rel="noopener noreferrer" className="btn-link" style={{ fontSize: '0.85rem' }}>
+                                    Follow Us @ophirpropertiesofficial
                                 </a>
                             </div>
                         </div>

@@ -74,7 +74,7 @@ const WhyChooseOphir = () => {
                         <motion.div
                             className="bento-image"
                             style={{
-                                backgroundImage: "url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop')",
+                                backgroundImage: "url('/home/address2.png')",
                                 y: y
                             }}
                         ></motion.div>

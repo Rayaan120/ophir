@@ -10,7 +10,7 @@ const InstagramFeed = ({ variant = 'premium', limit = 3 }) => {
     const [error, setError] = useState(false);
 
     // Placeholder for Instagram profile URL
-    const instagramProfileUrl = "https://instagram.com/ophirproperties";
+    const instagramProfileUrl = "https://www.instagram.com/ophirpropertiesofficial/";
 
     useEffect(() => {
         const fetchInstagramPosts = async () => {

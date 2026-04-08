@@ -27,7 +27,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.5) 50%, rgba(10, 10, 10, 0.2) 100%);
+    background: linear-gradient(to right, rgba(10, 10, 12, 0.95) 0%, rgba(10, 10, 12, 0.5) 50%, rgba(10, 10, 12, 0.2) 100%);
     z-index: 1;
 }
 
@@ -40,7 +40,7 @@
 
 .np-hero-label {
     display: inline-block;
-    color: var(--gold-accent, #d4af37);
+    color: var(--gold-accent, #c5a021);
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 3px;
@@ -72,7 +72,7 @@
 .np-hero-highlights {
     display: flex;
     gap: 20px;
-    color: var(--gold-accent, #d4af37);
+    color: var(--gold-accent, #c5a021);
     font-size: 0.9rem;
     font-weight: 500;
 }
@@ -88,7 +88,7 @@
     display: inline-block;
     width: 6px;
     height: 6px;
-    background-color: var(--gold-accent, #d4af37);
+    background-color: var(--gold-accent, #c5a021);
     border-radius: 50%;
 }
 
@@ -142,7 +142,7 @@
 .np-filter-input,
 .np-filter-select {
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(40, 36, 62, 0.5);
     border: 1px solid var(--border-color);
     color: var(--text-main);
     padding: 14px 20px;
@@ -155,7 +155,7 @@
 
 [data-theme='light'] .np-filter-input,
 [data-theme='light'] .np-filter-select {
-    background-color: #fff;
+    background-color: #e6e6e6;
 }
 
 .np-filter-input.with-icon {
@@ -165,7 +165,7 @@
 .np-filter-input:focus,
 .np-filter-select:focus {
     outline: none;
-    border-color: var(--gold-accent, #d4af37);
+    border-color: var(--gold-accent, #c5a021);
     background-color: rgba(212, 175, 55, 0.05);
 }
 
@@ -326,7 +326,7 @@
 .np-card-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, transparent 40%, rgba(0, 0, 0, 0.8) 100%);
+    background: linear-gradient(to bottom, rgba(30, 26, 52, 0.4) 0%, transparent 40%, rgba(30, 26, 52, 0.8) 100%);
 }
 
 .np-card-badges {
@@ -339,7 +339,7 @@
 }
 
 .np-badge-primary {
-    background-color: var(--gold-accent, #d4af37);
+    background-color: var(--gold-accent, #c5a021);
     color: #000;
     font-size: 0.75rem;
     font-weight: 600;
@@ -350,7 +350,7 @@
 }
 
 .np-badge-secondary {
-    background-color: rgba(10, 10, 10, 0.8);
+    background-color: rgba(30, 26, 52, 0.8);
     backdrop-filter: blur(4px);
     color: #fff;
     font-size: 0.75rem;
@@ -399,7 +399,7 @@
 .np-card-price {
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--gold-accent, #d4af37);
+    color: var(--gold-accent, #c5a021);
     margin-bottom: 20px;
     display: flex;
     align-items: baseline;
@@ -410,7 +410,7 @@
     font-size: 1rem;
     font-weight: 500;
     opacity: 0.8;
-    color: var(--gold-accent, #d4af37);
+    color: var(--gold-accent, #c5a021);
     text-transform: none;
     letter-spacing: 0px;
 }
@@ -438,7 +438,7 @@
 }
 
 .np-feature-chip.active {
-    color: var(--gold-accent, #d4af37);
+    color: var(--gold-accent, #c5a021);
 }
 
 .np-card-footer {
@@ -498,5 +498,5 @@
     background: transparent;
     transform: none;
     box-shadow: none;
-    color: var(--gold-accent, #d4af37);
+    color: var(--gold-accent, #c5a021);
 }

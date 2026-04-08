@@ -8,6 +8,7 @@ const OurStory = () => {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const [modalOpen, setModalOpen] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
 
     return (
         <section className="about-section our-story-bg">
@@ -18,51 +19,72 @@ const OurStory = () => {
                     <h2 className="section-title">{t('ourStory.title')}</h2>
                     <div className="gold-accent-line"></div>
 
-                    <div className="story-text">
-                        <section className="story-block">
-                            <h3 className="story-subtitle">{t('ourStory.p1Title')}</h3>
-                            <p>
-                                {t('ourStory.p1Desc')}
-                            </p>
-                        </section>
+                    {!isExpanded ? (
+                        <button
+                            className="read-more-trigger"
+                            onClick={() => setIsExpanded(true)}
+                            aria-label="Read more about our story"
+                        >
+                            <span>...</span>
+                        </button>
+                    ) : (
+                        <>
+                            <div className="story-text animate-fade-in">
+                                <section className="story-block">
+                                    <h3 className="story-subtitle">{t('ourStory.p1Title')}</h3>
+                                    <p>
+                                        {t('ourStory.p1Desc')}
+                                    </p>
+                                </section>
 
-                        <section className="story-block">
-                            <h3 className="story-subtitle">{t('ourStory.p2Title')}</h3>
-                            <p>
-                                {t('ourStory.p2Desc')}
-                            </p>
-                            <ul className="story-list">
-                                <li dangerouslySetInnerHTML={{ __html: t('ourStory.p2Li1') }} />
-                                <li dangerouslySetInnerHTML={{ __html: t('ourStory.p2Li2') }} />
-                            </ul>
-                        </section>
+                                <section className="story-block">
+                                    <h3 className="story-subtitle">{t('ourStory.p2Title')}</h3>
+                                    <p>
+                                        {t('ourStory.p2Desc')}
+                                    </p>
+                                    <ul className="story-list">
+                                        <li dangerouslySetInnerHTML={{ __html: t('ourStory.p2Li1') }} />
+                                        <li dangerouslySetInnerHTML={{ __html: t('ourStory.p2Li2') }} />
+                                    </ul>
+                                </section>
 
-                        <section className="story-block">
-                            <h3 className="story-subtitle">{t('ourStory.p3Title')}</h3>
-                            <p>
-                                {t('ourStory.p3Desc1')}
-                            </p>
-                            <p>
-                                {t('ourStory.p3Desc2')}
-                            </p>
-                        </section>
+                                <section className="story-block">
+                                    <h3 className="story-subtitle">{t('ourStory.p3Title')}</h3>
+                                    <p>
+                                        {t('ourStory.p3Desc1')}
+                                    </p>
+                                    <p>
+                                        {t('ourStory.p3Desc2')}
+                                    </p>
+                                </section>
 
-                        <section className="story-block">
-                            <h3 className="story-subtitle">{t('ourStory.p4Title')}</h3>
-                            <p className="forward-looking">
-                                {t('ourStory.p4Desc')}
-                            </p>
-                        </section>
-                    </div>
+                                <section className="story-block">
+                                    <h3 className="story-subtitle">{t('ourStory.p4Title')}</h3>
+                                    <p className="forward-looking">
+                                        {t('ourStory.p4Desc')}
+                                    </p>
+                                </section>
+                            </div>
 
-                    <button className="gold-outline-btn" onClick={() => navigate(`/${i18n.language}/contact`)}>{t('ourStory.btn')}</button>
+                            <button className="gold-outline-btn animate-fade-in" onClick={() => navigate(`/${i18n.language}/contact`)}>
+                                {t('ourStory.btn')}
+                            </button>
+
+                            <button
+                                className="show-less-trigger gold-text"
+                                onClick={() => setIsExpanded(false)}
+                            >
+                                Show Less
+                            </button>
+                        </>
+                    )}
                 </div>
 
                 {/* Right Column */}
                 <div className="story-visual">
                     <div className="story-image-wrapper">
                         <img
-                            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                            src="/about/about-story.png"
                             alt="Ophir Properties Office"
                             className="story-image"
                         />

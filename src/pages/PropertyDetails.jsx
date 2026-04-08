@@ -46,6 +46,13 @@ const PropertyDetails = () => {
         };
 
         fetchPropertyDetails();
+
+        // Automated Enquiry Pop-up after 3 seconds
+        const timer = setTimeout(() => {
+            setShowModal(true);
+        }, 3000);
+
+        return () => clearTimeout(timer);
     }, [id]);
 
     const formatPrice = (price, currency = 'AED', period = '') => {
@@ -53,13 +60,13 @@ const PropertyDetails = () => {
     };
 
     const handleCall = () => {
-        const phone = property.agentPhone || '+97140000000';
+        const phone = property.agentPhone || '+97145576289';
         window.location.href = `tel:${phone}`;
     };
 
     const handleWhatsApp = () => {
         // More robust cleaning: remove everything except digits
-        const phone = (property.agentPhone || '+97140000000').replace(/\D/g, '');
+        const phone = (property.agentPhone || '+97145576289').replace(/\D/g, '');
         const message = `Hello, I'm interested in "${property.title}" (Ref: ${property.id}). Could you please provide more information?`;
         const encodedMessage = encodeURIComponent(message);
         window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');

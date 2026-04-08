@@ -7,14 +7,14 @@
         "offPlan": "Off-Plan",
         "hotOffers": "Hot Offers",
         "insights": "Insights",
+        "properties": "Properties",
         "about": "About",
         "contact": "Contact"
     },
     "home": {
         "heroArea": "Ophir Properties – UAE Real Estate",
-        "heroTitle": "Your Partner in Wealth and Prosperity",
+        "heroTitle": "Your 360° Real Estate Partner",
         "heroSubtitle": "End-to-end support for property buyers, sellers, and investors across the UAE.",
-        "explorePortfolio": "Start Your Investment Journey",
         "getInTouch": "Book a Free Consultation"
     },
     "heroSearch": {
@@ -22,7 +22,10 @@
         "tabRent": "Rent",
         "tabOffPlan": "Off-Plan",
         "locationLabel": "Location",
-        "locationPlaceholder": "e.g. Dubai Marina, Palm Jumeirah",
+        "locationPlaceholder": "e.g. Dubai Marina",
+        "modernPlaceholder": "City, Area, Region or Zip Code",
+        "filterLabel": "Filters",
+        "searchBtn": "Search",
         "typeLabel": "Property Type",
         "typeAll": "All Types",
         "typeVilla": "Luxury Villa",
@@ -37,6 +40,10 @@
         "priceLabel": "Max Price Limit",
         "priceAny": "Any Price",
         "priceVal": "AED {{val}}M",
+        "statusLabel": "Status",
+        "statusAll": "All Status",
+        "statusReady": "Ready",
+        "statusUnderConstruction": "Under Construction",
         "searchBtnBuy": "Search Buy",
         "searchBtnRent": "Search Rent",
         "searchBtnOffPlan": "Search Off-Plan",
@@ -55,18 +62,22 @@
         "terms": "Terms of Service"
     },
     "common": {
+        "properties": "Properties",
+        "results": "Results",
         "enquireNow": "Enquire Now",
         "viewDetails": "View Details",
         "price": "Price",
         "bedrooms": "Bedrooms",
         "bathrooms": "Bathrooms",
         "area": "Area",
-        "readMore": "Read More"
+        "readMore": "Read More",
+        "address": "704, Onyx Tower 1, The Greens, Dubai",
+        "email": "info@ophir-properties.com"
     },
     "explore": {
         "dubaiTitle": "Dubai",
         "dubaiTagline": "The Global Benchmark for Innovation",
-        "dubaiDesc": "A global hub for business and tourism, Dubai consistently ranks as a top destination for real estate investment. Guided by the Dubai 2040 Urban Master Plan, the city offers everything from ultra-luxury high-rises to vibrant, family-friendly communities. With investor-friendly laws, high rental yields, and a tax-free environment, Dubai remains the primary choice for those seeking capital growth and a cosmopolitan lifestyle.",
+        "dubaiDesc": "A global hub for business and tourism, Dubai consistently ranks as a top destination for real estate investment. Guided by the Dubai 2040 Urban Master Plan, the city offers everything from ultra-luxury high-rises to vibrant, family-friendly communities. With investor-friendly laws, high rental yields, and a tax-free environment, Dubai remains the primary choice for those seeking capital growth and a cosmopolitan lifestyle. It strengthens investment appeal.",
         "dubaiListings": "+120 Luxury Listings",
         "abudhabiTitle": "Abu Dhabi",
         "abudhabiTagline": "Stability, Culture, and Prestige",
@@ -126,7 +137,8 @@
         "p3s2Desc": "We offer property management solutions and continuous market insights to ensure your investment generates passive income."
     },
     "hotProps": {
-        "title": "Browse Hot Properties",
+        "title": "Browse Properties",
+        "tabHot": "Hot Offers",
         "tabAll": "All Properties",
         "tabSale": "Sale",
         "tabRent": "Rent",
@@ -139,7 +151,7 @@
     },
     "testimonials": {
         "label": "Client Experiences",
-        "title": "Testimonials & Investors",
+        "title": "Testimonials",
         "verified": "Verified Client",
         "t1Name": "Seth M.",
         "t1Role": "Investor, Dubai Creek Harbour",
@@ -184,8 +196,8 @@
         "scroll": "Scroll down to discover"
     },
     "missionVision": {
-        "badge": "Purpose & Ambition",
-        "title": "Our Purpose & Ambition",
+        "badge": "",
+        "title": "Vision & Mission",
         "quote": "\"A legacy built on strategy. Wealth driven by vision.\"",
         "visionTitle": "Our Vision",
         "visionDesc": "To become the ultimate gateway for prosperity in the Middle East—reimagining the legendary abundance of the Ophir tale for the modern era. We strive to anchor a new global standard, where real estate is treated as a sophisticated financial instrument, and every client relationship evolves into a strategic, lifelong partnership.",
@@ -213,8 +225,9 @@
         "v4Desc": "Inspired by the ancient hub of Ophir, we believe wealth should be accessible—from first-time homeowners seeking stability to seasoned institutional investors."
     },
     "leadership": {
-        "title": "Meet Our Leadership",
+        "title": "Meet our Team",
         "desc": "At Ophir Properties, we understand that behind every high-profile transaction is a foundation of human trust. Every member of our team is meticulously chosen for their rare blend of specialized expertise and a character that refuses to compromise. Our global perspective spans over 10 languages and multiple cultural landscapes.",
+        "more": "+more",
         "viewBtn": "View Profile",
         "m1Name": "Ziad Oweiss",
         "m1Role": "Managing Partner",
@@ -264,11 +277,9 @@
         "highlight1Strong": "Under 24 Hours",
         "highlight2Text": "Dedicated advisor for",
         "highlight2Strong": "Every Single Client",
-        "ribbonPhone": "Direct Strategy Line",
-        "ribbonWA": "Concierge WhatsApp",
-        "ribbonWAVal": "Chat with Us",
-        "ribbonEmail": "Private Enquiries",
-        "ribbonHQ": "Regional Headquarters",
+        "ribbonMobile": "Mobile Number",
+        "ribbonLandline": "Landline",
+        "ribbonEmail": "Email Address",
         "formTitle": "Tell Us What You Are Looking For",
         "formSubtitle": "Share your requirements and an advisor will reach out with curated options.",
         "labelName": "Full Name *",
@@ -307,6 +318,8 @@
         "statHQ": "Headquarters",
         "officeTitle": "Visit Our Office",
         "officeName": "Ophir Properties HQ",
+        "officeAddress": "704, Onyx Tower 1, The Greens, Dubai",
+        "officeEmail": "info@ophir-properties.com",
         "hoursTitle": "Opening Hours",
         "hoursMF": "Mon - Fri",
         "hoursMFVal": "9:00 AM - 6:00 PM",
@@ -317,18 +330,32 @@
         "directions": "Get Directions",
         "faqTitle": "Need Quick Answers?",
         "faq1Q": "How soon will someone contact me after I submit a form?",
-        "faq1A": "Our typical response time is under 12 hours. For urgent enquiries during office hours, we often respond within 60 minutes.",
+        "faq1A": "Our team prioritizes every inquiry with the utmost attention. You can expect a prompt response within a few minutes to hours during business hours, and within 24 hours on weekends or holidays.",
         "faq2Q": "Do you charge for initial property consultations?",
-        "faq2A": "No, all initial consultations and portfolio strategy sessions are complimentary for our clients.",
+        "faq2A": "No, our initial consultations are offered on a complimentary basis. This allows us to understand your requirements and provide personalised guidance.",
         "faq3Q": "Can you help with mortgage or financing guidance?",
-        "faq3A": "Absolutely. We work with leading UAE mortgage advisors to help our clients secure the best rates and terms.",
+        "faq3A": "Certainly. We collaborate with a network of trusted financial partners and can provide you with tailored mortgage and financing solutions suited to your investment goals.",
         "faq4Q": "Do you handle both sales and rentals?",
-        "faq4A": "Yes, Ophir Properties is a full-service consultancy. We manage luxury sales, rentals, and major off-plan portfolios across Dubai."
+        "faq4A": "Absolutely. We assist with both property sales and rentals, whether you’re looking to buy, sell, lease, or invest.",
+        "faq5Q": "Do all your properties have escrow accounts?",
+        "faq5A": "All off-plan properties we represent are registered with a government-approved escrow account, ensuring that funds are securely managed and released strictly in line with construction progress, in accordance with Dubai Land Department regulations.",
+        "faq6Q": "Can international buyers invest in these properties?",
+        "faq6A": "Absolutely. We have extensive experience working with international buyers and ensure you’re fully guided and informed at every step of the process, making it simple and straightforward.",
+        "faq7Q": "Do you offer after-sales support?",
+        "faq7A": "Yes, our relationship extends far beyond the transaction. We provide dedicated after-sales support, including assistance with handover, leasing, and property management.",
+        "faq8Q": "Can you assist with property management services?",
+        "faq8A": "We can connect you with premium property management partners who ensure your asset is maintained to the highest standards while optimizing rental returns.",
+        "faq9Q": "Are there flexible payment plans available?",
+        "faq9A": "Many of our properties offer highly attractive and flexible payment plans, designed to align with your financial strategy and investment timeline.",
+        "faq10Q": "Can I schedule a private viewing or consultation?",
+        "faq10A": "Certainly. We offer private, personalized consultations and viewings tailored to your schedule, ensuring a discreet and seamless experience.",
+        "faq11Q": "Can international clients buy properties without coming to the UAE?",
+        "faq11A": "Yes, the entire process is regulated and digitalized fully and can be completed remotely. We are using all the digital tools necessary in order to guide you through each step and handle the coordination to make it simple and secure."
     },
     "buyPage": {
         "heroLabel": "Ophir Sales",
-        "heroTitle": "Invest in the Finest Properties for Sale",
-        "heroSubtext": "Discover hand-picked, high-potential property investments in Dubai's most prestigious neighborhoods.",
+        "heroTitle": "Move In Today. Before Someone Else Does.",
+        "heroSubtext": "Secondary market gems don't wait for \"someday.\" Browse hand-picked, ready-to-occupy residences available for immediate transfer before the window closes.",
         "stat1": "Curated Listings",
         "stat2": "Off-Market Leads",
         "stat3": "Strategic Advisory",
@@ -337,8 +364,11 @@
         "filterType": "Property Type",
         "filterBedrooms": "Bedrooms",
         "filterPrice": "Price Range (AED)",
+        "filterStatus": "Status",
         "optAll": "All",
         "optAny": "Any",
+        "optReady": "Ready",
+        "optUnderConstruction": "Under Construction",
         "optStudio": "Studio",
         "optApartment": "Apartment",
         "optVilla": "Villa",
@@ -361,6 +391,7 @@
         "bath": "Bath",
         "sqft": "Sqft",
         "viewDetails": "View Details",
+        "previous": "Previous",
         "next": "Next",
         "ophirConsultant": "Ophir Consultant",
         "cta": {
@@ -373,15 +404,17 @@
     },
     "rentPage": {
         "heroLabel": "Ophir Rentals",
-        "heroTitle": "Explore Luxury Homes for Rent",
-        "heroSubtext": "Discover curated rental properties in Dubai's most exclusive communities, designed for your sophisticated lifestyle.",
+        "heroTitle": "Live Better, Sooner. Prime Rentals at Today’s Rates.",
+        "heroSubtext": "Your next home is currently being viewed by others.",
         "filterSearch": "Search",
         "filterPlaceholder": "Search by area, tower, or keyword...",
         "filterType": "Property Type",
         "filterBedrooms": "Bedrooms",
         "filterPrice": "Price Range",
+        "filterStatus": "Status",
         "optAll": "All",
         "optAny": "Any",
+        "optReady": "Ready",
         "optStudio": "Studio",
         "optApartment": "Apartment",
         "optVilla": "Villa",
@@ -403,6 +436,7 @@
         "sqft": "Sqft",
         "previous": "Previous",
         "next": "Next",
+        "viewDetails": "View Details",
         "cta": {
             "label": "Premium Rental Homes",
             "title": "Secure an Exclusive Residence in Dubai's Finest Communities",
@@ -413,8 +447,8 @@
     },
     "newProjectsPage": {
         "heroLabel": "Ophir New Projects",
-        "heroTitle": "Discover Boutique Off-Plan Developments",
-        "heroSubtext": "Explore hand-picked new launches, visionary off-plan opportunities, and future-ready communities across the UAE.",
+        "heroTitle": "Global Demand. Limited Allocations. Your UAE Advantage",
+        "heroSubtext": "Expertly curated off-plan assets in high-growth zones. Build equity from day one.",
         "stat1": "Off-Plan Launches",
         "stat2": "Flexible Payment Plans",
         "stat3": "Visionary Architecture",
@@ -461,9 +495,9 @@
     },
     "servicesPage": {
         "heroLabel": "Our Services",
-        "heroTitle": "Strategic Real Estate Advice",
-        "heroTitleGold": "for Investors, Buyers, and Property Owners",
-        "heroSubtitle": "\"Ophir Properties combines local market intelligence with international boutique standards to help clients buy, invest, sell, and manage property assets in the UAE.\"",
+        "heroTitle": "Your Private Office for",
+        "heroTitleGold": "UAE Real Estate",
+        "heroSubtitle": "Bespoke end-to-end solutions for your curated UAE portfolio. We handle the lifecycle of your assets, ensuring your confidence is backed by our commitment.",
         "heroBadge1": "Investment Advisory",
         "heroBadge2": "Off-Plan Opportunities",
         "heroBadge3": "Asset Management",
@@ -572,11 +606,38 @@
         "contactP1": "If you have any questions about this Privacy Policy, please contact us at:",
         "contactEmail": "info@ophir-properties.com"
     },
+    "hotOffersPage": {
+        "heroBadge": "Exclusive Selection",
+        "heroTitle": "Hot Offers",
+        "heroSubtext": "A curated selection of hand-picked opportunities chosen for value, timing, and investment potential.",
+        "stat1": "10 Featured Properties",
+        "stat2": "Updated Monthly",
+        "stat3": "Limited Availability",
+        "monthlyUpdate": "Curated monthly from the latest secondary and primary market opportunities.",
+        "badgeHot": "Hot Offer",
+        "featuredSubtitle": "Selected for strong pricing, location quality, and current market timing.",
+        "bed": "Bed",
+        "bath": "Bath",
+        "sqft": "Sqft",
+        "priceOnRequest": "Price on Request",
+        "viewDetails": "View Details",
+        "enquireNow": "Enquire Now",
+        "noOffers": "No hot offers are currently available. Please check back soon.",
+        "browseAll": "Browse All Properties",
+        "ctaTitle": "Did One of These Offers Catch Your Eye?",
+        "ctaDesc": "Speak with an Ophir advisor for full details, pricing insights, and viewing arrangements.",
+        "optAll": "All",
+        "optSale": "Sale",
+        "optRent": "Rent",
+        "optNew": "New Projects",
+        "ctaBtn1": "Schedule a Consultation",
+        "ctaBtn2": "Contact Us"
+    },
     "globalInsights": {
         "hero": {
             "label": "Institutional Research",
-            "title": "Global Property Market Insights",
-            "subtitle": "Strategic international real estate intelligence. Compare global markets with Dubai's unprecedented growth and tax advantages."
+            "title": "Your Portfolio is Leaking. Here is the Plug.",
+            "subtitle": "While global hubs face rental caps and cooling cycles, the UAE offers a rare alignment of net yields and currency stability. Access the data behind the world’s most significant wealth migration."
         },
         "tabs": {
             "uk": "United Kingdom",
@@ -595,150 +656,144 @@
             "btn": "Notify Me When Ready"
         },
         "uk": {
-            "title": "The UK Investor’s Guide to Dubai Real Estate (2026 Edition)",
-            "sections": {
-                "s1": "Section 1 — Market Overview",
-                "s2": "Section 2 — Investment Comparison",
-                "s3": "Section 3 — Regulation Comparison",
-                "s4": "Section 4 — Tax Strategy",
-                "s5": "Section 5 — Currency Hedging",
-                "s6": "Section 6 — Golden Visa Strategy",
-                "s7": "Section 7 — Financing",
-                "s8": "Section 8 — Strategic Note",
-                "s9": "UK Investment Specialist"
-            },
-            "overview": {
-                "p1": "Dubai has emerged as the primary hedge for British wealth as the UK transitions to a residence-based tax system and introduces the Renters’ Rights Act.",
-                "p2": "By leveraging Dubai’s 0% tax environment and Golden Visa reforms, UK landlords can move from margin compression to wealth acceleration."
-            },
-            "investCompare": {
-                "q": "Is Dubai a better investment than London?",
-                "desc": "London yields are compressing due to heavy regulation and tax. Dubai offers 6–10% rental yields, zero tax on rent, strong population growth, and immense global investor demand.",
-                "table": {
-                    "h1": "Feature",
-                    "h2": "London Buy-to-Let",
-                    "h3": "Dubai Investment",
-                    "r1": "Average Yield",
-                    "r2": "Tax on Rent",
-                    "r3": "Capital Gains Tax",
-                    "r4": "Regulatory Climate",
-                    "v4UK": "Tenant-centric",
-                    "v4DXB": "Investor-friendly"
+            "title": "Global Insights: The UK Investor’s Guide to Dubai Real Estate (2026 Edition)",
+            "intro": "As the UK transitions to a residence-based tax system and implements the Renters' Rights Act, Dubai has emerged as the primary hedge for British wealth. By leveraging the 0% tax environment and the new 2026 Golden Visa equity rules, UK landlords can move from \"margin compression\" to \"wealth acceleration\".",
+            "questions": [
+                {
+                    "q": "1. Is Dubai property a better investment than London in 2026?",
+                    "a": [
+                        "While London remains a \"legacy\" market for some, its 3.15% average yield is currently being eroded by tax and regulation. Dubai offers a superior alternative with 6-10% gross yields and a tax-free rental environment.",
+                        "The Reality for UK Landlords: You are likely seeing your \"Buy-to-Let\" margins vanish under the weight of the October Budget’s Stamp Duty surcharges and historic \"margin compression\". In London, your income potential has plateaued, with prime yields in districts like Kensington dipping as low as 2.5%.",
+                        "Dubai, however, has entered its \"Roaring Twenties\". According to the Digital Dubai Authority and DLD 2024 Report, residential prices rose by 11.62% in the last fiscal year, while rental growth hit a staggering 23.5%. the \"math\" of your investment simply works harder here. You aren't just buying a property; you are buying into a market defined by genuine end-user demand and structural depth."
+                    ],
+                    "table": {
+                        "headers": ["Feature", "London Buy-to-Let (2026)", "Dubai Investment (2026)"],
+                        "rows": [
+                            ["Avg. Gross Yield", "3% – 5%", "6% – 10%"],
+                            ["Tax on Rent", "20% – 45%", "0% (Tax-Free)"],
+                            ["Capital Gains Tax", "18% – 24%", "0% (Tax-Free)"],
+                            ["Regulatory Tone", "Tenant-Centric", "Investor-Centric"]
+                        ]
+                    }
+                },
+                {
+                    "q": "2. How does the UK Renters' Rights Act compare to Dubai’s RERA framework?",
+                    "a": [
+                        "The 2025 UK Renters' Rights Act ends \"no-fault\" evictions, creating significant \"compliance risk\" for your portfolio. Dubai’s RERA framework preserves your asset’s liquidity by providing a clear, 12-month notarized notice period for sales.",
+                        "The End of Control in the UK: From May 1, 2026, the UK Government's Renters' Rights Act officially abolishes Section 21 \"no-fault\" evictions. Your tenants can stay indefinitely unless you navigate a backlogged court system to prove specific grounds—a process that strips you of your right to manage your own asset.",
+                        "The Dubai Security Advantage: In Dubai, your property remains your private asset. Under Law No. 33 of 2008, you maintain full control over your exit strategy. By serving a simple 12-month notice, you can market your property as \"vacant on transfer,\" which significantly boosts its value for the next buyer. You also escape the \"bidding war\" bans and tribunal challenges of the UK by using Dubai’s AI-powered Official DLD Rental Index Calculator, which uses real-time AI data to ensure fairness for both parties while protecting your yield."
+                    ],
+                    "links": [
+                        {"text": "Implementing the Renters' Rights Act 2025: Our roadmap for reforming the Private Rented Sector - GOV.UK", "url": "https://www.gov.uk/government/publications/guide-to-the-renters-rights-bill"}
+                    ],
+                    "table": {
+                        "headers": ["Feature", "UK Renters’ Rights Act (2026)", "Dubai RERA Framework"],
+                        "rows": [
+                            ["Tenancy Type", "Indefinite Periodic", "Fixed-Term"],
+                            ["Notice to Sell", "Min. 12-month wait + notice", "12-month notice at any time"],
+                            ["Rent Increases", "Challengable via Tribunal", "Fixed by AI Rental Index"],
+                            ["Tenant Selection", "Restricted Criteria", "Full Landlord Discretion"]
+                        ]
+                    }
+                },
+                {
+                    "q": "3. How do I protect my global wealth from the new 2025 UK tax changes?",
+                    "a": [
+                        "The UK’s new residence-based tax system subjects your global income to HMRC. We provide the \"architectural strategy\"—from the 4-year FIG holiday to Golden Visa \"exit ramps\"—to shield your assets from the 40% Inheritance Tax \"tail\".",
+                        "Navigating the 2025/26 Global Tax Transition: Holding property in your personal name in the UK is now the least efficient path for your wealth.",
+                        "• The 4-Year \"Grace Period\": If you are newly arriving or returning to the UK, the FIG Regime allows you to pay 0% UK tax on your UAE rental income and capital gains for four years.",
+                        "• The IHT \"Exit Strategy\": If you have lived in the UK for 10 of the last 20 years, your entire global estate—including your Dubai villas—is subject to 40% UK Inheritance Tax. To stop this clock, you must cease UK tax residency.",
+                        "• The 12% Window: You have until 2027 to repatriate \"trapped\" offshore funds at a low 12% rate. We advise moving this \"dead money\" immediately into high-yield UAE real estate."
+                    ],
+                    "links": [
+                        {"text": "Understanding the UK's New Foreign Income and Gains Rules - Dixcart UK", "url": "https://www.dixcart.com/"},
+                        {"text": "New Finance Act scraps non-dom tax status and VAT exemption for school fees | Chartered Institute of Taxation", "url": "https://www.tax.org.uk/"},
+                        {"text": "UK Tax Reform 2025: Introduction of the FIG Regime", "url": "https://www.gov.uk/government/publications/technical-note-reforming-the-taxation-of-non-uk-domiciled-individuals"}
+                    ],
+                    "verification": "Verification: You can review the full legislative framework in the HMRC Technical Note on Reforming the Taxation of Non-UK Domiciled Individuals",
+                    "table": {
+                        "headers": ["Investor Profile", "Current UK Liability", "The Ophir Solution"],
+                        "rows": [
+                            ["New Resident", "Worldwide Tax on Day 1", "4-Year FIG Tax Holiday"],
+                            ["Long-Term Resident", "40% IHT on Global Estate", "Golden Visa Exit Strategy"],
+                            ["Legacy Planner", "IHT \"Tail\" of 10 years", "Establish UAE Domicile"]
+                        ]
+                    }
+                },
+                {
+                    "q": "4. How can a Dubai property protect my savings from a weak Pound (GBP)?",
+                    "a": [
+                        "The British Pound remains a \"hidden tax\" on your wealth. By investing in Dubai, you move your wealth into a US Dollar-denominated asset via the fixed AED peg, creating a vital counterweight to Sterling volatility.",
+                        "Reversing the \"Currency Tax\": For a UK investor, the greatest risk to a domestic portfolio is often the currency itself. Since the UAE Dirham (AED) is pegged to the US Dollar ($1 = 3.6725 AED), your Dubai investment mirrors the world’s primary reserve currency. Monetary policy and peg stability are governed by the Central Bank of the UAE.",
+                        "If the Pound weakens, your rental income and property value actually increase in value when converted back to Sterling. For example, a shift from a 4.56 to a 4.89 GBP/AED rate provides you with a natural \"bump\" in cash flow without the property price even changing."
+                    ],
+                    "table": {
+                        "headers": ["Feature", "UK Portfolio (GBP)", "UAE Portfolio (AED/USD)"],
+                        "rows": [
+                            ["Currency Type", "Floating / Volatile", "Fixed Peg (Stable)"],
+                            ["Purchasing Power", "Susceptible to GBP Dips", "Protected by USD Strength"],
+                            ["Planning Security", "Speculative", "Fixed 3.6725 Guarantee"]
+                        ]
+                    }
+                },
+                {
+                    "q": "5. How do I get a 10-year Dubai Golden Visa with a 20% down payment in 2026?",
+                    "a": [
+                        "2026 policy updates have removed the AED 1 million upfront cash requirement for the Golden Visa. You can now secure 10-year residency for your entire family with just a 20% deposit on a property valued at AED 2 million or more.",
+                        "The \"Zero Upfront\" Revolution: As of 2026, you no longer need to pay half the property value upfront. You can qualify with a standard 20% down payment (approx. AED 400,000) through a UAE-licensed bank.",
+                        "• True Global Mobility: Unlike standard visas, you can stay in the UK for the entire year and your UAE residency remains 100% valid—there is no \"180-day rule\".",
+                        "• Family Security: You can sponsor your spouse and children without age limits, and your family can remain in the UAE even if the primary holder passes away.",
+                        "• Esaad Perks: You gain access to 40% discounts on international schools and 70% off luxury retail through the Esaad Privilege Card."
+                    ],
+                    "links": [
+                        {"text": "Official UAE Government Portal: Golden Visa Section", "url": "https://u.ae/en/information-and-services/visa-and-emirates-id/residence-visas/golden-visa"}
+                    ],
+                    "table": {
+                        "headers": ["Feature", "Standard Investor Visa (2-Year)", "Golden Visa (10-Year)"],
+                        "rows": [
+                            ["Min. Investment", "AED 750,000", "AED 2,000,000"],
+                            ["Stay Outside UAE", "Max 6 Months", "Unlimited"],
+                            ["Sponsorship", "Family (Age Limited)", "Family (No Age Limits)"]
+                        ]
+                    }
+                },
+                {
+                    "q": "6. Can a UK citizen get a mortgage in Dubai in 2026?",
+                    "a": [
+                        "The UAE mortgage market is one of the most accessible in the world for British nationals. You can secure 50-65% LTV financing using your Sterling income, with processing times often faster than the UK \"chain\" system.",
+                        "The Logic of Procurement: While UK banks are tightening criteria, UAE lenders like HSBC UAE and Emirates NBD actively approve UK residents. Guidelines for non-resident lending are governed by the Central Bank of the UAE.",
+                        "• Interest Rate Arbitrage: UAE rates (typically 4.19% – 6.50%) are anchored to the US Federal Reserve, often outperforming the complex fee structures of UK \"Buy-to-Let\" products.",
+                        "• The 50% DBR Rule: Your total global debt payments (including UK mortgages) simply cannot exceed 50% of your gross monthly income.",
+                        "• The Speed of Execution: You can go from UK application to key-handover in just 20–30 working days."
+                    ],
+                    "table": {
+                        "headers": ["Phase", "Action", "Timeline"],
+                        "rows": [
+                            ["Phase 1", "Pre-Approval (UK credit review)", "5–10 Working Days"],
+                            ["Phase 2", "Property Selection (Sign MOU)", "1–2 Weeks"],
+                            ["Phase 3", "Valuation (Asset verification)", "3–5 Working Days"],
+                            ["Phase 4", "Final Offer (Formal Letter)", "5 Working Days"],
+                            ["Phase 5", "Completion (DLD Registration)", "7–10 Working Days"]
+                        ]
+                    }
                 }
-            },
-            "regulations": {
-                "title": "UK Renters’ Rights Act vs Dubai RERA Framework",
-                "desc": "Loss of landlord control in the UK versus the highly regulated and landlord-friendly environment in Dubai.",
-                "ref": "🔗 Reference: UK Government Renters' Rights Bill",
-                "table": {
-                    "h1": "Feature",
-                    "h2": "UK Renters’ Rights Act",
-                    "h3": "Dubai RERA",
-                    "r1": "Tenancy Structure",
-                    "r1UK": "Indefinite",
-                    "r1DXB": "Fixed Term",
-                    "r2": "Notice to Sell",
-                    "r2UK": "Long court process",
-                    "r2DXB": "12-month notice",
-                    "r3": "Rent Control",
-                    "r3UK": "Tribunal challenge",
-                    "r3DXB": "AI rental index",
-                    "r4": "Tenant Selection",
-                    "r4UK": "Restricted",
-                    "r4DXB": "Landlord discretion"
-                }
-            },
-            "tax": {
-                "title": "Protecting Global Wealth from UK Tax Changes",
-                "desc": "Navigating the residence-based tax system, inheritance tax exposure, and the new FIG regime.",
-                "table": {
-                    "h1": "Investor Profile",
-                    "h2": "UK Exposure",
-                    "h3": "Ophir Strategy",
-                    "r1": "New Resident",
-                    "r1UK": "Worldwide tax",
-                    "r1DXB": "FIG 4-year exemption",
-                    "r2": "Long-Term Resident",
-                    "r2UK": "40% inheritance tax",
-                    "r2DXB": "Golden Visa relocation",
-                    "r3": "Legacy Planner",
-                    "r3UK": "Estate exposure",
-                    "r3DXB": "UAE domicile"
-                }
-            },
-            "currency": {
-                "title": "Protecting Wealth from GBP Volatility",
-                "desc": "The AED is pegged to the USD. By investing in Dubai, your property becomes a USD-backed asset.",
-                "table": {
-                    "h1": "Feature",
-                    "h2": "UK Portfolio",
-                    "h3": "UAE Portfolio",
-                    "r1": "Currency",
-                    "r1UK": "GBP",
-                    "r1DXB": "AED (USD Peg)",
-                    "r2": "Stability",
-                    "r2UK": "Volatile",
-                    "r2DXB": "Fixed",
-                    "r3": "Purchasing Power",
-                    "r3UK": "Vulnerable",
-                    "r3DXB": "Protected"
-                }
-            },
-            "visa": {
-                "title": "10-Year Dubai Golden Visa (2026 Update)",
-                "quote": "New Rule: Only 20% deposit required (AED 400k) on an AED 2M property to qualify for the 10-Year Golden Visa.",
-                "table": {
-                    "h1": "Feature",
-                    "h2": "Standard Visa",
-                    "h3": "Golden Visa",
-                    "r1": "Investment",
-                    "r1UK": "AED 750k",
-                    "r1DXB": "AED 2M",
-                    "r2": "Duration",
-                    "r2UK": "2 years",
-                    "r2DXB": "10 years",
-                    "r3": "Stay Outside UAE",
-                    "r3UK": "6 months max",
-                    "r3DXB": "Unlimited"
-                }
-            },
-            "financing": {
-                "title": "Mortgages for UK Investors",
-                "list1": "50–65% LTV accessibility",
-                "list2": "UK income fully accepted",
-                "list3": "20–30 day completion",
-                "table": {
-                    "h1": "Phase",
-                    "h2": "Action",
-                    "h3": "Timeline",
-                    "p1": "Phase 1",
-                    "p1A": "Pre-Approval",
-                    "p1T": "5–10 days",
-                    "p2": "Phase 2",
-                    "p2A": "Property Selection",
-                    "p2T": "1–2 weeks",
-                    "p3": "Phase 3",
-                    "p3A": "Valuation",
-                    "p3T": "3–5 days",
-                    "p4": "Phase 4",
-                    "p4A": "Final Offer",
-                    "p4T": "5 days",
-                    "p5": "Phase 5",
-                    "p5A": "Completion",
-                    "p5T": "7–10 days"
-                }
-            },
-            "strategic": {
-                "title": "Strategic Advisory",
-                "p1": "Transparency and diversification are key in current market cycles. While Dubai presents an extraordinary hedge against UK tax and regulatory shifts, all structuring should be aligned with your overarching wealth strategy.",
-                "disclaimer": "*Disclaimer: This material is for informational purposes only and does not constitute formal tax or legal advice."
+            ],
+            "strategicNote": {
+                "title": "Strategic Note on Your Investment",
+                "p1": "Ophir Properties operates as a strategic consultancy, focused on helping you build and diversify your portfolio through informed, data-backed procurement in Dubai.",
+                "p2": "Our Approach to Transparency: Real estate is a cornerstone of a robust wealth strategy, but like any asset, it is subject to market cycles, currency shifts, and regulatory changes. We believe in \"eyes-wide-open\" investing—which means focusing on long-term growth while maintaining a clear view of the market landscape. We encourage all our clients to treat their property acquisitions as one part of a diversified strategy, ensuring their personal financial goals remain the primary driver of every decision.",
+                "p3": "Compliance & Professional Advice: We are specialists in real estate procurement, not tax or legal advisors. Because individual tax laws (especially for US/UK persons) are highly nuanced, we provide the strategy and the market data, but we require that you validate these steps with your own CPA or tax counsel before finalizing your investment. This ensures that your Dubai property is perfectly integrated into your existing tax and estate planning."
             },
             "expert": {
+                "title": "Speak with Our Dedicated UK Investment Specialist",
+                "desc": "For a private consultation regarding your portfolio transition, currency hedging, or Golden Visa eligibility, contact our lead agent for British Citizens:",
                 "name": "Nimesh Visram",
-                "role": "Property & Investment Consultant",
-                "p": "Specializing in seamless capital transition from the UK to the UAE. With an extensive finance background, Nimesh architects tax-efficient property portfolios for British expats and UK-based investors navigating the new legislative landscape.",
-                "btn1": "Book Consultation",
-                "btn2": "Contact on WhatsApp"
+                "role": "Property and Investment Consultant",
+                "bio": "With a degree in finance and economics he started his career in financial markets working with firms such as Barclays and Merrill Lynch. He later spent 15 years in product design, founding and selling his own consultancy while working with global start-ups and fintech companies. As a property investor in London and Melbourne, his approach focuses on analysing yield, return on investment, and identifying assets that support long term, sustainable wealth growth.",
+                "phone": "0044 7758 953106",
+                "whatsappLink": "https://wa.me/447758953106",
+                "email": "nimesh.visram@ophir-properties.com",
+                "booking": "to be updated later"
             }
         }
     }

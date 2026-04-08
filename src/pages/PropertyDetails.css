@@ -24,7 +24,7 @@
 .pd-hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(10, 10, 10, 0.95) 0%, rgba(10, 10, 10, 0.6) 40%, rgba(10, 10, 10, 0.2) 100%);
+    background: linear-gradient(to top, rgba(10, 10, 12, 0.95) 0%, rgba(10, 10, 12, 0.6) 40%, rgba(10, 10, 12, 0.2) 100%);
     z-index: 2;
 }
 
@@ -50,7 +50,7 @@
 
 .pd-badge {
     display: inline-block;
-    background: rgba(10, 10, 10, 0.7);
+    background: rgba(30, 26, 52, 0.7);
     border: 1px solid var(--gold-primary);
     color: var(--gold-primary);
     padding: 6px 16px;
@@ -184,14 +184,14 @@
     gap: 10px;
     font-size: 1.1rem;
     color: var(--text-main);
-    background: rgba(15, 15, 15, 0.5);
+    background: rgba(40, 36, 62, 0.5);
     padding: 12px 24px;
     border-radius: 40px;
     border: 1px solid var(--border-color);
 }
 
 [data-theme='light'] .pd-feature-item {
-    background: rgba(240, 240, 240, 0.8);
+    background: #e6e6e6;
 }
 
 .pd-feature-item svg {
@@ -257,7 +257,7 @@
 
 /* Right Sidebar / CTA Card */
 .pd-contact-card {
-    background: rgba(15, 15, 15, 0.8);
+    background: rgba(30, 26, 52, 0.8);
     border: 1px solid var(--border-color);
     border-top: 3px solid var(--gold-primary);
     border-radius: 12px;
@@ -269,7 +269,7 @@
 }
 
 [data-theme='light'] .pd-contact-card {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(230, 230, 230, 0.9);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
 }
 
@@ -474,7 +474,7 @@
 .pd-modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(30, 26, 52, 0.85);
     backdrop-filter: blur(12px);
     z-index: 1000;
     display: flex;

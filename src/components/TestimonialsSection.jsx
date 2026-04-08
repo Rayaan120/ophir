@@ -1,9 +1,12 @@
-import { CheckCircle, Quote } from 'lucide-react';
+import React, { useState } from 'react';
+import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import './TestimonialsSection.css';
 
 const TestimonialsSection = () => {
     const { t } = useTranslation();
+    const [currentIndex, setCurrentIndex] = useState(0);
+
     const testimonials = [
         {
             id: 1,
@@ -49,63 +52,44 @@ const TestimonialsSection = () => {
         }
     ];
 
-    const duplicateGroups = [1, 2, 3]; // 3 groups to ensure enough width for large screens
+    const nextTestimonial = () => {
+        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    };
+
+    const prevTestimonial = () => {
+        setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    };
+
+    const testimonial = testimonials[currentIndex];
 
     return (
         <section className="testimonials-section section-padding">
-            <div className="container">
+            <div className="testimonials-container">
                 <div className="testimonials-header">
-                    <span className="small-label" style={{ textAlign: 'center' }}>{t('testimonials.label')}</span>
-                    <h2 className="section-title">
-                        {t('testimonials.title').split('&').map((text, i, arr) => (
-                            <span key={i}>
-                                {text}
-                                {i < arr.length - 1 && <span className="normal-amp">&</span>}
-                            </span>
-                        ))}
-                    </h2>
-                    <div className="gold-line center-line"></div>
+                    <span className="small-label">{t('testimonials.label')}</span>
+                    <h2 className="section-title">{t('testimonials.title')}</h2>
                 </div>
-            </div>
 
-            <div className="testimonials-marquee-container">
-                <div className="testimonials-marquee-track">
-                    {duplicateGroups.map((groupId) => (
-                        <div
-                            key={groupId}
-                            className="marquee-group"
-                            aria-hidden={groupId > 1 ? "true" : "false"}
-                        >
-                            {testimonials.map((testimonial, idx) => (
-                                <div key={`${groupId}-${idx}`} className="testimonial-card-wrapper">
-                                    <div className="testimonial-card glass-panel group-hover-effect">
-                                        <div className="test-header">
-                                            <div className="quote-icon-wrapper">
-                                                <Quote size={20} className="gold-quote" />
-                                            </div>
-                                            <div>
-                                                <h4>{testimonial.name}</h4>
-                                                <span className="test-label">{testimonial.label}</span>
-                                            </div>
-                                        </div>
+                <div className="testimonial-slider-content">
+                    <button className="slider-arrow prev" onClick={prevTestimonial} aria-label="Previous">
+                        <ChevronLeft size={24} />
+                    </button>
 
-                                        <div className="test-body">
-                                            <p>{testimonial.text}</p>
-                                            <span className="quote-mark">”</span>
-                                        </div>
-
-                                        <div className="test-footer">
-                                            <div className="verified">
-                                                <CheckCircle size={16} className="test-verified-icon" />
-                                                <span>{t('testimonials.verified')}</span>
-                                            </div>
-                                            <span className="test-num">{testimonial.num}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
+                    <div className="testimonial-card-single">
+                        <div className="testimonial-bg-letter">O</div>
+                        <div className="quote-icon">
+                            <Quote size={48} fill="currentColor" />
                         </div>
-                    ))}
+                        
+                        <div className="testimonial-body-centered">
+                            <p className="testimonial-text-main">{testimonial.text}</p>
+                            <span className="testimonial-author-name">— {testimonial.name}</span>
+                        </div>
+                    </div>
+
+                    <button className="slider-arrow next" onClick={nextTestimonial} aria-label="Next">
+                        <ChevronRight size={24} />
+                    </button>
                 </div>
             </div>
         </section>

@@ -11,7 +11,7 @@ import FinalCTA from '../components/FinalCTA';
 
 const Home = () => {
     return (
-        <>
+        <div className="home-page-root">
             <Hero />
             <HotProperties />
             <ExplorePrimeCommunities />
@@ -21,7 +21,7 @@ const Home = () => {
             <TestimonialsSection />
             <InstagramFeed variant="premium" />
             <FinalCTA />
-        </>
+        </div>
     );
 };
 
