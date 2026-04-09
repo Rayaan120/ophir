@@ -519,6 +519,13 @@
   margin-right: auto;
   background: linear-gradient(135deg, rgba(36, 32, 58, 0.9), rgba(30, 26, 52, 0.95));
   border-left: 4px solid var(--gold-primary);
+  padding: 2.5rem 3rem 3.5rem 3rem;
+}
+
+@media (max-width: 768px) {
+  .strategic-note {
+    padding: 1.5rem 1.25rem 2.5rem 1.25rem;
+  }
 }
 
 [data-theme='light'] .strategic-note {
