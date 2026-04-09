@@ -52,8 +52,11 @@
 
 .hero-content.centered {
     max-width: 1000px;
-    padding-inline-end: 0;
     margin: 0 auto;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .hero-title {
@@ -76,8 +79,6 @@
     margin-bottom: 40px;
     font-weight: 300;
     max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 /* Ensure subtitle remains translucent white in light mode */
@@ -88,7 +89,7 @@
 .hero-actions {
     display: flex;
     gap: 16px;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .hero-actions .btn {
