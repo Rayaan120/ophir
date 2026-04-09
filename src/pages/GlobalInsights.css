@@ -34,6 +34,7 @@
 
 .insights-hero-content {
   max-width: 800px;
+  text-align: left;
 }
 
 .insights-hero h1 {
@@ -41,10 +42,8 @@
   margin-bottom: 1.5rem;
   color: #fff;
   text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.4);
+  text-align: left;
 }
-
-
-
 
 .hero-subtitle {
   font-size: 1.25rem;
@@ -53,6 +52,8 @@
   line-height: 1.6;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
   font-weight: 400;
+  text-align: left;
+  margin-left: 0;
 }
 
 

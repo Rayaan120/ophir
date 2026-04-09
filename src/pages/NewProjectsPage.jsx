@@ -20,18 +20,19 @@ const NewProjectsPage = () => {
 
     // Extracted Dropdown Options
     const [availableDevelopers, setAvailableDevelopers] = useState([]);
-    const [availableLocations, setAvailableLocations] = useState([]);
+    const [availableEmirates, setAvailableEmirates] = useState([]);
+    const [availableAreas, setAvailableAreas] = useState([]);
 
     // Pagination & Filter States
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState('');
     const [searchInput, setSearchInput] = useState('');
     const [developerFilter, setDeveloperFilter] = useState('All Developers');
-    const [locationFilter, setLocationFilter] = useState('All Locations');
-    const [statusFilter, setStatusFilter] = useState('All Status');
+    const [emirateFilter, setEmirateFilter] = useState('All Emirates');
+    const [areaFilter, setAreaFilter] = useState('All Areas');
     const [sortBy, setSortBy] = useState('Newest Launches');
 
-    // Hidden states for Hero Search Panel mapping
+    // Mapped Filter States (Now directly usable in UI)
     const [propertyType, setPropertyType] = useState('All');
     const [bedrooms, setBedrooms] = useState('Any');
     const [priceRange, setPriceRange] = useState('Any');
@@ -109,7 +110,14 @@ const NewProjectsPage = () => {
             let filteredItems = data.items || [];
 
             const devs = new Set(filteredItems.map(p => p.developerName).filter(Boolean));
-            const locs = new Set(filteredItems.map(p => p.location?.split(',')[0].trim()).filter(Boolean));
+            
+            const emiratesSet = new Set(filteredItems.map(p => {
+                if (!p.location) return null;
+                const parts = p.location.split(',');
+                return parts.length > 1 ? parts[parts.length - 1].trim() : p.location.trim();
+            }).filter(Boolean));
+            
+            const areasSet = new Set(filteredItems.map(p => p.location?.split(',')[0].trim()).filter(Boolean));
 
             const PRIORITY_DEVS = [
                 'Emaar', 'Nakheel', 'Meraas', 'Expo City Dubai', 'Dubai South',
@@ -139,7 +147,8 @@ const NewProjectsPage = () => {
                 .sort((a, b) => a.localeCompare(b));
 
             setAvailableDevelopers([...orderedPriority, ...remainingDevs]);
-            setAvailableLocations([...Array.from(locs)].sort());
+            setAvailableEmirates([...emiratesSet].sort());
+            setAvailableAreas([...areasSet].sort());
 
             if (developerFilter !== 'All Developers') {
                 filteredItems = filteredItems.filter(p => {
@@ -149,13 +158,20 @@ const NewProjectsPage = () => {
                     return dev === filter || dev.includes(filter) || filter.includes(dev);
                 });
             }
-            if (locationFilter !== 'All Locations') {
-                filteredItems = filteredItems.filter(p => p.location?.includes(locationFilter));
+            if (emirateFilter !== 'All Emirates') {
+                filteredItems = filteredItems.filter(p => {
+                    if (!p.location) return false;
+                    const parts = p.location.split(',');
+                    const em = parts.length > 1 ? parts[parts.length - 1].trim() : p.location.trim();
+                    return em === emirateFilter;
+                });
             }
-            if (statusFilter !== 'All Status') {
-                if (statusFilter !== 'Launched' && statusFilter !== 'Under Construction') {
-                    filteredItems = filteredItems.filter(p => p.status === statusFilter);
-                }
+            if (areaFilter !== 'All Areas') {
+                filteredItems = filteredItems.filter(p => {
+                    if (!p.location) return false;
+                    const area = p.location.split(',')[0].trim();
+                    return area === areaFilter;
+                });
             }
 
             setProperties(filteredItems);
@@ -192,7 +208,7 @@ const NewProjectsPage = () => {
 
     useEffect(() => {
         fetchProperties();
-    }, [page, search, sortBy, developerFilter, locationFilter, statusFilter, propertyType, bedrooms, priceRange]);
+    }, [page, search, sortBy, developerFilter, emirateFilter, areaFilter, propertyType, bedrooms, priceRange]);
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
@@ -278,22 +294,57 @@ const NewProjectsPage = () => {
                     </div>
 
                     <div className="np-filter-group">
-                        <label className="np-filter-label">{t('newProjectsPage.filterLocation')}</label>
-                        <select className="np-filter-select" value={locationFilter} onChange={handleFilterChange(setLocationFilter)}>
-                            <option value="All Locations">{t('newProjectsPage.optAllLoc')}</option>
-                            {availableLocations.map(loc => (
-                                <option key={loc} value={loc}>{loc}</option>
+                        <label className="np-filter-label">Emirate</label>
+                        <select className="np-filter-select" value={emirateFilter} onChange={handleFilterChange(setEmirateFilter)}>
+                            <option value="All Emirates">All Emirates</option>
+                            {availableEmirates.map(em => (
+                                <option key={em} value={em}>{em}</option>
                             ))}
                         </select>
                     </div>
 
                     <div className="np-filter-group">
-                        <label className="np-filter-label">{t('newProjectsPage.filterStatus')}</label>
-                        <select className="np-filter-select" value={statusFilter} onChange={handleFilterChange(setStatusFilter)}>
-                            <option value="All Status">{t('newProjectsPage.optAllStatus')}</option>
-                            <option value="Launched">{t('newProjectsPage.optLaunched')}</option>
-                            <option value="Under Construction">{t('newProjectsPage.optUnderConst')}</option>
-                            <option value="Completed">{t('newProjectsPage.optCompleted')}</option>
+                        <label className="np-filter-label">{t('common.area') || 'Area'}</label>
+                        <select className="np-filter-select" value={areaFilter} onChange={handleFilterChange(setAreaFilter)}>
+                            <option value="All Areas">All Areas</option>
+                            {availableAreas.map(area => (
+                                <option key={area} value={area}>{area}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="np-filter-group">
+                        <label className="np-filter-label">{t('heroSearch.typeLabel') || 'Property Type'}</label>
+                        <select className="np-filter-select" value={propertyType} onChange={handleFilterChange(setPropertyType)}>
+                            <option value="All">{t('heroSearch.typeAll') || 'All Types'}</option>
+                            <option value="Apartment">{t('heroSearch.typeApartment') || 'Apartment'}</option>
+                            <option value="Villa">{t('heroSearch.typeVilla') || 'Villa'}</option>
+                            <option value="Townhouse">{t('heroSearch.typeTownhouse') || 'Townhouse'}</option>
+                            <option value="Penthouse">Penthouse</option>
+                            <option value="Plot">Plot</option>
+                        </select>
+                    </div>
+
+                    <div className="np-filter-group">
+                        <label className="np-filter-label">{t('heroSearch.bedsLabel') || 'Bedrooms'}</label>
+                        <select className="np-filter-select" value={bedrooms} onChange={handleFilterChange(setBedrooms)}>
+                            <option value="Any">{t('heroSearch.bedsAny') || 'Any'}</option>
+                            <option value="Studio">Studio</option>
+                            <option value="1">1 Bed</option>
+                            <option value="2">2 Beds</option>
+                            <option value="3">3 Beds</option>
+                            <option value="4+">4+ Beds</option>
+                        </select>
+                    </div>
+
+                    <div className="np-filter-group">
+                        <label className="np-filter-label">{t('heroSearch.priceLabel') || 'Price Range'}</label>
+                        <select className="np-filter-select" value={priceRange} onChange={handleFilterChange(setPriceRange)}>
+                            <option value="Any">{t('heroSearch.priceAny') || 'Any Price'}</option>
+                            <option value="≤1M">≤ 1M</option>
+                            <option value="1M-3M">1M - 3M</option>
+                            <option value="3M-5M">3M - 5M</option>
+                            <option value="5M+">5M+</option>
                         </select>
                     </div>
                 </form>

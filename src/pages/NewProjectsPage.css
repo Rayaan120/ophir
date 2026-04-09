@@ -108,8 +108,8 @@
 
 .np-filters-grid {
     display: grid;
-    grid-template-columns: 2fr 1.5fr 1.5fr 1fr 1fr;
-    gap: 20px;
+    grid-template-columns: 2fr repeat(6, 1fr);
+    gap: 15px;
     max-width: 1400px;
     margin: 0 auto;
     align-items: flex-end;
@@ -236,7 +236,11 @@
 
 @media (max-width: 1200px) {
     .np-filters-grid {
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .search-group {
+        grid-column: span 4;
     }
 
     .np-grid {
@@ -246,7 +250,11 @@
 
 @media (max-width: 900px) {
     .np-filters-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .search-group {
+        grid-column: span 3;
     }
 }
 

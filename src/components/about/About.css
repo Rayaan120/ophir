@@ -749,26 +749,40 @@
 
 .slider-nav-overlay .slider-nav-btn {
     pointer-events: auto;
-    background: rgba(10, 10, 12, 0.8);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(30, 26, 52, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #ffffff; /* Explicitly white for dark mode */
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    outline: none;
 }
 
 [data-theme='light'] .slider-nav-overlay .slider-nav-btn {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.8);
     border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    color: #111111; /* Explicitly dark for light mode */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    color: #111111;
 }
 
 .slider-nav-btn:hover {
     background: var(--gold-primary);
     border-color: var(--gold-primary);
     color: var(--bg-color);
-    transform: scale(1.1);
+    transform: scale(1.15);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+}
+
+.slider-nav-btn:active {
+    transform: scale(0.95);
 }
 
 /* More Card Styles */
