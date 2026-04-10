@@ -62,8 +62,8 @@
 .news-tag {
     display: inline-block;
     padding: 6px 16px;
-    background: var(--gold-muted);
-    color: var(--gold-primary);
+    background: var(--gold-gradient);
+    color: #000;
     border-radius: 100px;
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -98,7 +98,7 @@
 
 .article-card:hover {
     transform: translateY(-5px);
-    border-color: var(--gold-primary);
+    border-color: #dbb367;
 }
 
 .article-image {

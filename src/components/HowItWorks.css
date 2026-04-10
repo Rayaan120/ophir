@@ -1,6 +1,8 @@
 .process-section {
     background-color: var(--bg-lighter);
     position: relative;
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
     overflow: hidden;
 }
 
@@ -18,7 +20,7 @@
 .gold-accent-line {
     width: 40px;
     height: 3px;
-    background-color: var(--gold-primary);
+    background: var(--gold-gradient);
     margin-bottom: 24px;
 }
 
@@ -73,7 +75,11 @@
 
 .phase-id {
     font-size: 0.8rem;
-    color: var(--gold-primary);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 600;
@@ -124,13 +130,17 @@
 .process-footer-note {
     font-size: 0.95rem;
     font-style: italic;
-    color: var(--gold-primary);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     opacity: 0.8;
 }
 
 /* Light Mode */
 [data-theme='light'] .phase-card-landscape {
-    background: rgba(230, 230, 230, 0.6);
+    background: #f5f5f5;
     border-color: rgba(0, 0, 0, 0.05);
 }
 

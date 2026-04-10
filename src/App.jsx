@@ -15,11 +15,13 @@ import HotOffers from './pages/HotOffers';
 import CommunitiesPage from './pages/CommunitiesPage';
 import LanguageWrapper from './components/LanguageWrapper';
 import LanguageRedirect from './components/LanguageRedirect';
+import GlobalGradients from './components/GlobalGradients';
 
 function App() {
   return (
     <ThemeProvider>
       <CurrencyProvider>
+        <GlobalGradients />
         <Routes>
           <Route path="/" element={<LanguageRedirect />} />
           <Route path="/:lang" element={<LanguageWrapper />}>

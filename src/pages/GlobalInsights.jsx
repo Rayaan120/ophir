@@ -104,7 +104,7 @@ const GlobalInsights = () => {
 
                   {/* Fact Checking Links */}
                   {item.links && item.links.length > 0 && (
-                    <div className="mt-6 mb-2 p-4 rounded bg-darker" style={{ background: 'rgba(30, 26, 52, 0.4)' }}>
+                    <div className="mt-6 mb-2">
                       {item.links.map((link, lIdx) => (
                         <a key={lIdx} href={link.url} target="_blank" rel="noopener noreferrer" className="uk-gov-link block mt-2 text-sm" style={{display: 'block'}}>
                           🔗 {link.text}
@@ -172,16 +172,16 @@ const GlobalInsights = () => {
     const mName = t(`globalInsights.tabs.${marketId}`);
 
     return (
-      <div className="placeholder-insight animate-fade-in glass-panel p-12 text-center rounded-container">
+      <div className="placeholder-insight animate-fade-in glass-panel text-center rounded-container">
         <h2 className="gold-text mb-4">{t('globalInsights.placeholder.title', { name: mName })}</h2>
         <p className="detail-text muted text-lg">
           {t('globalInsights.placeholder.desc', { name: mName })}
         </p>
-        <div className="mt-8">
+        <div className="mt-4">
           <span className="small-label">{t('globalInsights.placeholder.label')}</span>
-          <p className="mt-2">{t('globalInsights.placeholder.sub')}</p>
+          <p className="mt-1 text-sm">{t('globalInsights.placeholder.sub')}</p>
         </div>
-        <div className="mt-10">
+        <div className="mt-6">
           <a href="/contact" className="btn btn-primary">{t('globalInsights.placeholder.btn')}</a>
         </div>
       </div>
@@ -195,10 +195,10 @@ const GlobalInsights = () => {
       {/* Hero Section */}
       <section className="insights-hero" style={{ backgroundImage: "linear-gradient(to right, rgba(10, 10, 15, 0.95), rgba(10, 10, 15, 0.7), rgba(10, 10, 15, 0.5)), url('/insights/insights-hero.png')" }}>
         <div className="insights-hero-overlay"></div>
-        <div className="container relative z-10">
-          <div className="insights-hero-content animate-fade-in" style={{ paddingTop: '4rem' }}>
+        <div className="insights-hero-content-wrapper animate-fade-in">
+          <div className="insights-hero-content">
             <h1>{t('globalInsights.hero.title')}</h1>
-            <p className="hero-subtitle">
+            <p className="insights-hero-subtitle">
               {t('globalInsights.hero.subtitle')}
             </p>
           </div>

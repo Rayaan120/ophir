@@ -40,7 +40,6 @@
 }
 
 .listing-final-cta .cta-title {
-    font-family: 'Playfair Display', serif;
     font-size: clamp(2.2rem, 4vw, 3.5rem);
     font-weight: 700;
     line-height: 1.2;

@@ -51,8 +51,12 @@
 .pd-badge {
     display: inline-block;
     background: rgba(30, 26, 52, 0.7);
-    border: 1px solid var(--gold-primary);
-    color: var(--gold-primary);
+    border: 1px solid #dbb367;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     padding: 6px 16px;
     border-radius: 30px;
     font-size: 0.85rem;
@@ -82,7 +86,7 @@
 }
 
 .pd-location-icon {
-    color: var(--gold-primary);
+    stroke: url(#gold-gradient-def);
 }
 
 .pd-hero-right {
@@ -98,7 +102,11 @@
 
 .pd-price {
     font-size: 2.8rem;
-    color: var(--gold-primary);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-weight: 600;
 }
 
@@ -146,7 +154,7 @@
 .pd-thumb:hover,
 .pd-thumb.active {
     opacity: 1;
-    border-color: var(--gold-primary);
+    border-color: #dbb367;
 }
 
 /* Main Layout */
@@ -195,7 +203,8 @@
 }
 
 .pd-feature-item svg {
-    color: var(--gold-primary);
+    stroke: url(#gold-gradient-def);
+    opacity: 0.9;
 }
 
 /* Details Grid Section */
@@ -218,7 +227,7 @@
     display: block;
     width: 24px;
     height: 2px;
-    background-color: var(--gold-primary);
+    background: var(--gold-gradient);
 }
 
 .pd-details-grid {
@@ -259,7 +268,7 @@
 .pd-contact-card {
     background: rgba(30, 26, 52, 0.8);
     border: 1px solid var(--border-color);
-    border-top: 3px solid var(--gold-primary);
+    border-top: 3px solid #dbb367;
     border-radius: 12px;
     padding: 30px;
     position: sticky;
@@ -275,7 +284,11 @@
 
 .pd-card-price {
     font-size: 2.2rem;
-    color: var(--gold-primary);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-weight: 600;
     margin-bottom: 4px;
 }
@@ -311,7 +324,7 @@
     border-radius: 50%;
     background-size: cover;
     background-position: center;
-    border: 2px solid var(--gold-primary);
+    border: 2px solid #dbb367;
 }
 
 .pd-agent-info h4 {
@@ -348,13 +361,14 @@
 }
 
 .pd-btn-primary {
-    background: var(--gold-primary);
+    background: var(--gold-gradient);
     color: #000;
     border: none;
 }
 
 .pd-btn-primary:hover {
-    background: #e6c043;
+    background: var(--gold-gradient);
+    opacity: 0.9;
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
 }
@@ -366,8 +380,12 @@
 }
 
 .pd-btn-secondary:hover {
-    border-color: var(--gold-primary);
-    color: var(--gold-primary);
+    border-color: #dbb367;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
 }
 
 .pd-btn-whatsapp {
@@ -581,7 +599,6 @@
     border-radius: 8px;
     padding: 12px 16px;
     color: var(--text-main);
-    font-family: inherit;
     transition: all 0.3s;
 }
 

@@ -1,7 +1,8 @@
 /* Custom Local Fonts */
 @font-face {
   font-family: 'Adobe Garamond Pro';
-  src: url('/fonts/adobe-garamond-pro-2/AGaramondPro-Regular.otf') format('opentype');
+  src: url('/fonts/adobe-garamond-pro-2/AGaramondPro-Regular.woff2') format('woff2'),
+       url('/fonts/adobe-garamond-pro-2/AGaramondPro-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -9,7 +10,8 @@
 
 @font-face {
   font-family: 'Adobe Garamond Pro';
-  src: url('/fonts/adobe-garamond-pro-2/AGaramondPro-Italic.otf') format('opentype');
+  src: url('/fonts/adobe-garamond-pro-2/AGaramondPro-Italic.woff2') format('woff2'),
+       url('/fonts/adobe-garamond-pro-2/AGaramondPro-Italic.woff') format('woff');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -17,7 +19,8 @@
 
 @font-face {
   font-family: 'Adobe Garamond Pro';
-  src: url('/fonts/adobe-garamond-pro-2/AGaramondPro-Bold.otf') format('opentype');
+  src: url('/fonts/adobe-garamond-pro-2/AGaramondPro-Bold.woff2') format('woff2'),
+       url('/fonts/adobe-garamond-pro-2/AGaramondPro-Bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -25,7 +28,8 @@
 
 @font-face {
   font-family: 'Adobe Garamond Pro';
-  src: url('/fonts/adobe-garamond-pro-2/AGaramondPro-BoldItalic.otf') format('opentype');
+  src: url('/fonts/adobe-garamond-pro-2/AGaramondPro-BoldItalic.woff2') format('woff2'),
+       url('/fonts/adobe-garamond-pro-2/AGaramondPro-BoldItalic.woff') format('woff');
   font-weight: 700;
   font-style: italic;
   font-display: swap;
@@ -33,7 +37,8 @@
 
 @font-face {
   font-family: 'Optima';
-  src: url('/fonts/optima/OPTIMA.TTF') format('truetype');
+  src: url('/fonts/optima/OPTIMA.woff2') format('woff2'),
+       url('/fonts/optima/OPTIMA.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -41,7 +46,8 @@
 
 @font-face {
   font-family: 'Optima';
-  src: url('/fonts/optima/Optima_Italic.ttf') format('truetype');
+  src: url('/fonts/optima/Optima_Italic.woff2') format('woff2'),
+       url('/fonts/optima/Optima_Italic.woff') format('woff');
   font-weight: 400;
   font-style: italic;
   font-display: swap;
@@ -49,7 +55,8 @@
 
 @font-face {
   font-family: 'Optima';
-  src: url('/fonts/optima/Optima Medium.ttf') format('truetype');
+  src: url('/fonts/optima/Optima%20Medium.woff2') format('woff2'),
+       url('/fonts/optima/Optima%20Medium.woff') format('woff');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -57,7 +64,8 @@
 
 @font-face {
   font-family: 'Optima';
-  src: url('/fonts/optima/OPTIMA_B.TTF') format('truetype');
+  src: url('/fonts/optima/OPTIMA_B.woff2') format('woff2'),
+       url('/fonts/optima/OPTIMA_B.woff') format('woff');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -69,6 +77,7 @@
   --bg-lighter: #151515;
   --bg-card: #111111;
   --gold-primary: #c5a021;
+  --gold-gradient: linear-gradient(to bottom, #dbb367 0%, #7a5d1a 100%);
   --gold-hover: #d4af37;
   --gold-muted: rgba(197, 160, 33, 0.2);
   --text-main: #f5f5f5;
@@ -85,10 +94,10 @@
   --transition-slow: 0.4s ease-in-out;
 
   /* Primary Font: Optima Regular */
-  --font-heading: 'Optima', 'Optima Regular', sans-serif;
+  --font-heading: 'Optima', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   
   /* Secondary Font: Adobe Garamond Pro */
-  --font-body: 'Adobe Garamond Pro', serif;
+  --font-body: 'Adobe Garamond Pro', Garamond, 'Times New Roman', serif;
 }
 
 [data-theme='light'] {
@@ -214,7 +223,35 @@ button {
 
 /* Typography Utilities */
 .gold-text {
-  color: var(--gold-primary);
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent !important;
+}
+
+/* Global feature icon gradient styling */
+.feature-icon,
+.feature-item svg,
+.f-item-val svg,
+.pd-feature-item svg,
+.hc-feat svg,
+.property-location-tag svg,
+.card-location svg,
+.feature-icon-wrapper svg,
+.slider-arrow svg,
+.hero-mouse-icon,
+.gold-icon,
+.ethereal-icon,
+.bento-icon-wrapper svg,
+.glass-icon,
+.insta-type-overlay svg,
+.item-icon,
+.benefit-check,
+.highlight-icon svg {
+  stroke: url(#gold-gradient-def);
+  fill: none !important;
+  opacity: 1;
 }
 
 .normal-amp {
@@ -229,7 +266,11 @@ button {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--gold-primary);
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent !important;
   margin-bottom: 12px;
   display: block;
   font-weight: 600;
@@ -249,7 +290,7 @@ button {
 }
 
 .btn-primary {
-  background-color: var(--gold-primary);
+  background: var(--gold-gradient);
   color: var(--text-dark);
 }
 
@@ -263,11 +304,14 @@ button {
   background-color: transparent;
   color: var(--gold-primary);
   border: 1px solid var(--gold-primary);
+  position: relative;
+  z-index: 1;
 }
 
 .btn-outline:hover {
-  background-color: var(--gold-muted);
-  color: #fff;
+  background: var(--gold-gradient);
+  border-color: transparent;
+  color: var(--text-dark);
 }
 
 /* Layout Utilities */

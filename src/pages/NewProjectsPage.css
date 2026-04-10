@@ -5,7 +5,6 @@
     background-color: var(--bg-color);
     color: var(--text-main);
     min-height: 100vh;
-    font-family: 'Inter', sans-serif;
 }
 
 /* --- Hero Section (Cinematic New Launches) --- */
@@ -40,20 +39,23 @@
 
 .np-hero-label {
     display: inline-block;
-    color: var(--gold-accent, #c5a021);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 3px;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
-    border: 1px solid var(--gold-primary);
+    border: 1px solid #dbb367;
     padding: 6px 16px;
     border-radius: 20px;
     background: rgba(212, 175, 55, 0.05);
 }
 
 .np-hero-title {
-    font-family: 'Playfair Display', serif;
     font-size: clamp(2.5rem, 5vw, 4.5rem);
     font-weight: 600;
     line-height: 1.1;
@@ -70,10 +72,14 @@
 }
 
 .np-hero-highlights {
+    font-size: 0.9rem;
     display: flex;
     gap: 20px;
-    color: var(--gold-accent, #c5a021);
-    font-size: 0.9rem;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-weight: 500;
 }
 
@@ -88,7 +94,7 @@
     display: inline-block;
     width: 6px;
     height: 6px;
-    background-color: var(--gold-accent, #c5a021);
+    background: var(--gold-gradient);
     border-radius: 50%;
 }
 
@@ -149,7 +155,6 @@
     border-radius: 8px;
     font-size: 0.95rem;
     transition: all 0.3s ease;
-    font-family: 'Inter', sans-serif;
     appearance: none;
 }
 
@@ -165,7 +170,7 @@
 .np-filter-input:focus,
 .np-filter-select:focus {
     outline: none;
-    border-color: var(--gold-accent, #c5a021);
+    border-color: #dbb367;
     background-color: rgba(212, 175, 55, 0.05);
 }
 
@@ -310,7 +315,7 @@
 
 .np-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(212, 175, 55, 0.3);
+    border-color: #dbb367;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
 }
 
@@ -347,7 +352,7 @@
 }
 
 .np-badge-primary {
-    background-color: var(--gold-accent, #c5a021);
+    background: var(--gold-gradient);
     color: #000;
     font-size: 0.75rem;
     font-weight: 600;
@@ -382,7 +387,6 @@
 }
 
 .np-card-title {
-    font-family: 'Playfair Display', serif;
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--text-main);
@@ -407,7 +411,11 @@
 .np-card-price {
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--gold-accent, #c5a021);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     margin-bottom: 20px;
     display: flex;
     align-items: baseline;
@@ -418,7 +426,11 @@
     font-size: 1rem;
     font-weight: 500;
     opacity: 0.8;
-    color: var(--gold-accent, #c5a021);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     text-transform: none;
     letter-spacing: 0px;
 }
@@ -446,7 +458,11 @@
 }
 
 .np-feature-chip.active {
-    color: var(--gold-accent, #c5a021);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
 }
 
 .np-card-footer {
@@ -469,7 +485,7 @@
     border-radius: 50%;
     background-size: cover;
     background-position: center;
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    border: 1px solid #dbb367;
     transition: none;
 }
 
@@ -506,5 +522,9 @@
     background: transparent;
     transform: none;
     box-shadow: none;
-    color: var(--gold-accent, #c5a021);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
 }

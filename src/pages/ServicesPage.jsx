@@ -76,7 +76,7 @@ const ServicesPage = () => {
             {/* 1. Hero Section */}
             <section className="services-hero">
                 <div className="services-hero-overlay"></div>
-                <div className="container services-hero-content animate-fade-in">
+                <div className="services-hero-content animate-fade-in">
                     <div className="hero-text-wrapper">
                         <span className="small-label">{t('servicesPage.heroLabel')}</span>
                         <h1 className="hero-title">

@@ -57,7 +57,11 @@
 
 .buy-hero-content .hero-label {
     display: inline-block;
-    color: var(--gold-accent, #c5a021);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 3px;
@@ -86,7 +90,11 @@
     font-size: 0.9rem;
     display: flex;
     gap: 15px;
-    color: var(--gold-accent, #c5a021);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     opacity: 0.9;
     font-weight: 500;
 }
@@ -177,7 +185,7 @@
 .filter-input:focus,
 .filter-select:focus {
     outline: none;
-    border-color: var(--gold-accent, #c5a021);
+    border-color: #dbb367;
     background-color: rgba(212, 175, 55, 0.05);
 }
 
@@ -251,7 +259,7 @@
     width: 40px;
     height: 40px;
     border: 3px solid rgba(212, 175, 55, 0.2);
-    border-top-color: var(--gold-accent, #c5a021);
+    border-top: 3px solid #dbb367;
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin: 0 auto 1.5rem;
@@ -328,7 +336,7 @@
 
 .buy-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(212, 175, 55, 0.3);
+    border-color: #dbb367;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
 }
 
@@ -365,7 +373,7 @@
 }
 
 .badge-sale {
-    background-color: var(--gold-accent, #c5a021);
+    background: var(--gold-gradient);
     color: #000;
     font-size: 0.75rem;
     font-weight: 600;
@@ -418,7 +426,11 @@
 .card-price {
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--gold-accent, #c5a021);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     margin-bottom: 20px;
     display: flex;
     align-items: baseline;
@@ -467,7 +479,7 @@
     border-radius: 50%;
     background-size: cover;
     background-position: center;
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    border: 1px solid #dbb367;
 }
 
 .agent-name {
@@ -488,7 +500,11 @@
 }
 
 .card-btn:hover {
-    color: var(--gold-accent, #c5a021);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
 }
 
 /* --- Pagination --- */
@@ -516,14 +532,18 @@
 }
 
 .page-btn:hover:not(:disabled) {
-    border-color: var(--gold-accent, #c5a021);
-    color: var(--gold-accent, #c5a021);
+    border-color: #dbb367;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
 }
 
 .page-btn.active {
-    background: var(--gold-accent, #c5a021);
+    background: var(--gold-gradient);
     color: #000;
-    border-color: var(--gold-accent, #c5a021);
+    border-color: transparent;
     font-weight: 600;
 }
 

@@ -78,7 +78,7 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 20px; /* Reduced offset as requested */
+    padding-left: 100px; /* Pushed even further right as requested to reach visual center */
 }
 
 /* Ensure subtitle remains translucent white in light mode */
@@ -99,8 +99,9 @@
 }
 
 .hero-actions .btn-outline:hover {
-    background-color: var(--gold-primary);
+    background: var(--gold-gradient);
     color: var(--text-dark);
+    border-color: transparent;
 }
 
 /* Modern Search Bar Styling */
@@ -130,8 +131,8 @@
     position: relative;
     display: flex;
     align-items: center;
-    padding: 0 24px;
-    min-width: 160px;
+    padding: 0 5px 0 28px;
+    min-width: 90px;
 }
 
 .category-select select {
@@ -155,7 +156,7 @@
 
 .category-select .chevron-icon {
     position: absolute;
-    right: 15px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
     color: #888;
@@ -214,7 +215,7 @@
 
 .advanced-toggle:hover, .advanced-toggle.active {
     background: rgba(197, 160, 33, 0.05);
-    border-color: #c5a021;
+    border-color: #dbb367;
     color: #111;
 }
 
@@ -290,7 +291,11 @@
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: #c5a021;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-weight: 700;
 }
 
@@ -313,7 +318,7 @@
 }
 
 .filter-item select:focus, .filter-item select:hover {
-    border-color: #c5a021;
+    border-color: #dbb367;
     background-color: rgba(255, 255, 255, 0.08);
 }
 
@@ -347,7 +352,11 @@
 }
 
 .price-val {
-    color: #c5a021;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-weight: 800;
     font-size: 1.1rem;
 }
@@ -372,7 +381,7 @@
     width: 22px;
     height: 22px;
     border-radius: 50%;
-    background: #c5a021;
+    background: var(--gold-gradient);
     cursor: pointer;
     box-shadow: 0 0 15px rgba(197, 160, 33, 0.4);
     border: 3px solid #ffffff;
@@ -410,7 +419,7 @@
 .scroll-dot {
     width: 3px;
     height: 16px;
-    background: var(--gold-primary);
+    background: var(--gold-gradient);
     position: absolute;
     top: 0;
     left: 50%;

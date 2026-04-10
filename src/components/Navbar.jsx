@@ -77,39 +77,37 @@ const Navbar = () => {
         {/* Center/Right: Actions & Toggle */}
         <div className="navbar-controls">
           <div className="navbar-actions">
-            <div className="lang-switcher">
+            <div className="lang-selector-pill">
               <button
-                className={`lang-btn ${currentLang === 'en' ? 'active' : ''}`}
+                className={`lang-item ${currentLang === 'en' ? 'active' : ''}`}
                 onClick={() => switchLanguage('en')}
               >
                 EN
               </button>
-              <span className="lang-separator">|</span>
               <button
-                className={`lang-btn ${currentLang === 'ar' ? 'active' : ''}`}
+                className={`lang-item ${currentLang === 'ar' ? 'active' : ''}`}
                 onClick={() => switchLanguage('ar')}
               >
                 AR
               </button>
             </div>
+
             <CurrencySelector />
-            <button
-              className="theme-toggle-btn nav-action-icon with-label"
+
+            <div 
+              className={`theme-pill-toggle ${theme}`} 
               onClick={toggleTheme}
+              role="button"
               aria-label="Toggle theme"
             >
-              {theme === 'dark' ? (
-                <>
-                  <Sun size={18} />
-                  <span className="theme-toggle-text">Light Mode</span>
-                </>
-              ) : (
-                <>
-                  <Moon size={18} />
-                  <span className="theme-toggle-text">Dark Mode</span>
-                </>
-              )}
-            </button>
+              <div className="pill-track">
+                <Sun size={14} className="pill-icon sun" />
+                <Moon size={14} className="pill-icon moon" />
+              </div>
+              <div className="pill-handle">
+                {theme === 'dark' ? <Moon size={12} /> : <Sun size={12} />}
+              </div>
+            </div>
           </div>
 
           {/* Universal Toggle */}

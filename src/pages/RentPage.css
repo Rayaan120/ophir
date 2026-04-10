@@ -37,7 +37,11 @@
 
 .rent-hero-content .hero-label {
     display: inline-block;
-    color: var(--gold-primary);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-size: 0.9rem;
     font-weight: 600;
     letter-spacing: 2px;
@@ -135,8 +139,8 @@
 .filter-input:focus,
 .filter-select:focus {
     outline: none;
-    border-color: var(--gold-primary);
-    box-shadow: 0 0 0 1px var(--gold-primary);
+    border-color: #dbb367;
+    box-shadow: 0 0 0 1px #dbb367;
 }
 
 /* Dropdown Arrow */
@@ -219,7 +223,7 @@
     width: 40px;
     height: 40px;
     border: 3px solid rgba(212, 175, 55, 0.2);
-    border-top-color: var(--gold-primary);
+    border-top: 3px solid #dbb367;
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin: 0 auto 20px;
@@ -260,14 +264,18 @@
 }
 
 .page-btn:hover:not(:disabled) {
-    border-color: var(--gold-primary);
-    color: var(--gold-primary);
+    border-color: #dbb367;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
 }
 
 .page-btn.active {
-    background: var(--gold-primary);
+    background: var(--gold-gradient);
     color: #fff;
-    border-color: var(--gold-primary);
+    border-color: transparent;
 }
 
 .page-btn:disabled {

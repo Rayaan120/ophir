@@ -96,7 +96,7 @@
 .void-hero-accent {
     width: 2px;
     height: 40px;
-    background: linear-gradient(to bottom, transparent 0%, #c5a021 100%);
+    background: linear-gradient(to bottom, transparent 0%, #dbb367 100%);
     margin-bottom: 24px;
 }
 
@@ -113,7 +113,9 @@
     background-image: linear-gradient(-45deg,
             #ffffff 0%,
             rgba(255, 255, 255, 0.8) 40%,
-            #c5a021 50%,
+            #dbb367 45%,
+            #7a5d1a 50%,
+            #dbb367 55%,
             rgba(255, 255, 255, 0.8) 60%,
             #ffffff 100%);
     background-size: 200% auto;
@@ -223,7 +225,6 @@
 }
 
 .hero-mouse-icon {
-    color: var(--gold-primary);
     animation: iconBounce 2s infinite ease-in-out;
 }
 
@@ -328,7 +329,7 @@
 .gold-accent-line {
     width: 60px;
     height: 2px;
-    background-color: var(--gold-primary);
+    background: var(--gold-gradient);
     margin-bottom: 32px;
 }
 
@@ -359,7 +360,7 @@
 .story-subtitle {
     font-family: var(--font-heading);
     font-size: 1.5rem;
-    color: var(--gold-primary);
+    color: #dbb367 !important;
     font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -393,7 +394,7 @@
     content: "•";
     position: absolute;
     left: 0;
-    color: var(--gold-primary);
+    color: #dbb367;
     font-size: 1.5rem;
     line-height: 1;
     top: -2px;
@@ -423,8 +424,8 @@
 
 .gold-outline-btn {
     background: transparent;
-    border: 1px solid var(--gold-primary);
-    color: var(--gold-primary);
+    border: 1px solid #dbb367;
+    color: #dbb367 !important;
     padding: 16px 36px;
     border-radius: 40px;
     font-size: 1.05rem;
@@ -436,15 +437,18 @@
 }
 
 .gold-outline-btn:hover {
-    background: var(--gold-primary);
+    background: var(--gold-gradient);
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: var(--bg-color);
     color: var(--bg-color);
-    box-shadow: 0 0 20px rgba(212, 175, 0.3);
+    border-color: transparent;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
 }
 
 .read-more-trigger {
     background: transparent;
     border: none;
-    color: var(--gold-primary);
+    color: #dbb367 !important;
     font-size: 2.5rem;
     cursor: pointer;
     padding: 0;
@@ -544,9 +548,6 @@
     justify-content: center;
 }
 
-.gold-icon {
-    color: var(--gold-primary);
-}
 
 .video-overlay-text {
     color: var(--text-main);
@@ -680,6 +681,7 @@
     background-color: var(--bg-color);
     position: relative;
     z-index: 5;
+    padding-top: 40px; /* Reduced from 100px */
 }
 
 [data-theme='light'] .team-section-bg {
@@ -773,13 +775,14 @@
     color: #111111;
 }
 
-.slider-nav-btn:hover {
-    background: var(--gold-primary);
-    border-color: var(--gold-primary);
+/* Hover state for team slider buttons removed as requested */
+/* .slider-nav-btn:hover {
+    background: var(--gold-gradient);
+    border-color: transparent;
     color: var(--bg-color);
     transform: scale(1.15);
     box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
-}
+} */
 
 .slider-nav-btn:active {
     transform: scale(0.95);
@@ -805,7 +808,7 @@
 .plus-text {
     font-family: var(--font-heading);
     font-size: 2.5rem;
-    color: var(--gold-primary);
+    color: #dbb367 !important;
     font-weight: 300;
     letter-spacing: 2px;
 }
@@ -858,7 +861,7 @@
 .team-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
-    border-color: rgba(212, 175, 55, 0.3);
+    border-color: #dbb367;
 }
 
 .team-card-image-wrapper {
@@ -900,7 +903,7 @@
 }
 
 .ethereal-quote {
-    color: var(--gold-primary);
+    color: #dbb367 !important;
     font-size: 1.25rem;
     font-family: var(--font-heading);
     font-style: italic;
@@ -915,7 +918,7 @@
 }
 
 .team-card-role {
-    color: var(--gold-primary);
+    color: #dbb367 !important;
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -966,7 +969,7 @@
 }
 
 .view-details-btn:hover {
-    color: var(--gold-primary);
+    color: #dbb367 !important;
 }
 
 .contact-icons {
@@ -994,7 +997,7 @@
 }
 
 .contact-icon-btn:hover {
-    background: var(--gold-primary);
+    background: var(--gold-gradient);
     color: var(--bg-color);
 }
 
@@ -1084,7 +1087,7 @@
 }
 
 .values-quote-left {
-    color: var(--gold-primary);
+    color: #dbb367 !important;
     font-size: 1.1rem;
     font-family: var(--font-heading);
     font-style: italic;
@@ -1136,7 +1139,7 @@
 .value-list-number {
     font-family: var(--font-heading);
     font-size: 1.2rem;
-    color: var(--gold-primary);
+    color: #dbb367 !important;
     font-weight: 500;
 }
 
@@ -1256,7 +1259,7 @@
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background: var(--gold-primary);
+    background: var(--gold-gradient);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1265,7 +1268,11 @@
 }
 
 .glass-icon {
-    color: var(--bg-color);
+    color: #1a172e;
+}
+
+[data-theme='light'] .glass-icon {
+    color: #dbb367;
 }
 
 .glass-title {
@@ -1338,7 +1345,7 @@
 .ethereal-mv-section {
     position: relative;
     width: 100%;
-    padding: 140px 24px 180px;
+    padding: 40px 24px 100px; /* Reduced top from 140px, bottom from 180px */
     background-color: var(--bg-color);
     overflow: hidden;
     z-index: 5;
@@ -1365,7 +1372,7 @@
 .blob-1 {
     width: 600px;
     height: 600px;
-    background: var(--gold-primary);
+    background: #dbb367;
     top: -100px;
     left: -200px;
 }
@@ -1417,9 +1424,8 @@
     gap: 8px;
     padding: 8px 16px;
     background: rgba(212, 175, 55, 0.1);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    border-radius: 100px;
-    color: var(--gold-primary);
+    border: 1px solid #dbb367;
+    color: #dbb367 !important;
     font-size: 0.85rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -1542,9 +1548,6 @@
     background: rgba(212, 175, 55, 0.15);
 }
 
-.ethereal-icon {
-    color: var(--gold-primary);
-}
 
 .card-title {
     font-family: var(--font-heading);
@@ -1603,7 +1606,7 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background-color: var(--gold-primary);
+    background: var(--gold-gradient);
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
 }
 
@@ -1680,16 +1683,19 @@
 
 .final-cta-label {
     display: inline-block;
-    color: var(--gold-primary);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
     margin-bottom: 24px;
     font-weight: 500;
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    border: 1px solid #dbb367;
     padding: 8px 16px;
     border-radius: 40px;
-    background: rgba(212, 175, 55, 0.05);
 }
 
 .final-cta-title {
@@ -1734,8 +1740,8 @@
 }
 
 .gold-filled-btn {
-    background: var(--gold-primary);
-    border: 1px solid var(--gold-primary);
+    background: var(--gold-gradient);
+    border: 1px solid transparent;
     color: var(--bg-color);
     padding: 16px 36px;
     border-radius: 40px;

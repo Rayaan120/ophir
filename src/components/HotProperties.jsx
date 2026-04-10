@@ -208,7 +208,10 @@ const HotProperties = () => {
 
                                             {/* Footer */}
                                             <div className="property-footer">
-                                                {property.category !== 'new' && (
+                                                {property.category !== 'new' && 
+                                                 property.category !== 'rent' && 
+                                                 !property.isHot && 
+                                                 !['new', 'rent', 'hot'].includes(activeFilter) && (
                                                     <div className="agent-info">
                                                         {property.agentAvatarUrl && (
                                                             <div className="agent-avatar" style={{ backgroundImage: `url(${property.agentAvatarUrl})` }}></div>
