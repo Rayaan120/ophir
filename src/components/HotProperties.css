@@ -419,29 +419,27 @@
     border-color: var(--gold-primary);
 }
 
-.property-card .view-details-btn:hover {
+/* Hover removed per user request */
+/* .property-card .view-details-btn:hover {
     background: var(--gold-gradient);
     color: var(--bg-card);
     border-color: transparent;
-}
+} */
 
 [data-theme='light'] .property-card .view-details-btn:hover {
-    color: #ffffff;
+    color: var(--gold-primary); /* Keep original color in light mode if we disable bg change */
 }
 
 .property-card .arrow-icon {
     color: var(--gold-primary);
-    transition: transform 0.3s ease;
+    transition: none;
 }
 
-.property-card .view-details-btn:hover .arrow-icon {
+/* Arrow movement removed per user request */
+/* .property-card .view-details-btn:hover .arrow-icon {
     transform: translateX(4px);
     color: var(--bg-card);
-}
-
-[data-theme='light'] .property-card .view-details-btn:hover .arrow-icon {
-    color: #ffffff;
-}
+} */
 
 /* Bottom CTA Layout */
 .properties-cta-container {

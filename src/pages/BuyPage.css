@@ -499,13 +499,14 @@
     transition: color 0.3s ease;
 }
 
-.card-btn:hover {
+/* Hover effect removed per user request */
+/* .card-btn:hover {
     background: var(--gold-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent !important;
-}
+} */
 
 /* --- Pagination --- */
 .pagination {

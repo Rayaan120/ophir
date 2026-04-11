@@ -80,7 +80,7 @@ const ServicesPage = () => {
                     <div className="hero-text-wrapper">
                         <span className="small-label">{t('servicesPage.heroLabel')}</span>
                         <h1 className="hero-title">
-                            {t('servicesPage.heroTitle')} <br />
+                            <span className="hero-title-main">{t('servicesPage.heroTitle')}</span> <br />
                             <span className="gold-text">{t('servicesPage.heroTitleGold')}</span>
                         </h1>
                         <p className="hero-subtitle">

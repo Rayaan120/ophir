@@ -91,8 +91,15 @@
   display: flex;
   gap: 15px;
   overflow-x: auto;
+  justify-content: center;
   padding: 10px 5px 30px 5px; /* bottom padding for scrollbar */
   scrollbar-color: var(--gold-primary) var(--bg-lighter);
+}
+
+@media (max-width: 992px) {
+  .market-selector {
+    justify-content: flex-start;
+  }
 }
 
 .market-selector::-webkit-scrollbar {
@@ -373,8 +380,8 @@
   background: var(--gold-gradient);
   background-clip: unset;
   -webkit-background-clip: unset;
-  -webkit-text-fill-color: #fff;
-  color: #fff !important;
+  -webkit-text-fill-color: #000;
+  color: #000 !important;
 }
 
 /* Utils */
