@@ -40,19 +40,18 @@
 .np-hero-label {
     display: inline-block;
     background: var(--gold-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent !important;
+    color: #000000 !important;
+    -webkit-background-clip: padding-box !important;
+    background-clip: padding-box !important;
+    -webkit-text-fill-color: initial !important;
     font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 3px;
+    font-weight: 700;
+    letter-spacing: 2px;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
-    border: 1px solid #dbb367;
-    padding: 6px 16px;
+    padding: 8px 20px;
     border-radius: 20px;
-    background: rgba(212, 175, 55, 0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 .np-hero-title {
@@ -353,13 +352,14 @@
 
 .np-badge-primary {
     background: var(--gold-gradient);
-    color: #000;
+    color: #000000 !important;
     font-size: 0.75rem;
-    font-weight: 600;
-    padding: 4px 12px;
+    font-weight: 700;
+    padding: 6px 14px;
     border-radius: 20px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .np-badge-secondary {
@@ -505,17 +505,25 @@
 }
 
 .np-card-btn {
-    background: transparent;
-    color: var(--text-main);
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-decoration: none;
-    padding: 0;
-    border-radius: 0;
     display: flex;
     align-items: center;
-    gap: 6px;
-    transition: color 0.3s ease;
+    gap: 8px;
+    background: transparent;
+    color: var(--gold-primary, #dbb367);
+    border: 1px solid #dbb367;
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.np-card-btn svg {
+    color: var(--gold-primary, #dbb367);
 }
 
 .np-card-btn:hover {

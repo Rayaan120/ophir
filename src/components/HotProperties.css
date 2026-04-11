@@ -213,13 +213,10 @@
 }
 
 .badge-primary {
-    background: rgba(var(--bg-rgb), 0.75);
     background: var(--gold-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent !important;
-    border: 1px solid rgba(212, 175, 55, 0.4);
+    color: #000000 !important;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .badge-secondary {

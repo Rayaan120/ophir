@@ -39,13 +39,20 @@
 }
 
 .communities-hero-label {
-    display: block;
-    color: var(--gold-primary);
-    font-size: 1rem;
-    font-weight: 600;
+    display: inline-block;
+    background: var(--gold-gradient);
+    color: #000000 !important;
+    -webkit-background-clip: padding-box !important;
+    background-clip: padding-box !important;
+    -webkit-text-fill-color: initial !important;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-bottom: 16px;
+    margin-bottom: 2rem;
+    padding: 8px 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
 .communities-hero-title {
