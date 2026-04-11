@@ -131,7 +131,7 @@ const GlobalInsights = () => {
             <h3 className="gold-text mb-6 text-2xl" style={{ fontSize: '1.75rem' }}>{strategicNote.title}</h3>
             <p className="detail-text muted mb-6" style={{ fontSize: '1.05rem', lineHeight: '1.8' }}>{strategicNote.p1}</p>
             <p className="detail-text muted mb-6" style={{ fontSize: '1.05rem', lineHeight: '1.8' }}>{strategicNote.p2}</p>
-            <p className="detail-text" style={{ fontSize: '0.95rem', fontStyle: 'italic', opacity: 0.8 }}>{strategicNote.p3}</p>
+            <p className="detail-text" style={{ fontSize: '0.95rem', opacity: 0.8 }}>{strategicNote.p3}</p>
           </div>
         </div>
 

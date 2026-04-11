@@ -1,0 +1,2 @@
+src\components\TrustedPartners.css
+src\components\WhyChooseOphir.css

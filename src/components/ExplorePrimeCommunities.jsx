@@ -59,9 +59,9 @@ const ExplorePrimeCommunities = () => {
                     
                     {/* Left: Dark Static Content Panel */}
                     <div className="ep-left-panel fade-in">
-                        <div className="ep-accent-line-top"></div>
-                        
                         <div className="ep-content-inner">
+                            <div className="ep-accent-line-top"></div>
+                            
                             <h2 className="ep-main-title tracking-widest uppercase">
                                 {t('explore.exploreHeader')}
                             </h2>

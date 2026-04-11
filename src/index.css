@@ -1,6 +1,6 @@
 /* Custom Local Fonts */
 @font-face {
-  font-family: 'Adobe Garamond Pro';
+  font-family: 'OphirGaramond';
   src: url('/fonts/adobe-garamond-pro-2/AGaramondPro-Regular.woff2') format('woff2'),
        url('/fonts/adobe-garamond-pro-2/AGaramondPro-Regular.woff') format('woff');
   font-weight: 400;
@@ -9,7 +9,7 @@
 }
 
 @font-face {
-  font-family: 'Adobe Garamond Pro';
+  font-family: 'OphirGaramond';
   src: url('/fonts/adobe-garamond-pro-2/AGaramondPro-Italic.woff2') format('woff2'),
        url('/fonts/adobe-garamond-pro-2/AGaramondPro-Italic.woff') format('woff');
   font-weight: 400;
@@ -18,7 +18,7 @@
 }
 
 @font-face {
-  font-family: 'Adobe Garamond Pro';
+  font-family: 'OphirGaramond';
   src: url('/fonts/adobe-garamond-pro-2/AGaramondPro-Bold.woff2') format('woff2'),
        url('/fonts/adobe-garamond-pro-2/AGaramondPro-Bold.woff') format('woff');
   font-weight: 700;
@@ -27,7 +27,7 @@
 }
 
 @font-face {
-  font-family: 'Adobe Garamond Pro';
+  font-family: 'OphirGaramond';
   src: url('/fonts/adobe-garamond-pro-2/AGaramondPro-BoldItalic.woff2') format('woff2'),
        url('/fonts/adobe-garamond-pro-2/AGaramondPro-BoldItalic.woff') format('woff');
   font-weight: 700;
@@ -36,7 +36,7 @@
 }
 
 @font-face {
-  font-family: 'Optima';
+  font-family: 'OphirOptima';
   src: url('/fonts/optima/OPTIMA.woff2') format('woff2'),
        url('/fonts/optima/OPTIMA.woff') format('woff');
   font-weight: 400;
@@ -45,7 +45,7 @@
 }
 
 @font-face {
-  font-family: 'Optima';
+  font-family: 'OphirOptima';
   src: url('/fonts/optima/Optima_Italic.woff2') format('woff2'),
        url('/fonts/optima/Optima_Italic.woff') format('woff');
   font-weight: 400;
@@ -54,7 +54,7 @@
 }
 
 @font-face {
-  font-family: 'Optima';
+  font-family: 'OphirOptima';
   src: url('/fonts/optima/Optima%20Medium.woff2') format('woff2'),
        url('/fonts/optima/Optima%20Medium.woff') format('woff');
   font-weight: 500;
@@ -63,7 +63,7 @@
 }
 
 @font-face {
-  font-family: 'Optima';
+  font-family: 'OphirOptima';
   src: url('/fonts/optima/OPTIMA_B.woff2') format('woff2'),
        url('/fonts/optima/OPTIMA_B.woff') format('woff');
   font-weight: 700;
@@ -94,10 +94,10 @@
   --transition-slow: 0.4s ease-in-out;
 
   /* Primary Font: Optima Regular */
-  --font-heading: 'Optima', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-heading: 'OphirOptima', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   
   /* Secondary Font: Adobe Garamond Pro */
-  --font-body: 'Adobe Garamond Pro', Garamond, 'Times New Roman', serif;
+  --font-body: 'OphirGaramond', Garamond, 'Times New Roman', serif;
 }
 
 [data-theme='light'] {
@@ -158,6 +158,11 @@ body,
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: inherit;
+}
+
+html {
+  font-family: var(--font-body);
 }
 
 /* Global smooth transition for theme change */

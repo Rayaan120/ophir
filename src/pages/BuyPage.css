@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
 
 /* --- Buy Page Container --- */
 .buy-page {
     background-color: var(--bg-color);
     color: var(--text-main);
     min-height: 100vh;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
 }
 
 /* Animations */
@@ -70,7 +70,7 @@
 }
 
 .buy-hero-content .hero-title {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-heading);
     font-size: clamp(2.5rem, 5vw, 4.5rem);
     font-weight: 600;
     line-height: 1.1;
@@ -169,7 +169,7 @@
     border-radius: 8px;
     font-size: 1rem;
     transition: all 0.3s ease;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     appearance: none;
 }
 
@@ -410,7 +410,7 @@
 }
 
 .card-title {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-heading);
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--text-main);
@@ -528,7 +528,7 @@
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
 }
 
 .page-btn:hover:not(:disabled) {

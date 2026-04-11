@@ -64,12 +64,15 @@
     margin-bottom: 16px;
     display: inline-block;
     font-weight: 600;
+    font-family: var(--font-body);
 }
 
 [data-theme='light'] .gold-subtitle {
     background: var(--gold-gradient);
     -webkit-background-clip: text;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent !important;
 }
 
 .section-header-centered .section-title {
@@ -83,14 +86,18 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-family: var(--font-heading);
+    color: transparent !important;
+    font-family: var(--font-body);
     font-style: italic;
+    font-weight: 400;
 }
 
 [data-theme='light'] .gold-text-gradient {
     background: var(--gold-gradient);
     -webkit-background-clip: text;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent !important;
 }
 
 .intro-line-centered {
@@ -217,6 +224,8 @@
     background: var(--gold-gradient);
     -webkit-background-clip: text;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent !important;
 }
 
 .author-line {

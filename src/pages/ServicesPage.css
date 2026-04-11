@@ -66,20 +66,18 @@
     text-align: left !important;
     margin-left: 0 !important;
     margin-right: auto !important;
-    padding-left: 0 !important;
     display: block !important;
 }
 
-.hero-subtitle {
-    font-family: var(--font-body);
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    max-width: 700px;
-    font-weight: 300;
-    color: #ffffff !important;
+.services-hero .hero-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.85) !important;
     margin-bottom: 32px;
+    font-weight: 300;
+    max-width: 800px;
     line-height: 1.8;
-    font-style: italic;
     text-align: left !important;
+    padding-left: 0 !important;
     margin-left: 0 !important;
     margin-right: auto !important;
 }
@@ -241,7 +239,6 @@
     color: var(--text-muted);
     line-height: 1.8;
     font-weight: 300;
-    font-style: italic;
 }
 
 .section-text {
@@ -488,6 +485,7 @@
 .bento-item:hover .bento-icon-wrapper {
     background: var(--gold-gradient);
     -webkit-background-clip: unset;
+    background-clip: unset;
     -webkit-text-fill-color: #fff;
     color: #fff;
     transform: scale(1.1);

@@ -96,7 +96,7 @@
 .void-hero-accent {
     width: 2px;
     height: 40px;
-    background: linear-gradient(to bottom, transparent 0%, #dbb367 100%);
+    background: linear-gradient(to bottom, transparent 0%, var(--gold-primary) 100%);
     margin-bottom: 24px;
 }
 
@@ -113,9 +113,9 @@
     background-image: linear-gradient(-45deg,
             #ffffff 0%,
             rgba(255, 255, 255, 0.8) 40%,
-            #dbb367 45%,
+            var(--gold-primary) 45%,
             #7a5d1a 50%,
-            #dbb367 55%,
+            var(--gold-primary) 55%,
             rgba(255, 255, 255, 0.8) 60%,
             #ffffff 100%);
     background-size: 200% auto;
@@ -360,7 +360,11 @@
 .story-subtitle {
     font-family: var(--font-heading);
     font-size: 1.5rem;
-    color: #dbb367 !important;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -394,7 +398,7 @@
     content: "•";
     position: absolute;
     left: 0;
-    color: #dbb367;
+    color: var(--gold-primary);
     font-size: 1.5rem;
     line-height: 1;
     top: -2px;
@@ -424,8 +428,12 @@
 
 .gold-outline-btn {
     background: transparent;
-    border: 1px solid #dbb367;
-    color: #dbb367 !important;
+    border: 1px solid var(--gold-primary);
+    background-image: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     padding: 16px 36px;
     border-radius: 40px;
     font-size: 1.05rem;
@@ -439,6 +447,7 @@
 .gold-outline-btn:hover {
     background: var(--gold-gradient);
     -webkit-background-clip: unset;
+    background-clip: unset;
     -webkit-text-fill-color: var(--bg-color);
     color: var(--bg-color);
     border-color: transparent;
@@ -448,7 +457,11 @@
 .read-more-trigger {
     background: transparent;
     border: none;
-    color: #dbb367 !important;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-size: 2.5rem;
     cursor: pointer;
     padding: 0;
@@ -791,7 +804,7 @@
 /* More Card Styles */
 .team-card.more-card {
     background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(30, 26, 52, 0.95) 100%);
-    border: 1px dashed rgba(212, 175, 55, 0.3);
+    border: 1px dashed var(--gold-primary);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -808,7 +821,11 @@
 .plus-text {
     font-family: var(--font-heading);
     font-size: 2.5rem;
-    color: #dbb367 !important;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-weight: 300;
     letter-spacing: 2px;
 }
@@ -861,7 +878,7 @@
 .team-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
-    border-color: #dbb367;
+    border-color: var(--gold-primary);
 }
 
 .team-card-image-wrapper {
@@ -903,7 +920,11 @@
 }
 
 .ethereal-quote {
-    color: #dbb367 !important;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-size: 1.25rem;
     font-family: var(--font-heading);
     font-style: italic;
@@ -918,7 +939,11 @@
 }
 
 .team-card-role {
-    color: #dbb367 !important;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -969,7 +994,7 @@
 }
 
 .view-details-btn:hover {
-    color: #dbb367 !important;
+    color: var(--gold-primary) !important;
 }
 
 .contact-icons {
@@ -1087,7 +1112,11 @@
 }
 
 .values-quote-left {
-    color: #dbb367 !important;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-size: 1.1rem;
     font-family: var(--font-heading);
     font-style: italic;
@@ -1139,7 +1168,7 @@
 .value-list-number {
     font-family: var(--font-heading);
     font-size: 1.2rem;
-    color: #dbb367 !important;
+    color: var(--gold-primary) !important;
     font-weight: 500;
 }
 
@@ -1372,7 +1401,7 @@
 .blob-1 {
     width: 600px;
     height: 600px;
-    background: #dbb367;
+    background: var(--gold-primary);
     top: -100px;
     left: -200px;
 }
@@ -1424,8 +1453,12 @@
     gap: 8px;
     padding: 8px 16px;
     background: rgba(212, 175, 55, 0.1);
-    border: 1px solid #dbb367;
-    color: #dbb367 !important;
+    border: 1px solid var(--gold-primary);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-size: 0.85rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -1693,7 +1726,7 @@
     letter-spacing: 0.15em;
     margin-bottom: 24px;
     font-weight: 500;
-    border: 1px solid #dbb367;
+    border: 1px solid var(--gold-primary);
     padding: 8px 16px;
     border-radius: 40px;
 }
@@ -1751,16 +1784,4 @@
     transition: all 0.3s ease;
     font-family: var(--font-body);
     min-width: 220px;
-}
-
-.gold-filled-btn:hover {
-    background: transparent;
-    color: var(--gold-primary);
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
-}
-
-.light .gold-filled-btn:hover {
-    background: var(--text-main);
-    color: var(--bg-color);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }

@@ -53,6 +53,7 @@
   text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.4);
   text-align: left !important;
   margin-left: 0 !important;
+  text-indent: -0.16em; /* Optical alignment for flared 'Y' over 'i' */
 }
 
 .global-insights-page .insights-hero .insights-hero-subtitle {
@@ -91,7 +92,7 @@
   gap: 15px;
   overflow-x: auto;
   padding: 10px 5px 30px 5px; /* bottom padding for scrollbar */
-  scrollbar-color: #dbb367 var(--bg-lighter);
+  scrollbar-color: var(--gold-primary) var(--bg-lighter);
 }
 
 .market-selector::-webkit-scrollbar {
@@ -111,7 +112,7 @@
 }
 
 .market-tab:hover {
-  border-color: #dbb367;
+  border-color: var(--gold-primary);
   color: var(--text-main);
 }
 
@@ -150,7 +151,7 @@
 
 .insight-highlight-card {
   padding: 30px;
-  border-left: 4px solid #dbb367;
+  border-left: 4px solid var(--gold-primary);
   border-radius: var(--radius-md);
   position: relative;
 }
@@ -161,7 +162,11 @@
   left: 20px;
   font-family: var(--font-heading);
   font-size: 5rem;
-  color: #dbb367;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent !important;
   line-height: 1;
 }
 
@@ -317,7 +322,11 @@
 
 .expert-avatar-placeholder::after {
   content: "Ophir Advisory";
-  color: #dbb367;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent !important;
   font-family: var(--font-heading);
   font-size: 1.5rem;
   letter-spacing: 2px;
@@ -347,6 +356,25 @@
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
+}
+
+.expert-actions .btn-outline {
+  background: transparent;
+  border: 1px solid var(--gold-primary);
+  background-image: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent !important;
+  transition: all 0.3s ease;
+}
+
+.expert-actions .btn-outline:hover {
+  background: var(--gold-gradient);
+  background-clip: unset;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: #fff;
+  color: #fff !important;
 }
 
 /* Utils */
@@ -392,7 +420,11 @@
 }
 
 .insights-table td.highlight, .insights-table th.gold-text {
-  color: #dbb367 !important;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent !important;
   font-weight: 600;
 }
 
@@ -447,7 +479,7 @@
 }
 
 .accordion-item.expanded {
-  border-color: #dbb367;
+  border-color: var(--gold-primary);
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
 }
 
@@ -489,7 +521,11 @@
 
 .accordion-icon {
   font-size: 1.5rem;
-  color: #dbb367 !important;
+  background-image: var(--gold-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent !important;
   font-weight: 300;
   display: flex;
   align-items: center;
@@ -497,7 +533,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(212, 175, 55, 0.1);
+  background-color: rgba(212, 175, 55, 0.1);
   transition: all 0.3s ease;
   flex-shrink: 0;
 }
@@ -544,7 +580,7 @@
   margin-left: auto;
   margin-right: auto;
   background: linear-gradient(135deg, rgba(36, 32, 58, 0.9), rgba(30, 26, 52, 0.95));
-  border-left: 4px solid #dbb367;
+  border-left: 4px solid var(--gold-primary);
   padding: 2.5rem 3rem 3.5rem 3rem;
 }
 
