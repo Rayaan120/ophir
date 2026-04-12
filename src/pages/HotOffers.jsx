@@ -180,7 +180,7 @@ const HotOffers = () => {
 
                                     <div className="featured-actions">
                                         <Link to={`/${i18n.language}/property/${featuredOffer.id}`} className="btn-primary-red">
-                                            {t('hotOffersPage.viewDetails')}
+                                            <span className="gold-text">{t('hotOffersPage.viewDetails')}</span>
                                         </Link>
                                         <Link to={`/${i18n.language}/contact`} className="btn-outline-red">
                                             {t('hotOffersPage.enquireNow')}
@@ -230,7 +230,7 @@ const HotOffers = () => {
 
                                             <div className="hc-footer">
                                                 <Link to={`/${i18n.language}/property/${property.id}`} className="hc-btn">
-                                                    {t('hotOffersPage.viewDetails')} <ArrowRight size={14} />
+                                                    <span className="gold-text">{t('hotOffersPage.viewDetails')}</span> <ArrowRight size={14} />
                                                 </Link>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                                     <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#eee', backgroundImage: `url(${property.agentAvatarUrl || ''})`, backgroundSize: 'cover' }}></div>

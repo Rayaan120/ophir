@@ -99,19 +99,12 @@
 }
 
 .footer-links a.red-text {
-    color: #ff1212; /* Vibrant neon red */
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-shadow: 
-        0 0 8px rgba(255, 18, 18, 0.6),
-        0 0 15px rgba(255, 18, 18, 0.4);
+    color: #d32f2f; /* Professional editorial red */
+    font-weight: 700;
 }
 
 .footer-links a.red-text:hover {
-    color: #ff3c3c;
-    text-shadow: 
-        0 0 12px rgba(255, 18, 18, 0.8),
-        0 0 20px rgba(255, 18, 18, 0.6);
+    color: #b71c1c; /* Darker red on hover */
 }
 
 .contact-info {

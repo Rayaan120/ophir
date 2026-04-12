@@ -289,7 +289,7 @@ const ContactPage = () => {
                             </div>
                         </div>
 
-                        <a href="https://maps.app.goo.gl/xcXbRaYaU5GiduYdA" target="_blank" rel="noopener noreferrer" className="view-details-btn" style={{ width: 'fit-content' }}>
+                        <a href="https://maps.app.goo.gl/xcXbRaYaU5GiduYdA" target="_blank" rel="noopener noreferrer" className="view-details-btn">
                             {t('contactPage.directions')}
                             <ArrowRight size={18} />
                         </a>

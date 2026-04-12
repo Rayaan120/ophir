@@ -510,7 +510,6 @@
     align-items: center;
     gap: 8px;
     background: transparent;
-    color: var(--gold-primary, #dbb367);
     border: 1px solid #dbb367;
     padding: 8px 20px;
     border-radius: 100px;
@@ -525,15 +524,11 @@
 
 .np-card-btn svg {
     color: var(--gold-primary, #dbb367);
+    stroke: url(#gold-gradient-def);
 }
 
 .np-card-btn:hover {
     background: transparent;
-    transform: none;
-    box-shadow: none;
-    background: var(--gold-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px var(--gold-muted);
 }

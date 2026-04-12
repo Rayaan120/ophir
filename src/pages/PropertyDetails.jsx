@@ -125,7 +125,7 @@ const PropertyDetails = () => {
 
     // dynamicDetails is now provided securely by the backend API 
 
-    const displayPricePrefix = property.listingType === 'NEW' ? 'Starting from ' : '';
+    const displayPricePrefix = property.listingType === 'NEW' ? 'Starting from' : '';
     const badgeLabel = property.listingType === 'NEW' ? 'New Project' : `For ${property.listingType.toLowerCase()}`;
 
     return (
@@ -137,8 +137,9 @@ const PropertyDetails = () => {
                     <div className="pd-hero-overlay"></div>
                     <div className="pd-hero-content">
                         <div className="pd-hero-left">
-                            <Link to={-1} className="pd-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', cursor: 'pointer', background: 'transparent', border: 'none', paddingLeft: 0 }}>
-                                <ChevronLeft size={16} /> Back to Search
+                            <Link to={-1} className="pd-back-link">
+                                <ChevronLeft size={16} className="pd-back-icon" />
+                                <span>Back to Search</span>
                             </Link>
                             <br />
                             <span className="pd-badge">{badgeLabel}</span>
@@ -149,15 +150,17 @@ const PropertyDetails = () => {
                             </div>
                         </div>
                         <div className="pd-hero-right">
-                            <span className="pd-price-label">Asking Price</span>
-                            <div className="pd-price" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                                {displayPricePrefix && <span style={{ fontSize: '1rem', marginBottom: '4px' }}>{displayPricePrefix}</span>}
-                                <span>{formatPrice(property.price, property.currency, property.pricePeriod)}</span>
-                                {selectedCurrency !== 'AED' && property.price && (
-                                    <span style={{ fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.7)', marginTop: '4px', fontWeight: 'normal' }}>
-                                        Original: AED {new Intl.NumberFormat('en-AE').format(property.price)}
-                                    </span>
-                                )}
+                            <div className="pd-price-stack">
+                                <span className="pd-price-label">Asking Price</span>
+                                <div className="pd-price" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                                    {displayPricePrefix && <span style={{ fontSize: '1rem', marginBottom: '4px' }}>{displayPricePrefix}</span>}
+                                    <span>{formatPrice(property.price, property.currency, property.pricePeriod)}</span>
+                                    {selectedCurrency !== 'AED' && property.price && (
+                                        <span style={{ fontSize: '0.85rem', color: 'rgba(255, 255, 255, 0.7)', marginTop: '4px', fontWeight: 'normal' }}>
+                                            Original: AED {new Intl.NumberFormat('en-AE').format(property.price)}
+                                        </span>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>

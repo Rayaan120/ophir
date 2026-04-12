@@ -397,7 +397,6 @@
     align-items: center;
     gap: 8px;
     background: transparent;
-    color: var(--gold-primary);
     border: 1px solid #dbb367;
     padding: 8px 16px;
     border-radius: 100px;
@@ -428,6 +427,7 @@
 
 .property-card .arrow-icon {
     color: var(--gold-primary);
+    stroke: url(#gold-gradient-def);
     transition: none;
 }
 

@@ -322,7 +322,7 @@ const BuyPage = () => {
                                                     <span className="agent-name">{property.agentName || t('buyPage.ophirConsultant')}</span>
                                                 </div>
                                                 <Link to={`/${i18n.language}/property/${property.id}`} className="card-btn">
-                                                    {t('buyPage.viewDetails')}
+                                                    <span className="gold-text">{t('buyPage.viewDetails')}</span>
                                                     <ArrowRight size={16} />
                                                 </Link>
                                             </div>

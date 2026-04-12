@@ -60,11 +60,55 @@
     padding: 6px 16px;
     border-radius: 30px;
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 20px;
     backdrop-filter: blur(8px);
+}
+
+.pd-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(219, 179, 103, 0.4);
+    padding: 6px 16px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    backdrop-filter: blur(10px);
+    margin-bottom: 24px;
+    cursor: pointer;
+}
+
+.pd-back-link span {
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transform: translateY(1px); /* Nudges text down to align with icon */
+}
+
+.pd-back-link .pd-back-icon {
+    color: #dbb367;
+    transition: transform 0.4s ease;
+}
+
+.pd-back-link:hover {
+    background: rgba(219, 179, 103, 0.1);
+    border-color: #dbb367;
+    transform: translateX(-6px);
+    box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.pd-back-link:hover .pd-back-icon {
+    transform: translateX(-4px);
 }
 
 /* [data-theme='light'] .pd-badge {
@@ -90,7 +134,15 @@
 }
 
 .pd-hero-right {
-    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.pd-price-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .pd-price-label {

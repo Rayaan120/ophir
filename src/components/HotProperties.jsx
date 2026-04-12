@@ -220,7 +220,7 @@ const HotProperties = () => {
                                                     </div>
                                                 )}
                                                 <Link to={`/${i18n.language}/property/${property.id}`} className="view-details-btn">
-                                                    {t('common.viewDetails')}
+                                                    <span className="gold-text">{t('common.viewDetails')}</span>
                                                     <ArrowRight size={16} className="arrow-icon" />
                                                 </Link>
                                             </div>

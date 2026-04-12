@@ -13,7 +13,7 @@ const GlobalInsights = () => {
 
   // IDs match the keys in globalInsights.tabs
   const marketIds = ['uk', 'us', 'eu', 'tr', 'au', 'ca', 'kr'];
-  
+
   // Mapping display keys to internal activeMarket state
   const marketMap = {
     uk: 'UK', us: 'US', eu: 'EU', tr: 'Turkey', au: 'Australia', ca: 'Canada', kr: 'Korea'
@@ -21,12 +21,12 @@ const GlobalInsights = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    
+
     // Sync activeMarket with URL parameter
     if (country && marketIds.includes(country.toLowerCase())) {
-        setActiveMarket(marketMap[country.toLowerCase()]);
+      setActiveMarket(marketMap[country.toLowerCase()]);
     } else if (!country) {
-        setActiveMarket('UK'); // Default
+      setActiveMarket('UK'); // Default
     }
   }, [country]);
 
@@ -51,9 +51,9 @@ const GlobalInsights = () => {
 
     return (
       <div className="uk-structured-insight animate-fade-in mt-8">
-        
+
         {/* Intro Block */}
-        <div className="content-block text-center mb-16" style={{maxWidth: '800px', margin: '0 auto 4rem auto'}}>
+        <div className="content-block text-center mb-16" style={{ maxWidth: '800px', margin: '0 auto 4rem auto' }}>
           <h2 className="gold-text mb-6">{t('globalInsights.uk.title')}</h2>
           <p className="market-overview-text text-lg">
             {t('globalInsights.uk.intro')}
@@ -64,20 +64,20 @@ const GlobalInsights = () => {
         <div className="accordion-container mb-20">
           {Array.isArray(questions) && questions.map((item, index) => (
             <div key={index} className={`accordion-item ${expandedIndex === index ? 'expanded' : ''}`}>
-              
+
               <button className="accordion-header" onClick={() => handleAccordionClick(index)}>
                 <h3>{item.q}</h3>
                 <span className="accordion-icon">{expandedIndex === index ? '−' : '+'}</span>
               </button>
-              
+
               <div className="accordion-content">
                 <div className="accordion-content-inner pt-2">
-                  
+
                   {/* Answers Paragraphs */}
                   {Array.isArray(item.a) && item.a.map((paragraph, pIdx) => (
                     <p key={pIdx} className="mb-4">{paragraph}</p>
                   ))}
-                  
+
                   {/* Embedded Table */}
                   {item.table && (
                     <div className="comparison-table-wrapper mt-6 mb-6">
@@ -106,7 +106,7 @@ const GlobalInsights = () => {
                   {item.links && item.links.length > 0 && (
                     <div className="mt-6 mb-2">
                       {item.links.map((link, lIdx) => (
-                        <a key={lIdx} href={link.url} target="_blank" rel="noopener noreferrer" className="uk-gov-link block mt-2 text-sm" style={{display: 'block'}}>
+                        <a key={lIdx} href={link.url} target="_blank" rel="noopener noreferrer" className="uk-gov-link block mt-2 text-sm" style={{ display: 'block' }}>
                           🔗 {link.text}
                         </a>
                       ))}
@@ -117,7 +117,7 @@ const GlobalInsights = () => {
                   {item.verification && (
                     <p className="detail-text muted mt-4 italic text-sm">{item.verification}</p>
                   )}
-                  
+
                 </div>
               </div>
 
@@ -137,31 +137,31 @@ const GlobalInsights = () => {
 
         {/* UK Investment Specialist */}
         <div className="expert-advisor-section mt-16 pt-12 border-t border-color-subtle">
-          <div className="expert-card glass-panel animate-fade-in p-0 flex flex-col md:flex-row items-stretch" style={{overflow:'hidden'}}>
+          <div className="expert-card glass-panel animate-fade-in p-0 flex flex-col md:flex-row items-stretch" style={{ overflow: 'hidden' }}>
             {/* Removed empty image column to eliminate left-side gap */}
-            
+
             <div className="expert-info flex-1 p-8 md:p-12 flex flex-col justify-center">
               <span className="small-label mb-3 inline-block">{expert.title}</span>
               <p className="muted mb-6 text-lg">{expert.desc}</p>
-              
+
               <h2 className="mb-2 text-3xl font-heading">{expert.name}</h2>
               <p className="gold-text font-bold mb-6 tracking-wide uppercase text-sm">{expert.role}</p>
-              
+
               <p className="mb-8 leading-relaxed">{expert.bio}</p>
-              
+
               <div className="expert-actions flex gap-4 flex-wrap mt-8">
-                <a href={`mailto:${expert.email}`} className="btn btn-primary" style={{padding: '12px 24px'}}>
+                <a href={`mailto:${expert.email}`} className="btn btn-primary" style={{ padding: '12px 24px' }}>
                   Email
                 </a>
-                <a href={expert.whatsappLink} target="_blank" rel="noopener noreferrer" className="btn btn-outline flex items-center gap-2" style={{padding: '12px 24px'}}>
+                <a href={expert.whatsappLink} target="_blank" rel="noopener noreferrer" className="btn btn-outline flex items-center gap-2" style={{ padding: '12px 24px' }}>
                   WhatsApp
                 </a>
               </div>
             </div>
-            
+
           </div>
         </div>
-        
+
       </div>
     );
   };
@@ -181,8 +181,10 @@ const GlobalInsights = () => {
           <span className="small-label">{t('globalInsights.placeholder.label')}</span>
           <p className="mt-1 text-sm">{t('globalInsights.placeholder.sub')}</p>
         </div>
-        <div className="mt-6">
-          <a href="/contact" className="btn btn-primary">{t('globalInsights.placeholder.btn')}</a>
+        <div className="mt-8 flex justify-center">
+          <div className="coming-soon-badge">
+            Coming Soon
+          </div>
         </div>
       </div>
     );

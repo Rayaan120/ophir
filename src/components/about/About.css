@@ -1497,14 +1497,8 @@
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
 }
 
-.ethereal-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-}
+/* .ethereal-card:hover removed as per request */
 
-.light .ethereal-card:hover {
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
-}
 
 /* The Border Glow that follows the mouse */
 .card-border-glow {
@@ -1518,9 +1512,8 @@
             transparent 40%);
 }
 
-.ethereal-mv-section:hover .card-border-glow {
-    opacity: 1;
-}
+/* .ethereal-mv-section:hover .card-border-glow removed as per request */
+
 
 /* The inner content area */
 .card-content {
@@ -1559,9 +1552,8 @@
             transparent 40%);
 }
 
-.ethereal-mv-section:hover .card-content::before {
-    opacity: 1;
-}
+/* .ethereal-mv-section:hover .card-content::before removed as per request */
+
 
 .card-icon-wrapper {
     width: 64px;
@@ -1576,10 +1568,8 @@
     transition: transform 0.4s ease;
 }
 
-.ethereal-card:hover .card-icon-wrapper {
-    transform: scale(1.1) rotate(5deg);
-    background: rgba(212, 175, 55, 0.15);
-}
+/* .ethereal-card:hover .card-icon-wrapper removed as per request */
+
 
 
 .card-title {

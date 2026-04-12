@@ -230,7 +230,6 @@
     align-items: center;
     gap: 8px;
     background: transparent;
-    color: var(--gold-primary, #dbb367);
     border: 1px solid #dbb367;
     padding: 8px 20px;
     border-radius: 100px;
@@ -245,6 +244,7 @@
 
 .view-details-btn .arrow-icon {
     color: var(--gold-primary, #dbb367);
+    stroke: url(#gold-gradient-def);
 }
 
 /* Loading & Empty States */

@@ -253,7 +253,9 @@ const CommunitiesPage = () => {
                                                     </div>
                                                 )}
                                                 <Link to={`/${lang}/property/${property.id}`} className="view-details-btn">
-                                                    {t('common.viewDetails') || 'View Details'}
+                                                    <span className="gold-text">
+                                                        {t('common.viewDetails') || 'View Details'}
+                                                    </span>
                                                     <ArrowRight size={16} className="arrow-icon" />
                                                 </Link>
                                             </div>

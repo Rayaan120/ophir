@@ -302,7 +302,7 @@ const RentPage = () => {
 
                                             <div className="property-footer">
                                                 <Link to={`/${i18n.language}/property/${property.id}`} className="view-details-btn">
-                                                    {t('rentPage.viewDetails')}
+                                                    <span className="gold-text">{t('rentPage.viewDetails')}</span>
                                                     <ArrowRight size={16} className="arrow-icon" />
                                                 </Link>
                                             </div>

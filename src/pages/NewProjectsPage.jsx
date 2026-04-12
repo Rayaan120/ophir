@@ -452,7 +452,7 @@ const NewProjectsPage = () => {
 
                                             <div className="np-card-footer">
                                                 <Link to={`/${i18n.language}/property/${property.id}`} className="np-card-btn">
-                                                    {t('newProjectsPage.viewDetails')}
+                                                    <span className="gold-text">{t('newProjectsPage.viewDetails')}</span>
                                                     <ArrowRight size={16} />
                                                 </Link>
                                             </div>

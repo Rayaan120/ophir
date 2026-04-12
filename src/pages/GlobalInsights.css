@@ -635,3 +635,16 @@
     margin-top: 1rem;
 }
 
+.coming-soon-badge {
+    padding: 10px 24px;
+    background: rgba(219, 179, 103, 0.1);
+    border: 1px solid rgba(219, 179, 103, 0.3);
+    border-radius: 100px;
+    color: var(--gold-primary);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: default;
+    user-select: none;
+}

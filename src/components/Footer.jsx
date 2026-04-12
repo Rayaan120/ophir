@@ -36,7 +36,7 @@ const Footer = () => {
                             <li><Link to={`/${i18n.language}/buy`}>{t('nav.buy')}</Link></li>
                             <li><Link to={`/${i18n.language}/rent`}>{t('nav.rent')}</Link></li>
                             <li><Link to={`/${i18n.language}/new-projects`}>{t('nav.offPlan')}</Link></li>
-                            <li><Link to={`/${i18n.language}/buy`} className="gold-text red-text">{t('nav.hotOffers')}</Link></li>
+                            <li><Link to={`/${i18n.language}/buy`} className="red-text">{t('nav.hotOffers')}</Link></li>
                             <li><Link to={`/${i18n.language}/global-insights`}>{t('nav.insights')}</Link></li>
                             <li><Link to={`/${i18n.language}/about`}>{t('nav.about')}</Link></li>
                         </ul>
@@ -60,15 +60,12 @@ const Footer = () => {
                         <h4 className="footer-heading">{t('footer.contact')}</h4>
                         <div className="contact-info">
                             <div className="contact-item">
-                                <MapPin size={18} className="gold-text" />
                                 <span>{t('common.address')}</span>
                             </div>
                             <div className="contact-item">
-                                <Phone size={18} className="gold-text" />
                                 <a href="tel:+97145576289"><span>+971 4 557 6289</span></a>
                             </div>
                             <div className="contact-item">
-                                <Mail size={18} className="gold-text" />
                                 <a href={`mailto:${t('common.email')}`}><span>{t('common.email')}</span></a>
                             </div>
                         </div>
