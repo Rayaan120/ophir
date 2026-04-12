@@ -106,7 +106,7 @@
 .ep-cards-track {
     display: flex;
     gap: 24px;
-    height: calc(100% - 60px); /* leave room for nav */
+    height: 100%; /* Occupy full height since nav was removed */
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none; /* Firefox */
@@ -227,7 +227,7 @@
 
 .ep-card-desc {
     font-size: 0.85rem;
-    color: rgba(255,255,255,0.7);
+    color: #ffffff; /* Pure white for better readability */
     line-height: 1.5;
     text-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }

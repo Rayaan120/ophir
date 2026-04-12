@@ -72,7 +72,6 @@ const ExplorePrimeCommunities = () => {
                             <div className="ep-btn-wrapper mt-8">
                                 <button className="btn btn-primary cinematic-btn inline-flex items-center" onClick={() => navigate(`/${i18n.language}/communities`)}>
                                     <span>{t('explore.exploreBtn')}</span>
-                                    <ArrowRight size={20} className="btn-icon ml-3" />
                                 </button>
                                 <div className="ep-nav-arrows">
                                     <button className="ep-circle-btn" onClick={prevSlide} aria-label="Previous">
@@ -121,18 +120,7 @@ const ExplorePrimeCommunities = () => {
                             ))}
                         </div>
 
-                        {/* Slider / Navigation Controls */}
-                        <div className="ep-slider-nav">
-                            <div className="ep-nav-dots">
-                                {communities.map(item => (
-                                    <span 
-                                        key={item.id} 
-                                        className={`ep-dot ${activeId === item.id ? 'active' : ''}`}
-                                        onClick={() => setActiveId(item.id)}
-                                    ></span>
-                                ))}
-                            </div>
-                        </div>
+
                     </div>
 
                 </div>
