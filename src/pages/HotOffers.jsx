@@ -229,13 +229,13 @@ const HotOffers = () => {
                                             </div>
 
                                             <div className="hc-footer">
+                                                <Link to={`/${i18n.language}/property/${property.id}`} className="hc-btn">
+                                                    {t('hotOffersPage.viewDetails')} <ArrowRight size={14} />
+                                                </Link>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                                     <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#eee', backgroundImage: `url(${property.agentAvatarUrl || ''})`, backgroundSize: 'cover' }}></div>
                                                     <span style={{ fontSize: '0.85rem', color: 'var(--text-color)' }}>{property.agentName || 'Ophir Advisor'}</span>
                                                 </div>
-                                                <Link to={`/${i18n.language}/property/${property.id}`} className="hc-btn">
-                                                    {t('hotOffersPage.viewDetails')} <ArrowRight size={14} />
-                                                </Link>
                                             </div>
                                         </div>
                                     </div>

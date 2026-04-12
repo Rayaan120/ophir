@@ -96,9 +96,6 @@
     animation: scroll 60s linear infinite;
 }
 
-.partners-carousel-area:hover .partners-track-inner {
-    animation-play-state: paused;
-}
 
 .partners-track-inner {
     display: flex;
@@ -117,7 +114,7 @@
     background: #e6e6e6;
     border: 1px solid rgba(212, 175, 55, 0.15);
     overflow: hidden;
-    cursor: pointer;
+    cursor: default;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     direction: ltr;
 }
@@ -158,12 +155,6 @@
     pointer-events: none;
 }
 
-.partner-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(212, 175, 55, 0.5);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(212, 175, 55, 0.15) inset;
-    background: #ffffff;
-}
 
 [data-theme='light'] .partner-card {
     background: #e6e6e6;
@@ -171,24 +162,13 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
-[data-theme='light'] .partner-card:hover {
-    background: #e6e6e6;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 0 15px rgba(212, 175, 55, 0.15) inset;
-    border-color: #dbb367;
-}
 
-.partner-card:hover .partner-logo-img {
-    transform: scale(1.06);
-}
 
 [data-theme='light'] .partner-logo-img {
     filter: none;
     opacity: 1;
 }
 
-.partner-card:hover .glow-effect {
-    opacity: 1;
-}
 
 @keyframes scroll {
     to {

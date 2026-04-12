@@ -407,7 +407,6 @@
     letter-spacing: 0.5px;
     white-space: nowrap;
     transition: all 0.3s ease;
-    margin-left: auto;
 }
 
 [data-theme='light'] .property-card .view-details-btn {
