@@ -268,10 +268,7 @@ const HotOffers = () => {
                 <div className="cta-overlay" style={{ background: "linear-gradient(135deg, rgba(30, 26, 52, 0.95) 0%, rgba(194, 24, 24, 0.2) 100%)" }}></div>
                 <div className="cta-container">
                     <div className="cta-content animate-slide-up">
-                        <span className="cta-label" style={{ color: "var(--hot-red)" }}>
-                           <Sparkles size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '8px' }} />
-                           {t('hotOffersPage.heroBadge')}
-                        </span>
+
                         <h2 className="cta-title">{t('hotOffersPage.ctaTitle')}</h2>
                         <p className="cta-desc">{t('hotOffersPage.ctaDesc')}</p>
                         
