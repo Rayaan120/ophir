@@ -391,3 +391,31 @@ button {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--gold-primary);
 }
+
+/* Homepage overrides */
+.home-page-root {
+  --gold-gradient: linear-gradient(180deg, #e7aa51 0%, #ffe499 22%, #8d5a1b 55%, #ac7031 80%, #e7aa51 100%);
+}
+
+
+
+.home-page-root .feature-icon,
+.home-page-root .feature-item svg,
+.home-page-root .f-item-val svg,
+.home-page-root .pd-feature-item svg,
+.home-page-root .hc-feat svg,
+.home-page-root .property-location-tag svg,
+.home-page-root .card-location svg,
+.home-page-root .feature-icon-wrapper svg,
+.home-page-root .slider-arrow svg,
+.home-page-root .hero-mouse-icon,
+.home-page-root .gold-icon,
+.home-page-root .ethereal-icon,
+.home-page-root .bento-icon-wrapper svg,
+.home-page-root .glass-icon,
+.home-page-root .insta-type-overlay svg,
+.home-page-root .item-icon,
+.home-page-root .benefit-check,
+.home-page-root .highlight-icon svg {
+  stroke: url(#home-gold-gradient-def);
+}

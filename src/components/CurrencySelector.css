@@ -2,32 +2,41 @@
 
 .currency-selector {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     z-index: 50;
-    /* Ensure it floats above other nav items */
+    /* Pill background to match lang-selector-pill */
+    background: rgba(0, 0, 0, 0.2);
+    padding: 3px;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Trigger Button */
+/* Trigger Button - Pill active style */
 .currency-trigger {
     display: flex;
     align-items: center;
-    gap: 6px;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 6px 12px;
-    color: var(--text-color, #fff);
-    font-size: 0.85rem;
-    font-weight: 500;
+    gap: 8px;
+    background: var(--gold-gradient);
+    border: none;
+    border-radius: 100px;
+    padding: 6px 16px;
+    color: #000;
+    font-size: 0.75rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: var(--font-body);
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    letter-spacing: 1px;
+    box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
 }
 
-.currency-trigger:hover,
+.currency-trigger:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
 .currency-trigger.active {
-    border-color: var(--gold-primary, #d4af37);
-    background: rgba(212, 175, 55, 0.05);
+    opacity: 0.95;
 }
 
 .currency-current {
@@ -36,7 +45,7 @@
 
 .currency-icon {
     transition: transform 0.3s ease;
-    color: var(--gold-primary, #d4af37);
+    color: #000;
 }
 
 .currency-trigger.active .currency-icon {
@@ -60,15 +69,13 @@
 }
 
 /* Light mode overrides */
-[data-theme='light'] .currency-trigger {
-    border-color: rgba(0, 0, 0, 0.1);
-    color: var(--text-color, #1a1a1a);
+[data-theme='light'] .currency-selector {
+    background: rgba(255, 255, 255, 0.4);
+    border-color: rgba(0, 0, 0, 0.05);
 }
 
-[data-theme='light'] .currency-trigger:hover,
-[data-theme='light'] .currency-trigger.active {
-    border-color: var(--gold-primary, #d4af37);
-    background: rgba(212, 175, 55, 0.05);
+[data-theme='light'] .currency-trigger {
+    color: #fff; /* White text for gold gradient in light mode to match lang-item.active */
 }
 
 [data-theme='light'] .currency-dropdown {

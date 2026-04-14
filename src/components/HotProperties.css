@@ -397,7 +397,7 @@
     align-items: center;
     gap: 8px;
     background: transparent;
-    border: 1px solid #dbb367;
+    border: 1px solid var(--gold-primary);
     padding: 8px 16px;
     border-radius: 100px;
     font-size: 0.8rem;
@@ -406,12 +406,20 @@
     letter-spacing: 0.5px;
     white-space: nowrap;
     transition: all 0.3s ease;
+    color: transparent !important;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
 [data-theme='light'] .property-card .view-details-btn {
     background: transparent;
-    color: var(--gold-primary);
     border-color: var(--gold-primary);
+}
+
+.property-card .arrow-icon {
+    stroke: url(#home-gold-gradient-def);
+    transition: none;
 }
 
 /* Hover removed per user request */

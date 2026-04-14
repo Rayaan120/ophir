@@ -33,11 +33,10 @@
 .void-hero-bg {
     position: absolute;
     inset: 0;
-    background-image: url('/Dubai Design District 1.jpg');
+    background-image: url('/HERO for MEET the team rami alex and ziad.jpg');
     background-size: cover;
     background-position: center;
     z-index: 0;
-    animation: voidBreath 30s infinite alternate ease-in-out;
     opacity: 1;
 }
 

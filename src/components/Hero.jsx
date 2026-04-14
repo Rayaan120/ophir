@@ -6,7 +6,6 @@ import './Hero.css';
 
 const Hero = () => {
     const [activeTab, setActiveTab] = useState('Buy');
-    const [currentSlide, setCurrentSlide] = useState(0);
     const [showFilters, setShowFilters] = useState(false);
 
     // Search Panel States
@@ -18,19 +17,6 @@ const Hero = () => {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
     const lang = i18n.language || 'en';
-
-    const images = [
-        '/home/address1.png',
-        '/home/albero1.png',
-        '/home/baystar1.png'
-    ];
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % images.length);
-        }, 6000);
-        return () => clearInterval(timer);
-    }, [images.length]);
 
     const handleSearchSubmit = () => {
         let route = 'buy';
@@ -66,16 +52,30 @@ const Hero = () => {
         navigate(`/${lang}/${route}?${params.toString()}`);
     };
 
+    // Helper to fix specific kerning issues (like "TE" in Estate)
+    const renderTitleWithKerning = (text) => {
+        // Regex to find "TE" and wrap "T" to add micro-spacing
+        const parts = text.split(/(te)/gi);
+        return parts.map((part, index) => {
+            if (part.toLowerCase() === 'te') {
+                return (
+                    <span key={index}>
+                        <span className="kern-te">{part.charAt(0)}</span>
+                        {part.charAt(1)}
+                    </span>
+                );
+            }
+            return part;
+        });
+    };
+
     return (
         <div className="hero-section">
-            {/* Background Slider */}
-            {images.map((img, idx) => (
-                <div
-                    key={idx}
-                    className={`hero-bg ${idx === currentSlide ? 'active' : ''}`}
-                    style={{ backgroundImage: `url("${img}")` }}
-                ></div>
-            ))}
+            {/* Static Hero Background */}
+            <div
+                className="hero-bg active"
+                style={{ backgroundImage: 'url("/HERO Dubai skyline.jpg")' }}
+            ></div>
             <div className="hero-overlay"></div>
 
             <div className="hero-container container">
@@ -85,7 +85,7 @@ const Hero = () => {
                     <h1 className="hero-title">
                         {t('home.heroTitle').split('&').map((part, i, arr) => (
                             <span key={i}>
-                                {part}
+                                {renderTitleWithKerning(part)}
                                 {i < arr.length - 1 && <span className="normal-amp">&</span>}
                             </span>
                         ))}

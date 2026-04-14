@@ -474,18 +474,19 @@
 
 .hc-btn {
     background: transparent;
+    color: var(--hot-red);
     font-size: 0.9rem;
     font-weight: 600;
     display: inline-flex;
     align-items: center;
     gap: 5px;
     text-decoration: none;
-    transition: gap 0.3s;
+    transition: all 0.3s ease;
 }
 
 .hc-btn svg {
-    color: var(--gold-primary);
-    stroke: url(#gold-gradient-def);
+    color: var(--hot-red);
+    stroke: var(--hot-red);
 }
 
 .hc-btn:hover {

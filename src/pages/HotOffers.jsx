@@ -25,18 +25,35 @@ const HotOffers = () => {
                 const hotData = hotRes.ok ? await hotRes.json() : { items: [] };
                 const hotItems = hotData.items || (Array.isArray(hotData) ? hotData : []);
 
-                // 2. Fetch additional properties to fill the grid (4 more)
-                const extraRes = await fetch('/api/properties?pageSize=15'); 
+                // 2. Fetch specific properties for Sale
+                const sellRes = await fetch('/api/properties?type=sell&pageSize=4');
+                const sellData = sellRes.ok ? await sellRes.json() : { items: [] };
+                const sellItems = sellData.items || [];
+
+                // 3. Fetch specific properties for New Projects
+                const newRes = await fetch('/api/properties?type=new&pageSize=4');
+                const newData = newRes.ok ? await newRes.json() : { items: [] };
+                const newItems = newData.items || [];
+
+                // 4. Fetch additional general properties
+                const extraRes = await fetch('/api/properties?pageSize=10'); 
                 const extraData = extraRes.ok ? await extraRes.json() : { items: [] };
-                const extraItems = extraData.items || (Array.isArray(extraData) ? extraData : []);
+                const extraItems = extraData.items || [];
 
-                // Filter out duplicates and pick 4 random ones
-                const hotIds = new Set(hotItems.map(p => p.id));
-                const pool = extraItems.filter(p => !hotIds.has(p.id));
-                const randomExtra = pool.sort(() => 0.5 - Math.random()).slice(0, 4);
+                // Combine them
+                const rawCombined = [...hotItems, ...sellItems, ...newItems, ...extraItems];
 
-                // Combine them: Hot properties first, then randoms
-                setProperties([...hotItems, ...randomExtra]);
+                // Filter out duplicates
+                const uniqueProps = [];
+                const seenIds = new Set();
+                for (const p of rawCombined) {
+                    if (!seenIds.has(p.id)) {
+                        seenIds.add(p.id);
+                        uniqueProps.push(p);
+                    }
+                }
+
+                setProperties(uniqueProps);
             } catch (err) {
                 console.error("Hot Offers Fetch Error:", err);
                 setError(t('buyPage.errorLoad'));
@@ -56,9 +73,9 @@ const HotOffers = () => {
     // Derived Data
     const displayProperties = properties.filter(p => {
         if (activeFilter === 'All') return true;
-        if (activeFilter === 'Sale' && (p.type === 'sell' || p.category === 'sale')) return true;
+        if (activeFilter === 'Sale' && (p.type === 'sell' || p.category === 'sale' || p.category === 'sell')) return true;
         if (activeFilter === 'Rent' && (p.type === 'rent' || p.category === 'rent')) return true;
-        if (activeFilter === 'New Projects' && p.isOffPlan) return true;
+        if (activeFilter === 'New Projects' && (p.isOffPlan || p.category === 'new')) return true;
         // Fallback checks just in case data shape varies
         if (activeFilter === 'Sale' && p.pricePeriod === null) return true;
         if (activeFilter === 'Rent' && p.pricePeriod) return true;
@@ -180,7 +197,7 @@ const HotOffers = () => {
 
                                     <div className="featured-actions">
                                         <Link to={`/${i18n.language}/property/${featuredOffer.id}`} className="btn-primary-red">
-                                            <span className="gold-text">{t('hotOffersPage.viewDetails')}</span>
+                                            {t('hotOffersPage.viewDetails')}
                                         </Link>
                                         <Link to={`/${i18n.language}/contact`} className="btn-outline-red">
                                             {t('hotOffersPage.enquireNow')}
@@ -230,7 +247,7 @@ const HotOffers = () => {
 
                                             <div className="hc-footer">
                                                 <Link to={`/${i18n.language}/property/${property.id}`} className="hc-btn">
-                                                    <span className="gold-text">{t('hotOffersPage.viewDetails')}</span> <ArrowRight size={14} />
+                                                    {t('hotOffersPage.viewDetails')} <ArrowRight size={14} />
                                                 </Link>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                                     <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#eee', backgroundImage: `url(${property.agentAvatarUrl || ''})`, backgroundSize: 'cover' }}></div>

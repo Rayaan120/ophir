@@ -16,16 +16,7 @@
     height: 100%;
     background-size: cover;
     background-position: center;
-    opacity: 0;
-    transition: opacity 1.5s ease-in-out, transform 6s linear;
     z-index: 1;
-    transform: scale(1.05);
-    /* Slight zoom for cinematic feel */
-}
-
-.hero-bg.active {
-    opacity: 1;
-    transform: scale(1);
 }
 
 .hero-overlay {
@@ -51,53 +42,71 @@
 }
 
 .hero-content.centered {
-    max-width: 1000px;
+    max-width: 1200px;
     padding-inline-end: 0;
     margin: 0 auto;
-    text-align: left;
+    text-align: center;
 }
 
-.hero-title {
-    font-size: 4.5rem;
+.hero-section .hero-title {
+    font-size: clamp(2.2rem, 5vw, 4rem);
     color: #ffffff;
     margin-bottom: 24px;
     line-height: 1.1;
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     font-family: var(--font-heading);
+    text-transform: uppercase !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.05em;
+    width: 100%;
+    white-space: nowrap;
+}
+
+/* Precise kerning fix for TE pair in ESTATE */
+.kern-te {
+    margin-inline-end: 0.05em;
 }
 
 /* Ensure title remains white in light mode */
-[data-theme='light'] .hero-title {
+[data-theme='light'] .hero-section .hero-title {
     color: #ffffff !important;
 }
 
-.hero-subtitle {
+@media (max-width: 768px) {
+    .hero-section .hero-title {
+        font-size: clamp(1.6rem, 5.5vw, 2rem);
+        white-space: normal;
+        line-height: 1.2;
+    }
+}
+
+.hero-section .hero-subtitle {
     font-size: 1.2rem;
     color: rgba(255, 255, 255, 0.85);
     margin-bottom: 40px;
     font-weight: 300;
     max-width: 800px;
-    padding-left: 45px;
+    margin-inline: auto;
 }
 
 /* Ensure subtitle remains translucent white in light mode */
-[data-theme='light'] .hero-subtitle {
+[data-theme='light'] .hero-section .hero-subtitle {
     color: rgba(255, 255, 255, 0.85) !important;
 }
 
-.hero-actions {
+.hero-section .hero-actions {
     display: flex;
     gap: 16px;
     justify-content: center;
 }
 
-.hero-actions .btn {
+.hero-section .hero-actions .btn {
     border-radius: 100px;
     padding: 16px 40px;
     font-size: 1rem;
 }
 
-.hero-actions .btn-outline:hover {
+.hero-section .hero-actions .btn-outline:hover {
     background: var(--gold-gradient);
     color: var(--text-dark);
     border-color: transparent;
@@ -444,8 +453,9 @@
         padding-top: 100px;
     }
 
-    .hero-title {
-        font-size: 3.5rem;
+    .hero-section .hero-title {
+        font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+        white-space: nowrap;
     }
 
     .modern-search-bar-wrapper {
@@ -493,13 +503,14 @@
         padding-top: 140px;
     }
 
-    .hero-title {
-        font-size: 2.2rem;
+    .hero-section .hero-title {
+        font-size: clamp(1.6rem, 5.5vw, 2rem);
     }
 
-    .hero-subtitle {
+    .hero-section .hero-subtitle {
         font-size: 1rem;
         padding: 0 10px;
+        margin-inline: auto;
     }
 
     .hero-actions {
