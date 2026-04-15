@@ -39,7 +39,7 @@ const ScrollToTop = () => {
     return (
         <div className={`scroll-to-top ${isVisible ? 'visible' : ''}`} onClick={scrollToTop}>
             <button className="scroll-btn glass-panel" aria-label="Back to Top">
-                <ChevronUp size={24} color="var(--gold-primary)" strokeWidth={2.5} />
+                <ChevronUp size={24} strokeWidth={2.5} />
             </button>
         </div>
     );

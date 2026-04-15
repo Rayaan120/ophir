@@ -63,8 +63,17 @@ const Navbar = () => {
     return location.pathname === fullPath || location.pathname.startsWith(`${fullPath}/`);
   };
 
+  const isHome = location.pathname === `/${currentLang}` || location.pathname === '/';
+  const isAbout = location.pathname === `/${currentLang}/about` || location.pathname === '/about';
+  const isServices = location.pathname === `/${currentLang}/services` || location.pathname === '/services';
+  const isListing = ['/buy', '/rent', '/new-projects', '/hot-offers'].some(p => location.pathname === `/${currentLang}${p}` || location.pathname === p);
+  const isInsight = location.pathname.includes('/global-insights');
+  const isContact = location.pathname === `/${currentLang}/contact` || location.pathname === '/contact';
+  const isDetail = location.pathname.includes('/property/');
+  const isPremiumPage = isHome || isAbout || isServices || isListing || isInsight || isContact || isDetail;
+  
   return (
-    <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
+    <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''} ${isPremiumPage ? 'is-premium-page' : ''}`}>
       <div className="navbar-container">
 
         {/* Left: Logo */}

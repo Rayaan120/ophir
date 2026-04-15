@@ -90,6 +90,7 @@
     font-family: var(--font-body);
     font-style: italic;
     font-weight: 400;
+    padding-right: 0.15em;
 }
 
 [data-theme='light'] .gold-text-gradient {
@@ -330,6 +331,10 @@
     transition: all 0.4s ease;
 }
 
+.feature-icon-wrapper svg {
+    stroke: url(#home-gold-gradient-def);
+}
+
 /* Hover state for icons removed as requested */
 /* .bento-feature-card:hover .feature-icon-wrapper {
     background: var(--gold-gradient);
@@ -361,11 +366,7 @@
     position: absolute;
     top: 35px;
     right: 30px;
-    background: var(--gold-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent !important;
+    stroke: url(#home-gold-gradient-def);
     opacity: 0;
     transform: translate(-10px, 10px);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);

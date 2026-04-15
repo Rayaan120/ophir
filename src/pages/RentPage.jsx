@@ -362,7 +362,7 @@ const RentPage = () => {
                             <button className="gold-filled-btn" onClick={() => navigate(`/${i18n.language}/contact`)}>
                                 {t('rentPage.cta.btn1')}
                             </button>
-                            <button className="gold-outline-btn" onClick={() => window.open('https://wa.me/971000000000', '_blank')}>
+                            <button className="gold-outline-btn" onClick={() => window.open('https://wa.me/9717758953106', '_blank')}>
                                 {t('rentPage.cta.btn2')}
                             </button>
                         </div>

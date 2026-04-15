@@ -86,7 +86,7 @@ const WhyChooseOphir = () => {
                             </p>
                             <div className="quote-author">
                                 <span className="author-line"></span>
-                                <span>{t('whyOphir.quoteAuthor')}</span>
+                                <span className="gold-text">{t('whyOphir.quoteAuthor')}</span>
                             </div>
                         </div>
                     </div>

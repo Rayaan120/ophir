@@ -58,9 +58,14 @@
 }
 
 .hot-offers-title {
-    font-size: 3.5rem;
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     margin-bottom: 20px;
-    color: #fff;
     line-height: 1.1;
 }
 
@@ -89,7 +94,11 @@
 
 .hot-offers-stats span::after {
     content: '•';
-    color: var(--hot-red);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     margin-left: 20px;
 }
 
@@ -150,14 +159,14 @@
 }
 
 .hot-filter-btn:hover {
-    border-color: var(--hot-red);
-    color: var(--hot-red);
+    border-color: #AC7031;
+    color: #AC7031;
 }
 
 .hot-filter-btn.active {
-    background-color: var(--hot-red);
-    border-color: var(--hot-red);
-    color: #fff;
+    background: var(--gold-gradient);
+    border-color: transparent;
+    color: #000;
 }
 
 /* =========================================
@@ -417,9 +426,13 @@
     position: absolute;
     bottom: 15px; left: 15px;
     z-index: 2;
-    color: #fff;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 

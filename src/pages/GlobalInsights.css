@@ -93,7 +93,7 @@
   overflow-x: auto;
   justify-content: center;
   padding: 10px 5px 30px 5px; /* bottom padding for scrollbar */
-  scrollbar-color: var(--gold-primary) var(--bg-lighter);
+  scrollbar-color: #AC7031 var(--bg-lighter);
 }
 
 @media (max-width: 992px) {
@@ -127,7 +127,7 @@
   background: var(--gold-gradient);
   color: #000;
   border-color: transparent;
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 4px 15px rgba(172, 112, 49, 0.3);
 }
 
 [data-theme='light'] .market-tab.active {
@@ -158,7 +158,7 @@
 
 .insight-highlight-card {
   padding: 30px;
-  border-left: 4px solid var(--gold-primary);
+  border-left: 4px solid #AC7031;
   border-radius: var(--radius-md);
   position: relative;
 }
@@ -277,7 +277,7 @@
 .vs-divider {
   font-size: 0.8rem;
   font-weight: 700;
-  color: #000;
+  color: #fff;
   background: var(--gold-gradient);
   padding: 4px 8px;
   border-radius: 4px;
@@ -367,7 +367,7 @@
 
 .expert-actions .btn-outline {
   background: transparent;
-  border: 1px solid var(--gold-primary);
+  border: 1.5px solid #AC7031;
   background-image: var(--gold-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -540,7 +540,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background-color: rgba(212, 175, 55, 0.1);
+  background-color: rgba(172, 112, 49, 0.1);
   transition: all 0.3s ease;
   flex-shrink: 0;
 }
@@ -587,8 +587,20 @@
   margin-left: auto;
   margin-right: auto;
   background: linear-gradient(135deg, rgba(36, 32, 58, 0.9), rgba(30, 26, 52, 0.95));
-  border-left: 4px solid var(--gold-primary);
+  position: relative;
+  overflow: hidden;
   padding: 2.5rem 3rem 3.5rem 3rem;
+}
+
+.strategic-note::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--gold-gradient);
+  z-index: 2;
 }
 
 @media (max-width: 768px) {
@@ -600,7 +612,6 @@
 [data-theme='light'] .strategic-note {
   background: #e6e6e6;
   border: 1px solid var(--border-color);
-  border-left: 4px solid var(--gold-primary);
 }
 
 [data-theme='light'] .strategic-note {
@@ -637,10 +648,10 @@
 
 .coming-soon-badge {
     padding: 10px 24px;
-    background: rgba(219, 179, 103, 0.1);
-    border: 1px solid rgba(219, 179, 103, 0.3);
+    background: rgba(172, 112, 49, 0.1);
+    border: 1px solid rgba(172, 112, 49, 0.3);
     border-radius: 100px;
-    color: var(--gold-primary);
+    color: #AC7031;
     font-size: 0.9rem;
     font-weight: 700;
     text-transform: uppercase;

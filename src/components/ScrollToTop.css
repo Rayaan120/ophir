@@ -19,7 +19,7 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: 1px solid var(--gold-muted);
+    border: 1px solid #AC7031;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,14 +29,19 @@
     padding: 0;
 }
 
+.scroll-btn svg {
+    stroke: url(#home-gold-gradient-def);
+}
+
 .scroll-btn:hover {
     background: var(--gold-primary);
     transform: translateY(-5px);
-    box-shadow: 0 15px 40px var(--gold-muted);
+    box-shadow: 0 15px 40px rgba(172, 112, 49, 0.4);
+    border-color: #dbb367;
 }
 
 .scroll-btn:hover svg {
-    color: #111 !important;
+    stroke: #111 !important;
 }
 
 @media (max-width: 768px) {

@@ -95,7 +95,7 @@
 .void-hero-accent {
     width: 2px;
     height: 40px;
-    background: linear-gradient(to bottom, transparent 0%, var(--gold-primary) 100%);
+    background: linear-gradient(to bottom, transparent 0%, #AC7031 100%);
     margin-bottom: 24px;
 }
 
@@ -107,20 +107,11 @@
     letter-spacing: -0.02em;
     margin: 0;
 
-    /* Liquid Shimmer Text Effect */
-    color: transparent;
-    background-image: linear-gradient(-45deg,
-            #ffffff 0%,
-            rgba(255, 255, 255, 0.8) 40%,
-            var(--gold-primary) 45%,
-            #7a5d1a 50%,
-            var(--gold-primary) 55%,
-            rgba(255, 255, 255, 0.8) 60%,
-            #ffffff 100%);
-    background-size: 200% auto;
-    background-clip: text;
+    background: var(--gold-gradient);
     -webkit-background-clip: text;
-    animation: textShimmer 6s linear infinite;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     text-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
 
@@ -427,7 +418,7 @@
 
 .gold-outline-btn {
     background: transparent;
-    border: 1px solid var(--gold-primary);
+    border: 1.5px solid #AC7031;
     background-image: var(--gold-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -802,8 +793,8 @@
 
 /* More Card Styles */
 .team-card.more-card {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(30, 26, 52, 0.95) 100%);
-    border: 1px dashed var(--gold-primary);
+    background: linear-gradient(135deg, rgba(172, 112, 49, 0.05) 0%, rgba(30, 26, 52, 0.95) 100%);
+    border: 1px dashed #AC7031;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -876,8 +867,8 @@
 
 .team-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
-    border-color: var(--gold-primary);
+    box-shadow: 0 20px 40px rgba(172, 112, 49, 0.15);
+    border-color: #AC7031;
 }
 
 .team-card-image-wrapper {
@@ -1167,7 +1158,11 @@
 .value-list-number {
     font-family: var(--font-heading);
     font-size: 1.2rem;
-    color: var(--gold-primary) !important;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-weight: 500;
 }
 
@@ -1292,7 +1287,7 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 24px;
-    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+    box-shadow: 0 10px 20px rgba(172, 112, 49, 0.3);
 }
 
 .glass-icon {
@@ -1400,7 +1395,7 @@
 .blob-1 {
     width: 600px;
     height: 600px;
-    background: var(--gold-primary);
+    background: #AC7031;
     top: -100px;
     left: -200px;
 }
@@ -1558,12 +1553,12 @@
     width: 64px;
     height: 64px;
     border-radius: 16px;
-    background: rgba(212, 175, 55, 0.1);
+    background: rgba(172, 112, 49, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 32px;
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    border: 1px solid rgba(172, 112, 49, 0.2);
     transition: transform 0.4s ease;
 }
 
@@ -1715,7 +1710,7 @@
     letter-spacing: 0.15em;
     margin-bottom: 24px;
     font-weight: 500;
-    border: 1px solid var(--gold-primary);
+    border: 1.5px solid #AC7031;
     padding: 8px 16px;
     border-radius: 40px;
 }

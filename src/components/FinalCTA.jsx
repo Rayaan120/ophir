@@ -24,7 +24,9 @@ const FinalCTA = () => {
                     </p>
                     <div className="cta-actions">
                         <button className="btn btn-primary" onClick={() => navigate(`/${lang}/contact`)}>{t('cta.btn1')}</button>
-                        <button className="btn btn-outline" onClick={() => window.open('https://wa.me/9717758953106', '_blank')}>{t('cta.btn2')}</button>
+                        <button className="btn btn-outline" onClick={() => window.open('https://wa.me/9717758953106', '_blank')}>
+                            <span className="gold-text">{t('cta.btn2')}</span>
+                        </button>
                     </div>
                 </div>
             </div>

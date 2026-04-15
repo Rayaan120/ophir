@@ -77,9 +77,9 @@
 }
 
 .highlight-card {
-    background: rgba(212, 175, 55, 0.1);
+    background: rgba(172, 112, 49, 0.1);
     backdrop-filter: blur(10px);
-    border-left: 3px solid var(--gold-primary);
+    border-left: 3px solid #AC7031;
     padding: 24px;
     border-radius: 0 16px 16px 0;
     display: flex;
@@ -111,7 +111,7 @@
     background: rgba(30, 26, 52, 0.8);
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid rgba(219, 179, 103, 0.2);
+    border: 1px solid rgba(172, 112, 49, 0.2);
     border-radius: 24px;
     padding: 10px;
     box-shadow:
@@ -168,13 +168,13 @@
 .item-icon-wrapper {
     width: 48px;
     height: 48px;
-    background: rgba(212, 175, 55, 0.1);
+    background: rgba(172, 112, 49, 0.1);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.4s ease;
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    border: 1px solid rgba(172, 112, 49, 0.2);
 }
 
 .ribbon-item:hover .item-icon-wrapper {
@@ -213,7 +213,7 @@
 .ribbon-divider {
     width: 1px;
     height: 40px;
-    background: linear-gradient(to bottom, transparent, #dbb367, transparent);
+    background: linear-gradient(to bottom, transparent, #AC7031, transparent);
 }
 
 @media (max-width: 1200px) {
@@ -329,8 +329,8 @@
 .form-select:focus,
 .form-textarea:focus {
     outline: none;
-    border-color: #dbb367;
-    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    border-color: #AC7031;
+    box-shadow: 0 0 0 3px rgba(172, 112, 49, 0.1);
 }
 
 .form-textarea {
@@ -352,9 +352,9 @@
 }
 
 .submit-btn:hover:not(:disabled) {
-    background: #c19b2e;
+    background: #8D5A1B;
     transform: scale(1.02);
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 4px 15px rgba(172, 112, 49, 0.4);
 }
 
 .submit-btn:disabled {
@@ -623,7 +623,11 @@
 }
 
 .faq-header:hover {
-    color: #dbb367;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
 }
 
 .faq-answer {
@@ -638,7 +642,7 @@
     justify-content: center;
     gap: 12px;
     background: transparent;
-    border: 1px solid #dbb367;
+    border: 1.5px solid #AC7031;
     padding: 10px 28px;
     border-radius: 100px;
     font-size: 0.85rem;

@@ -50,14 +50,13 @@
 
 .pd-badge {
     display: inline-block;
-    background: rgba(30, 26, 52, 0.7);
-    border: 1px solid #dbb367;
     background: var(--gold-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent !important;
     padding: 6px 16px;
+    border: 1.5px solid #AC7031;
     border-radius: 30px;
     font-size: 0.85rem;
     font-weight: 700;
@@ -72,7 +71,7 @@
     align-items: center;
     gap: 8px;
     background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(219, 179, 103, 0.4);
+    border: 1.5px solid #AC7031;
     padding: 6px 16px;
     border-radius: 100px;
     text-decoration: none;
@@ -206,7 +205,7 @@
 .pd-thumb:hover,
 .pd-thumb.active {
     opacity: 1;
-    border-color: #dbb367;
+    border-color: #AC7031;
 }
 
 /* Main Layout */
@@ -320,7 +319,7 @@
 .pd-contact-card {
     background: rgba(30, 26, 52, 0.8);
     border: 1px solid var(--border-color);
-    border-top: 3px solid #dbb367;
+    border-top: 3px solid #AC7031;
     border-radius: 12px;
     padding: 30px;
     position: sticky;
@@ -376,7 +375,7 @@
     border-radius: 50%;
     background-size: cover;
     background-position: center;
-    border: 2px solid #dbb367;
+    border: 2px solid #AC7031;
 }
 
 .pd-agent-info h4 {
@@ -432,7 +431,7 @@
 }
 
 .pd-btn-secondary:hover {
-    border-color: #dbb367;
+    border-color: #AC7031;
     background: var(--gold-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

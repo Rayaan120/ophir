@@ -30,7 +30,11 @@
 
 .listing-final-cta .cta-label {
     display: inline-block;
-    color: var(--gold-accent, #d4af37);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-size: 0.9rem;
     font-weight: 600;
     letter-spacing: 4px;

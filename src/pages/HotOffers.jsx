@@ -277,7 +277,7 @@ const HotOffers = () => {
                                 <Calendar size={18} />
                                 <span>{t('hotOffersPage.ctaBtn1')}</span>
                             </Link>
-                            <a href="https://wa.me/971000000000" target="_blank" rel="noreferrer" className="btn-hot-outline">
+                            <a href="https://wa.me/9717758953106" target="_blank" rel="noreferrer" className="btn-hot-outline">
                                 <MessageCircle size={18} />
                                 <span>{t('hotOffersPage.ctaBtn2')}</span>
                             </a>

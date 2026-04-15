@@ -180,7 +180,9 @@ const Hero = () => {
                     </div>
 
                     <div className="hero-actions">
-                        <button className="btn btn-outline" onClick={() => navigate(`/${lang}/contact`)}>{t('home.getInTouch')}</button>
+                        <button className="btn btn-outline" onClick={() => navigate(`/${lang}/contact`)}>
+                            <span className="gold-text">{t('home.getInTouch')}</span>
+                        </button>
                     </div>
                 </div>
 

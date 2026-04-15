@@ -77,7 +77,7 @@
   --bg-lighter: #151515;
   --bg-card: #111111;
   --gold-primary: #c5a021;
-  --gold-gradient: linear-gradient(to bottom, #dbb367 0%, #7a5d1a 100%);
+  --gold-gradient: linear-gradient(135deg, #FFD79C, #8D5A1B, #AC7031, #F2CD95, #AC7031);
   --gold-hover: #d4af37;
   --gold-muted: rgba(197, 160, 33, 0.2);
   --text-main: #f5f5f5;
@@ -135,6 +135,23 @@ body,
 .insights-page,
 .privacy-policy-page {
   background-color: var(--bg-color);
+}
+
+.home-page-root,
+.about-page,
+.services-page,
+.buy-page,
+.rent-page,
+.new-projects-page,
+.hot-offers-page,
+.property-details-page,
+.global-insights-page,
+.contact-page {
+  --gold-gradient: linear-gradient(135deg, #FFD79C, #8D5A1B, #AC7031, #F2CD95, #AC7031);
+}
+
+.home-page-root .btn-outline {
+  border: 1.5px solid #AC7031; /* Use one of the gold hexes for border to match */
 }
 
 [data-theme='light'] html,
@@ -235,7 +252,6 @@ button {
   color: transparent !important;
 }
 
-/* Global feature icon gradient styling */
 .feature-icon,
 .feature-item svg,
 .f-item-val svg,
@@ -257,6 +273,91 @@ button {
   stroke: url(#gold-gradient-def);
   fill: none !important;
   opacity: 1;
+}
+
+.home-page-root .feature-icon,
+.home-page-root .feature-item svg,
+.home-page-root .f-item-val svg,
+.home-page-root .pd-feature-item svg,
+.home-page-root .hc-feat svg,
+.home-page-root .property-location-tag svg,
+.home-page-root .card-location svg,
+.home-page-root .feature-icon-wrapper svg,
+.home-page-root .slider-arrow svg,
+.home-page-root .hero-mouse-icon,
+.home-page-root .gold-icon,
+.home-page-root .ethereal-icon,
+.home-page-root .bento-icon-wrapper svg,
+.home-page-root .glass-icon,
+.home-page-root .insta-type-overlay svg,
+.home-page-root .item-icon,
+.home-page-root .benefit-check,
+.home-page-root .highlight-icon svg,
+.about-page .feature-icon,
+.about-page .feature-item svg,
+.about-page .f-item-val svg,
+.about-page .pd-feature-item svg,
+.about-page .hc-feat svg,
+.about-page .property-location-tag svg,
+.about-page .card-location svg,
+.about-page .feature-icon-wrapper svg,
+.about-page .slider-arrow svg,
+.about-page .hero-mouse-icon,
+.about-page .gold-icon,
+.about-page .ethereal-icon,
+.about-page .bento-icon-wrapper svg,
+.about-page .glass-icon,
+.about-page .insta-type-overlay svg,
+.about-page .item-icon,
+.about-page .benefit-check,
+.about-page .highlight-icon svg,
+.services-page .feature-icon,
+.services-page .feature-item svg,
+.services-page .f-item-val svg,
+.services-page .pd-feature-item svg,
+.services-page .hc-feat svg,
+.services-page .property-location-tag svg,
+.services-page .card-location svg,
+.services-page .feature-icon-wrapper svg,
+.services-page .slider-arrow svg,
+.services-page .hero-mouse-icon,
+.services-page .gold-icon,
+.services-page .ethereal-icon,
+.services-page .bento-icon-wrapper svg,
+.services-page .glass-icon,
+.services-page .insta-type-overlay svg,
+.services-page .item-icon,
+.services-page .benefit-check,
+.services-page .highlight-icon svg,
+.buy-page .pd-feature-item svg,
+.buy-page .card-location svg,
+.buy-page .hc-feat svg,
+.buy-page .feature-item svg,
+.buy-page .card-btn svg,
+.rent-page .pd-feature-item svg,
+.rent-page .card-location svg,
+.rent-page .hc-feat svg,
+.rent-page .feature-item svg,
+.rent-page .card-btn svg,
+.new-projects-page .pd-feature-item svg,
+.new-projects-page .card-location svg,
+.new-projects-page .hc-feat svg,
+.new-projects-page .feature-item svg,
+.new-projects-page .card-btn svg,
+.hot-offers-page .pd-feature-item svg,
+.hot-offers-page .card-location svg,
+.hot-offers-page .hc-feat svg,
+.hot-offers-page .f-item-val svg,
+.hot-offers-page .hc-btn svg,
+.property-details-page .pd-feature-item svg,
+.property-details-page .pd-location-icon,
+.property-details-page .pd-back-icon,
+.global-insights-page .accordion-icon svg,
+.contact-page .item-icon,
+.contact-page .highlight-icon svg,
+.contact-page .benefit-check,
+.contact-page .view-details-btn svg {
+  stroke: url(#home-gold-gradient-def);
 }
 
 .normal-amp {
@@ -317,6 +418,18 @@ button {
   background: var(--gold-gradient);
   border-color: transparent;
   color: var(--text-dark);
+}
+
+/* Homepage specific button hover adjustments */
+.home-page-root .btn-outline:hover,
+.home-page-root .btn-primary:hover {
+  color: #ffffff !important;
+}
+
+.home-page-root .btn:hover .gold-text {
+  background: none !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
 }
 
 /* Layout Utilities */
@@ -389,33 +502,5 @@ button {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--gold-primary);
-}
-
-/* Homepage overrides */
-.home-page-root {
-  --gold-gradient: linear-gradient(180deg, #e7aa51 0%, #ffe499 22%, #8d5a1b 55%, #ac7031 80%, #e7aa51 100%);
-}
-
-
-
-.home-page-root .feature-icon,
-.home-page-root .feature-item svg,
-.home-page-root .f-item-val svg,
-.home-page-root .pd-feature-item svg,
-.home-page-root .hc-feat svg,
-.home-page-root .property-location-tag svg,
-.home-page-root .card-location svg,
-.home-page-root .feature-icon-wrapper svg,
-.home-page-root .slider-arrow svg,
-.home-page-root .hero-mouse-icon,
-.home-page-root .gold-icon,
-.home-page-root .ethereal-icon,
-.home-page-root .bento-icon-wrapper svg,
-.home-page-root .glass-icon,
-.home-page-root .insta-type-overlay svg,
-.home-page-root .item-icon,
-.home-page-root .benefit-check,
-.home-page-root .highlight-icon svg {
-  stroke: url(#home-gold-gradient-def);
+  background: var(--gold-gradient);
 }

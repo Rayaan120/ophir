@@ -247,7 +247,7 @@ const HotProperties = () => {
                                 }
                             }}
                         >
-                            {t('hotProps.viewAll')}
+                            <span className="gold-text">{t('hotProps.viewAll')}</span>
                         </button>
                     </div>
 

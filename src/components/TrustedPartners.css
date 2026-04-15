@@ -46,7 +46,7 @@
 }
 
 [data-theme='light'] .subtitle-badge {
-    background: linear-gradient(to right, #b8860b 0%, #8b6508 100%);
+    background: var(--gold-gradient);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -61,10 +61,11 @@
 }
 
 .header-divider {
-    width: 1px;
+    width: 1.5px;
     height: 60px;
-    background: linear-gradient(to bottom, transparent, #dbb367, transparent);
+    background: var(--gold-gradient);
     margin: 0 40px;
+    opacity: 0.6;
 }
 
 .partners-subtitle {
