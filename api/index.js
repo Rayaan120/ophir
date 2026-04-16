@@ -70,6 +70,8 @@ app.get(['/api/properties', '/properties'], async (req, res) => {
                 currency: 'AED',
                 location: location || 'Dubai',
                 bedrooms: prop.bedRooms || 0,
+                bedroomMin: params.bedroomMin != null ? parseInt(params.bedroomMin) : null,
+                bedroomMax: params.bedroomMax != null ? parseInt(params.bedroomMax) : null,
                 bathrooms: params.bathrooms || 1,
                 areaSqft: prop.size || 0,
                 isHot: isHot,
@@ -83,16 +85,37 @@ app.get(['/api/properties', '/properties'], async (req, res) => {
                 developerName: prop.developer || null,
                 status: prop.status || null,
                 handoverDate: params.handoverTime || null,
-                bedroomRange: (params.bedroomMin && params.bedroomMax) ? `${params.bedroomMin} - ${params.bedroomMax}` : null
+                bedroomRange: (params.bedroomMin != null && params.bedroomMax != null) ? `${params.bedroomMin} - ${params.bedroomMax}` : null
             };
         });
 
-        // Filtering Logic
+        // Save raw items snapshot for meta filter extraction (before user filters applied)
+        const rawItems = [...items];
+
+        const extractEmirate = (loc) => {
+            if (!loc) return null;
+            const parts = loc.split(',');
+            return parts.length > 1 ? parts[parts.length - 1].trim() : loc.trim();
+        };
+
+        const extractArea = (loc) => {
+            if (!loc) return null;
+            return loc.split(',')[0].trim();
+        };
+
+        const allDevelopers = [...new Set(rawItems.map(i => i.developerName).filter(Boolean))];
+        const allEmirates = [...new Set(rawItems.map(i => extractEmirate(i.location)).filter(Boolean))];
+        const allAreas = [...new Set(rawItems.map(i => extractArea(i.location)).filter(Boolean))];
+
+        // Apply Server-Side Filtering
         const search = req.query.search?.toLowerCase();
         const propertyType = req.query.propertyType;
         const bedroomsFilter = req.query.bedrooms;
         const priceMin = parseFloat(req.query.priceMin);
         const priceMax = parseFloat(req.query.priceMax);
+        const developerFilter = req.query.developer;
+        const emirateFilter = req.query.emirate;
+        const locationFilter = req.query.location;
 
         if (search) {
             items = items.filter(item =>
@@ -109,20 +132,42 @@ app.get(['/api/properties', '/properties'], async (req, res) => {
         }
 
         if (bedroomsFilter && bedroomsFilter !== 'Any') {
-            if (bedroomsFilter === 'Studio') {
-                items = items.filter(item => item.bedrooms === 0);
-            } else if (bedroomsFilter === '4+') {
-                items = items.filter(item => item.bedrooms >= 4);
-            } else {
-                const beds = parseInt(bedroomsFilter);
-                if (!isNaN(beds)) {
-                    items = items.filter(item => item.bedrooms === beds);
+            items = items.filter(item => {
+                const hasRange = item.bedroomMin != null && item.bedroomMax != null;
+                if (bedroomsFilter === 'Studio') {
+                    if (hasRange) return item.bedroomMin === 0;
+                    return item.bedrooms === 0;
+                } else if (bedroomsFilter === '4+') {
+                    if (hasRange) return item.bedroomMax >= 4;
+                    return item.bedrooms >= 4;
+                } else {
+                    const beds = parseInt(bedroomsFilter);
+                    if (isNaN(beds)) return true;
+                    if (hasRange) return item.bedroomMin <= beds && item.bedroomMax >= beds;
+                    return item.bedrooms === beds;
                 }
-            }
+            });
         }
 
         if (!isNaN(priceMin)) items = items.filter(item => item.price >= priceMin);
         if (!isNaN(priceMax)) items = items.filter(item => item.price <= priceMax);
+
+        if (developerFilter && developerFilter !== 'All Developers') {
+            items = items.filter(item => {
+                if (!item.developerName) return false;
+                const dev = item.developerName.toLowerCase();
+                const filter = developerFilter.toLowerCase();
+                return dev === filter || dev.includes(filter) || filter.includes(dev);
+            });
+        }
+
+        if (emirateFilter && emirateFilter !== 'All Emirates') {
+            items = items.filter(item => extractEmirate(item.location) === emirateFilter);
+        }
+
+        if (locationFilter && locationFilter !== 'All Areas') {
+            items = items.filter(item => extractArea(item.location) === locationFilter);
+        }
 
         // Sorting
         if (req.query.sort === 'price-asc') items.sort((a, b) => a.price - b.price);
@@ -139,7 +184,12 @@ app.get(['/api/properties', '/properties'], async (req, res) => {
             total: items.length,
             page,
             pageSize,
-            totalPages
+            totalPages,
+            meta: {
+                developers: allDevelopers,
+                emirates: allEmirates,
+                areas: allAreas
+            }
         });
 
     } catch (error) {
@@ -167,6 +217,7 @@ app.get(['/api/properties/:id', '/properties/:id'], async (req, res) => {
         if (!targetProperty) return res.status(404).json({ error: 'Property not found' });
 
         const property = normalizePropertyDetail(targetProperty);
+        console.log(`[Property Detail] ID: ${id}, Agent: ${property.listedBy}, Phone: ${property.agentPhone}`);
         return res.json(property);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch property details' });
@@ -176,34 +227,82 @@ app.get(['/api/properties/:id', '/properties/:id'], async (req, res) => {
 function formatDynamicDetails(prop, params) {
     const details = [];
     if (prop.propertyId || prop.id) details.push({ label: 'Reference ID', value: prop.propertyId || prop.id });
+    if (prop.permitNumber) details.push({ label: 'Permit Number', value: prop.permitNumber });
     if (prop.community) details.push({ label: 'Community', value: prop.community });
     if (prop.developer) details.push({ label: 'Developer', value: prop.developer });
+    if (prop.region) details.push({ label: 'Area', value: prop.region });
     if (prop.size) details.push({ label: 'Size', value: `${prop.size} Sq.Ft.` });
+    if (prop.isFurniture) details.push({ label: 'Furnishing', value: prop.isFurniture });
+    if (prop.createTime) details.push({ label: 'Listed On', value: new Date(prop.createTime).toLocaleDateString() });
+
+    const availDate = prop.rentParam?.rentExpiry || prop.sellParam?.rentExpiry || prop.newParam?.handoverTime;
+    if (availDate) {
+        details.push({ label: 'Availability Date', value: availDate });
+    } else if (params.occupancy === 'Vacant') {
+        details.push({ label: 'Availability Date', value: 'Immediate' });
+    }
 
     const formatKey = (key) => {
         const customMap = {
-            handoverTime: 'Handover Date',
-            paymentPlan: 'Payment Plan',
-            bathrooms: 'Bathrooms',
+            buildYear: 'Year Built',
+            totalFloor: 'Total Floors',
+            floor: 'Floor Level',
+            parking: 'Parking Spaces',
             occupancy: 'Occupancy Status',
-            cheques: 'Payment Terms'
+            deposit: 'Security Deposit',
+            cheques: 'Payment Terms',
+            handoverTime: 'Handover Date',
+            totalUnits: 'Total Units',
+            maxSize: 'Max Size (Sq.Ft)',
+            minSize: 'Min Size (Sq.Ft)',
+            bedroomMax: 'Max Bedrooms',
+            bedroomMin: 'Min Bedrooms',
+            paymentPlan: 'Payment Plan',
+            serviceCharge: 'Service Charge',
+            acCharge: 'A/C Charge',
+            hasMortgage: 'Has Mortgage',
+            completionStatus: 'Completion Status',
+            priceType: 'Price Type',
+            bathrooms: 'Bathrooms'
         };
-        return customMap[key] || key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+        if (customMap[key]) return customMap[key];
+        return key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
     };
 
+    const ignoredKeys = ['position', 'view360', 'videoLink', 'rentExpiry', 'handoverTime', 'floorPlan'];
+
     if (params) {
-        const ignoredKeys = ['position', 'view360', 'videoLink', 'rentExpiry', 'handoverTime', 'floorPlan'];
         for (const [key, value] of Object.entries(params)) {
             if (ignoredKeys.includes(key)) continue;
             if (value === null || value === '' || value === undefined) continue;
-            
+
             let finalValue = value;
             if (key === 'cheques' && typeof value === 'string' && !value.toLowerCase().includes('cheque')) {
                 finalValue = `${value} Cheques`;
+            } else if (key === 'hasMortgage') {
+                if (value === 'HAS') finalValue = 'Yes';
+                else if (value === 'NOT' || value === 'NO') finalValue = 'No';
+            } else if (key === 'floor') {
+                const floorNum = parseInt(value, 10);
+                if (!isNaN(floorNum)) {
+                    if (floorNum <= 5) finalValue = 'Low';
+                    else if (floorNum <= 15) finalValue = 'Mid';
+                    else finalValue = 'High';
+                }
+            } else if (key === 'paymentPlan' && typeof value === 'string' && value.startsWith('{')) {
+                try {
+                    const plan = JSON.parse(value);
+                    finalValue = Object.entries(plan)
+                        .filter(([k, v]) => v && v !== '0')
+                        .map(([k, v]) => `${v}%`)
+                        .join(' / ');
+                } catch (e) { }
             }
+
             details.push({ label: formatKey(key), value: finalValue });
         }
     }
+
     return details;
 }
 
@@ -211,7 +310,7 @@ function normalizePropertyDetail(prop) {
     const params = prop.sellParam || prop.rentParam || prop.newParam || {};
     let agent = prop.agent;
     if (!agent || !agent.phone) agent = prop.portalAgent || {};
-    
+
     const location = [prop.community, prop.cityName].filter(Boolean).join(', ');
 
     return {
@@ -220,19 +319,25 @@ function normalizePropertyDetail(prop) {
         listingType: prop.listingType ? prop.listingType.toUpperCase() : 'SELL',
         price: prop.price || null,
         currency: 'AED',
+        pricePeriod: prop.listingType === 'RENT' ? ' / year' : '',
         location: location || 'Dubai',
-        mainImageUrl: (prop.photos && prop.photos.length > 0) ? prop.photos[0] : null,
+        mainImageUrl: (prop.photos && prop.photos.length > 0)
+            ? prop.photos[0]
+            : 'https://images.unsplash.com/photo-1613490901237-811550c604be?q=80&w=2000&auto=format&fit=crop',
         gallery: prop.photos || [],
         dynamicDetails: formatDynamicDetails(prop, params),
+        mortgage: null,
+        source: prop.portalAgent ? prop.portalAgent.name : null,
+        listedOn: prop.createTime || null,
+        listedBy: agent.name || 'Ophir Agent',
+        agentPhone: agent.phone || '+97140000000',
+        agentEmail: agent.email || 'info@ophir.ae',
+        agentAvatarUrl: agent.avatar || null,
         description: prop.description || null,
         bedrooms: prop.bedRooms || 0,
         bathrooms: params.bathrooms || 1,
         areaSqft: prop.size || 0,
-        labels: prop.propertyType && prop.propertyType.length > 0 ? prop.propertyType : ['Exclusive'],
-        agentPhone: agent.phone || '+97140000000',
-        agentEmail: agent.email || 'info@ophir.ae',
-        agentAvatarUrl: agent.avatar || null,
-        listedBy: agent.name || 'Ophir Agent'
+        labels: prop.propertyType && prop.propertyType.length > 0 ? prop.propertyType : ['Exclusive']
     };
 }
 
@@ -249,15 +354,25 @@ app.post(['/api/contact', '/contact'], async (req, res) => {
 
         const isRent = interest?.toLowerCase().includes('rent');
         const formId = isRent ? '45427db2-8760-4b4a-88a6-a244d7a91e35' : '6507a47f-9443-494c-a288-64381315f14b';
-        
+        const formName = isRent ? 'Property Booster' : 'Ophir Properties Website Lead Form';
+
+        let subjectPrefix = '';
+        const lowerInterest = interest?.toLowerCase() || '';
+        if (lowerInterest.includes('selling')) subjectPrefix = '[SELLER] ';
+        else if (lowerInterest.includes('new projects') || lowerInterest.includes('off-plan')) subjectPrefix = '[NEW PROJECTS] ';
+        else if (lowerInterest.includes('general')) subjectPrefix = '[GENERAL] ';
+        else if (isRent) subjectPrefix = '[RENT] ';
+        else subjectPrefix = '[BUY] ';
+
         const webhookPayload = {
             name: fullName,
             email,
             phone,
-            subject: `Website Inquiry: ${interest || 'General'}`,
-            message: `Lead Details:\n- Interest: ${interest}\n- Budget: ${budget}\n- Areas: ${areas}\n\nMessage:\n${message}`,
+            subject: `${subjectPrefix}Website Inquiry: ${interest || 'General'}`,
+            message: `Lead Details:\n- Interest: ${interest || 'N/A'}\n- Budget: ${budget || 'N/A'}\n- Preferred Areas: ${areas || 'N/A'}\n\nMessage:\n${message}`,
             source: source || 'Ophir Website',
-            formId: formId,
+            formId,
+            formName,
             date: new Date().toISOString(),
             assignedAgentEmail: agentEmail || null,
             assignedAgentName: agentName || null
@@ -265,13 +380,17 @@ app.post(['/api/contact', '/contact'], async (req, res) => {
 
         if (isRent) webhookPayload.propertyId = '1021201523387';
 
+        console.log('Sending lead to PixxiCRM:', JSON.stringify(webhookPayload, null, 2));
+
         await axios.post(`${PIXXI_API_URL}/pixxiapi/webhook/v1/form`, webhookPayload, {
-            headers: { 'X-PIXXI-TOKEN': PIXXI_API_KEY }
+            headers: { 'X-PIXXI-TOKEN': PIXXI_API_KEY, 'Content-Type': 'application/json' },
+            timeout: 10000
         });
 
-        res.json({ success: true, message: 'Enquiry submitted' });
+        res.json({ success: true, message: 'Thank you for your enquiry. An advisor will contact you shortly.' });
     } catch (error) {
-        res.status(500).json({ error: 'Submission failed' });
+        console.error('Contact Form Error:', error.response?.data || error.message);
+        res.status(500).json({ error: 'Failed to submit enquiry. Please try again or contact us via WhatsApp.' });
     }
 });
 
@@ -287,7 +406,7 @@ app.get(['/api/instagram/latest', '/instagram/latest'], async (req, res) => {
             const rawPosts = Array.isArray(response.data) ? response.data : (response.data.posts || []);
             const posts = rawPosts.slice(0, limit).map(post => {
                 const type = post.mediaType || post.media_type || 'IMAGE';
-                const proxiedUrl = post.sizes?.medium?.mediaUrl || post.sizes?.full?.mediaUrl;
+                const proxiedUrl = post.sizes?.medium?.mediaUrl || post.sizes?.full?.mediaUrl || post.sizes?.large?.mediaUrl;
                 const directUrl = post.mediaUrl || post.media_url;
                 const thumbUrl = post.thumbnailUrl || post.thumbnail_url;
                 const displayUrl = proxiedUrl || (type === 'VIDEO' ? (thumbUrl || directUrl) : directUrl) || thumbUrl;
@@ -326,9 +445,11 @@ app.get(['/api/instagram/latest', '/instagram/latest'], async (req, res) => {
             return res.json(posts);
         }
 
-        return res.status(503).json({ error: 'Instagram not configured' });
+        console.warn('No Instagram configuration found in .env');
+        return res.status(503).json({ error: 'Instagram integration not configured.' });
     } catch (error) {
-        res.status(500).json({ error: 'Instagram fetch failed' });
+        console.error('Instagram API Error:', error.response ? error.response.data : error.message);
+        res.status(500).json({ error: 'Failed to fetch Instagram feed.' });
     }
 });
 
