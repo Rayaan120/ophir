@@ -70,6 +70,17 @@
     gap: 20px;
 }
 
+/* Homepage specific CTA button hover adjustments */
+.home-page-root .final-cta-section .btn:hover {
+    color: #000000 !important;
+}
+
+.home-page-root .final-cta-section .btn:hover .gold-text {
+    background: none !important;
+    -webkit-text-fill-color: #000000 !important;
+    color: #000000 !important;
+}
+
 @media (max-width: 768px) {
     .final-cta-section {
         min-height: 500px;

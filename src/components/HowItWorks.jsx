@@ -1,10 +1,13 @@
 import React from 'react';
 import { Search, Eye, FileCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import './HowItWorks.css';
 
 const HowItWorks = () => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const navigate = useNavigate();
+    const lang = i18n.language || 'en';
     const phases = [
         {
             id: '01',
@@ -91,7 +94,7 @@ const HowItWorks = () => {
                 </div>
 
                 <div className="process-actions">
-                    <button className="btn btn-primary">
+                    <button className="btn btn-primary" onClick={() => navigate(`/${lang}/contact`)}>
                         {t('howItWorks.btn')}
                     </button>
                     <p className="process-footer-note">
