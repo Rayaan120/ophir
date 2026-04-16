@@ -475,6 +475,12 @@
     color: var(--text-muted);
 }
 
+.feature-item svg {
+    stroke: #AC7031;
+    color: #AC7031;
+    flex-shrink: 0;
+}
+
 .card-footer {
     display: flex;
     justify-content: space-between;
@@ -520,7 +526,6 @@
 
 .card-btn svg {
     color: var(--gold-primary, #dbb367);
-    stroke: url(#gold-gradient-def);
 }
 
 /* Hover effect removed per user request */

@@ -362,6 +362,44 @@ button {
   stroke: url(#home-gold-gradient-def);
 }
 
+/* Buy & Rent page: explicit gold color for small property icons (overrides global url gradient which renders broken) */
+.buy-page .feature-item svg,
+.buy-page .feature-icon {
+  stroke: #AC7031 !important;
+  color: #AC7031 !important;
+  fill: none !important;
+}
+
+.rent-page .feature-pill svg,
+.rent-page .feature-icon {
+  stroke: #AC7031 !important;
+  color: #AC7031 !important;
+  fill: none !important;
+}
+
+.new-projects-page .np-card-location svg,
+.new-projects-page .np-feature-chip svg {
+  stroke: #AC7031 !important;
+  color: #AC7031 !important;
+  fill: none !important;
+}
+
+/* Hot Offers Exclusion: Preserve high-contrast black icons */
+.hot-offers-page .hc-feat svg,
+.hot-offers-page .f-item-val svg,
+.hot-offers-page .hc-btn svg {
+  stroke: #000 !important;
+  opacity: 1 !important;
+}
+
+/* Hot Offers Exclusion: Preserve high-contrast black icons */
+.hot-offers-page .hc-feat svg,
+.hot-offers-page .f-item-val svg,
+.hot-offers-page .hc-btn svg {
+  stroke: #000 !important;
+  opacity: 1 !important;
+}
+
 .normal-amp {
   font-family: var(--font-body);
   font-style: normal;

@@ -290,7 +290,7 @@ const ContactPage = () => {
                         </div>
 
                         <a href="https://maps.app.goo.gl/xcXbRaYaU5GiduYdA" target="_blank" rel="noopener noreferrer" className="view-details-btn">
-                            {t('contactPage.directions')}
+                            <span className="gold-text">{t('contactPage.directions')}</span>
                             <ArrowRight size={18} />
                         </a>
                     </div>

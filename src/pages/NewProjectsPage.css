@@ -524,7 +524,6 @@
 
 .np-card-btn svg {
     color: var(--gold-primary, #dbb367);
-    stroke: url(#gold-gradient-def);
 }
 
 .np-card-btn:hover {

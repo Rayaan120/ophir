@@ -244,7 +244,18 @@
 
 .view-details-btn .arrow-icon {
     color: var(--gold-primary, #dbb367);
-    stroke: url(#gold-gradient-def);
+}
+
+/* Feature pill icons - explicit gold color override */
+.rent-page .feature-icon {
+    stroke: #AC7031;
+    color: #AC7031;
+    flex-shrink: 0;
+}
+
+.rent-page .feature-pill svg {
+    stroke: #AC7031;
+    color: #AC7031;
 }
 
 /* Loading & Empty States */

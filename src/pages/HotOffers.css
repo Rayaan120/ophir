@@ -60,13 +60,14 @@
 .hot-offers-title {
     font-family: var(--font-heading);
     font-size: clamp(2.5rem, 5vw, 4.5rem);
-    background: var(--gold-gradient);
+    background: linear-gradient(135deg, #FF4D4D, #B30000, #800000);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent !important;
     margin-bottom: 20px;
     line-height: 1.1;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .hot-offers-subtext {
@@ -164,9 +165,10 @@
 }
 
 .hot-filter-btn.active {
-    background: var(--gold-gradient);
+    background: linear-gradient(135deg, #c21818, #8D1414);
     border-color: transparent;
-    color: #000;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(194, 24, 24, 0.3);
 }
 
 /* =========================================
@@ -303,7 +305,8 @@
 }
 
 .f-item-val svg {
-    color: var(--text-muted);
+    stroke: #000000 !important;
+    opacity: 0.8;
 }
 
 .f-item-label {
@@ -422,18 +425,11 @@
     z-index: 2;
 }
 
-.hc-price-tag {
-    position: absolute;
-    bottom: 15px; left: 15px;
-    z-index: 2;
-    background: var(--gold-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent !important;
-    font-weight: 600;
+.hc-price-v2 {
     font-size: 1.25rem;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    color: var(--hot-red);
+    font-weight: 600;
+    margin-bottom: 15px;
 }
 
 .hc-body {
@@ -479,6 +475,11 @@
     color: var(--text-muted);
 }
 
+.hc-feat svg {
+    stroke: #000000 !important;
+    opacity: 0.8;
+}
+
 .hc-footer {
     display: flex;
     justify-content: space-between;
@@ -498,8 +499,7 @@
 }
 
 .hc-btn svg {
-    color: var(--hot-red);
-    stroke: var(--hot-red);
+    stroke: #000000 !important;
 }
 
 .hc-btn:hover {

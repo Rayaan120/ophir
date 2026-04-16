@@ -679,7 +679,23 @@
     transition: transform 0.3s ease;
 }
 
-/* Hover removed for static luxury aesthetic */
+.view-details-btn:hover {
+    background: var(--gold-gradient) !important;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(172, 112, 49, 0.4);
+}
+
+.view-details-btn:hover .gold-text {
+    background: none !important;
+    -webkit-text-fill-color: #111 !important;
+    color: #111 !important;
+}
+
+.view-details-btn:hover svg {
+    stroke: #111 !important;
+    transform: translateX(4px);
+}
 
 /* --- Responsive --- */
 @media (max-width: 1200px) {

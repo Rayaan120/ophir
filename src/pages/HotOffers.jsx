@@ -224,10 +224,6 @@ const HotOffers = () => {
                                                     </span>
                                                 )}
                                             </div>
-                                            <div className="hc-price-tag">
-                                                {formatPrice(property.price, property.currency)}
-                                                {property.pricePeriod && ` / ${property.pricePeriod}`}
-                                            </div>
                                         </div>
                                         <div className="hc-body">
                                             <div className="hc-location">
@@ -235,6 +231,10 @@ const HotOffers = () => {
                                                 {property.location || 'Dubai, UAE'}
                                             </div>
                                             <h3 className="hc-title">{property.title}</h3>
+                                            <div className="hc-price-v2">
+                                                {formatPrice(property.price, property.currency)}
+                                                {property.pricePeriod && ` / ${property.pricePeriod}`}
+                                            </div>
                                             
                                             <div className="hc-features">
                                                 {property.bedrooms > 0 && (
@@ -249,10 +249,6 @@ const HotOffers = () => {
                                                 <Link to={`/${i18n.language}/property/${property.id}`} className="hc-btn">
                                                     {t('hotOffersPage.viewDetails')} <ArrowRight size={14} />
                                                 </Link>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                                    <div style={{ width: '28px', height: '28px', borderRadius: '50%', backgroundColor: '#eee', backgroundImage: `url(${property.agentAvatarUrl || ''})`, backgroundSize: 'cover' }}></div>
-                                                    <span style={{ fontSize: '0.85rem', color: 'var(--text-color)' }}>{property.agentName || 'Ophir Advisor'}</span>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
