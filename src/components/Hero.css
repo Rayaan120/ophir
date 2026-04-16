@@ -189,6 +189,13 @@
     color: #aaaaaa;
 }
 
+/* Hide search icon in Arabic on laptop (keeps it for mobile/tablet) */
+@media (min-width: 1025px) {
+    [lang='ar'] .search-input-group .search-icon {
+        display: none;
+    }
+}
+
 .search-input-group input {
     background: transparent;
     border: none;
