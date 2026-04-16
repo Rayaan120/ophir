@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Mouse } from 'lucide-react';
 import './About.css';
 
 const AboutHero = () => {
@@ -20,7 +19,11 @@ const AboutHero = () => {
 
             <div className="hero-bottom-island">
                 <div className="scroll-island-content">
-                    <Mouse size={24} className="hero-mouse-icon" />
+                    <div className="mouse-indicator-wrapper">
+                        <div className="mouse-indicator">
+                            <div className="mouse-wheel"></div>
+                        </div>
+                    </div>
                     <span className="scroll-text">{t('aboutHero.scroll')}</span>
                 </div>
             </div>

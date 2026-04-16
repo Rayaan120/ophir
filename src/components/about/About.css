@@ -214,21 +214,62 @@
     cursor: pointer;
 }
 
-.hero-mouse-icon {
-    animation: iconBounce 2s infinite ease-in-out;
+.mouse-indicator-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: mouseBounce 2s infinite ease-in-out;
 }
 
-@keyframes iconBounce {
+.mouse-indicator {
+    width: 16px;
+    height: 26px;
+    border: 1.2px solid transparent;
+    border-radius: 8px;
+    position: relative;
+    background: linear-gradient(var(--bg-color), var(--bg-color)) padding-box,
+                var(--gold-gradient) border-box;
+    display: flex;
+    justify-content: center;
+    padding-top: 4px;
+}
 
-    0%,
-    100% {
+.mouse-wheel {
+    width: 2px;
+    height: 4px;
+    background: var(--gold-gradient);
+    border-radius: 1px;
+    animation: scrollMove 2s infinite cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes mouseBounce {
+    0%, 100% {
         transform: translateY(0);
     }
-
     50% {
-        transform: translateY(8px);
+        transform: translateY(4px);
     }
 }
+
+@keyframes scrollMove {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    80% {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+}
+
+
 
 @media (max-width: 768px) {
     .hero-bottom-island {

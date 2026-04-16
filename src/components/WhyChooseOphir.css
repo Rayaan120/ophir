@@ -87,9 +87,9 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent !important;
-    font-family: var(--font-body);
+    font-family: inherit;
     font-style: italic;
-    font-weight: 400;
+    font-weight: inherit;
     padding-right: 0.15em;
 }
 

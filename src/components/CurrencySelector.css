@@ -34,10 +34,10 @@
     background: var(--gold-gradient-home);
 }
 
-.currency-trigger:hover {
+/* .currency-trigger:hover {
     transform: scale(1.02);
     box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-}
+} */
 
 .currency-trigger.active {
     opacity: 0.95;
@@ -138,14 +138,14 @@
     color: var(--text-color, #1a1a1a);
 }
 
-.currency-item:hover {
+/* .currency-item:hover {
     background: rgba(255, 255, 255, 0.05);
     color: var(--gold-primary, #d4af37);
-}
+} */
 
-[data-theme='light'] .currency-item:hover {
+/* [data-theme='light'] .currency-item:hover {
     background: rgba(0, 0, 0, 0.03);
-}
+} */
 
 .currency-item.selected {
     color: var(--gold-primary, #d4af37);

@@ -52,7 +52,7 @@
 }
 
 .hero-title-main {
-    margin-left: -8px; /* Optical alignment fix for the capital 'Y' to align with 'UAE' below */
+    margin-left: -8px; /* Optical alignment fix for the capital 'Y' */
 }
 
 .services-hero .gold-text {
@@ -61,6 +61,8 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent !important;
+    margin-left: -4px; /* Optical alignment fix to sit right below 'Y' */
+    display: inline-block;
 }
 
 /* Detailed override for services hero description */

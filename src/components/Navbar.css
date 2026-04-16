@@ -15,6 +15,12 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+@media (max-width: 768px) {
+    .navbar {
+        padding: 14px 0;
+    }
+}
+
 .navbar-scrolled {
     background: rgba(30, 26, 52, 0.95);
     backdrop-filter: blur(20px);
@@ -22,6 +28,12 @@
     padding: 16px 0;
     box-shadow: 0 4px 30px rgba(10, 10, 10, 0.5);
     border-bottom: 1px solid var(--border-color);
+}
+
+@media (max-width: 768px) {
+    .navbar-scrolled {
+        padding: 9px 0;
+    }
 }
 
 [data-theme='light'] .navbar {
@@ -474,8 +486,9 @@
 .mobile-panel {
     position: fixed;
     top: 0;
-    inset-inline-end: -360px;
-    width: 360px;
+    inset-inline-end: -100%;
+    width: 100%;
+    max-width: 360px;
     height: 100vh;
     background-color: var(--bg-lighter);
     z-index: 1002;
@@ -516,15 +529,38 @@
 
 @media (max-width: 600px) {
     .navbar-actions {
-        gap: 4px;
+        gap: 10px;
+        padding: 3px 10px;
     }
 
-    .lang-switcher {
-        font-size: 0.8rem;
+    .lang-item {
+        font-size: 0.68rem;
+        padding: 4px 10px;
+    }
+
+    .theme-pill-toggle {
+        width: 48px;
+        height: 26px;
+    }
+
+    .pill-handle {
+        width: 20px;
+        height: 20px;
+        top: 2px;
+        left: 2px;
+    }
+
+    .theme-pill-toggle.dark .pill-handle {
+        left: calc(100% - 22px);
     }
     
     .logo-image {
-        height: 48px;
+        height: 38px;
+    }
+
+    .mobile-menu-icon {
+        width: 26px;
+        height: 26px;
     }
 }
 
@@ -608,9 +644,9 @@
     background: rgba(255, 255, 255, 0.1);
 } */
 
-[data-theme='light'] .close-btn:hover {
+/* [data-theme='light'] .close-btn:hover {
     background: rgba(0, 0, 0, 0.05);
-}
+} */
 
 /* Overlay */
 .mobile-overlay {
@@ -674,9 +710,9 @@
     transform: translateX(50%) translateY(10px);
 }
 
-[dir="rtl"] .nav-item.has-dropdown:hover .dropdown-menu {
+/* [dir="rtl"] .nav-item.has-dropdown:hover .dropdown-menu {
     transform: translateX(50%) translateY(0);
-}
+} */
 
 @media (max-width: 1024px) {
     .nav-item.has-dropdown::before {

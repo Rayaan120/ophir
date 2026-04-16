@@ -455,7 +455,8 @@
 
     .hero-section .hero-title {
         font-size: clamp(2.2rem, 3.8vw, 3.2rem);
-        white-space: nowrap;
+        white-space: normal; /* Allow wrapping on tablets/mobile to avoid overflow */
+        word-wrap: break-word; /* Ensure extremely long words break */
     }
 
     .modern-search-bar-wrapper {
@@ -466,8 +467,8 @@
 @media (max-width: 900px) {
     .modern-search-bar {
         flex-direction: column;
-        padding: 15px;
-        gap: 15px;
+        padding: 12px;
+        gap: 8px;
         border-radius: 24px;
     }
 
@@ -476,9 +477,19 @@
         min-width: unset;
     }
 
-    .divider {
+    .modern-search-bar .divider {
         height: 1px;
         width: 100%;
+        margin: 4px 0;
+        opacity: 0.5;
+    }
+
+    .category-select select {
+        padding: 8px 0;
+    }
+
+    .search-input-group {
+        padding: 8px 24px;
     }
 
     .advanced-toggle {
@@ -497,20 +508,30 @@
         height: auto;
         min-height: 100vh;
         padding-bottom: 80px;
+        overflow: visible; /* Prevent cropping on mobile when filters are open */
     }
 
     .hero-container {
         padding-top: 140px;
+        padding-inline: 15px; /* Add padding to prevent text touching borders */
     }
 
     .hero-section .hero-title {
-        font-size: clamp(1.6rem, 5.5vw, 2rem);
+        font-size: clamp(2.2rem, 12vw, 3.2rem) !important; /* Balanced mobile size */
+        white-space: normal;
+        line-height: 1.05;
+        text-align: center;
+        margin-bottom: 20px;
     }
 
     .hero-section .hero-subtitle {
-        font-size: 1rem;
-        padding: 0 10px;
+        font-size: 0.8rem !important; /* Made smaller for mobile */
+        padding: 0 20px;
         margin-inline: auto;
+        max-width: 100%;
+        text-align: center;
+        line-height: 1.4;
+        opacity: 0.85;
     }
 
     .hero-actions {
@@ -522,5 +543,25 @@
 
     .hero-actions .btn {
         width: 100%;
+    }
+    
+    .filter-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .modern-filters-dropdown {
+        position: relative;
+        top: 20px;
+        left: 0;
+        width: 100%;
+        padding: 24px 20px;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        animation: slideDownFade 0.4s ease-out forwards;
+    }
+    
+    .scroll-indicator {
+        display: none !important;
     }
 }
