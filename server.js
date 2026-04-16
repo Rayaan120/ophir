@@ -76,6 +76,8 @@ app.get('/api/properties', async (req, res) => {
                 currency: 'AED',
                 location: location || 'Dubai',
                 bedrooms: prop.bedRooms || 0,
+                bedroomMin: params.bedroomMin != null ? parseInt(params.bedroomMin) : null,
+                bedroomMax: params.bedroomMax != null ? parseInt(params.bedroomMax) : null,
                 bathrooms: params.bathrooms || 1,
                 areaSqft: prop.size || 0,
                 isHot: isHot,
@@ -90,9 +92,27 @@ app.get('/api/properties', async (req, res) => {
                 developerName: prop.developer || null,
                 status: prop.status || null,
                 handoverDate: params.handoverTime || null,
-                bedroomRange: (params.bedroomMin && params.bedroomMax) ? `${params.bedroomMin} - ${params.bedroomMax}` : null
+                bedroomRange: (params.bedroomMin != null && params.bedroomMax != null) ? `${params.bedroomMin} - ${params.bedroomMax}` : null
             };
         });
+
+        // Save raw items for meta filter extraction before applying user filters
+        const rawItems = [...items];
+
+        const extractEmirate = (location) => {
+            if (!location) return null;
+            const parts = location.split(',');
+            return parts.length > 1 ? parts[parts.length - 1].trim() : location.trim();
+        };
+
+        const extractArea = (location) => {
+            if (!location) return null;
+            return location.split(',')[0].trim();
+        };
+
+        const allDevelopers = [...new Set(rawItems.map(i => i.developerName).filter(Boolean))];
+        const allEmirates = [...new Set(rawItems.map(i => extractEmirate(i.location)).filter(Boolean))];
+        const allAreas = [...new Set(rawItems.map(i => extractArea(i.location)).filter(Boolean))];
 
         // Apply Server-Side Filtering
         const search = req.query.search?.toLowerCase();
@@ -100,6 +120,9 @@ app.get('/api/properties', async (req, res) => {
         const bedroomsFilter = req.query.bedrooms;
         const priceMin = parseFloat(req.query.priceMin);
         const priceMax = parseFloat(req.query.priceMax);
+        const developerFilter = req.query.developer;
+        const emirateFilter = req.query.emirate;
+        const locationFilter = req.query.location;
 
         if (search) {
             items = items.filter(item =>
@@ -116,16 +139,23 @@ app.get('/api/properties', async (req, res) => {
         }
 
         if (bedroomsFilter && bedroomsFilter !== 'Any') {
-            if (bedroomsFilter === 'Studio') {
-                items = items.filter(item => item.bedrooms === 0);
-            } else if (bedroomsFilter === '4+') {
-                items = items.filter(item => item.bedrooms >= 4);
-            } else {
-                const beds = parseInt(bedroomsFilter);
-                if (!isNaN(beds)) {
-                    items = items.filter(item => item.bedrooms === beds);
+            items = items.filter(item => {
+                const hasRange = item.bedroomMin != null && item.bedroomMax != null;
+                if (bedroomsFilter === 'Studio') {
+                    // Studio = 0 beds; range properties with min=0 also qualify
+                    if (hasRange) return item.bedroomMin === 0;
+                    return item.bedrooms === 0;
+                } else if (bedroomsFilter === '4+') {
+                    if (hasRange) return item.bedroomMax >= 4;
+                    return item.bedrooms >= 4;
+                } else {
+                    const beds = parseInt(bedroomsFilter);
+                    if (isNaN(beds)) return true;
+                    // Range-based: match if the requested count falls within [min, max]
+                    if (hasRange) return item.bedroomMin <= beds && item.bedroomMax >= beds;
+                    return item.bedrooms === beds;
                 }
-            }
+            });
         }
 
         if (!isNaN(priceMin)) {
@@ -133,6 +163,23 @@ app.get('/api/properties', async (req, res) => {
         }
         if (!isNaN(priceMax)) {
             items = items.filter(item => item.price <= priceMax);
+        }
+
+        if (developerFilter && developerFilter !== 'All Developers') {
+            items = items.filter(item => {
+                if (!item.developerName) return false;
+                const dev = item.developerName.toLowerCase();
+                const filter = developerFilter.toLowerCase();
+                return dev === filter || dev.includes(filter) || filter.includes(dev);
+            });
+        }
+
+        if (emirateFilter && emirateFilter !== 'All Emirates') {
+            items = items.filter(item => extractEmirate(item.location) === emirateFilter);
+        }
+
+        if (locationFilter && locationFilter !== 'All Areas') {
+            items = items.filter(item => extractArea(item.location) === locationFilter);
         }
 
         // Basic front-end sorting logic to return correctly mapped array elements depending on User preferences
@@ -151,7 +198,12 @@ app.get('/api/properties', async (req, res) => {
             total: items.length,
             page,
             pageSize,
-            totalPages
+            totalPages,
+            meta: {
+                developers: allDevelopers,
+                emirates: allEmirates,
+                areas: allAreas
+            }
         });
 
     } catch (error) {

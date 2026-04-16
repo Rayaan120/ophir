@@ -98,6 +98,10 @@ const NewProjectsPage = () => {
                 else if (effectivePriceRange === '5M+') params.append('priceMin', 5000000);
             }
 
+            if (developerFilter && developerFilter !== 'All Developers') params.append('developer', developerFilter);
+            if (emirateFilter && emirateFilter !== 'All Emirates') params.append('emirate', emirateFilter);
+            if (areaFilter && areaFilter !== 'All Areas') params.append('location', areaFilter);
+
             if (sortBy === 'Price: Low to High') params.append('sort', 'price-asc');
             else if (sortBy === 'Price: High to Low') params.append('sort', 'price-desc');
             else params.append('sort', 'newest');
@@ -107,25 +111,13 @@ const NewProjectsPage = () => {
 
             const data = await response.json();
 
-            let filteredItems = data.items || [];
-
-            const devs = new Set(filteredItems.map(p => p.developerName).filter(Boolean));
-            
-            const emiratesSet = new Set(filteredItems.map(p => {
-                if (!p.location) return null;
-                const parts = p.location.split(',');
-                return parts.length > 1 ? parts[parts.length - 1].trim() : p.location.trim();
-            }).filter(Boolean));
-            
-            const areasSet = new Set(filteredItems.map(p => p.location?.split(',')[0].trim()).filter(Boolean));
-
             const PRIORITY_DEVS = [
                 'Emaar', 'Nakheel', 'Meraas', 'Expo City Dubai', 'Dubai South',
                 'Aldar', 'Tilal al Ghaf', 'Select Group', 'SaaS properties',
-                'RAK Properties', 'Nshama', 'Ellington', 'Omnyiat', 'Sobha Realty', 'Damac'
+                'RAK Properties', 'Nshama', 'Ellington', 'Omniyat', 'Sobha Realty', 'Damac'
             ];
 
-            const devsList = Array.from(devs);
+            const devsList = data.meta?.developers || [];
             const matchedDataDevs = new Set();
 
             // Map priority list to actual data names if they exist, otherwise keep fixed names
@@ -147,34 +139,14 @@ const NewProjectsPage = () => {
                 .sort((a, b) => a.localeCompare(b));
 
             setAvailableDevelopers([...orderedPriority, ...remainingDevs]);
-            setAvailableEmirates([...emiratesSet].sort());
-            setAvailableAreas([...areasSet].sort());
+            
+            const emiratesList = data.meta?.emirates || [];
+            setAvailableEmirates(emiratesList.sort());
+            
+            const areasList = data.meta?.areas || [];
+            setAvailableAreas(areasList.sort());
 
-            if (developerFilter !== 'All Developers') {
-                filteredItems = filteredItems.filter(p => {
-                    if (!p.developerName) return false;
-                    const dev = p.developerName.toLowerCase();
-                    const filter = developerFilter.toLowerCase();
-                    return dev === filter || dev.includes(filter) || filter.includes(dev);
-                });
-            }
-            if (emirateFilter !== 'All Emirates') {
-                filteredItems = filteredItems.filter(p => {
-                    if (!p.location) return false;
-                    const parts = p.location.split(',');
-                    const em = parts.length > 1 ? parts[parts.length - 1].trim() : p.location.trim();
-                    return em === emirateFilter;
-                });
-            }
-            if (areaFilter !== 'All Areas') {
-                filteredItems = filteredItems.filter(p => {
-                    if (!p.location) return false;
-                    const area = p.location.split(',')[0].trim();
-                    return area === areaFilter;
-                });
-            }
-
-            setProperties(filteredItems);
+            setProperties(data.items || []);
             setTotalItems(data.total || 0);
             setTotalPages(data.totalPages || 1);
 
