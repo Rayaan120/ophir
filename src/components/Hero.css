@@ -143,6 +143,10 @@
     min-width: 90px;
 }
 
+[lang='ar'] .category-select {
+    padding: 0 28px 0 5px;
+}
+
 .category-select select {
     appearance: none;
     -webkit-appearance: none;
@@ -169,6 +173,11 @@
     transform: translateY(-50%);
     color: #888;
     pointer-events: none;
+}
+
+[lang='ar'] .category-select .chevron-icon {
+    right: auto;
+    left: 10px;
 }
 
 .modern-search-bar .divider {
@@ -302,6 +311,10 @@
     text-align: left;
 }
 
+[lang='ar'] .filter-item {
+    text-align: right;
+}
+
 .filter-item label {
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -330,6 +343,10 @@
     -webkit-appearance: none;
     cursor: pointer;
     transition: all 0.3s ease;
+}
+
+[lang='ar'] .filter-item select {
+    background-position: left 24px center;
 }
 
 .filter-item select:focus, .filter-item select:hover {
