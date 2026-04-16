@@ -598,9 +598,11 @@
   top: 0;
   left: 0;
   bottom: 0;
-  width: 4px;
+  width: 5px;
   background: var(--gold-gradient);
   z-index: 2;
+  border-top-left-radius: var(--radius-lg);
+  border-bottom-left-radius: var(--radius-lg);
 }
 
 @media (max-width: 768px) {
@@ -617,7 +619,6 @@
 [data-theme='light'] .strategic-note {
   background: #e6e6e6;
   border: 1px solid var(--border-color);
-  border-left: 4px solid var(--gold-primary);
 }
 
 

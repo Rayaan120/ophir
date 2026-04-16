@@ -69,8 +69,9 @@ const Navbar = () => {
   const isListing = ['/buy', '/rent', '/new-projects', '/hot-offers'].some(p => location.pathname === `/${currentLang}${p}` || location.pathname === p);
   const isInsight = location.pathname.includes('/global-insights');
   const isContact = location.pathname === `/${currentLang}/contact` || location.pathname === '/contact';
+  const isCommunities = location.pathname === `/${currentLang}/communities` || location.pathname === '/communities';
   const isDetail = location.pathname.includes('/property/');
-  const isPremiumPage = isHome || isAbout || isServices || isListing || isInsight || isContact || isDetail;
+  const isPremiumPage = isHome || isAbout || isServices || isListing || isInsight || isContact || isCommunities || isDetail;
   
   return (
     <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''} ${isPremiumPage ? 'is-premium-page' : ''}`}>

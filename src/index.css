@@ -146,7 +146,8 @@ body,
 .hot-offers-page,
 .property-details-page,
 .global-insights-page,
-.contact-page {
+.contact-page,
+.communities-page {
   --gold-gradient: linear-gradient(135deg, #FFD79C, #8D5A1B, #AC7031, #F2CD95, #AC7031);
 }
 
@@ -354,7 +355,10 @@ button {
 .contact-page .item-icon,
 .contact-page .highlight-icon svg,
 .contact-page .benefit-check,
-.contact-page .view-details-btn svg {
+.contact-page .view-details-btn svg,
+.communities-page .view-details-btn svg,
+.communities-page .location-icon,
+.communities-page .feature-icon {
   stroke: url(#home-gold-gradient-def);
 }
 

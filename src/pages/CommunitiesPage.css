@@ -76,9 +76,6 @@
     background: #111;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     padding: 20px 0;
-    position: sticky;
-    top: 60px; /* Assuming header height */
-    z-index: 40;
 }
 
 [data-theme='light'] .communities-tabs-wrapper {
@@ -112,14 +109,15 @@
 }
 
 .community-tab:hover {
-    border-color: var(--gold-primary);
-    color: var(--gold-primary);
+    border-color: #AC7031;
+    color: #AC7031;
 }
 
 .community-tab.active {
-    background: var(--gold-primary);
+    background: var(--gold-gradient);
     color: #111;
-    border-color: var(--gold-primary);
+    border-color: transparent;
+    box-shadow: 0 4px 15px rgba(172, 112, 49, 0.3);
 }
 
 /* Content Area */
@@ -135,7 +133,11 @@
 .city-title-wrapper h2 {
     font-size: 2.5rem;
     font-family: var(--font-heading);
-    color: var(--gold-primary);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     margin-bottom: 10px;
 }
 
@@ -151,7 +153,7 @@
     align-items: center;
     justify-content: center;
     padding: 100px 0;
-    color: var(--gold-primary);
+    color: #AC7031;
 }
 
 .communities-empty {
@@ -227,16 +229,16 @@
 }
 
 .sub-filter-btn:hover {
-    background: rgba(212, 175, 55, 0.1);
-    border-color: var(--gold-primary);
-    color: var(--gold-primary);
+    background: rgba(172, 112, 49, 0.1);
+    border-color: #AC7031;
+    color: #AC7031;
 }
 
 .sub-filter-btn.active {
-    background: var(--gold-primary);
-    border-color: var(--gold-primary);
+    background: var(--gold-gradient);
+    border-color: transparent;
     color: #111;
-    box-shadow: 0 4px 15px rgba(197, 160, 33, 0.3);
+    box-shadow: 0 4px 15px rgba(172, 112, 49, 0.3);
 }
 
 @media (max-width: 600px) {
@@ -256,7 +258,7 @@
     align-items: center;
     gap: 10px;
     background: transparent;
-    border: 1px solid #dbb367;
+    border: 1.5px solid #AC7031;
     padding: 10px 24px;
     border-radius: 100px;
     font-size: 0.85rem;
@@ -269,8 +271,8 @@
 }
 
 .view-details-btn .arrow-icon {
-    color: var(--gold-primary, #dbb367);
-    stroke: url(#gold-gradient-def);
+    color: #AC7031;
+    stroke: url(#home-gold-gradient-def);
 }
 
 .view-details-btn:hover {

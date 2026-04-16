@@ -255,10 +255,15 @@
 }
 
 .mobile-nav-link.active {
-    color: var(--gold-primary);
-    border-bottom: 2px solid var(--gold-primary);
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
+    border-bottom: 2px solid #AC7031;
+    border-image: var(--gold-gradient) 1;
     font-weight: 700;
-    text-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+    text-shadow: none;
 }
 
 /* Right Actions */
@@ -610,13 +615,21 @@
 } */
 
 .mobile-nav-link.red-text {
-    color: #ff1f1f !important;
+    background: linear-gradient(135deg, #FF4B2B, #FF416C, #E31C1C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     font-weight: 900 !important;
-    text-shadow: 0 0 10px rgba(255, 31, 31, 0.4);
+    text-shadow: 0 0 10px rgba(255, 31, 31, 0.3);
 }
 
 [data-theme='light'] .mobile-nav-link.red-text {
-    color: #e31c1c !important;
+    background: linear-gradient(135deg, #D4145A, #FBB03B); /* Punchier multi-stop for light mode */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent !important;
     text-shadow: none !important;
 }
 
@@ -679,7 +692,8 @@
 
 .mobile-dropdown-items {
     padding-inline-start: 16px;
-    border-inline-start: 2px solid var(--gold-muted);
+    border-inline-start: 2px solid transparent;
+    border-image: var(--gold-gradient) 1;
     margin-top: 4px;
     margin-bottom: 20px;
     display: flex;
