@@ -412,7 +412,7 @@
 .pill-handle {
     position: absolute;
     top: 3px;
-    left: 3px;
+    inset-inline-start: 3px;
     width: 22px;
     height: 22px;
     background: var(--gold-gradient);
@@ -430,7 +430,7 @@
 }
 
 .theme-pill-toggle.dark .pill-handle {
-    left: calc(100% - 25px);
+    inset-inline-start: calc(100% - 25px);
     background: #4a4a4a;
     box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
 }
@@ -534,29 +534,30 @@
 
 @media (max-width: 600px) {
     .navbar-actions {
-        gap: 10px;
-        padding: 3px 10px;
+        gap: 8px;
+        padding: 2px 8px;
+        margin-inline-end: 25px;
     }
 
     .lang-item {
-        font-size: 0.68rem;
-        padding: 4px 10px;
+        font-size: 0.65rem;
+        padding: 3px 8px;
     }
 
     .theme-pill-toggle {
-        width: 48px;
-        height: 26px;
+        width: 44px;
+        height: 24px;
     }
 
     .pill-handle {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
         top: 2px;
-        left: 2px;
+        inset-inline-start: 2px;
     }
 
     .theme-pill-toggle.dark .pill-handle {
-        left: calc(100% - 22px);
+        inset-inline-start: calc(100% - 20px);
     }
     
     .logo-image {
