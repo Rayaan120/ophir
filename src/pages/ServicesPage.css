@@ -755,11 +755,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 48px;
 }
 
 .horizon-text-box {
-    max-width: 900px;
+    max-width: 850px;
     text-align: center;
 }
 
@@ -803,7 +802,7 @@
 
 .horizon-actions {
     display: flex;
-    gap: 24px;
+    gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
 }
@@ -819,12 +818,49 @@
 .cta-magnetic {
     min-width: 240px;
     border-radius: 50px !important;
-    padding: 18px 40px !important;
+    padding: 14px 32px !important;
     font-weight: 500;
     letter-spacing: 1px;
-    text-transform: uppercase;
+    text-transform: none;
     font-size: 0.9rem;
     transition: all 0.4s ease;
+}
+
+.btn-outline.cta-magnetic {
+    border: none !important;
+    position: relative;
+    background: transparent;
+    transition: all 0.4s ease;
+}
+
+.btn-outline.cta-magnetic::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    padding: 1.5px; /* Border width */
+    background: var(--gold-gradient);
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.btn-outline.cta-magnetic:hover {
+    background: var(--gold-gradient) !important;
+}
+
+.btn-outline.cta-magnetic:hover::before {
+    opacity: 0;
+}
+
+.btn-outline.cta-magnetic:hover .gold-text {
+    background: none !important;
+    -webkit-text-fill-color: #111 !important;
+    color: #111 !important;
 }
 
 /* Animations from standard site but refined here */
@@ -843,13 +879,26 @@
 
 @media (max-width: 768px) {
     .services-cta-horizon {
-        padding: 100px 0;
+        min-height: 500px;
+        padding: 60px 0;
+    }
+
+    .horizon-title {
+        font-size: 2.2rem;
+    }
+
+    .horizon-subtitle {
+        font-size: 1rem;
+        max-width: 100%;
     }
 
     .horizon-actions {
         flex-direction: column;
         width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
         align-items: center;
+        gap: 20px;
     }
 
     .magnetic-wrapper,

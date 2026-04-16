@@ -380,7 +380,7 @@ const ServicesPage = () => {
                         </div>
                         <div className="magnetic-wrapper">
                             <Link to={`/${i18n.language}/buy`} className="btn btn-outline cta-magnetic">
-                                {t('servicesPage.ctaBtn2')}
+                                <span className="gold-text">{t('servicesPage.ctaBtn2')}</span>
                             </Link>
                         </div>
                     </div>
