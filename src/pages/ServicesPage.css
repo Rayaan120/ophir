@@ -878,6 +878,11 @@
 }
 
 @media (max-width: 768px) {
+    .services-hero,
+    .cta-horizon-bg {
+        background-attachment: scroll !important;
+    }
+
     .services-cta-horizon {
         min-height: 500px;
         padding: 60px 0;
