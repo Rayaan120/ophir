@@ -125,6 +125,10 @@
     flex-direction: column;
 }
 
+[lang='ar'] .np-filter-group {
+    text-align: right;
+}
+
 .np-filter-label {
     font-size: 0.85rem;
     color: var(--text-muted);
@@ -142,6 +146,11 @@
     position: absolute;
     left: 15px;
     color: var(--text-muted);
+}
+
+[lang='ar'] .np-search-icon {
+    left: auto;
+    right: 15px;
 }
 
 .np-filter-input,
@@ -166,6 +175,11 @@
     padding-left: 45px;
 }
 
+[lang='ar'] .np-filter-input.with-icon {
+    padding-left: 20px;
+    padding-right: 45px;
+}
+
 .np-filter-input:focus,
 .np-filter-select:focus {
     outline: none;
@@ -179,6 +193,12 @@
     background-repeat: no-repeat;
     background-position: right 15px center;
     padding-right: 40px;
+}
+
+[lang='ar'] .np-filter-select {
+    background-position: left 15px center;
+    padding-right: 20px;
+    padding-left: 40px;
 }
 
 .np-filter-select option {
@@ -228,6 +248,10 @@
     width: auto;
     min-width: 220px;
     background-color: transparent;
+}
+
+[lang='ar'] .np-sort-group .np-filter-select {
+    padding: 10px 20px 10px 40px;
 }
 
 

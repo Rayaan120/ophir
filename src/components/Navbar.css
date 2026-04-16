@@ -364,7 +364,7 @@
 
 .lang-item.active {
     background: var(--gold-gradient);
-    color: #000;
+    color: #fff;
     box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
 }
 
@@ -420,7 +420,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #000;
+    color: #fff;
     transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
@@ -480,11 +480,11 @@
 }
 
 [data-theme='light'] .navbar-scrolled .mobile-menu-icon {
-    color: #000000;
+    color: #000000 !important;
 }
 
 .navbar.is-premium-page .mobile-menu-icon {
-    color: #000000 !important;
+    color: #ffffff !important;
 }
 
 /* Mobile Panel */
