@@ -803,7 +803,13 @@
 
 @media (max-width: 768px) {
     .slider-nav-overlay {
-        display: none; /* Hide arrows on mobile */
+        display: flex; /* Show arrows on mobile */
+        padding: 0 10px;
+    }
+    
+    .slider-nav-overlay .slider-nav-btn {
+        width: 40px;
+        height: 40px;
     }
 }
 
@@ -895,18 +901,85 @@
     scrollbar-width: none;
     /* Firefox */
     scroll-snap-type: x mandatory; /* Enable scroll snapping */
+    -webkit-overflow-scrolling: touch;
 }
 
-@media (max-width: 768px) {
-    .team-slider {
-        padding: 10px 20px 10px 0;
-        gap: 16px;
-    }
-}
+/* Consolidated mobile styles into the block below */
 
 .team-slider::-webkit-scrollbar {
     display: none;
     /* Chrome/Safari */
+}
+
+.mobile-pagination {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .deck-mode {
+        position: relative;
+        height: 580px; /* Increased height to prevent cropping */
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .deck-mode .team-card-image-wrapper {
+        height: 320px; /* Slightly shorter image on mobile for better fit */
+    }
+
+    .deck-mode .team-card-content {
+        padding: 20px;
+    }
+
+    .deck-mode .team-slider {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        overflow: visible; /* Prevent clipping during exit animation */
+        display: block;
+    }
+
+    .deck-card {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(340px, 90vw) !important;
+        margin: 0;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .deck-card.current {
+        opacity: 1;
+        z-index: 10;
+        pointer-events: auto;
+    }
+
+    .deck-card.next-under,
+    .deck-card.prev-under {
+        opacity: 0.6;
+        z-index: 5;
+        transform: translateX(-50%) translateY(10px) scale(0.95);
+    }
+
+    /* Swipe Animations */
+    .deck-card.exit-next {
+        transform: translateX(120%) !important;
+        opacity: 0;
+    }
+
+    .deck-card.exit-prev {
+        transform: translateX(-120%) !important;
+        opacity: 0;
+    }
+
 }
 
 .team-card {
@@ -919,14 +992,10 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     transition: all 0.4s ease;
     border: 1px solid rgba(255, 255, 255, 0.03);
-    scroll-snap-align: start; /* Snap to card start */
+    scroll-snap-align: start; /* Default desktop align */
 }
 
-@media (max-width: 768px) {
-    .team-card {
-        flex: 0 0 280px; /* Slightly smaller cards on mobile */
-    }
-}
+/* Removed duplicate mobile card width to prevent conflicts */
 
 [data-theme='light'] .team-card {
     background: var(--bg-card);

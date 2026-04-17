@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -40,17 +40,28 @@ const ExplorePrimeCommunities = () => {
 
     const nextSlide = () => {
         setActiveId((prev) => (prev % communities.length) + 1);
-        if (trackRef.current) {
-            trackRef.current.scrollBy({ left: 350, behavior: 'smooth' });
-        }
     };
 
     const prevSlide = () => {
         setActiveId((prev) => (prev - 2 + communities.length) % communities.length + 1);
-        if (trackRef.current) {
-            trackRef.current.scrollBy({ left: -350, behavior: 'smooth' });
-        }
     };
+
+    useEffect(() => {
+        if (trackRef.current) {
+            const activeElement = trackRef.current.children[activeId - 1];
+            if (activeElement) {
+                const container = trackRef.current;
+                const scrollLeft = activeElement.offsetLeft - (container.offsetWidth - activeElement.offsetWidth) / 2;
+                
+                // For mobile, we usually want it aligned to the start or center.
+                // Given the original code used scrollBy(350), let's align to start but handle the loop.
+                container.scrollTo({
+                    left: activeElement.offsetLeft - 20, // Small padding for better look
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }, [activeId]);
 
     return (
         <section className="explore-prime-showcase">
