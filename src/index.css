@@ -270,7 +270,7 @@ button {
 .item-icon,
 .benefit-check,
 .highlight-icon svg {
-  stroke: url(#gold-gradient-def);
+  stroke: #AC7031;
   fill: none !important;
   opacity: 1;
 }
@@ -359,7 +359,7 @@ button {
 .communities-page .view-details-btn svg,
 .communities-page .location-icon,
 .communities-page .feature-icon {
-  stroke: url(#home-gold-gradient-def);
+  stroke: #AC7031;
 }
 
 /* Buy & Rent page: explicit gold color for small property icons (overrides global url gradient which renders broken) */

@@ -270,7 +270,7 @@
 }
 
 .location-icon {
-    stroke: url(#gold-gradient-def);
+    stroke: #AC7031;
 }
 
 /* Card Body */
@@ -355,7 +355,7 @@
 }
 
 .feature-pill .feature-icon {
-    stroke: url(#gold-gradient-def);
+    stroke: #AC7031;
     opacity: 0.9;
 }
 
@@ -427,7 +427,7 @@
 
 .property-card .arrow-icon {
     color: var(--gold-primary);
-    stroke: url(#gold-gradient-def);
+    stroke: #AC7031;
     transition: none;
 }
 
@@ -579,7 +579,7 @@
 }
 
 .error-icon {
-    stroke: url(#gold-gradient-def);
+    stroke: #AC7031;
     margin-bottom: 16px;
     opacity: 0.9;
 }

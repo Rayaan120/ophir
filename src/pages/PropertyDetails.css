@@ -129,7 +129,7 @@
 }
 
 .pd-location-icon {
-    stroke: url(#gold-gradient-def);
+    stroke: #AC7031;
 }
 
 .pd-hero-right {
@@ -254,7 +254,7 @@
 }
 
 .pd-feature-item svg {
-    stroke: url(#gold-gradient-def);
+    stroke: #AC7031;
     opacity: 0.9;
 }
 

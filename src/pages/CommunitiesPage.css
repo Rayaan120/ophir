@@ -272,7 +272,7 @@
 
 .view-details-btn .arrow-icon {
     color: #AC7031;
-    stroke: url(#home-gold-gradient-def);
+    stroke: #AC7031;
 }
 
 .view-details-btn:hover {

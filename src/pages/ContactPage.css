@@ -671,7 +671,7 @@
 }
 
 .view-details-btn svg {
-    stroke: url(#gold-gradient-def);
+    stroke: #AC7031;
     transition: transform 0.3s ease;
 }
 
