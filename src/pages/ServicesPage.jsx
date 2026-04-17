@@ -1,12 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-    TrendingUp,
-    Key,
-    Home as HomeIcon,
-    AreaChart,
-    ShieldCheck,
-    Map,
     CheckCircle2,
     ArrowRight
 } from 'lucide-react';
@@ -28,42 +22,36 @@ const ServicesPage = () => {
 
     const services = [
         {
-            icon: <TrendingUp size={32} />,
             title: t('servicesPage.svc1Title'),
             description: t('servicesPage.svc1Desc'),
             linkId: 'investment-advisory',
             image: '/services/1.png'
         },
         {
-            icon: <Key size={32} />,
             title: t('servicesPage.svc2Title'),
             description: t('servicesPage.svc2Desc'),
             linkId: 'off-plan-access',
             image: '/services/2.png'
         },
         {
-            icon: <HomeIcon size={32} />,
             title: t('servicesPage.svc3Title'),
             description: t('servicesPage.svc3Desc'),
             linkId: 'buying-assistance',
             image: '/services/3.png'
         },
         {
-            icon: <AreaChart size={32} />,
             title: t('servicesPage.svc4Title'),
             description: t('servicesPage.svc4Desc'),
             linkId: 'selling-resale',
             image: '/services/4.png'
         },
         {
-            icon: <ShieldCheck size={32} />,
             title: t('servicesPage.svc5Title'),
             description: t('servicesPage.svc5Desc'),
             linkId: 'property-management',
             image: '/services/6.png'
         },
         {
-            icon: <Map size={32} />,
             title: t('servicesPage.svc6Title'),
             description: t('servicesPage.svc6Desc'),
             linkId: 'golden-visa',
@@ -140,9 +128,6 @@ const ServicesPage = () => {
 
                                 <div className="bento-content">
                                     <div className="bento-header">
-                                        <div className="bento-icon-wrapper">
-                                            {service.icon}
-                                        </div>
                                         <span className="bento-index">0{index + 1}</span>
                                     </div>
 

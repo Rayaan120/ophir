@@ -745,6 +745,13 @@
     overflow: hidden;
 }
 
+@media (max-width: 768px) {
+    .team-layout {
+        padding: 40px 0 40px 20px; /* Reduced padding for mobile */
+        border-radius: 20px;
+    }
+}
+
 [data-theme='light'] .team-layout {
     background: var(--bg-card);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
@@ -792,6 +799,12 @@
     padding: 0 20px;
     pointer-events: none;
     z-index: 20;
+}
+
+@media (max-width: 768px) {
+    .slider-nav-overlay {
+        display: none; /* Hide arrows on mobile */
+    }
 }
 
 .slider-nav-overlay .slider-nav-btn {
@@ -878,9 +891,17 @@
     gap: 24px;
     overflow-x: auto;
     padding: 10px 40px 10px 10px;
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
     scrollbar-width: none;
     /* Firefox */
+    scroll-snap-type: x mandatory; /* Enable scroll snapping */
+}
+
+@media (max-width: 768px) {
+    .team-slider {
+        padding: 10px 20px 10px 0;
+        gap: 16px;
+    }
 }
 
 .team-slider::-webkit-scrollbar {
@@ -898,6 +919,13 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     transition: all 0.4s ease;
     border: 1px solid rgba(255, 255, 255, 0.03);
+    scroll-snap-align: start; /* Snap to card start */
+}
+
+@media (max-width: 768px) {
+    .team-card {
+        flex: 0 0 280px; /* Slightly smaller cards on mobile */
+    }
 }
 
 [data-theme='light'] .team-card {

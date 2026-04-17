@@ -473,17 +473,18 @@
 
 .mobile-menu-icon {
     color: var(--text-main);
+    transition: color 0.3s ease;
 }
 
-[data-theme='light'] .navbar:not(.navbar-scrolled) .mobile-menu-icon {
-    color: #ffffff;
+.navbar:not(.navbar-scrolled) .mobile-menu-icon {
+    color: #ffffff !important;
 }
 
-[data-theme='light'] .navbar-scrolled .mobile-menu-icon {
+.navbar-scrolled .mobile-menu-icon {
     color: #000000 !important;
 }
 
-.navbar.is-premium-page .mobile-menu-icon {
+.navbar.is-premium-page:not(.navbar-scrolled) .mobile-menu-icon {
     color: #ffffff !important;
 }
 

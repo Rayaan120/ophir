@@ -71,10 +71,6 @@ const TestimonialsSection = () => {
                 </div>
 
                 <div className="testimonial-slider-content">
-                    <button className="slider-arrow prev" onClick={prevTestimonial} aria-label="Previous">
-                        <ChevronLeft size={24} />
-                    </button>
-
                     <div className="testimonial-card-single">
                         <div className="testimonial-bg-letter">O</div>
                         <div className="quote-icon">
@@ -87,9 +83,14 @@ const TestimonialsSection = () => {
                         </div>
                     </div>
 
-                    <button className="slider-arrow next" onClick={nextTestimonial} aria-label="Next">
-                        <ChevronRight size={24} />
-                    </button>
+                    <div className="testimonial-slider-nav">
+                        <button className="slider-arrow prev" onClick={prevTestimonial} aria-label="Previous">
+                            <ChevronLeft size={24} />
+                        </button>
+                        <button className="slider-arrow next" onClick={nextTestimonial} aria-label="Next">
+                            <ChevronRight size={24} />
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>

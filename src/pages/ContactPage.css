@@ -371,11 +371,7 @@
     margin-top: 10px;
 }
 
-.submit-btn:hover:not(:disabled) {
-    background: #8D5A1B;
-    transform: scale(1.02);
-    box-shadow: 0 4px 15px rgba(172, 112, 49, 0.4);
-}
+
 
 .submit-btn:disabled {
     opacity: 0.6;
