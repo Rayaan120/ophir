@@ -6,7 +6,7 @@ const TrustedPartners = () => {
     const scrollerRef = useRef(null);
     const { t } = useTranslation();
 
-    const partners = Array.from({ length: 21 }, (_, i) => ({
+    const partners = Array.from({ length: 22 }, (_, i) => ({
         id: i + 1,
         src: `/${i + 1}.png`,
         alt: `Partner ${i + 1}`,

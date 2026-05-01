@@ -1,4 +1,28 @@
 {
+    "redirects": [
+        {
+            "source": "/(.*)",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "ophir-properties.com"
+                }
+            ],
+            "destination": "https://ophir.ae/$1",
+            "permanent": true
+        },
+        {
+            "source": "/(.*)",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "www.ophir-properties.com"
+                }
+            ],
+            "destination": "https://ophir.ae/$1",
+            "permanent": true
+        }
+    ],
     "rewrites": [
         {
             "source": "/api/(.*)",
