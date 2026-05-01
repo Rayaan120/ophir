@@ -74,7 +74,7 @@ const Hero = () => {
             {/* Static Hero Background */}
             <div
                 className="hero-bg active"
-                style={{ backgroundImage: 'url("/HERO Dubai skyline.jpg")' }}
+                style={{ backgroundImage: 'url("/HERO Dubai skyline.png")' }}
             ></div>
             <div className="hero-overlay"></div>
 
