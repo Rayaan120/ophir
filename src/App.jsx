@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './ThemeContext';
 import { CurrencyProvider } from './context/CurrencyContext';
 import Home from './pages/Home';
@@ -17,10 +18,39 @@ import LanguageWrapper from './components/LanguageWrapper';
 import LanguageRedirect from './components/LanguageRedirect';
 import GlobalGradients from './components/GlobalGradients';
 
+const GA_MEASUREMENT_ID = 'G-137SFQE00V';
+let lastTrackedPath = '';
+
+function GoogleAnalyticsPageViews() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const pagePath = `${location.pathname}${location.search}`;
+
+    if (pagePath === lastTrackedPath || typeof window.gtag !== 'function') {
+      return;
+    }
+
+    const trackPageView = window.setTimeout(() => {
+      lastTrackedPath = pagePath;
+      window.gtag('config', GA_MEASUREMENT_ID, {
+        page_path: pagePath,
+        page_location: window.location.href,
+        page_title: document.title,
+      });
+    }, 0);
+
+    return () => window.clearTimeout(trackPageView);
+  }, [location.pathname, location.search]);
+
+  return null;
+}
+
 function App() {
   return (
     <ThemeProvider>
       <CurrencyProvider>
+        <GoogleAnalyticsPageViews />
         <GlobalGradients />
         <Routes>
           <Route path="/" element={<LanguageRedirect />} />
