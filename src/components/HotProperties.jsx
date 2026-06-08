@@ -5,6 +5,34 @@ import { useTranslation } from 'react-i18next';
 import { useCurrency } from '../context/CurrencyContext';
 import './HotProperties.css';
 
+const hotOfferImages = [
+    {
+        src: '/hot offers/1.PNG',
+        title: 'Signature Waterfront Residences',
+        meta: 'Featured release'
+    },
+    {
+        src: '/hot offers/2.PNG',
+        title: 'Limited Release Investment Homes',
+        meta: 'Investor selection'
+    },
+    {
+        src: '/hot offers/3.PNG',
+        title: 'Private Lifestyle Collection',
+        meta: 'Premium availability'
+    },
+    {
+        src: '/hot offers/5.PNG',
+        title: 'Four Projects, Real Incentives',
+        meta: 'Imtiaz Developments'
+    },
+    {
+        src: '/hot offers/4.PNG',
+        title: 'Near-Ready Units in Established Community',
+        meta: 'Nshama limited release'
+    }
+];
+
 const HotProperties = () => {
     const { t, i18n } = useTranslation();
     const [properties, setProperties] = useState([]);
@@ -27,9 +55,13 @@ const HotProperties = () => {
         setIsLoading(true);
         setError(null);
         try {
+            if (filter === 'hot') {
+                setProperties([]);
+                return;
+            }
+
             let url = '/api/properties';
-            if (filter === 'hot') url += '?hot=true';
-            else if (filter === 'sale') url += '?type=sell';
+            if (filter === 'sale') url += '?type=sell';
             else if (filter === 'rent') url += '?type=rent';
             else if (filter === 'new') url += '?type=new';
 
@@ -118,7 +150,28 @@ const HotProperties = () => {
                     </div>
 
                     {/* Content Area */}
-                    {isLoading ? (
+                    {activeFilter === 'hot' ? (
+                        <div className="home-hot-offers-grid animate-fade-in">
+                            {hotOfferImages.map((offer, index) => (
+                                <Link
+                                    key={offer.src}
+                                    to={`/${i18n.language}/hot-offers`}
+                                    className="home-hot-offer-card"
+                                >
+                                    <div className="home-hot-offer-label">
+                                        <span className="home-hot-offer-index">0{index + 1}</span>
+                                        <div>
+                                            <p>{offer.meta}</p>
+                                            <h3>{offer.title}</h3>
+                                        </div>
+                                    </div>
+                                    <figure className="home-hot-offer-frame">
+                                        <img src={offer.src} alt={offer.title} />
+                                    </figure>
+                                </Link>
+                            ))}
+                        </div>
+                    ) : isLoading ? (
                         <LoadingSkeleton />
                     ) : error ? (
                         <ErrorState />

@@ -139,6 +139,95 @@
     margin-bottom: 60px;
 }
 
+.home-hot-offers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.home-hot-offer-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 18, 18, 0.24);
+    background: rgba(var(--bg-rgb), 0.3);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+[data-theme='light'] .home-hot-offer-card {
+    background: #FAF6EC;
+    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.06);
+}
+
+.home-hot-offer-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 18, 18, 0.55);
+    box-shadow: 0 24px 50px rgba(255, 18, 18, 0.18);
+}
+
+.home-hot-offer-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.home-hot-offer-index {
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ff1212;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.8rem;
+    box-shadow: 0 0 18px rgba(255, 18, 18, 0.35);
+}
+
+.home-hot-offer-label p {
+    margin: 0 0 4px;
+    color: #ff1212;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.home-hot-offer-label h3 {
+    margin: 0;
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 500;
+    line-height: 1.25;
+}
+
+.home-hot-offer-frame {
+    margin: 0;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme='light'] .home-hot-offer-frame {
+    background: rgba(0, 0, 0, 0.025);
+}
+
+.home-hot-offer-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: calc(var(--radius-md) - 8px);
+}
+
 /* Property Card */
 .property-card {
     background: rgba(var(--bg-rgb), 0.3);
@@ -477,7 +566,8 @@
 
 /* Responsive */
 @media (max-width: 1024px) {
-    .properties-grid {
+    .properties-grid,
+    .home-hot-offers-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -491,7 +581,8 @@
         padding: 40px 20px;
     }
 
-    .properties-grid {
+    .properties-grid,
+    .home-hot-offers-grid {
         grid-template-columns: 1fr;
     }
 
