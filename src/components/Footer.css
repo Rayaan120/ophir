@@ -4,6 +4,10 @@
     border-top: 1px solid var(--border-color);
 }
 
+[data-theme='light'] .footer-section {
+    background-color: #FAF6EC;
+}
+
 .footer-main {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1.5fr;

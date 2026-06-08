@@ -770,6 +770,10 @@
     padding-right: 40px;
 }
 
+.team-intro .section-title {
+    font-family: var(--font-body);
+}
+
 @media (max-width: 991px) {
     .team-intro {
         flex: none;
@@ -780,6 +784,7 @@
 .team-desc {
     color: var(--text-muted);
     font-size: 1.1rem;
+    font-family: var(--font-heading);
     line-height: 1.7;
     margin-bottom: 32px;
 }
@@ -1706,7 +1711,7 @@
 
 
 .card-title {
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     font-size: 2.5rem;
     color: var(--text-main);
     font-weight: 300;
@@ -1721,6 +1726,7 @@
 .card-desc {
     color: var(--text-muted);
     font-size: 1.1rem;
+    font-family: var(--font-heading);
     line-height: 1.8;
     margin-bottom: 32px;
     margin-top: 0;
@@ -1855,7 +1861,7 @@
 }
 
 .final-cta-title {
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 300;
     color: var(--text-main);
@@ -1869,7 +1875,7 @@
 }
 
 .final-cta-desc {
-    font-family: var(--font-body);
+    font-family: var(--font-heading);
     font-size: clamp(1rem, 2vw, 1.2rem);
     color: rgba(255, 255, 255, 0.9);
     line-height: 1.6;

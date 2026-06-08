@@ -55,6 +55,7 @@
 }
 
 .np-hero-title {
+    font-family: var(--font-body);
     font-size: clamp(2.5rem, 5vw, 4.5rem);
     font-weight: 600;
     line-height: 1.1;
@@ -64,6 +65,7 @@
 
 .np-hero-subtext {
     font-size: 1.1rem;
+    font-family: var(--font-heading);
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: 2rem;
@@ -108,6 +110,7 @@
 }
 
 [data-theme='light'] .np-filters-container {
+    background-color: #FAF6EC;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
@@ -168,7 +171,7 @@
 
 [data-theme='light'] .np-filter-input,
 [data-theme='light'] .np-filter-select {
-    background-color: #e6e6e6;
+    background-color: #FAF6EC;
 }
 
 .np-filter-input.with-icon {
@@ -411,6 +414,7 @@
 }
 
 .np-card-title {
+    font-family: var(--font-body);
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--text-main);
@@ -529,7 +533,7 @@
     display: none;
 }
 
-.np-card-btn {
+.new-projects-page .view-details-btn {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -546,11 +550,11 @@
     transition: all 0.3s ease;
 }
 
-.np-card-btn svg {
+.new-projects-page .view-details-btn .arrow-icon {
     color: var(--gold-primary, #dbb367);
 }
 
-.np-card-btn:hover {
+.new-projects-page .view-details-btn:hover {
     background: transparent;
     transform: translateY(-2px);
     box-shadow: 0 4px 15px var(--gold-muted);

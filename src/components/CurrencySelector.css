@@ -83,7 +83,7 @@
 }
 
 [data-theme='light'] .currency-dropdown {
-    background: var(--bg-card, #ffffff);
+    background: #FAF6EC;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
@@ -98,7 +98,7 @@
 }
 
 [data-theme='light'] .currency-dropdown-header {
-    background: rgba(0, 0, 0, 0.02);
+    background: #FAF6EC;
 }
 
 .currency-list {
@@ -219,4 +219,8 @@
         width: 12px;
         height: 12px;
     }
+}
+
+[data-theme='light'] .mobile-panel .currency-dropdown {
+    background: #FAF6EC;
 }

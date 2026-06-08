@@ -5,6 +5,10 @@
     overflow: hidden;
 }
 
+[data-theme='light'] .partners-section {
+    background-color: #FAF6EC;
+}
+
 .partners-wrapper {
     background: var(--bg-card);
     padding: 60px;
@@ -15,6 +19,10 @@
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
     position: relative;
     gap: 50px;
+}
+
+[data-theme='light'] .partners-wrapper {
+    background: #FAF6EC;
 }
 
 /* Header Redesign */
@@ -33,6 +41,7 @@
 
 .subtitle-badge {
     display: inline-block;
+    margin-inline-start: 4px;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 3px;
@@ -55,6 +64,7 @@
 
 .partners-title {
     font-size: 2.5rem;
+    font-family: var(--font-body);
     margin: 0;
     font-weight: 300;
     letter-spacing: 1px;
@@ -71,13 +81,13 @@
 .partners-subtitle {
     color: var(--text-muted);
     font-size: 0.95rem;
+    font-family: var(--font-heading);
     line-height: 1.6;
     max-width: 400px;
     text-align: left;
     margin: 0;
-    /* Visually align the second line under the "W" in "We" */
-    padding-left: 5px;
-    text-indent: -5px;
+    padding-left: 0;
+    text-indent: 0;
 }
 
 /* Infinite Marquee Area */
@@ -112,7 +122,7 @@
     height: 130px;
     position: relative;
     border-radius: var(--radius-sm);
-    background: #e6e6e6;
+    background: #FAF6EC;
     border: 1px solid rgba(212, 175, 55, 0.15);
     overflow: hidden;
     cursor: default;
@@ -158,7 +168,7 @@
 
 
 [data-theme='light'] .partner-card {
-    background: #e6e6e6;
+    background: #FAF6EC;
     border-color: rgba(0, 0, 0, 0.08);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }

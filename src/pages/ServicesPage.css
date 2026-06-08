@@ -41,7 +41,7 @@
 }
 
 .hero-title {
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     font-size: clamp(3.5rem, 8vw, 7rem);
     font-weight: 300;
     line-height: 1.05;
@@ -53,6 +53,10 @@
 
 .hero-title-main {
     margin-left: -8px; /* Optical alignment fix for the capital 'Y' */
+}
+
+.services-hero .small-label {
+    transform: translateX(-8px);
 }
 
 .services-hero .gold-text {
@@ -75,6 +79,7 @@
 
 .services-hero .hero-subtitle {
     font-size: 1.2rem;
+    font-family: var(--font-heading);
     color: rgba(255, 255, 255, 0.85) !important;
     margin-bottom: 32px;
     font-weight: 300;
@@ -129,7 +134,7 @@
 }
 
 [data-theme='light'] .intro-spotlight-frame {
-    background: rgba(230, 230, 230, 0.5);
+    background: #FAF6EC;
     box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05);
 }
 
@@ -169,6 +174,14 @@
     z-index: 2;
     max-width: 850px;
     margin: 0 auto;
+}
+
+.intro-content-wrapper .section-heading {
+    font-family: var(--font-body);
+}
+
+.intro-content-wrapper .lead-text {
+    font-family: var(--font-heading);
 }
 
 .frame-corners .corner {
@@ -277,6 +290,10 @@
     padding: 60px 0 !important;
 }
 
+[data-theme='light'] .services-bento-section {
+    background-color: #FAF6EC;
+}
+
 .services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -352,7 +369,7 @@
 }
 
 [data-theme='light'] .bento-item {
-    background: rgba(230, 230, 230, 0.8);
+    background: #FAF6EC;
     border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
@@ -452,7 +469,7 @@
 }
 
 [data-theme='light'] .bento-overlay {
-    background: linear-gradient(135deg, rgba(230, 230, 230, 0.95) 0%, rgba(230, 230, 230, 0.7) 100%);
+    background: linear-gradient(135deg, rgba(250, 246, 236, 0.95) 0%, rgba(250, 246, 236, 0.7) 100%);
 }
 
 .bento-item:hover .bento-overlay {
@@ -523,7 +540,7 @@
 }
 
 .bento-title {
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     font-size: clamp(1.5rem, 3vw, 2.5rem);
     font-weight: 300;
     color: var(--text-main);
@@ -538,7 +555,7 @@
 }
 
 .bento-description {
-    font-family: var(--font-body);
+    font-family: var(--font-heading);
     font-size: 1rem;
     color: var(--text-muted);
     line-height: 1.6;
@@ -636,6 +653,12 @@
     background-color: var(--bg-color);
 }
 
+[data-theme='light'] .service-details,
+[data-theme='light'] .service-detail-row,
+[data-theme='light'] .service-detail-row .detail-content {
+    background-color: #FAF6EC;
+}
+
 .service-detail-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -669,7 +692,7 @@
 }
 
 .detail-content h2 {
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     font-size: clamp(2.2rem, 4vw, 3rem);
     font-weight: 300;
     margin-bottom: 12px;
@@ -696,6 +719,7 @@
 
 .detail-block p {
     color: var(--text-muted);
+    font-family: var(--font-heading);
     line-height: 1.7;
     font-size: 1.1rem;
     font-weight: 300;
@@ -763,7 +787,7 @@
 }
 
 .horizon-title {
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     font-size: 3.5rem;
     color: #ffffff;
     margin-bottom: 24px;
@@ -790,7 +814,7 @@
 }
 
 .horizon-subtitle {
-    font-family: var(--font-body);
+    font-family: var(--font-heading);
     font-size: 1.2rem;
     color: rgba(255, 255, 255, 0.85);
     line-height: 1.6;

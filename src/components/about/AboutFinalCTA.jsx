@@ -31,7 +31,7 @@ const AboutFinalCTA = () => {
 
                 <div className="final-cta-actions">
                     <button className="gold-filled-btn" onClick={() => navigate(`/${lang}/contact`)}>{t('aboutFinalCTA.schedule')}</button>
-                    <button className="gold-outline-btn" onClick={() => navigate(`/${lang}/new-projects`)}>{t('aboutFinalCTA.explore')}</button>
+                    <button className="gold-filled-btn" onClick={() => navigate(`/${lang}/new-projects`)}>{t('aboutFinalCTA.explore')}</button>
                 </div>
             </div>
         </section>

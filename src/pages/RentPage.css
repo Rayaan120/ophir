@@ -53,7 +53,7 @@
 }
 
 .rent-hero-content .hero-title {
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     font-size: 3.5rem;
     color: #ffffff;
     margin-bottom: 20px;
@@ -62,6 +62,7 @@
 
 .rent-hero-content .hero-subtext {
     font-size: 1.1rem;
+    font-family: var(--font-heading);
     color: rgba(255, 255, 255, 0.8);
     line-height: 1.6;
 }
@@ -74,6 +75,10 @@
     position: relative;
     z-index: 10;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='light'] .rent-filters-container {
+    background: #FAF6EC;
 }
 
 .filters-grid {
@@ -147,7 +152,7 @@
 
 [data-theme='light'] .filter-input,
 [data-theme='light'] .filter-select {
-    background: #e6e6e6;
+    background: #FAF6EC;
 }
 
 .filter-input.with-icon {
@@ -241,6 +246,14 @@
 
 .rent-page .property-footer {
     justify-content: flex-start;
+}
+
+.rent-page .property-title {
+    font-family: var(--font-body);
+}
+
+.rent-page .property-desc {
+    font-family: var(--font-heading);
 }
 
 .badge-primary {
@@ -338,7 +351,7 @@
 }
 
 [data-theme='light'] .page-btn {
-    background: #e6e6e6;
+    background: #FAF6EC;
 }
 
 .page-btn:hover:not(:disabled) {

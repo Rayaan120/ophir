@@ -66,7 +66,7 @@ const OurStory = () => {
                                 </section>
                             </div>
 
-                            <button className="gold-outline-btn animate-fade-in" onClick={() => navigate(`/${i18n.language}/contact`)}>
+                            <button className="gold-filled-btn animate-fade-in" onClick={() => navigate(`/${i18n.language}/contact`)}>
                                 {t('ourStory.btn')}
                             </button>
 

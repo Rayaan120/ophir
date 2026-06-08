@@ -1,7 +1,7 @@
 .scroll-to-top {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 105px;
+    right: 16px;
     z-index: 999;
     opacity: 0;
     visibility: hidden;
@@ -33,11 +33,20 @@
     stroke: url(#home-gold-gradient-def);
 }
 
+[data-theme='light'] .scroll-btn {
+    background: #FAF6EC;
+}
+
 .scroll-btn:hover {
     background: var(--gold-gradient);
     transform: translateY(-5px);
     box-shadow: 0 15px 40px rgba(172, 112, 49, 0.4);
     border-color: transparent;
+}
+
+[data-theme='light'] .scroll-btn:hover {
+    background: #FAF6EC;
+    border-color: #AC7031;
 }
 
 .scroll-btn:hover svg {
@@ -46,8 +55,8 @@
 
 @media (max-width: 768px) {
     .scroll-to-top {
-        bottom: 20px;
-        right: 20px;
+        bottom: 95px;
+        right: 12px;
     }
 
     .scroll-btn {

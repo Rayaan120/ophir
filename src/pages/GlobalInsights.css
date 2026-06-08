@@ -47,6 +47,7 @@
 }
 
 .insights-hero h1 {
+  font-family: var(--font-body);
   font-size: clamp(2.5rem, 5vw, 4.5rem);
   margin-bottom: 1.5rem;
   color: #fff;
@@ -54,6 +55,11 @@
   text-align: left !important;
   margin-left: 0 !important;
   text-indent: -0.16em; /* Optical alignment for flared 'Y' over 'i' */
+}
+
+.insights-hero-plug {
+  display: inline-block;
+  transform: translateX(4px);
 }
 
 .global-insights-page .insights-hero .insights-hero-subtitle {
@@ -65,6 +71,7 @@
 }
 
 .insights-hero-subtitle {
+  font-family: var(--font-heading);
   font-size: 1.25rem;
   color: #fff;
   max-width: 700px;
@@ -150,10 +157,16 @@
 
 /* Left Content */
 .market-overview-text {
+  font-family: var(--font-heading);
   font-size: 1.1rem;
   line-height: 1.8;
   color: var(--text-muted);
   margin-top: 1.5rem;
+}
+
+.global-insights-page h2.gold-text,
+.global-insights-page h3.gold-text {
+  font-family: var(--font-body);
 }
 
 .insight-highlight-card {
@@ -230,6 +243,7 @@
 }
 
 .detail-text {
+  font-family: var(--font-heading);
   font-size: 0.95rem;
   color: var(--text-main);
   line-height: 1.6;
@@ -348,11 +362,13 @@
 }
 
 .expert-info h2 {
+  font-family: var(--font-body);
   font-size: 2.5rem;
   margin-bottom: 20px;
 }
 
 .expert-info p {
+  font-family: var(--font-heading);
   font-size: 1.1rem;
   color: var(--text-muted);
   line-height: 1.8;
@@ -567,6 +583,7 @@
 }
 
 .accordion-content-inner {
+  font-family: var(--font-heading);
   overflow: hidden;
   color: var(--text-muted);
   line-height: 1.8;
@@ -612,13 +629,17 @@
 }
 
 [data-theme='light'] .strategic-note {
-  background: #e6e6e6;
+  background: #FAF6EC;
   border: 1px solid var(--border-color);
 }
 
 [data-theme='light'] .strategic-note {
-  background: #e6e6e6;
+  background: #FAF6EC;
   border: 1px solid var(--border-color);
+}
+
+[data-theme='light'] .expert-card {
+  background: #FAF6EC;
 }
 
 
@@ -634,11 +655,13 @@
 }
 
 .placeholder-insight h2 {
+    font-family: var(--font-body);
     font-size: 1.75rem;
     margin-bottom: 0.25rem;
 }
 
 .placeholder-insight .detail-text {
+    font-family: var(--font-heading);
     max-width: 600px;
     margin-bottom: 0.5rem;
 }

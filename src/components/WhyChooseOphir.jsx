@@ -58,10 +58,12 @@ const WhyChooseOphir = () => {
 
             <div className="container relative-z">
                 <div className="section-header-centered">
-                    <span className="gold-subtitle">{t('whyOphir.subtitle')}</span>
-                    <h2 className="section-title">
-                        {t('whyOphir.title1')} <span className="gold-text-gradient">{t('whyOphir.title2')}</span>
-                    </h2>
+                    <div className="section-heading-block">
+                        <span className="gold-subtitle">{t('whyOphir.subtitle')}</span>
+                        <h2 className="section-title">
+                            {t('whyOphir.title1')} <span className="gold-text-gradient">{t('whyOphir.title2')}</span>
+                        </h2>
+                    </div>
                     <p className="intro-line-centered">
                         {t('whyOphir.intro')}
                     </p>

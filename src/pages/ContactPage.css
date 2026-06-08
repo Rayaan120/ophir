@@ -57,6 +57,7 @@
 }
 
 .hero-title {
+    font-family: var(--font-body);
     font-size: clamp(32px, 5vw, 56px);
     line-height: 1.1;
     font-weight: 700;
@@ -65,6 +66,7 @@
 }
 
 .hero-subtext {
+    font-family: var(--font-heading);
     font-size: 18px;
     color: rgba(255, 255, 255, 0.8);
     max-width: 500px;
@@ -120,10 +122,14 @@
 }
 
 [data-theme='light'] .ribbon-container {
-    background: #e6e6e6;
+    background: #FAF6EC;
     border-color: rgba(212, 175, 55, 0.3);
     box-shadow:
         0 20px 40px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .ribbon-item {
+    background: #FAF6EC;
 }
 
 .ribbon-inner {
@@ -282,7 +288,12 @@
 }
 
 [data-theme='light'] .enquiry-container {
+    background: #FAF6EC;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='light'] .form-wrapper {
+    background: #FAF6EC;
 }
 
 .form-wrapper {
@@ -295,12 +306,14 @@
 }
 
 .form-header h2 {
+    font-family: var(--font-body);
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 12px;
 }
 
 .form-header p {
+    font-family: var(--font-heading);
     color: var(--text-muted);
 }
 
@@ -389,10 +402,11 @@
 }
 
 [data-theme='light'] .reassurance-panel {
-    background: #e6e6e6;
+    background: #FAF6EC;
 }
 
 .reassurance-content h3 {
+    font-family: var(--font-body);
     font-size: 24px;
     margin-bottom: 30px;
     position: relative;
@@ -425,12 +439,14 @@
 }
 
 .benefit-info h4 {
+    font-family: var(--font-body);
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 4px;
 }
 
 .benefit-info p {
+    font-family: var(--font-heading);
     font-size: 14px;
     color: var(--text-muted);
     line-height: 1.5;
@@ -496,7 +512,7 @@
 }
 
 [data-theme='light'] .office-section {
-    background: #e6e6e6;
+    background: #FAF6EC;
 }
 
 .office-container {
@@ -509,6 +525,7 @@
 }
 
 .location-info h2 {
+    font-family: var(--font-body);
     font-size: 36px;
     font-weight: 800;
     margin-bottom: 30px;
@@ -531,6 +548,7 @@
 }
 
 .address-text {
+    font-family: var(--font-heading);
     font-size: 18px;
     line-height: 1.6;
     color: var(--text-main);
@@ -605,7 +623,12 @@
     text-align: center;
 }
 
+[data-theme='light'] .faq-section {
+    background: #FAF6EC;
+}
+
 .faq-section h2 {
+    font-family: var(--font-body);
     font-size: 36px;
     margin-bottom: 50px;
 }
@@ -626,10 +649,11 @@
 }
 
 [data-theme='light'] .faq-item {
-    background: #e6e6e6;
+    background: #FAF6EC;
 }
 
 .faq-header {
+    font-family: var(--font-body);
     padding: 24px;
     display: flex;
     justify-content: space-between;
@@ -647,6 +671,7 @@
 }
 
 .faq-answer {
+    font-family: var(--font-heading);
     padding: 0 24px 24px;
     color: var(--text-muted);
     line-height: 1.6;
@@ -671,7 +696,8 @@
 }
 
 .view-details-btn svg {
-    stroke: #AC7031;
+    color: currentColor;
+    stroke: currentColor !important;
     transition: transform 0.3s ease;
 }
 
@@ -689,7 +715,7 @@
 }
 
 .view-details-btn:hover svg {
-    stroke: #111 !important;
+    stroke: #ffffff !important;
     transform: translateX(4px);
 }
 

@@ -6,7 +6,7 @@
 }
 
 [data-theme='light'] .testimonials-section {
-    background-color: #e6e6e6;
+    background-color: #FAF6EC;
 }
 
 .testimonials-container {
@@ -37,6 +37,7 @@
 
 .testimonials-header .section-title {
     font-size: 3rem;
+    font-family: var(--font-body);
     font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 4px;
@@ -201,4 +202,4 @@
         width: 45px;
         height: 45px;
     }
-}
+}

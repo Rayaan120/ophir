@@ -5,6 +5,10 @@
     overflow: hidden;
 }
 
+[data-theme='light'] .explore-prime-showcase {
+    background: #FAF6EC;
+}
+
 .explore-prime-grid {
     display: flex;
     align-items: stretch;
@@ -26,7 +30,7 @@
 }
 
 [data-theme='light'] .ep-left-panel {
-    background: #f5f5f5;
+    background: #FAF6EC;
     border: 1px solid var(--border-color);
 }
 
@@ -50,7 +54,7 @@
 
 .ep-main-title {
     font-size: 2.2rem;
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     background: var(--gold-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -63,6 +67,7 @@
 
 .ep-main-desc {
     font-size: 1.05rem;
+    font-family: var(--font-heading);
     line-height: 1.7;
     color: var(--text-muted);
 }
@@ -280,7 +285,7 @@
     border-radius: 50%;
     border: 1px solid rgba(255,255,255,0.1);
     background: transparent;
-    color: var(--text-main);
+    color: #1E1A34;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -293,9 +298,9 @@
 }
 
 .ep-circle-btn:hover {
-    background: var(--gold-gradient);
-    color: #111;
-    border-color: #dbb367;
+    background: transparent;
+    color: #1E1A34;
+    border-color: #1E1A34;
 }
 
 /* Utilities used */

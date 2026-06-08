@@ -117,6 +117,7 @@
 .pd-title,
 [data-theme='dark'] .pd-title,
 [data-theme='light'] .pd-title {
+    font-family: var(--font-body);
     color: #fff;
 }
 
@@ -267,7 +268,7 @@
     font-size: 1.8rem;
     color: var(--text-main);
     margin-bottom: 24px;
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     display: flex;
     align-items: center;
     gap: 12px;
@@ -310,6 +311,7 @@
 /* Description Section */
 .pd-description-text {
     color: var(--text-muted);
+    font-family: var(--font-heading);
     font-size: 1.05rem;
     line-height: 1.8;
     white-space: pre-wrap;
@@ -611,6 +613,7 @@
 }
 
 .pd-modal-title {
+    font-family: var(--font-body);
     font-size: 1.6rem;
     /* Slightly smaller to save space */
     color: var(--gold-primary);
@@ -619,6 +622,7 @@
 
 .pd-modal-subtitle {
     color: var(--text-muted);
+    font-family: var(--font-heading);
     font-size: 0.95rem;
 }
 

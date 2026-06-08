@@ -172,6 +172,65 @@ body,
   --bg-card: #e6e6e6;
 }
 
+[data-theme='light'] .home-page-root {
+  --bg-color: #FAF6EC;
+  --bg-lighter: #FAF6EC;
+  --bg-card: #FAF6EC;
+  background-color: #FAF6EC;
+}
+
+[data-theme='light'] .about-page {
+  --bg-color: #FAF6EC;
+  --bg-lighter: #FAF6EC;
+  --bg-card: #FAF6EC;
+  background-color: #FAF6EC;
+}
+
+[data-theme='light'] .services-page {
+  --bg-color: #FAF6EC;
+  --bg-lighter: #FAF6EC;
+  --bg-card: #FAF6EC;
+  background-color: #FAF6EC;
+}
+
+[data-theme='light'] .buy-page,
+[data-theme='light'] .rent-page,
+[data-theme='light'] .new-projects-page,
+[data-theme='light'] .property-details-page {
+  --bg-color: #FAF6EC;
+  --bg-lighter: #FAF6EC;
+  --bg-card: #FAF6EC;
+  background-color: #FAF6EC;
+}
+
+[data-theme='light'] .buy-page .page-btn:not(.active),
+[data-theme='light'] .rent-page .page-btn:not(.active),
+[data-theme='light'] .new-projects-page .page-btn:not(.active) {
+  background: #FAF6EC !important;
+}
+
+[data-theme='light'] .global-insights-page,
+[data-theme='light'] .insights-page {
+  --bg-color: #FAF6EC;
+  --bg-lighter: #FAF6EC;
+  --bg-card: #FAF6EC;
+  background-color: #FAF6EC;
+}
+
+[data-theme='light'] .contact-page {
+  --bg-color: #FAF6EC;
+  --bg-lighter: #FAF6EC;
+  --bg-card: #FAF6EC;
+  background-color: #FAF6EC;
+}
+
+[data-theme='light'] .hot-offers-page {
+  --bg-color: #FAF6EC;
+  --bg-lighter: #FAF6EC;
+  --bg-card: #FAF6EC;
+  background-color: #FAF6EC;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -460,6 +519,115 @@ button {
   color: var(--text-dark);
 }
 
+[data-theme='light'] .btn-primary,
+[data-theme='light'] .gold-filled-btn,
+[data-theme='light'] .submit-btn,
+[data-theme='light'] .modern-search-submit,
+[data-theme='light'] .btn-primary-red,
+[data-theme='light'] .btn-hot-premium,
+[data-theme='light'] .pd-btn-primary,
+[data-theme='light'] .pd-btn-whatsapp,
+[data-theme='light'] .global-insights-page .market-tab.active,
+[data-theme='light'] .hot-filter-btn.active,
+[data-theme='light'] .page-btn.active {
+  background: #1E1A34 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border-color: #1E1A34 !important;
+}
+
+[data-theme='light'] .btn-outline,
+[data-theme='light'] .gold-outline-btn,
+[data-theme='light'] .view-details-btn,
+[data-theme='light'] .btn-outline-red,
+[data-theme='light'] .btn-hot-outline,
+[data-theme='light'] .pd-btn-secondary,
+[data-theme='light'] .pd-error-btn,
+[data-theme='light'] .buy-page .card-btn,
+[data-theme='light'] .new-projects-page .np-card-btn,
+[data-theme='light'] .rent-page .view-details-btn,
+[data-theme='light'] .buy-page .view-details-btn,
+[data-theme='light'] .new-projects-page .view-details-btn,
+[data-theme='light'] .property-details-page .view-details-btn,
+[data-theme='light'] .global-insights-page .market-tab,
+[data-theme='light'] .global-insights-page .accordion-header,
+[data-theme='light'] .hc-btn,
+[data-theme='light'] .btn-link {
+  border-color: #1E1A34 !important;
+  color: #1E1A34 !important;
+}
+
+[data-theme='light'] .btn .gold-text,
+[data-theme='light'] .gold-outline-btn,
+[data-theme='light'] .view-details-btn .gold-text,
+[data-theme='light'] .btn-outline .gold-text,
+[data-theme='light'] .btn-link.gold-text {
+  background: none !important;
+  -webkit-text-fill-color: #1E1A34 !important;
+  color: #1E1A34 !important;
+}
+
+[data-theme='light'] .btn:hover,
+[data-theme='light'] .gold-filled-btn:hover,
+[data-theme='light'] .gold-outline-btn:hover,
+[data-theme='light'] .submit-btn:hover,
+[data-theme='light'] .modern-search-submit:hover,
+[data-theme='light'] .view-details-btn:hover,
+[data-theme='light'] .btn-primary-red:hover,
+[data-theme='light'] .btn-outline-red:hover,
+[data-theme='light'] .btn-hot-premium:hover,
+[data-theme='light'] .btn-hot-outline:hover,
+[data-theme='light'] .pd-btn:hover,
+[data-theme='light'] .pd-error-btn:hover,
+[data-theme='light'] .buy-page .card-btn:hover,
+[data-theme='light'] .new-projects-page .np-card-btn:hover,
+[data-theme='light'] .rent-page .view-details-btn:hover,
+[data-theme='light'] .buy-page .view-details-btn:hover,
+[data-theme='light'] .new-projects-page .view-details-btn:hover,
+[data-theme='light'] .property-details-page .view-details-btn:hover,
+[data-theme='light'] .global-insights-page .market-tab:hover,
+[data-theme='light'] .global-insights-page .market-tab.active:hover,
+[data-theme='light'] .global-insights-page .accordion-header:hover,
+[data-theme='light'] .hc-btn:hover,
+[data-theme='light'] .btn-link:hover,
+[data-theme='light'] .page-btn:hover:not(:disabled),
+[data-theme='light'] .hot-filter-btn:hover,
+[data-theme='light'] .hot-filter-btn.active:hover {
+  background: #1E1A34 !important;
+  background-image: none !important;
+  background-clip: border-box !important;
+  -webkit-background-clip: border-box !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+  border-color: #1E1A34 !important;
+}
+
+[data-theme='light'] .btn:hover .gold-text,
+[data-theme='light'] .gold-outline-btn:hover,
+[data-theme='light'] .view-details-btn:hover .gold-text,
+[data-theme='light'] .btn-outline:hover .gold-text,
+[data-theme='light'] .btn-link.gold-text:hover {
+  background: none !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+[data-theme='light'] .buy-page .view-details-btn svg,
+[data-theme='light'] .rent-page .view-details-btn svg,
+[data-theme='light'] .new-projects-page .view-details-btn svg,
+[data-theme='light'] .property-details-page .view-details-btn svg {
+  stroke: #1E1A34 !important;
+  color: #1E1A34 !important;
+}
+
+[data-theme='light'] .buy-page .view-details-btn:hover svg,
+[data-theme='light'] .rent-page .view-details-btn:hover svg,
+[data-theme='light'] .new-projects-page .view-details-btn:hover svg,
+[data-theme='light'] .property-details-page .view-details-btn:hover svg {
+  stroke: #ffffff !important;
+  color: #ffffff !important;
+}
+
 /* Homepage specific button hover adjustments */
 .home-page-root .btn-outline:hover,
 .home-page-root .btn-primary:hover {
@@ -534,6 +702,10 @@ button {
 
 ::-webkit-scrollbar-track {
   background: var(--bg-color);
+}
+
+[data-theme='light'] ::-webkit-scrollbar-track {
+  background: #FAF6EC;
 }
 
 ::-webkit-scrollbar-thumb {

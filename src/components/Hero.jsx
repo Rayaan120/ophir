@@ -181,7 +181,7 @@ const Hero = () => {
 
                     <div className="hero-actions">
                         <button className="btn btn-outline" onClick={() => navigate(`/${lang}/contact`)}>
-                            <span className="gold-text">{t('home.getInTouch')}</span>
+                            <span>{t('home.getInTouch')}</span>
                         </button>
                     </div>
                 </div>

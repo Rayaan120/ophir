@@ -153,7 +153,7 @@ const GlobalInsights = () => {
                 <a href={`mailto:${expert.email}`} className="btn btn-primary" style={{ padding: '12px 24px' }}>
                   Email
                 </a>
-                <a href={expert.whatsappLink} target="_blank" rel="noopener noreferrer" className="btn btn-outline flex items-center gap-2" style={{ padding: '12px 24px' }}>
+                <a href={expert.whatsappLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary flex items-center gap-2" style={{ padding: '12px 24px' }}>
                   WhatsApp
                 </a>
               </div>
@@ -190,6 +190,22 @@ const GlobalInsights = () => {
     );
   };
 
+  const renderHeroTitle = () => {
+    const title = t('globalInsights.hero.title');
+    const plugText = 'Plug.';
+
+    if (!title.includes(plugText)) return title;
+
+    const [before, after] = title.split(plugText);
+    return (
+      <>
+        {before}
+        <span className="insights-hero-plug">{plugText}</span>
+        {after}
+      </>
+    );
+  };
+
   return (
     <div className={`global-insights-page ${theme} ${i18n.language === 'ar' ? 'rtl' : ''}`} dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
 
@@ -199,7 +215,7 @@ const GlobalInsights = () => {
         <div className="insights-hero-overlay"></div>
         <div className="insights-hero-content-wrapper animate-fade-in">
           <div className="insights-hero-content">
-            <h1>{t('globalInsights.hero.title')}</h1>
+            <h1>{renderHeroTitle()}</h1>
             <p className="insights-hero-subtitle">
               {t('globalInsights.hero.subtitle')}
             </p>

@@ -423,9 +423,9 @@ const NewProjectsPage = () => {
                                             </div>
 
                                             <div className="np-card-footer">
-                                                <Link to={`/${i18n.language}/property/${property.id}`} className="np-card-btn">
+                                                <Link to={`/${i18n.language}/property/${property.id}`} className="view-details-btn">
                                                     <span className="gold-text">{t('newProjectsPage.viewDetails')}</span>
-                                                    <ArrowRight size={16} />
+                                                    <ArrowRight size={16} className="arrow-icon" />
                                                 </Link>
                                             </div>
                                         </div>
@@ -483,7 +483,7 @@ const NewProjectsPage = () => {
                             <button className="gold-filled-btn" onClick={() => navigate(`/${i18n.language}/contact`)}>
                                 {t('newProjectsPage.cta.btn1')}
                             </button>
-                            <button className="gold-outline-btn" onClick={() => window.open('https://wa.me/9717758953106', '_blank')}>
+                            <button className="gold-filled-btn" onClick={() => window.open('https://wa.me/9717758953106', '_blank')}>
                                 {t('newProjectsPage.cta.btn2')}
                             </button>
                         </div>

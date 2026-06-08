@@ -18,12 +18,14 @@
 }
 
 .insights-hero-content h1 {
+    font-family: var(--font-body);
     font-size: clamp(3rem, 8vw, 5rem);
     font-weight: 300;
     margin-bottom: 20px;
 }
 
 .insights-hero-content p {
+    font-family: var(--font-heading);
     font-size: 1.2rem;
     color: var(--text-muted);
     max-width: 600px;
@@ -72,11 +74,13 @@
 }
 
 .news-title {
+    font-family: var(--font-body);
     font-size: 2rem;
     margin-bottom: 15px;
 }
 
 .news-excerpt {
+    font-family: var(--font-heading);
     color: var(--text-muted);
     margin-bottom: 25px;
 }
@@ -112,6 +116,7 @@
 }
 
 .article-title {
+    font-family: var(--font-body);
     font-size: 1.25rem;
     margin-bottom: 12px;
 }
@@ -131,6 +136,7 @@
 }
 
 .widget-title {
+    font-family: var(--font-body);
     font-size: 1.4rem;
     margin-bottom: 24px;
     padding-bottom: 12px;

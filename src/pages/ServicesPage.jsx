@@ -364,8 +364,8 @@ const ServicesPage = () => {
                             </Link>
                         </div>
                         <div className="magnetic-wrapper">
-                            <Link to={`/${i18n.language}/buy`} className="btn btn-outline cta-magnetic">
-                                <span className="gold-text">{t('servicesPage.ctaBtn2')}</span>
+                            <Link to={`/${i18n.language}/buy`} className="btn btn-primary cta-magnetic">
+                                {t('servicesPage.ctaBtn2')}
                             </Link>
                         </div>
                     </div>

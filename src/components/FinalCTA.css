@@ -51,11 +51,12 @@
     margin-bottom: 24px;
     line-height: 1.1;
     text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
 }
 
 .cta-subtitle {
     font-size: 1.2rem;
+    font-family: var(--font-heading);
     color: rgba(255, 255, 255, 0.85);
     line-height: 1.6;
     margin-bottom: 40px;
@@ -105,4 +106,4 @@
         max-width: 300px;
         margin: 0 auto;
     }
-}
+}
