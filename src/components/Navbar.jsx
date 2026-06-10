@@ -7,7 +7,7 @@ import CurrencySelector from './CurrencySelector';
 import './Navbar.css';
 
 const Navbar = () => {
-  const [scrolled, setScrolled] = useState(() => typeof window !== 'undefined' ? window.scrollY > 50 : false);
+  const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
@@ -24,15 +24,27 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const heroElement = document.querySelector('.hero-section, .about-hero, .services-hero, .void-hero-section, [class*="hero"], [class*="Hero"]');
+      if (heroElement) {
+        const heroHeight = heroElement.offsetHeight;
+        // Navbar scrolled state triggers once we scroll past the hero section (offset by navbar height)
+        setScrolled(window.scrollY > (heroHeight - 80));
+      } else {
+        setScrolled(window.scrollY > 50);
+      }
     };
 
-    // Check initially to ensure state is in sync
     handleScroll();
+    
+    // Check again after a brief delay to ensure DOM is fully rendered and sized
+    const timeoutId = setTimeout(handleScroll, 100);
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timeoutId);
+    };
+  }, [location]);
 
   const navLinks = [
     { name: t('nav.about'), isDropdown: false, path: '/about' },
