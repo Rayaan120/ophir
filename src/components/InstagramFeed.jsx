@@ -76,8 +76,11 @@ const InstagramFeed = ({ variant = 'premium', limit = 3 }) => {
     };
 
     const formatDate = (dateString) => {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) return '';
         const options = { month: 'short', day: 'numeric', year: 'numeric' };
-        return new Date(dateString).toLocaleDateString('en-US', options);
+        return date.toLocaleDateString('en-US', options);
     };
 
     if (loading) {

@@ -300,7 +300,11 @@ const HotProperties = () => {
                                 }
                             }}
                         >
-                            <span className="gold-text">{t('hotProps.viewAll')}</span>
+                            <span className="gold-text">
+                                {activeFilter === 'hot' 
+                                    ? (i18n.language === 'ar' ? 'عرض العروض الحصرية' : 'View Hot Offers') 
+                                    : t('hotProps.viewAll')}
+                            </span>
                         </button>
                     </div>
 

@@ -474,30 +474,33 @@ app.get('/api/instagram/latest', async (req, res) => {
 
         // IF OPTION B (Behold.so) is provided
         if (feedUrl) {
-            const response = await axios.get(feedUrl);
+            const response = await axios.get(feedUrl, { timeout: 8000 });
             const rawPosts = Array.isArray(response.data) ? response.data : (response.data.posts || []);
 
-            const posts = rawPosts.slice(0, limit).map(post => {
-                // Universal mapping: handle both Behold (camelCase) and Direct API (snake_case)
-                const type = post.mediaType || post.media_type || 'IMAGE';
+            const posts = rawPosts
+                .filter(post => post && post.id && post.permalink && post.timestamp && (post.mediaUrl || post.media_url || post.sizes))
+                .slice(0, limit)
+                .map(post => {
+                    // Universal mapping: handle both Behold (camelCase) and Direct API (snake_case)
+                    const type = post.mediaType || post.media_type || 'IMAGE';
 
-                // PRIORITY: Behold Proxied URL -> Behold mediaUrl -> Instagram media_url -> Thumbnails
-                const proxiedUrl = post.sizes?.medium?.mediaUrl || post.sizes?.full?.mediaUrl || post.sizes?.large?.mediaUrl;
-                const directUrl = post.mediaUrl || post.media_url;
-                const thumbUrl = post.thumbnailUrl || post.thumbnail_url;
+                    // PRIORITY: Behold Proxied URL -> Behold mediaUrl -> Instagram media_url -> Thumbnails
+                    const proxiedUrl = post.sizes?.medium?.mediaUrl || post.sizes?.full?.mediaUrl || post.sizes?.large?.mediaUrl;
+                    const directUrl = post.mediaUrl || post.media_url;
+                    const thumbUrl = post.thumbnailUrl || post.thumbnail_url;
 
-                // For videos, prioritize thumbnail images
-                const displayUrl = proxiedUrl || (type === 'VIDEO' ? (thumbUrl || directUrl) : directUrl) || thumbUrl;
+                    // For videos, prioritize thumbnail images
+                    const displayUrl = proxiedUrl || (type === 'VIDEO' ? (thumbUrl || directUrl) : directUrl) || thumbUrl;
 
-                return {
-                    id: post.id,
-                    mediaType: type,
-                    mediaUrl: displayUrl,
-                    permalink: post.permalink,
-                    caption: post.caption || '',
-                    timestamp: post.timestamp
-                };
-            });
+                    return {
+                        id: post.id,
+                        mediaType: type,
+                        mediaUrl: displayUrl,
+                        permalink: post.permalink,
+                        caption: post.caption || '',
+                        timestamp: post.timestamp
+                    };
+                });
             return res.json(posts);
         }
 
@@ -508,22 +511,25 @@ app.get('/api/instagram/latest', async (req, res) => {
                     fields: 'id,caption,media_type,media_url,permalink,timestamp,thumbnail_url',
                     access_token: accessToken,
                     limit: limit
-                }
+                },
+                timeout: 8000
             });
 
-            const posts = response.data.data.map(post => {
-                const type = post.media_type || 'IMAGE';
-                const displayUrl = type === 'VIDEO' ? (post.thumbnail_url || post.media_url) : post.media_url;
+            const posts = response.data.data
+                .filter(post => post && post.id && post.permalink && post.timestamp && (post.media_url || post.thumbnail_url))
+                .map(post => {
+                    const type = post.media_type || 'IMAGE';
+                    const displayUrl = type === 'VIDEO' ? (post.thumbnail_url || post.media_url) : post.media_url;
 
-                return {
-                    id: post.id,
-                    mediaType: type,
-                    mediaUrl: displayUrl,
-                    permalink: post.permalink,
-                    caption: post.caption || '',
-                    timestamp: post.timestamp
-                };
-            });
+                    return {
+                        id: post.id,
+                        mediaType: type,
+                        mediaUrl: displayUrl,
+                        permalink: post.permalink,
+                        caption: post.caption || '',
+                        timestamp: post.timestamp
+                    };
+                });
             return res.json(posts);
         }
 

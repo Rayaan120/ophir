@@ -30,7 +30,7 @@
 }
 
 .header-left .section-title {
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     /* Serif font */
     font-size: 3.2rem;
     font-weight: 400;

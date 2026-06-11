@@ -16,7 +16,13 @@ const OurStory = () => {
 
                 {/* Left Column */}
                 <div className="story-content">
-                    <h2 className="section-title">{t('ourStory.title')}</h2>
+                    <h2 className="section-title">
+                        {i18n.language === 'en' ? (
+                            <>
+                                Our Story: The Genesis <span className="story-title-of">of</span> Ophir
+                            </>
+                        ) : t('ourStory.title')}
+                    </h2>
                     <div className="gold-accent-line"></div>
 
                     {!isExpanded ? (

@@ -195,7 +195,7 @@
 .ep-card-title {
     font-size: 1.8rem;
     color: #ffffff;
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     margin-bottom: 12px;
     font-weight: 400;
     letter-spacing: 0.5px;
@@ -233,6 +233,7 @@
 
 .ep-card-desc {
     font-size: 0.85rem;
+    font-family: var(--font-heading);
     color: #ffffff; /* Pure white for better readability */
     line-height: 1.5;
     text-shadow: 0 1px 4px rgba(0,0,0,0.3);
