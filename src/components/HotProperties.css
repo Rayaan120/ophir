@@ -108,27 +108,27 @@
 
 /* Red Tab: Hot Offers */
 .filter-tab.tab-hot {
-    color: #ff1212;
+    color: #c21818;
     font-weight: 700;
 }
 
 .filter-tab.tab-hot:hover:not(.active) {
-    color: #ff3c3c;
-    text-shadow: 0 0 8px rgba(255, 18, 18, 0.4);
+    color: #a01414;
+    text-shadow: 0 0 8px rgba(194, 24, 24, 0.4);
 }
 
 .filter-tab.tab-hot.active {
-    background: #ff1212;
+    background: #c21818;
     color: #ffffff;
-    border-color: #ff1212;
-    box-shadow: 0 0 15px rgba(255, 18, 18, 0.3);
+    border-color: #c21818;
+    box-shadow: 0 0 15px rgba(194, 24, 24, 0.3);
 }
 
 [data-theme='dark'] .filter-tab.tab-hot.active {
-    background: #ff1212;
+    background: #c21818;
     color: #ffffff;
-    border-color: #ff1212;
-    box-shadow: 0 0 20px rgba(255, 18, 18, 0.4);
+    border-color: #c21818;
+    box-shadow: 0 0 20px rgba(194, 24, 24, 0.4);
 }
 
 /* Grid */
@@ -153,7 +153,7 @@
     min-height: 100%;
     overflow: hidden;
     border-radius: var(--radius-md);
-    border: 1px solid rgba(255, 18, 18, 0.24);
+    border: 1px solid rgba(194, 24, 24, 0.24);
     background: rgba(var(--bg-rgb), 0.3);
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
     transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
@@ -166,8 +166,8 @@
 
 .home-hot-offer-card:hover {
     transform: translateY(-8px);
-    border-color: rgba(255, 18, 18, 0.55);
-    box-shadow: 0 24px 50px rgba(255, 18, 18, 0.18);
+    border-color: rgba(194, 24, 24, 0.55);
+    box-shadow: 0 24px 50px rgba(194, 24, 24, 0.18);
 }
 
 .home-hot-offer-label {
@@ -186,16 +186,16 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: #ff1212;
+    background: #c21818;
     color: #ffffff;
     font-weight: 700;
     font-size: 0.8rem;
-    box-shadow: 0 0 18px rgba(255, 18, 18, 0.35);
+    box-shadow: 0 0 18px rgba(194, 24, 24, 0.35);
 }
 
 .home-hot-offer-label p {
     margin: 0 0 4px;
-    color: #ff1212;
+    color: #c21818;
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -715,3 +715,164 @@
     padding: 10px 24px;
     border-radius: 30px;
 }
+
+/* =========================================
+   Hot Offers Carousel Layout (Homepage Only)
+   ========================================= */
+.hot-carousel-wrapper {
+    width: 100%;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.hot-carousel-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.hot-carousel-window {
+    overflow: hidden;
+    width: 100%;
+    padding: 15px 0;
+}
+
+.hot-carousel-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    gap: 0;
+}
+
+.hot-carousel-slide {
+    padding: 0 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Nav Buttons */
+.hot-carousel-btn {
+    background: rgba(30, 26, 52, 0.85);
+    border: 1px solid var(--border-color);
+    color: #fff;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+}
+
+.hot-carousel-btn:hover:not(:disabled) {
+    background: var(--hot-red);
+    border-color: var(--hot-red);
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(194, 24, 24, 0.45);
+}
+
+.hot-carousel-btn:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+}
+
+.hot-carousel-btn.prev {
+    left: -24px;
+}
+
+.hot-carousel-btn.next {
+    right: -24px;
+}
+
+/* Dots indicator at the bottom */
+.hot-carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+.hot-carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border-color);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 0;
+}
+
+.hot-carousel-dot.active {
+    background: #c21818;
+    width: 24px;
+    border-radius: 4px;
+}
+
+[data-theme='light'] .hot-carousel-btn {
+    background: #FAF6EC;
+    color: #1a1a1a;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='light'] .hot-carousel-btn:hover:not(:disabled) {
+    background: #c21818;
+    color: #ffffff;
+}
+
+/* Shift navigation arrows outward on larger screens or hide them inside on small screens */
+@media (max-width: 1200px) {
+    .hot-carousel-btn.prev {
+        left: -10px;
+    }
+    .hot-carousel-btn.next {
+        right: -10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hot-carousel-btn {
+        width: 40px;
+        height: 40px;
+    }
+    .hot-carousel-btn.prev {
+        left: -5px;
+    }
+    .hot-carousel-btn.next {
+        right: -5px;
+    }
+}
+
+/* Red hover state override for the View Hot Offers CTA button */
+.home-page-root .properties-cta-btn.btn-view-hot:hover {
+    background: #c21818 !important;
+    background-image: none !important;
+    border-color: #c21818 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 20px rgba(194, 24, 24, 0.45) !important;
+}
+
+[data-theme='light'] .home-page-root .properties-cta-btn.btn-view-hot:hover {
+    background: #c21818 !important;
+    background-image: none !important;
+    border-color: #c21818 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 20px rgba(194, 24, 24, 0.2) !important;
+}
+
+/* Force inner text inside the View Hot Offers CTA button to remain white on hover */
+.home-page-root .properties-cta-btn.btn-view-hot:hover .gold-text {
+    background: none !important;
+    -webkit-text-fill-color: #ffffff !important;
+    color: #ffffff !important;
+}
+

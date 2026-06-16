@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Heart, MapPin, Bed, Bath, Maximize, ArrowRight, RefreshCw, AlertCircle } from 'lucide-react';
+import { Heart, MapPin, Bed, Bath, Maximize, ArrowRight, RefreshCw, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useCurrency } from '../context/CurrencyContext';
 import './HotProperties.css';
@@ -42,6 +42,39 @@ const HotProperties = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     const { formatPrice: globalFormatPrice } = useCurrency();
+    const [hotCarouselIndex, setHotCarouselIndex] = useState(0);
+    const [visibleItemsCount, setVisibleItemsCount] = useState(3);
+
+    useEffect(() => {
+        const updateCount = () => {
+            if (window.innerWidth <= 600) {
+                setVisibleItemsCount(1);
+            } else if (window.innerWidth <= 1024) {
+                setVisibleItemsCount(2);
+            } else {
+                setVisibleItemsCount(3);
+            }
+        };
+        updateCount();
+        window.addEventListener('resize', updateCount);
+        return () => window.removeEventListener('resize', updateCount);
+    }, []);
+
+    useEffect(() => {
+        setHotCarouselIndex(prev => Math.min(prev, Math.max(0, hotOfferImages.length - visibleItemsCount)));
+    }, [visibleItemsCount]);
+
+    const nextHotSlide = () => {
+        if (hotCarouselIndex < hotOfferImages.length - visibleItemsCount) {
+            setHotCarouselIndex(prev => prev + 1);
+        }
+    };
+
+    const prevHotSlide = () => {
+        if (hotCarouselIndex > 0) {
+            setHotCarouselIndex(prev => prev - 1);
+        }
+    };
 
     const tabs = [
         { id: 'hot', label: t('hotProps.tabHot') },
@@ -81,6 +114,9 @@ const HotProperties = () => {
 
     useEffect(() => {
         fetchProperties(activeFilter);
+        if (activeFilter === 'hot') {
+            setHotCarouselIndex(0);
+        }
     }, [activeFilter]);
 
     const toggleFavorite = (id) => {
@@ -151,25 +187,72 @@ const HotProperties = () => {
 
                     {/* Content Area */}
                     {activeFilter === 'hot' ? (
-                        <div className="home-hot-offers-grid animate-fade-in">
-                            {hotOfferImages.map((offer, index) => (
-                                <Link
-                                    key={offer.src}
-                                    to={`/${i18n.language}/hot-offers`}
-                                    className="home-hot-offer-card"
+                        <div className="hot-carousel-wrapper animate-fade-in">
+                            <div className="hot-carousel-container">
+                                <button 
+                                    className="hot-carousel-btn prev"
+                                    onClick={prevHotSlide}
+                                    disabled={hotCarouselIndex === 0}
+                                    aria-label="Previous slide"
                                 >
-                                    <div className="home-hot-offer-label">
-                                        <span className="home-hot-offer-index">0{index + 1}</span>
-                                        <div>
-                                            <p>{offer.meta}</p>
-                                            <h3>{offer.title}</h3>
-                                        </div>
+                                    <ChevronLeft size={24} />
+                                </button>
+                                <div className="hot-carousel-window">
+                                    <div 
+                                        className="hot-carousel-track"
+                                        style={{ 
+                                            transform: `translateX(-${hotCarouselIndex * (100 / visibleItemsCount)}%)` 
+                                        }}
+                                    >
+                                        {hotOfferImages.map((offer, index) => (
+                                            <div 
+                                                key={offer.src} 
+                                                className="hot-carousel-slide"
+                                                style={{ flex: `0 0 ${100 / visibleItemsCount}%` }}
+                                            >
+                                                <Link
+                                                    to={`/${i18n.language}/hot-offers`}
+                                                    className="home-hot-offer-card"
+                                                    style={{ margin: 0, height: '100%' }}
+                                                >
+                                                    <div className="home-hot-offer-label">
+                                                        <span className="home-hot-offer-index">0{index + 1}</span>
+                                                        <div>
+                                                            <p>{offer.meta}</p>
+                                                            <h3>{offer.title}</h3>
+                                                        </div>
+                                                    </div>
+                                                    <figure className="home-hot-offer-frame">
+                                                        <img src={offer.src} alt={offer.title} />
+                                                    </figure>
+                                                </Link>
+                                            </div>
+                                        ))}
                                     </div>
-                                    <figure className="home-hot-offer-frame">
-                                        <img src={offer.src} alt={offer.title} />
-                                    </figure>
-                                </Link>
-                            ))}
+                                </div>
+                                <button 
+                                    className="hot-carousel-btn next"
+                                    onClick={nextHotSlide}
+                                    disabled={hotCarouselIndex >= hotOfferImages.length - visibleItemsCount}
+                                    aria-label="Next slide"
+                                >
+                                    <ChevronRight size={24} />
+                                </button>
+                            </div>
+                            
+                            {/* Dots Indicator */}
+                            {hotOfferImages.length > visibleItemsCount && (
+                                <div className="hot-carousel-dots">
+                                    {Array.from({ length: hotOfferImages.length - visibleItemsCount + 1 }).map((_, idx) => (
+                                        <button
+                                            key={idx}
+                                            className={`hot-carousel-dot ${hotCarouselIndex === idx ? 'active' : ''}`}
+                                            onClick={() => setHotCarouselIndex(idx)}
+                                            aria-label={`Go to slide ${idx + 1}`}
+                                        />
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     ) : isLoading ? (
                         <LoadingSkeleton />
@@ -287,7 +370,7 @@ const HotProperties = () => {
                     {/* Bottom CTA */}
                     <div className="properties-cta-container">
                         <button 
-                            className="btn btn-outline properties-cta-btn" 
+                            className={`btn btn-outline properties-cta-btn ${activeFilter === 'hot' ? 'btn-view-hot' : ''}`}
                             onClick={() => {
                                 if (activeFilter === 'hot') {
                                     navigate(`/${i18n.language}/hot-offers`);
