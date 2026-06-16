@@ -47,13 +47,7 @@ const HotProperties = () => {
 
     useEffect(() => {
         const updateCount = () => {
-            if (window.innerWidth <= 600) {
-                setVisibleItemsCount(1);
-            } else if (window.innerWidth <= 1024) {
-                setVisibleItemsCount(2);
-            } else {
-                setVisibleItemsCount(3);
-            }
+            setVisibleItemsCount(1);
         };
         updateCount();
         window.addEventListener('resize', updateCount);

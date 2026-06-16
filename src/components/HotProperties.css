@@ -6,7 +6,7 @@
 
 .hot-properties-wrapper {
     background: var(--bg-card);
-    padding: 60px;
+    padding: 60px 40px;
     border: 1px solid var(--border-color);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 }
@@ -164,10 +164,9 @@
     box-shadow: 0 14px 32px rgba(0, 0, 0, 0.06);
 }
 
+/* Hover effect removed on carousel format per user request */
 .home-hot-offer-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(194, 24, 24, 0.55);
-    box-shadow: 0 24px 50px rgba(194, 24, 24, 0.18);
+    transform: none;
 }
 
 .home-hot-offer-label {
@@ -213,8 +212,10 @@
 
 .home-hot-offer-frame {
     margin: 0;
-    padding: 14px;
+    padding: 0; /* Remove padding to make the picture bigger */
     background: rgba(255, 255, 255, 0.03);
+    overflow: hidden; /* Ensure zoom effect stays within bounds */
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
 }
 
 [data-theme='light'] .home-hot-offer-frame {
@@ -225,8 +226,11 @@
     display: block;
     width: 100%;
     height: auto;
-    border-radius: calc(var(--radius-md) - 8px);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+/* Image hover zoom removed on carousel format per user request */
 
 /* Property Card */
 .property-card {
@@ -745,7 +749,7 @@
 }
 
 .hot-carousel-slide {
-    padding: 0 15px;
+    padding: 0 8px; /* Reduced padding to make cards and pictures wider/bigger */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
