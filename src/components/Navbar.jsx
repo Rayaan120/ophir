@@ -99,7 +99,7 @@ const Navbar = () => {
         {/* Center/Right: Actions & Toggle */}
         <div className="navbar-controls">
           <div className="navbar-actions">
-            <div className="lang-selector-pill">
+            {/* <div className="lang-selector-pill">
               <button
                 className={`lang-item ${currentLang === 'en' ? 'active' : ''}`}
                 onClick={() => switchLanguage('en')}
@@ -112,7 +112,7 @@ const Navbar = () => {
               >
                 AR
               </button>
-            </div>
+            </div> */}
 
             <CurrencySelector />
 
